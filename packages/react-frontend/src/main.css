@@ -70,10 +70,10 @@
 .poly-planner {
   position: absolute;
   width: 400px;
-  height: 80px;
+  height: 100px;
   left: 50%; /* Center horizontally */
-  top: calc(50% - 80px/2 - 180px); /* Center vertically */
-  margin-left: -200px; /* Half of the width to offset the left position */
+  top: calc(50% - 100px/2 - 180px); /* Center vertically */
+  margin-left: -150px; /* Half of the width to offset the left position */
   font-family: 'Josefin Sans';
   font-style: normal;
   font-weight: 400;
@@ -91,8 +91,8 @@
   width: 150px;
   height: 50px;
   left: 50%; /* Center horizontally */
-  top: calc(50% - 50px/2 - 103px); /* Center vertically */
-  margin-left: -75px; /* Half of the width to offset the left position */
+  top: calc(50% - 50px/2 - 105px); /* Center vertically */
+  margin-left: -300px; /* Half of the width to offset the left position */
   font-family: 'Josefin Sans';
   font-style: normal;
   font-weight: 400;
@@ -110,8 +110,8 @@
   width: 150px;
   height: 50px;
   left: 50%; /* Center horizontally */
-  top: calc(50% - 50px/2 + 16px); /* Center vertically */
-  margin-left: -75px; /* Half of the width to offset the left position */
+  top: calc(50% - 50px/2 + 15px); /* Center vertically */
+  margin-left: -300px; /* Half of the width to offset the left position */
   font-family: 'Josefin Sans';
   font-style: normal;
   font-weight: 400;
@@ -126,11 +126,11 @@
 /* Login */
 .login {
   position: absolute;
-  width: 278px;
-  height: 69px;
+  width: 400px;
+  height: 100px;
   left: 50%; /* Center horizontally */
-  top: calc(50% - 69px/2 + 179.5px); /* Center vertically */
-  margin-left: -139px; /* Half of the width to offset the left position */
+  top: calc(50% - 100px/2 + 180px); /* Center vertically */
+  margin-left: -50px; /* Half of the width to offset the left position */
   font-family: 'Josefin Sans';
   font-style: normal;
   font-weight: 400;
