@@ -1,7 +1,7 @@
 // src/main.jsx
 import React from "react";
 import ReactDOMClient from "react-dom/client";
-import MyApp from "./MyApp";
+import MyApp from "./MyApp"; // Import your component
 import "./main.css";
 
 // Create the container
@@ -10,5 +10,5 @@ const container = document.getElementById("root");
 // Create a root
 const root = ReactDOMClient.createRoot(container);
 
-// Initial render: Render an element to the Root
+// Initial render: Render the MyApp component to the Root
 root.render(<MyApp />);

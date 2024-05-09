@@ -1,86 +1,40 @@
-import React, { useState, useEffect } from "react";
-import Table from "./Table";
-import Form from "./Form";
+// src/MyApp.jsx
+import React from "react";
 
-function MyApp() {
-    const [characters, setCharacters] = useState([]);
+const MyApp = () => {
+  return (
+    <div className="position-relative">
+      {/* Rectangle 48 */}
+      <div className="rectangle-48"></div>
 
-    function removeOneCharacter(_id) {
-        fetch(`http://localhost:8000/users/${_id}`, {
-            method: 'DELETE'
-        })
-            .then((response) => {
-                if (response.status === 204) {
-                    setCharacters(characters.filter(character => character._id !== _id)); // Corrected to use _id
-                } else if (response.status === 404) {
-                    console.log("User not found.");
-                } else {
-                    console.log("Failed to delete user.");
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
+      {/* Rectangle 50 */}
+      <div className="rectangle-50"></div>
 
+      {/* Rectangle 60 */}
+      <div className="rectangle-60"></div>
 
-    function updateList(person) {
-        postUser(person)
-            .then((response) => {
-                if (response.status === 201) {
-                    return response.json();
-                } else {
-                    console.log("Failed to add user.");
-                }
-            })
-            .then((json) => {
-                // Ensure that the response includes the ID
-                if (json && json._id) {
-                    setCharacters([...characters, json]);
-                } else {
-                    console.log("Failed to get ID for the added user.");
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
+      {/* Rectangle 62 */}
+      <div className="rectangle-62"></div>
 
+      {/* Rectangle 49 */}
+      <div className="rectangle-49"></div>
 
+      {/* Text elements */}
+      <div className="text-elements">
+        {/* #154734 */}
+        <div className="color-154734">Text with color #154734</div>
 
-    function fetchUsers() {
-        const promise = fetch("http://localhost:8000/users");
-        return promise;
-    }
+        {/* Username */}
+        <div className="username">Username</div>
 
-    function postUser(person) {
-        const promise = fetch("http://localhost:8000/users", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(person),
-        });
+        {/* Password */}
+        <div className="password">Password</div>
 
-        return promise;
-    }
-
-    useEffect(() => {
-        fetchUsers()
-            .then((res) => res.json())
-            .then((json) => setCharacters(json["users_list"]))
-            .catch((error) => { console.log(error); });
-    }, []);
-
-    return (
-        <div className="container">
-            <Table
-                characterData={characters}
-                removeCharacter={removeOneCharacter}
-            />
-            <Form handleSubmit={updateList} />
-        </div>
-    );
-}
+        {/* Login */}
+        <div className="login">Login</div>
+      </div>
+    </div>
+  );
+};
 
 export default MyApp;
