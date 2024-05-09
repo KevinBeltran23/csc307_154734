@@ -4,25 +4,25 @@ import React from "react";
 const MyApp = () => {
   return (
     <div className="position-relative">
-      {/* Rectangle 48 */}
-      <div className="rectangle-48"></div>
+      {/* Main Box */}
+      <div className="main-box"></div>
 
-      {/* Rectangle 50 */}
-      <div className="rectangle-50"></div>
+      {/* Username Box */}
+      <div className="username-box"></div>
 
-      {/* Rectangle 60 */}
-      <div className="rectangle-60"></div>
+      {/* Password Box */}
+      <div className="password-box"></div>
 
-      {/* Rectangle 62 */}
-      <div className="rectangle-62"></div>
+      {/* Login Box */}
+      <div className="login-box"></div>
 
-      {/* Rectangle 49 */}
-      <div className="rectangle-49"></div>
-
+      {/* Gold Box */}
+      <div className="gold-box"></div>
+      
       {/* Text elements */}
       <div className="text-elements">
         {/* #154734 */}
-        <div className="color-154734">Text with color #154734</div>
+        <div className="poly-planner">Poly Planner</div>
 
         {/* Username */}
         <div className="username">Username</div>

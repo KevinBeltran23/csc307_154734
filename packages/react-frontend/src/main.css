@@ -1,75 +1,143 @@
-/* main.css */
-
-/* Login */
-.position-relative {
-  position: relative;
-  width: 1512px;
-  height: 982px;
-  background: #FFFFFF;
-}
-
-/* Rectangle 48 */
-.rectangle-48 {
+/* Main Box */
+.main-box {
   box-sizing: border-box;
   position: absolute;
   width: 800px;
   height: 600px;
-  left: 356px;
-  top: 191px;
+  left: 50%; /* Center horizontally */
+  top: calc(50% - 600px/2); /* Center vertically */
+  margin-left: -400px; /* Half of the width to offset the left position */
   background: #FFFFFF;
   border: 10px solid #154734;
 }
 
-/* Rectangle 50 */
-.rectangle-50 {
+/* Username Box */
+.username-box {
   box-sizing: border-box;
   position: absolute;
   width: 600px;
   height: 60px;
-  left: 456px;
-  top: 401px;
+  left: 50%; /* Center horizontally */
+  top: calc(50% - 60px/2 - 60px); /* Center vertically */
+  margin-left: -300px; /* Half of the width to offset the left position */
   background: #FFFFFF;
   border: 1px solid #154734;
 }
 
-/* Rectangle 60 */
-.rectangle-60 {
+/* Password Box */
+.password-box {
   box-sizing: border-box;
   position: absolute;
   width: 600px;
   height: 60px;
-  left: 456px;
-  top: 521px;
+  left: 50%; /* Center horizontally */
+  top: calc(50% - 60px/2 + 60px); /* Center vertically */
+  margin-left: -300px; /* Half of the width to offset the left position */
   background: #FFFFFF;
   border: 1px solid #154734;
 }
 
-/* Rectangle 62 */
-.rectangle-62 {
+/* Login Box */
+.login-box {
   box-sizing: border-box;
   position: absolute;
   width: 600px;
   height: 60px;
-  left: 456px;
-  top: 641px;
+  left: 50%; /* Center horizontally */
+  top: calc(50% - 60px/2 + 180px); /* Center vertically */
+  margin-left: -300px; /* Half of the width to offset the left position */
   background: #154734;
   border: 1px solid #154734;
   border-radius: 10px;
 }
 
-/* Rectangle 49 */
-.rectangle-49 {
+/* Gold Box */
+.gold-box {
   box-sizing: border-box;
   position: absolute;
   width: 800px;
   height: 30px;
-  left: 356px;
-  top: 191px;
+  left: 50%; /* Center horizontally */
+  top: calc(50% - 30px/2 - 285px); /* Center vertically */
+  margin-left: -400px; /* Half of the width to offset the left position */
   background: #BD8B13;
   border-width: 10px 10px 1px 10px;
   border-style: solid;
   border-color: #154734;
 }
 
-/* Other styles */
-/* Add styles for other elements here */
+/* Poly Planner */
+.poly-planner {
+  position: absolute;
+  width: 400px;
+  height: 80px;
+  left: 50%; /* Center horizontally */
+  top: calc(50% - 80px/2 - 180px); /* Center vertically */
+  margin-left: -200px; /* Half of the width to offset the left position */
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 64px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #154734;
+}
+
+/* Username */
+.username {
+  position: absolute;
+  width: 150px;
+  height: 50px;
+  left: 50%; /* Center horizontally */
+  top: calc(50% - 50px/2 - 103px); /* Center vertically */
+  margin-left: -75px; /* Half of the width to offset the left position */
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #154734;
+}
+
+/* Password */
+.password {
+  position: absolute;
+  width: 150px;
+  height: 50px;
+  left: 50%; /* Center horizontally */
+  top: calc(50% - 50px/2 + 16px); /* Center vertically */
+  margin-left: -75px; /* Half of the width to offset the left position */
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #154734;
+}
+
+/* Login */
+.login {
+  position: absolute;
+  width: 278px;
+  height: 69px;
+  left: 50%; /* Center horizontally */
+  top: calc(50% - 69px/2 + 179.5px); /* Center vertically */
+  margin-left: -139px; /* Half of the width to offset the left position */
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 40px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #FFFFFF;
+}
