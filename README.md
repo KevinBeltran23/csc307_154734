@@ -1,1 +1,1 @@
-Lab 1 for csc-307
+Run "npm run dev" from react-frontend
