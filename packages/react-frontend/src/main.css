@@ -7,7 +7,7 @@
   left: 50%; /* Center horizontally */
   top: calc(50% - 600px/2); /* Center vertically */
   margin-left: -400px; /* Half of the width to offset the left position */
-  background: #FFFFFF;
+  background: #E4E3D3;
   border: 10px solid #154734;
 }
 
