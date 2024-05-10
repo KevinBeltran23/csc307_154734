@@ -1,1 +1,1 @@
-Run "npm run dev" from react-frontend
+Run "npm start" from root
