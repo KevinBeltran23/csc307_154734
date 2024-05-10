@@ -21,7 +21,7 @@ const Login = () => {
       
       {/* Text elements */}
       <div className="text-elements">
-        {/* #154734 */}
+        {/* Poly Planner */}
         <div className="poly-planner">Poly Planner</div>
 
         {/* Username */}

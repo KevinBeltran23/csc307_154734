@@ -16,6 +16,7 @@
     "nodemon": "^3.1.0"
   },
   "dependencies": {
+    "concurrently": "^8.2.2",
     "mongoose": "^8.3.2",
     "prettier": "^3.2.5",
     "router-dom": "^2.2.11"
