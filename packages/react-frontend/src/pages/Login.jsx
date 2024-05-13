@@ -1,7 +1,7 @@
-// src/MyApp.jsx
+// src/pages/Login.jsx
 import React from "react";
 
-const MyApp = () => {
+const Login = () => {
   return (
     <div className="position-relative">
       {/* Main Box */}
@@ -21,7 +21,7 @@ const MyApp = () => {
       
       {/* Text elements */}
       <div className="text-elements">
-        {/* #154734 */}
+        {/* Poly Planner */}
         <div className="poly-planner">Poly Planner</div>
 
         {/* Username */}
@@ -37,4 +37,4 @@ const MyApp = () => {
   );
 };
 
-export default MyApp;
+export default Login;
