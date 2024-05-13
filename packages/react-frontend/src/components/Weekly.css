@@ -1,0 +1,240 @@
+/* imageedit_6_4992620932 1 */
+.imageedit_6_4992620932 {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: url(imageedit_6_4992620932.png);
+  }
+  
+  /* Weekly */
+  .weekly {
+    position: relative;
+    width: 1512px;
+    height: 982px;
+    background: #B7CDC2;
+  }
+  
+  /* Expand */
+  .expand {
+    box-sizing: border-box;
+    position: absolute;
+    width: 37px;
+    height: 50px;
+    left: -1px;
+    top: 458px;
+    background: #DFDFDB;
+    border: 1px solid #154734;
+  }
+  
+  /* Days */
+  .days {
+    position: absolute;
+    width: 1258px;
+    height: 45px;
+    left: 252px;
+    top: 119px;
+  }
+  
+  /* SUN, SAT, FRI, THU, WED, TUE, MON */
+  .days div {
+    position: absolute;
+    width: 181px;
+    height: 45px;
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 36px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #154734;
+  }
+  
+  /* TopRightNavBar */
+  .top-right-nav-bar {
+    position: absolute;
+    width: 348px;
+    height: 115px;
+    left: 1112px;
+    top: 36px;
+  }
+  
+  /* Line 11 */
+  .line-11 {
+    position: absolute;
+    width: 19.72px;
+    height: 0px;
+    left: 1140px;
+    top: 75px;
+    border: 1px solid #000000;
+    transform: rotate(-120.47deg);
+  }
+  
+  /* Ellipse 2 */
+  .ellipse-2 {
+    position: absolute;
+    width: 26px;
+    height: 23px;
+    left: 1112px;
+    top: 36px;
+    background: #D9D9D9;
+  }
+  
+  /* Change View */
+  .change-view {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    position: absolute;
+    width: 136px;
+    height: 27px;
+    left: 1324px;
+    top: 39px;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+  }
+  
+  /* Weekly View */
+  .weekly-view {
+    width: 116px;
+    height: 22px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000000;
+  }
+  
+  /* Ellipse 5 */
+  .ellipse-5 {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 1263px;
+    top: 39px;
+    background: #D9D9D9;
+  }
+  
+  /* Create */
+  .create {
+    position: absolute;
+    width: 80px;
+    height: 102px;
+    left: 1162px;
+    top: 49px;
+  }
+  
+  /* Frame 6 */
+  .frame-6 {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 4px 12px;
+    gap: 6px;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 77.45%;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+  }
+  
+  /* Create */
+  .create-text {
+    width: 39px;
+    height: 15px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #000000;
+  }
+  
+  /* Polygon 1 */
+  .polygon-1 {
+    width: 11px;
+    height: 9px;
+    border: 1px solid #000000;
+    transform: rotate(-180deg);
+  }
+  
+  /* Frame 10 */
+  .frame-10 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    position: absolute;
+    visibility: hidden;
+    left: 0%;
+    right: 0%;
+    top: 32.35%;
+    bottom: 0%;
+  }
+  
+  /* Change View */
+  .change-view-2 {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    position: absolute;
+    width: 136px;
+    height: 27px;
+    left: 1324px;
+    top: 75px;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+  }
+  
+  /* Monthly View */
+  .monthly-view {
+    width: 124px;
+    height: 22px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000000;
+  }
+  
+  /* Ellipse 5 */
+  .ellipse-5-2 {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 1263px;
+    top: 75px;
+    background: #D9D9D9;
+  }
+  
+  /* Polygon 2 */
+  .polygon-2 {
+    width: 11px;
+    height: 9px;
+    border: 1px solid #000000;
+  }
+  
+  /* Imageedit 6 4992620932 */
+  .imageedit-6-4992620932 {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: url(imageedit-6-4992620932.png);
+    left: 1328px;
+    top: 83px;
+  }
+  
