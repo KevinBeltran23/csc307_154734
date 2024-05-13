@@ -17,13 +17,9 @@ mongoose
     let query = {};
     if (name && password) {
       query = { name: name, password: password };
-    } else if (name) {
-      query = { name: name };
-    } else if (password) {
-      query = { password: password };
     }
     return userModel.find(query);
-  }  
+  }
 
   function getUserByNameAndPassword(name, password) {
     return userModel.findOne({ name: name, password: password });
@@ -40,37 +36,6 @@ mongoose
     const promise = eventToAdd.save();
     return promise
   }
-
-  /* old functions
-
-  function getUsers(name, job) {
-    let query = {};
-    if (name && job) {
-      query = { name: name, job: job };
-    } else if (name) {
-      query = { name: name };
-    } else if (job) {
-      query = { job: job };
-    }
-    return userModel.find(query);
-  }  
-
-  function findUserById(id) {
-    return userModel.findById(id);
-  }
-
-  function findUserByName(name) {
-    return userModel.find({ name: name });
-  }
-
-  function findUserByJob(job) {
-    return userModel.find({ job: job });
-  }
-
-  function deleteUserById(id) {
-      return userModel.findByIdAndDelete(id);
-  }*/
-
 
 export default {
   addUser,
