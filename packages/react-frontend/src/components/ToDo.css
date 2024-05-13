@@ -16,7 +16,11 @@ body {
 .entry {
     width: 1215px;
     button {
-        width: 50px;
+        width: 80px;
+        height: 50px;
+        background-color: var(--Stadium-Gold, #F8E08E);
+        border: none;
+        color: 
     }
     .textEntry {
         input {

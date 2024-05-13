@@ -70,8 +70,8 @@ function ToDo() {
                 <form onSubmit={handleSubmit}>
                     <div className="textEntry">
                     <input type = "text" onChange = {(e) => setTodo(e.target.value)} value={todo}/>
-                    </div>
                     <button type = "submit">Add Todo</button>
+                    </div>
                 </form>
             </div>
             
