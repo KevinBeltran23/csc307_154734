@@ -1,20 +1,77 @@
 // src/pages/Login.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+function Login() {
+  const [loginData, setLoginData] = useState({ name: "", password: "" });
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setLoginData({ ...loginData, [name]: value });
+  };
+
+  const handleLogin = () => {
+
+    // Need to put both username and password to login
+    if (!loginData.name || !loginData.password) {
+      console.error("Username and password are required");
+      setErrorMessage("Username and password are required");
+      return;
+    }
+
+    // Make an HTTP request to your backend function
+    fetch("http://localhost:8000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(loginData)
+    })
+    .then(response => {
+      if (response.ok) {
+        console.log("Login successful"); // Log success message
+        navigate("/Monthly");
+      } else {
+        console.error("Login failed"); // Log failure message
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error); // Log error message
+    });
+  };
+
   return (
     <div className="position-relative">
       {/* Main Box */}
       <div className="main-box"></div>
 
       {/* Username Box */}
-      <div className="username-box"></div>
+      <input
+        className="username-box"
+        type="text"
+        name="name"
+        value={loginData.username}
+        onChange={handleInputChange}
+        style={{ fontSize: "18px" }}
+      />
 
       {/* Password Box */}
-      <div className="password-box"></div>
+      <input
+        className="password-box"
+        type="password"
+        name="password"
+        value={loginData.password}
+        onChange={handleInputChange}
+        style={{ fontSize: "18px" }}
+      />
+
+      {/* Error Message */}
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
 
       {/* Login Box */}
-      <div className="login-box"></div>
+      <button className="login-box" onClick={handleLogin}> </button>
 
       {/* Gold Box */}
       <div className="gold-box"></div>
@@ -35,6 +92,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Login;
