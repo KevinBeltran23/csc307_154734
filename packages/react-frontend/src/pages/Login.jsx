@@ -1,7 +1,30 @@
 // src/pages/Login.jsx
-import React from "react";
+import React, { useState, useEffect} from "react";
 
-const Login = () => {
+
+function Login () {
+
+  const handleLogin = () => {
+    // Make an HTTP request to your backend function
+    fetch("http://localhost:8000/login", {
+      method: "POST",
+      /*headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ username: "exampleUser", password: "examplePassword" })*/
+    })
+    .then(response => {
+      if (response.ok) {
+        console.log("Login successful"); // Log success message
+      } else {
+        console.error("Login failed"); // Log failure message
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error); // Log error message
+    });
+  };
+
   return (
     <div className="position-relative">
       {/* Main Box */}
@@ -14,7 +37,9 @@ const Login = () => {
       <div className="password-box"></div>
 
       {/* Login Box */}
-      <div className="login-box"></div>
+      <div className="login-box">
+        <button onClick={handleLogin}>Login</button>
+      </div>
 
       {/* Gold Box */}
       <div className="gold-box"></div>
