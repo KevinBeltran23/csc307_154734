@@ -1,0 +1,272 @@
+/* new_settings */
+.new_settings {
+    position: relative;
+    width: 1512px;
+    height: 982px;
+    background: #B7CDC2;
+    border-radius: 5px;
+}
+
+/* Buttons */
+
+/* Apperance Button */
+.apperance-button {
+    box-sizing: border-box;
+    width: 186px;
+    height: 42px;
+    left: 366px;
+    top: 495px;
+    background: #CAC7A7;
+    border: 2px solid #000000;
+    border-radius: 2px;
+}
+
+/* Appearance */
+.apperance {
+    width: 186px;
+    height: 14.7px;
+    left: 366px;
+    top: 509.7px;
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
+
+/* View Options Button */
+.view-options-button {
+    box-sizing: border-box;
+    width: 186px;
+    height: 42px;
+    left: 366px;
+    top: 546px;
+    background: #CAC7A7;
+    border: 2px solid #000000;
+    border-radius: 2px;
+}
+
+/* View Options */
+.view-options {
+    width: 186px;
+    height: 14.7px;
+    left: 366px;
+    top: 559.65px;
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
+
+/* Colors Button */
+.colors-button {
+    box-sizing: border-box;
+    width: 186px;
+    height: 42px;
+    left: 366px;
+    top: 597px;
+    background: #CAC7A7;
+    border: 2px solid #000000;
+    border-radius: 2px;
+}
+
+/* Colors */
+.colors {
+    width: 186px;
+    height: 14.7px;
+    left: 366px;
+    top: 610.65px;
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
+
+/* Text Button */
+.text-button {
+    box-sizing: border-box;
+    width: 186px;
+    height: 42px;
+    left: 366px;
+    top: 648px;
+    background: #CAC7A7;
+    border: 2px solid #000000;
+    border-radius: 2px;
+}
+
+/* Text */
+.text {
+    width: 186px;
+    height: 14.7px;
+    left: 366px;
+    top: 661.65px;
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
+
+/* Secret Settings Button */
+.secret-settings-button {
+    box-sizing: border-box;
+    position: absolute;
+    width: 186px;
+    height: 42px;
+    left: 366px;
+    top: 699px;
+    background: #CAC7A7;
+    border: 2px solid #000000;
+    border-radius: 2px;
+}
+
+/* Secret Settings */
+.secret-settings {
+    width: 186px;
+    height: 14.7px;
+    left: 366px;
+    top: 712.65px;
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
+
+/* Language & Region Button */
+.language-region-button {
+    box-sizing: border-box;
+    width: 186px;
+    height: 42px;
+    left: 366px;
+    top: 291px;
+    background: #CAC7A7;
+    border: 2px solid #000000;
+    border-radius: 2px;
+}
+
+/* Language & Region */
+.language-region {
+    width: 186px;
+    height: 14.7px;
+    left: 366px;
+    top: 305.7px;
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
+
+/* Notifications Button */
+.notifications-button {
+    box-sizing: border-box;
+    width: 186px;
+    height: 42px;
+    left: 366px;
+    top: 342px;
+    background: #CAC7A7;
+    border: 2px solid #000000;
+    border-radius: 2px;
+}
+
+/* Notifications */
+.notifications {
+    width: 186px;
+    height: 14.7px;
+    left: 366px;
+    top: 355.65px;
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
+
+/* Event Settings Button */
+.event-settings-button {
+    box-sizing: border-box;
+    width: 186px;
+    height: 42px;
+    left: 366px;
+    top: 393px;
+    background: #CAC7A7;
+    border: 2px solid #000000;
+    border-radius: 2px;
+}
+
+/* Event Settings */
+.event-settings {
+    width: 186px;
+    height: 14.7px;
+    left: 366px;
+    top: 406.65px;
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
+
+/* Account Settings Button */
+.account-settings-button {
+    box-sizing: border-box;
+    width: 186px;
+    height: 42px;
+    left: 366px;
+    top: 444px;
+    background: #CAC7A7;
+    border: 2px solid #000000;
+    border-radius: 2px;
+}
+
+/* Account Settings */
+.account-settings {
+    width: 186px;
+    height: 14.7px;
+    left: 366px;
+    top: 457.65px;
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}

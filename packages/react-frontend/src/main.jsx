@@ -32,6 +32,7 @@ import { createRoot } from 'react-dom/client';
 import Login from "./pages/Login"; 
 import "./components/Login.css";
 import ToDo from "./pages/ToDo";
+import Settings from "./pages/Settings"
 
 // Create the container
 const container = document.getElementById("root");
@@ -46,6 +47,7 @@ root.render(
       <Routes>
         <Route path="/" element={<Login/>} />
         <Route path="/ToDo" element={<ToDo/>} />
+        <Route path="/Settings" element={<Settings/>} />
       </Routes>
     </div>
   </Router>

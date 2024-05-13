@@ -3,36 +3,33 @@ import React from "react";
 
 const Settings = () => {
   return (
-    <div className="position-relative">
-      {/* Main Box */}
-      <div className="main-box"></div>
-
-      {/* Username Box */}
-      <div className="username-box"></div>
-
-      {/* Password Box */}
-      <div className="password-box"></div>
-
-      {/* Login Box */}
-      <div className="login-box"></div>
-
-      {/* Gold Box */}
-      <div className="gold-box"></div>
+    <div className="buttons">
+      {/* Apperance Button */}
+      <div className="apperance-button">Apperance</div>
       
-      {/* Text elements */}
-      <div className="text-elements">
-        {/* #154734 */}
-        <div className="poly-planner">Poly Planner</div>
-
-        {/* Username */}
-        <div className="username">Username</div>
-
-        {/* Password */}
-        <div className="password">Password</div>
-
-        {/* Login */}
-        <div className="login">Login</div>
-      </div>
+      {/* View Options Button */}
+      <div className="view-options-button">View Options</div>
+      
+      {/* Colors Button */}
+      <div className="colors-button">Colors</div>
+      
+      {/* Text Button */}
+      <div className="text-button">Text</div>
+      
+      {/* Secret Settings */}
+      <div className="secret-settings">Secret Settings</div>
+      
+      {/* Language & Region Button */}
+      <div className="language-region-button">Language & Region</div>
+      
+      {/* Notifications Button */}
+      <div className="notifications-button">Notifications</div>
+      
+      {/* Event Settings Button */}
+      <div className="event-settings-button">Event Settings</div>
+      
+      {/* Account Settings Button */}
+      <div className="account-settings-button">Account Settings</div>
     </div>
   );
 };
