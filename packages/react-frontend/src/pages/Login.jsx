@@ -32,7 +32,7 @@ function Login() {
     .then(response => {
       if (response.ok) {
         console.log("Login successful"); // Log success message
-        navigate("/ToDo");
+        navigate("/Monthly");
       } else {
         console.error("Login failed"); // Log failure message
       }
@@ -71,9 +71,7 @@ function Login() {
       {errorMessage && <div className="error-message">{errorMessage}</div>}
 
       {/* Login Box */}
-      <button className="login-box" onClick={handleLogin}>
-        <div className="login">Login</div>
-      </button>
+      <button className="login-box" onClick={handleLogin}> </button>
 
       {/* Gold Box */}
       <div className="gold-box"></div>
