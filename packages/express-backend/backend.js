@@ -17,9 +17,13 @@ app.get("/", (req, res) => {
 
 app.post("/login", (req, res) => {
     const userToLogin = req.body;
-    userService.loginUser(userToLogin)
-        .then((loggedInUser) => {
-            res.status(201).json(loggedInUser);
+    userService.getUserByNameAndPassword(userToLogin.name, userToLogin.password)
+        .then((user) => {
+            if (user) {
+                res.status(200).json(user);
+            } else {
+                res.status(404).send("User not found or invalid credentials");
+            }
         })
         .catch((error) => {
             console.log(error);
@@ -89,19 +93,6 @@ app.post("/settings", (req, res) => {
 
 
 // get requests
-
-app.get("/login", (req, res) => {
-    const { name, password } = req.query;
-    // Fetch users based on name and/or password using userService.getUsers
-    userService.getUsers(name, password)
-        .then((result) => {
-            res.send({ users_list: result });
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
 
 app.get("/monthly", (req, res) => {
     const { name, job } = req.query;

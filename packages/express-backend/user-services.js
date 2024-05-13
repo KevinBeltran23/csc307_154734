@@ -25,6 +25,10 @@ mongoose
     return userModel.find(query);
   }  
 
+  function getUserByNameAndPassword(name, password) {
+    return userModel.findOne({ name: name, password: password });
+  }
+
   function addUser(user) {
     const userToAdd = new userModel(user);
     const promise = userToAdd.save();
@@ -71,5 +75,7 @@ mongoose
 export default {
   addUser,
   addEvent,
-  getUsers
+  getUsers,
+  loginUser,
+  getUserByNameAndPassword
 };
