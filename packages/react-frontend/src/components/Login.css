@@ -148,3 +148,15 @@
   text-align: center;
   color: #FFFFFF;
 }
+
+.error-message {
+  position: absolute;
+  bottom: 100px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #FFC0CB; /* Light pink */
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #800000; /* Dark red */
+}
