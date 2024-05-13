@@ -32,6 +32,7 @@ import { createRoot } from 'react-dom/client';
 import Login from "./pages/Login"; 
 import "./components/Login.css";
 import ToDo from "./pages/ToDo";
+import "./components/ToDo.css"
 
 // Create the container
 const container = document.getElementById("root");
