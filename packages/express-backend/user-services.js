@@ -76,6 +76,5 @@ export default {
   addUser,
   addEvent,
   getUsers,
-  loginUser,
   getUserByNameAndPassword
 };
