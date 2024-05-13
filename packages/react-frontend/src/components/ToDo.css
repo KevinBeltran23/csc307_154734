@@ -1,5 +1,42 @@
-
-button {
-    width: 200px;
-    height: 30px;
+body {
+    background-color: #B7CDC2;
 }
+
+.ToDo {
+    position: absolute;
+    left: 242px;
+    top: 122px;
+    width: 1215px;
+    height: 794.975px;
+    flex-shrink: 0;
+    border-radius: 24px;
+    background: var(--gray, #DFDFDB);
+}
+
+.entry {
+    width: 1215px;
+    button {
+        width: 50px;
+    }
+    .textEntry {
+        input {
+            width: 1117px;
+            height: 62px;
+            border-radius: 24px;
+            border: none;
+            margin: 5px;
+        }
+    }
+}
+
+h1 {
+    color: var(--Poly-Green, #154734);
+text-align: center;
+font-family: "Josefin Sans";
+font-size: 64px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+
+}
+

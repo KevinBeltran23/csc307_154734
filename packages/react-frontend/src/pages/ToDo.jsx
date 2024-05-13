@@ -63,11 +63,18 @@ function ToDo() {
     }
 
     return(
+        <div className = "page">
+            <h1> Wednesday </h1>
         <div className = "ToDo">
-            <form onSubmit={handleSubmit}>
-                <input type = "text" onChange = {(e) => setTodo(e.target.value)} value={todo}/>
-                <button type = "submit">Add Todo</button>
-            </form>
+            <div className="entry">
+                <form onSubmit={handleSubmit}>
+                    <div className="textEntry">
+                    <input type = "text" onChange = {(e) => setTodo(e.target.value)} value={todo}/>
+                    </div>
+                    <button type = "submit">Add Todo</button>
+                </form>
+            </div>
+            
             {todos.map((todo) => <div key = {todo.id}>
 
                 {todoEditing === todo.id ? 
@@ -80,8 +87,8 @@ function ToDo() {
                 {todoEditing === todo.id ? 
                 (<button onClick = {() => editTodo(todo.id)}>Submit Edits</button>) 
                 : (<button onClick = {() => setTodoEditing(todo.id)}>Edit Todo</button>)}
-                
             </div>)}
+        </div>
         </div>
     );
 }
