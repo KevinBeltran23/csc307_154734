@@ -94,6 +94,19 @@ app.post("/settings", (req, res) => {
 
 // get requests
 
+app.get("/login", (req, res) => {
+    const { name, password } = req.query;
+    // Fetch users based on name and/or job using userService.getUsers
+    userService.getUsers(name, password)
+        .then((result) => {
+            res.send({ users_list: result });
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
+
 app.get("/monthly", (req, res) => {
     const { name, job } = req.query;
     // Fetch users based on name and/or job using userService.getUsers
