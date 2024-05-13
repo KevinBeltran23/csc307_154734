@@ -34,6 +34,7 @@ import Monthly from "./pages/Monthly";
 import "./components/Login.css";
 import ToDo from "./pages/ToDo";
 import "./components/Monthly.css"
+import "./components/ToDo.css"
 
 // Create the container
 const container = document.getElementById("root");

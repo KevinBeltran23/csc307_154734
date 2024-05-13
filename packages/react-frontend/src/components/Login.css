@@ -49,6 +49,13 @@
   background: #154734;
   border: 1px solid #154734;
   border-radius: 10px;
+  cursor: pointer; /* Change cursor to pointer */
+  transition: background-color 0.3s; /* Smooth transition for background color change */
+}
+
+/* Change background color when hovered over */
+.login-box:hover {
+  background: #0D2B24;
 }
 
 /* Gold Box */
