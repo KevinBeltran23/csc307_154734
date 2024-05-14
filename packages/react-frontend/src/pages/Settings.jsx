@@ -5,44 +5,62 @@ import "../components/Settings.css";
 const Settings = () => {
   return (
     <div className="page-container"> {/* Added a container */}
-      <div className="container">
+      <div className="settings-box">
+        
         {/* Gold Bar */}
-        <div className="gold-bar"></div>
+        <div className="settings-bar"></div>
 
-        {/* Main Box */}
-        <div className="main-box"></div>
+          {/* Settings Text */}
+        <div className="settings-header">Settings</div>
+        <div className="settings-buttons-options">
+          <div className="settings-buttons">
+            <div className="settings-button">
+                <div className="settings-text">Language & Region</div>
+            </div>
+            <div className="settings-button">
+              <div className="settings-text">Notifications</div>
+            </div>
+            <div className="settings-button">
+              <div className="settings-text">Event Settings</div>
+            </div>
+            <div className="settings-button">
+              <div className="settings-text">Account Settings</div>
+            </div>
+            <div className="settings-button">
+              <div className="settings-text">Appearance</div>
+            </div>
+            <div className="settings-button">
+              <div className="settings-text">View Options</div>
+            </div>
+            <div className="settings-button">
+              <div className="settings-text">Colors</div>
+            </div>
+            <div className="settings-button">
+              <div className="settings-text">Text</div>
+            </div>
+            <div className="settings-button">
+              <div className="settings-text">Secret Settings</div>
+            </div>
+          </div>
 
-        {/* Settings Text */}
-        <div className="settings-text">Settings</div>
+          <div className="settings-options">
+            <div className="settings-option">
+              <p>FILLER TEXT</p>
+            </div>
+            <div className="settings-option">
+              <p>FILLER TEXT</p>
+            </div>
+            <div className="settings-option">
+            < p>FILLER TEXT</p>
+            </div>
+            <div className="settings-option">
+              <p>FILLER TEXT</p>
+          </div>
+        </div>
+
+        </div>
+        
       </div>
-
-
-      {/* Appearance Button */}
-      <div className="appearance-button"></div>
-
-      {/* View Options Button */}
-      <div className="view-options-button"></div>
-
-      {/* Colors Button */}
-      <div className="colors-button"></div>
-
-      {/* Text Button */}
-      <div className="text-button"></div>
-
-      {/* Secret Settings Button */}
-      <div className="secret-settings-button"></div>
-
-      {/* Language & Region Button */}
-      <div className="language-region-button"></div>
-
-      {/* Notifications Button */}
-      <div className="notifications-button"></div>
-
-      {/* Event Settings Button */}
-      <div className="event-settings-button"></div>
-
-      {/* Account Settings Button */}
-      <div className="account-settings-button"></div>
     </div>
   );
 };

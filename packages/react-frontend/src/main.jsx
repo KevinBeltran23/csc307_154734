@@ -30,10 +30,9 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 import Login from "./pages/Login"; 
-
 import ToDo from "./pages/ToDo";
-import "./components/Settings.css"
 import Settings from "./pages/Settings"
+import './components/general.css' // bg col, font family
 
 // Create the container
 const container = document.getElementById("root");
