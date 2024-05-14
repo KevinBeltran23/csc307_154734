@@ -30,8 +30,9 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 import Login from "./pages/Login"; 
-import "./components/Login.css";
+
 import ToDo from "./pages/ToDo";
+import "./components/Settings.css"
 import Settings from "./pages/Settings"
 
 // Create the container

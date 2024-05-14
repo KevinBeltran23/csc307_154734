@@ -1,17 +1,65 @@
-/* new_settings */
-.new_settings {
-    position: relative;
-    width: 1512px;
-    height: 982px;
-    background: #B7CDC2;
-    border-radius: 5px;
+
+.main_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Full viewport height */
 }
 
-/* Buttons */
+
+/* General Box */
+.main-box {
+    box-sizing: border-box;
+    width: 1000px;
+    height: 700px;
+    margin: auto;
+
+    background: #E4E3D3;
+    border: 10px solid #154734;
+    border-radius: 2px;
+}
+
+
+/* Gold Bar */
+.gold-bar {
+    box-sizing: border-box;
+    width: 1000px;
+    height: 30px;
+    margin: auto;
+
+    background: #BD8B13;
+    border-width: 10px 10px 1px 10px;
+    border-style: solid;
+    border-color: #154734;
+    border-radius: 2px;
+    /* z-index: 1; */
+}
+
+
+/* Settings Text */
+.settings-text {
+
+    width: 175px;
+    height: 48px;
+
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 48px;
+    /* identical to box height */
+    display: flex;
+    margin: auto;
+    text-align: center;
+
+    color: #154734;
+}
 
 /* Apperance Button */
-.apperance-button {
+.appearance-button {
     box-sizing: border-box;
+    position: absolute;
     width: 186px;
     height: 42px;
     left: 366px;
@@ -41,6 +89,7 @@
 /* View Options Button */
 .view-options-button {
     box-sizing: border-box;
+    position: absolute;
     width: 186px;
     height: 42px;
     left: 366px;
@@ -70,6 +119,7 @@
 /* Colors Button */
 .colors-button {
     box-sizing: border-box;
+    position: absolute;
     width: 186px;
     height: 42px;
     left: 366px;
@@ -99,6 +149,7 @@
 /* Text Button */
 .text-button {
     box-sizing: border-box;
+    position: absolute;
     width: 186px;
     height: 42px;
     left: 366px;
@@ -158,6 +209,7 @@
 /* Language & Region Button */
 .language-region-button {
     box-sizing: border-box;
+    position: absolute;
     width: 186px;
     height: 42px;
     left: 366px;
@@ -187,6 +239,7 @@
 /* Notifications Button */
 .notifications-button {
     box-sizing: border-box;
+    position: absolute;
     width: 186px;
     height: 42px;
     left: 366px;
@@ -216,6 +269,7 @@
 /* Event Settings Button */
 .event-settings-button {
     box-sizing: border-box;
+    position: absolute;
     width: 186px;
     height: 42px;
     left: 366px;
@@ -245,6 +299,7 @@
 /* Account Settings Button */
 .account-settings-button {
     box-sizing: border-box;
+    position: absolute;
     width: 186px;
     height: 42px;
     left: 366px;
