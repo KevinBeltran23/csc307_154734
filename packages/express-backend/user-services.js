@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 import userModel from "./user.js";
 import eventModel from "./event.js";
+import todoModel from "./todo-item.js";
+import classModel from "./class.js";
+import calendarModel from "./calendar.js";
 
 mongoose.set("debug", true);
 
