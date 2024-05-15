@@ -5,7 +5,7 @@ import eventModel from "./event.js";
 mongoose.set("debug", true);
 
 mongoose
-  .connect("mongodb://localhost:27017/users", {
+  .connect("mongodb+srv://Karen:karen@154754.qdl82np.mongodb.net/?retryWrites=true&w=majority&appName=154754", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -13,16 +13,16 @@ mongoose
 
   // new functions
 
-  function getUsers(name, password) {
+  function getUsers(username, password) {
     let query = {};
-    if (name && password) {
-      query = { name: name, password: password };
+    if (username && password) {
+      query = { name: username, password: password };
     }
     return userModel.find(query);
   }
 
-  function getUserByNameAndPassword(name, password) {
-    return userModel.findOne({ name: name, password: password });
+  function getUserByNameAndPassword(username, password) {
+    return userModel.findOne({ username: username, password: password });
   }
 
   function addUser(user) {

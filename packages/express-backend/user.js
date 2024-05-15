@@ -1,8 +1,10 @@
+import { Int32 } from "mongodb";
 import mongoose from "mongoose";
 
+// automatically generates a unique _id field
 const UserSchema = new mongoose.Schema(
   {
-    name: {
+    username: {
       type: String,
       required: true,
       trim: true,
