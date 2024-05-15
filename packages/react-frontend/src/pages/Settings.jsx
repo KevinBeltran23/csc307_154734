@@ -10,39 +10,40 @@ const Settings = () => {
         {/* Gold Bar */}
         <div className="settings-bar"></div>
 
-          {/* Settings Text */}
+        {/* Settings Text */}
         <div className="settings-header">Settings</div>
         <div className="settings-buttons-options">
           <div className="settings-buttons">
             <button id="settings-button">
                 <div className="settings-text">Language & Region</div>
             </button>
-            <div className="settings-button">
+            <button id="settings-button">
               <div className="settings-text">Notifications</div>
-            </div>
-            <div className="settings-button">
+            </button>
+            <button id="settings-button">
               <div className="settings-text">Event Settings</div>
-            </div>
-            <div className="settings-button">
+            </button>
+            <button id="settings-button">
               <div className="settings-text">Account Settings</div>
-            </div>
-            <div className="settings-button">
+            </button>
+            <button id="settings-button">
               <div className="settings-text">Appearance</div>
-            </div>
-            <div className="settings-button">
+            </button>
+            <button id="settings-button">
               <div className="settings-text">View Options</div>
-            </div>
-            <div className="settings-button">
+            </button>
+            <button id="settings-button">
               <div className="settings-text">Colors</div>
-            </div>
-            <div className="settings-button">
+            </button>
+            <button id="settings-button">
               <div className="settings-text">Text</div>
-            </div>
-            <div className="settings-button">
+            </button>
+            <button id="settings-button">
               <div className="settings-text">Secret Settings</div>
-            </div>
+            </button>
           </div>
 
+          {/* Setting Options */}
           <div className="settings-options">
             <div className="settings-option">
               <p>FILLER TEXT</p>
