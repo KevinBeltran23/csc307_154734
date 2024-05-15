@@ -14,9 +14,9 @@ const Settings = () => {
         <div className="settings-header">Settings</div>
         <div className="settings-buttons-options">
           <div className="settings-buttons">
-            <div className="settings-button">
+            <button id="settings-button">
                 <div className="settings-text">Language & Region</div>
-            </div>
+            </button>
             <div className="settings-button">
               <div className="settings-text">Notifications</div>
             </div>
