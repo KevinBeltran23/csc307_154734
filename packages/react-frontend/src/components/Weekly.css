@@ -30,7 +30,7 @@ button {
     overflow: hidden;
 }
 
-/* dropdownRects */
+/* Dropdowns */
 .calendar-dropdown-container {
     display: flex;
     flex-direction: column;
@@ -67,6 +67,7 @@ button {
     border-radius: 24px;
     flex: none;
     flex-grow: 0;
+    /*margin: 12px 0 0 12px;*/
 }
 
 .button-frame {
@@ -80,6 +81,7 @@ button {
     height: 26px;
     margin: 12px 0 0 12px;
     padding: 4px 12px 4px 12px;
+    left: -3px;
     cursor: pointer;
     background: #b7cdc2;
     border: 1px solid #000000;
@@ -107,8 +109,8 @@ button {
 
 .todo {
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
     flex-basis: auto;
     position: relative;
@@ -125,14 +127,14 @@ button {
 }
 
 .polygon {
-    flex-shrink: 0;
-    position: relative;
     width: 13px;
     height: 11px;
     background: url(../assets/empty.jpg) no-repeat center;
     background-size: cover;
-    z-index: 52;
+    /* Add additional styles for the arrow */
+    fill: #000; /* Change the color of the arrow */
 }
+
 
 .top-left-nav-bar {
     display: flex;
