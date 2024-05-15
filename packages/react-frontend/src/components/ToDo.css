@@ -1,8 +1,4 @@
-body {
-    background-color: #B7CDC2;
-}
-
-.ToDo {
+.todo {
     position: absolute;
     left: 242px;
     top: 122px;
@@ -15,22 +11,25 @@ body {
 
 .entry {
     width: 1215px;
-    button {
-        width: 80px;
-        height: 50px;
-        background-color: var(--Stadium-Gold, #F8E08E);
-        border: none;
-        color: 
-    }
-    .textEntry {
-        input {
-            width: 1117px;
-            height: 62px;
-            border-radius: 24px;
-            border: none;
-            margin: 5px;
-        }
-    }
+}
+
+#todo-input {
+    width: 1117px;
+    height: 62px;
+    border-radius: 24px;
+    border: none;
+    margin: 5px;
+}
+
+#todo-input-id {
+    width: 80px;
+    height: 50px;
+    background-color: var(--Stadium-Gold, #F8E08E);
+    border: none;
+}
+
+#todo-radioButton {
+    width: 50px;
 }
 
 h1 {
