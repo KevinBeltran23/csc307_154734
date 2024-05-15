@@ -27,7 +27,7 @@ root.render(
         <Route path="/" element={<Login/>} />
         <Route path="/ToDo" element={<ToDo/>} />
         <Route path="/Monthly" element={<Monthly/>} />
-        <Route path="/Weekly" element={<Weekly/>} /> // Ensure the route is correctly set up
+        <Route path="/Weekly" element={<Weekly/>} /> 
       </Routes>
     </div>
   </Router>
