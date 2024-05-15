@@ -30,9 +30,11 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 import Login from "./pages/Login"; 
+import Monthly from "./pages/Monthly"; 
+import "./components/Login.css";
 import ToDo from "./pages/ToDo";
-import Settings from "./pages/Settings"
-import './components/general.css' // bg col, font family
+import "./components/Monthly.css"
+import "./components/ToDo.css"
 
 // Create the container
 const container = document.getElementById("root");
@@ -48,6 +50,7 @@ root.render(
         <Route path="/" element={<Login/>} />
         <Route path="/ToDo" element={<ToDo/>} />
         <Route path="/Settings" element={<Settings/>} />
+        <Route path="/Monthly" element={<Monthly/>} />
       </Routes>
     </div>
   </Router>

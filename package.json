@@ -19,6 +19,7 @@
     "concurrently": "^8.2.2",
     "mongoose": "^8.3.2",
     "prettier": "^3.2.5",
+    "react-calendar": "^5.0.0",
     "router-dom": "^2.2.11"
   }
 }

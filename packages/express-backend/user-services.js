@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import userModel from "./user.js";
+import eventModel from "./event.js";
 
 mongoose.set("debug", true);
 
@@ -10,46 +11,35 @@ mongoose
   })
   .catch((error) => console.log(error));
 
-  function getUsers(name, job) {
+  // new functions
+
+  function getUsers(name, password) {
     let query = {};
-    if (name && job) {
-      query = { name: name, job: job };
-    } else if (name) {
-      query = { name: name };
-    } else if (job) {
-      query = { job: job };
+    if (name && password) {
+      query = { name: name, password: password };
     }
     return userModel.find(query);
-  }  
+  }
 
-function findUserById(id) {
-  return userModel.findById(id);
-}
+  function getUserByNameAndPassword(name, password) {
+    return userModel.findOne({ name: name, password: password });
+  }
 
-function addUser(user) {
-  const userToAdd = new userModel(user);
-  const promise = userToAdd.save();
-  return promise;
-}
+  function addUser(user) {
+    const userToAdd = new userModel(user);
+    const promise = userToAdd.save();
+    return promise;
+  }
 
-function findUserByName(name) {
-  return userModel.find({ name: name });
-}
-
-function findUserByJob(job) {
-  return userModel.find({ job: job });
-}
-
-function deleteUserById(id) {
-    return userModel.findByIdAndDelete(id);
-}
-
+  function addEvent(event) {
+    const eventToAdd = new eventModel (event);
+    const promise = eventToAdd.save();
+    return promise
+  }
 
 export default {
   addUser,
+  addEvent,
   getUsers,
-  findUserById,
-  findUserByName,
-  findUserByJob,
-  deleteUserById
+  getUserByNameAndPassword
 };

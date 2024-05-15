@@ -49,6 +49,13 @@
   background: #154734;
   border: 1px solid #154734;
   border-radius: 10px;
+  cursor: pointer; /* Change cursor to pointer */
+  transition: background-color 0.3s; /* Smooth transition for background color change */
+}
+
+/* Change background color when hovered over */
+.login-box:hover {
+  background: #0D2B24;
 }
 
 /* Gold Box */
@@ -140,4 +147,16 @@
   align-items: center;
   text-align: center;
   color: #FFFFFF;
+}
+
+.error-message {
+  position: absolute;
+  bottom: 100px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #FFC0CB; /* Light pink */
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #800000; /* Dark red */
 }
