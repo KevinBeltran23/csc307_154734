@@ -57,7 +57,7 @@
 }
 
 /* Apperance Button */
-.settings-button {
+#settings-button {
     width: 186px;
     height: 42px;
     background: #CAC7A7;
