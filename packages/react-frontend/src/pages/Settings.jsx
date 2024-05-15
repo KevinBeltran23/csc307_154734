@@ -6,14 +6,15 @@ const Settings = () => {
   return (
     <div className="page-container"> {/* Added a container */}
       <div className="container">
+        {/* Settings Text */}
+        
+        
         {/* Gold Bar */}
         <div className="gold-bar"></div>
 
         {/* Main Box */}
-        <div className="main-box"></div>
+        <div className="main-box"><div className="settings-text">Settings</div></div>
 
-        {/* Settings Text */}
-        <div className="settings-text">Settings</div>
       </div>
 
 
