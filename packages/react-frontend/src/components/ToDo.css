@@ -20,7 +20,7 @@ body {
         height: 50px;
         background-color: var(--Stadium-Gold, #F8E08E);
         border: none;
-        color: 
+        color: var(--Poly-Green, #154734);
     }
     .textEntry {
         input {
