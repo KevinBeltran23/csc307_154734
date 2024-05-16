@@ -1,4 +1,3 @@
-import { Int32 } from "mongodb";
 import mongoose from "mongoose";
 
 // automatically generates a unique _id field
@@ -12,6 +11,7 @@ const UserSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+      unique: true,
       trim: true,
       validate(value) {
         if (value.length < 4)
