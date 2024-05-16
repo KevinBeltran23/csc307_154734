@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from "./pages/Login"; 
 import Monthly from "./pages/Monthly"; 
 import ToDo from "./pages/ToDo";
+import Weekly from "./pages/Weekly";
+import SignUp from "./pages/SignUp";
+import Settings from "./pages/Settings";
 
 
 function MyApp() {
@@ -111,10 +114,12 @@ function MyApp() {
               />
               <Route
                 path="/signup"
-                element={<Login handleSubmit={signupUser} buttonLabel="Sign Up" />}
+                element={<SignUp handleSubmit={signupUser} buttonLabel="Sign Up" />}
               />     
               <Route path="/monthly" element={<Monthly />} />
-              <Route path="/todo" element={<ToDo />} />         
+              <Route path="/todo" element={<ToDo />} />
+              <Route path="/weekly" element={<Weekly />} />         
+              <Route path="/settings" element={<Settings />} />                  
             </Routes>
           </div>
         </Router>
