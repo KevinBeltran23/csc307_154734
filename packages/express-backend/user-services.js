@@ -13,6 +13,10 @@ mongoose
 
   // new functions
 
+  function getAllUsers() {
+    return userModel.find();
+  }
+
   function getUsers(username, password) {
     let query = {};
     if (username && password) {
@@ -41,5 +45,6 @@ export default {
   addUser,
   addEvent,
   getUsers,
-  getUserByNameAndPassword
+  getUserByNameAndPassword,
+  getAllUsers
 };

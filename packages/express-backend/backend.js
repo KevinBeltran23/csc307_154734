@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import userService from "./user-services.js";
+import { registerUser, loginUser, authenticateUser } from "./auth.js";
 
 const app = express();
 const port = 8000;
@@ -15,20 +16,15 @@ app.get("/", (req, res) => {
 
 // Post Requests
 
-app.post("/login", (req, res) => {
-    const userToLogin = req.body;
-    userService.getUserByNameAndPassword(userToLogin.name, userToLogin.password)
-        .then((user) => {
-            if (user) {
-                res.status(200).json(user);
-            } else {
-                res.status(404).send("User not found or invalid credentials");
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
+app.post("/signup", registerUser);
+
+app.post("/login", loginUser);
+
+app.post("/users", authenticateUser, (req, res) => {
+    const userToAdd = req.body;
+    Users.addUser(userToAdd).then((result) =>
+      res.status(201).send(result)
+    );
 });
 
 app.post("/registration", (req, res) => {
@@ -93,6 +89,17 @@ app.post("/settings", (req, res) => {
 
 
 // get requests
+
+app.get("/users", (req, res) => {
+    userService.getAllUsers()
+        .then((result) => {
+            res.send({ users_list: result });
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
 
 app.get("/login", (req, res) => {
     const { name, password } = req.query;
