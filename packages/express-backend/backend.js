@@ -13,7 +13,6 @@ app.get("/", (req, res) => {
     res.send("Wassup this is the Poly Planner");
 });
 
-
 // Post Requests
 
 app.post("/signup", registerUser);

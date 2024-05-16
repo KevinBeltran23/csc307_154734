@@ -114,7 +114,7 @@ function MyApp() {
               />
               <Route
                 path="/signup"
-                element={<SignUp handleSubmit={signupUser} buttonLabel="Sign Up" />}
+                element={<SignUp handleSubmit={signupUser} message={message}/>}
               />     
               <Route path="/monthly" element={<Monthly />} />
               <Route path="/todo" element={<ToDo />} />
