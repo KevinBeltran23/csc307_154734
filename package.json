@@ -23,6 +23,7 @@
     "mongoose": "^8.3.2",
     "prettier": "^3.2.5",
     "react-calendar": "^5.0.0",
+    "react-router-dom": "^6.23.1",
     "router-dom": "^2.2.11"
   }
 }
