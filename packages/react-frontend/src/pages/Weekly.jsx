@@ -13,7 +13,6 @@ export default function Main() {
           </button>
         </div>
       </div>
-
       <div className='todo-dropdown-container'>
         <div className='rectangle'>  {/*todo*/}
           <button className='button-frame'>
@@ -22,34 +21,43 @@ export default function Main() {
           </button>
         </div>
       </div>
-
-
       <div className='top-left-nav-bar'>
         <button className='button-frame-1'>
           <span className='today'>Today</span>
         </button>
-        <div className='left-arrow' />
-        <div className='right-arrow' />
+
+        <button className="arrow-frame left-arrow" />
+        <button className=" arrow-frame right-arrow" />
+
         <span className='week-1'>Week 1</span>
       </div>
-      <div className='ellipse' />
+
+
       <button className='change-view'>
         <span className='weekly-view'>Monthly View</span>
       </button>
-      <div className='ellipse-2' />
-      <div className='output-onlinepngtools' />
+
+      <button className='settings-frame'>
+        <div className='settings-circle' />
+        <div className='gear' />
+      </button>
+
       <div className='download'>
         <div className='download-icon' />
       </div>
+
       <button className='frame'>
         <span className='create'>Create</span>
         <div className='polygon-3' />
       </button>
+
       <span className='time'>6:22 PM</span>
       <div className='line' />
+
       <button className='change-view-4'>
         <span className='weekly-view-5'>To Do</span>
       </button>
+
       <div className='days'>
         <span className='sun'>SUN</span>
         <span className='mon'>MON</span>

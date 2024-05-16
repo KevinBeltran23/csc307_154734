@@ -182,14 +182,31 @@ button {
     z-index: 23;
 }
 
+.arrow-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 10px;
+    position: relative;
+    width: 40px;
+    height: 45px;
+    padding: 10px 10px 10px 10px;
+    cursor: pointer;
+    background: #ffffff00;
+    border: 0px;
+    z-index: 22;
+}
+
 .left-arrow {
     flex-shrink: 0;
     position: relative;
     width: 40px;
     height: 45px;
-    background: url(../assets/empty.jpg) no-repeat center;
+    background: url(../assets/LeftArrow.png) no-repeat center;
     background-size: cover;
-    z-index: 24;
+    z-index: 25;
 }
 
 .right-arrow {
@@ -197,7 +214,7 @@ button {
     position: relative;
     width: 40px;
     height: 45px;
-    background: url(../assets/empty.jpg) no-repeat center;
+    background: url(../assets/RightArrow.png) no-repeat center;
     background-size: cover;
     z-index: 25;
 }
@@ -367,25 +384,38 @@ button {
     z-index: 13;
 }
 
-.ellipse-2 {
+.settings-frame {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ffffff; /* Set background color to white */
+    border: 1px solid #000000;
+  }
+  
+
+.settings-circle {
     position: absolute;
     width: 40px;
     height: 40px;
     top: 39px;
     left: 1263px;
-    background: url(../assets/empty.jpg) no-repeat center;
-    background-size: cover;
+    background-color: #ffffff; /* Set background color to white */
     z-index: 14;
     border-radius: 50%;
 }
 
-.output-onlinepngtools {
+
+.gear {
     position: absolute;
     width: 40px;
     height: 40px;
     top: 39px;
     left: 1263px;
-    background: url(../assets/empty.jpg) no-repeat center;
+    background: url(../assets/Gear.png) no-repeat center;
     background-size: cover;
     z-index: 71;
 }
