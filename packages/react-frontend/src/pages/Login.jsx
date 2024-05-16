@@ -29,17 +29,17 @@ function Login() {
       },
       body: JSON.stringify(loginData)
     })
-    .then(response => {
-      if (response.ok) {
-        console.log("Login successful"); // Log success message
-        navigate("/Monthly");
-      } else {
-        console.error("Login failed"); // Log failure message
-      }
-    })
-    .catch(error => {
-      console.error("Error:", error); // Log error message
-    });
+      .then(response => {
+        if (response.ok) {
+          console.log("Login successful"); // Log success message
+          navigate("/Monthly");
+        } else {
+          console.error("Login failed"); // Log failure message
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error); // Log error message
+      });
   };
 
   return (
@@ -75,7 +75,7 @@ function Login() {
 
       {/* Gold Box */}
       <div className="gold-box"></div>
-      
+
       {/* Text elements */}
       <div className="text-elements">
         {/* Poly Planner */}

@@ -35,6 +35,8 @@ import "./components/Login.css";
 import ToDo from "./pages/ToDo";
 import "./components/Monthly.css"
 import "./components/ToDo.css"
+import Registration from "./pages/Registration";
+import "./components/Registration.css"
 
 // Create the container
 const container = document.getElementById("root");
@@ -50,6 +52,7 @@ root.render(
         <Route path="/" element={<Login/>} />
         <Route path="/ToDo" element={<ToDo/>} />
         <Route path="/Monthly" element={<Monthly/>} />
+        <Route path="/registration" element={<Registration/>} />
       </Routes>
     </div>
   </Router>
