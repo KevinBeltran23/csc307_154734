@@ -57,7 +57,7 @@ function MyApp() {
     }
 
     function signupUser(creds) {
-        const promise = fetch(`${API_PREFIX}/signup`, {
+        const promise = fetch("Http://localhost:8000/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
