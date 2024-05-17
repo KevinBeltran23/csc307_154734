@@ -1,6 +1,7 @@
 import "./backend.js"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import User from './models/user.js';
 
 // need to modify all of this to store in the DB rather than locally in creds
 
