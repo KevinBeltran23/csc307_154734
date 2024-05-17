@@ -75,12 +75,12 @@ function Login(props) {
 
   function submitForm() {
     props.handleSubmit(creds)
-      .then((success) => {
-        if (success) {
+      .then((response) => {
+        if (response == 1) {
             navigate('/monthly');
-            setCreds({ username: "", pwd: "" });
         }})
     setCreds({ username: "", pwd: "" });
   }
 }
 export default Login;
+

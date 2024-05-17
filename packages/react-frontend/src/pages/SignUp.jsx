@@ -75,11 +75,10 @@ function SignUp(props) {
 
   function submitForm() {
     props.handleSubmit(creds)
-      .then((success) => {
-        if (success) {
-            navigate('/monthly');
-            setCreds({ username: "", pwd: "" });
-        }})
+    .then((response) => {
+      if (response == 1) {
+          navigate('/monthly');
+      }})
     setCreds({ username: "", pwd: "" });
   }
 }

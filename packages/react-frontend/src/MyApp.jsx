@@ -47,10 +47,12 @@ function MyApp() {
             if (response.status === 200) {
             response
                 .json()
-                .then((payload) => setToken(payload.token));
+                  .then((payload) => setToken(payload.token));
             setMessage(`Login successful; auth token saved`);
+            return 1;
             } else {
             setMessage( `Login Error ${response.status}: ${response.data}`);
+            return -1;
             }
         })
         .catch((error) => {
@@ -60,7 +62,7 @@ function MyApp() {
     }
 
     function signupUser(creds) {
-        const promise = fetch("Http://localhost:8000/signup", {
+        const promise = fetch("http://localhost:8000/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -75,10 +77,12 @@ function MyApp() {
               setMessage(
                 `Signup successful for user: ${creds.username}; auth token saved`
               );
+              return 1;
             } else {
               setMessage(
                 `Signup Error ${response.status}: ${response.data}`
               );
+              return -1;
             }
           })
           .catch((error) => {

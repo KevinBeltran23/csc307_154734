@@ -2,6 +2,8 @@ import "./backend.js"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+// need to modify all of this to store in the DB rather than locally in creds
+
 const creds = [];
 
 function generateAccessToken(username) {
