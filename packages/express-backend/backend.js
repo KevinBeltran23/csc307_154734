@@ -31,7 +31,8 @@ app.post("/users", authenticateUser, (req, res) => {
 
 app.post("/registration", (req, res) => {
     const userToAdd = req.body;
-    userService.addUser(userToAdd)
+    userService
+        .addUser(userToAdd)
         .then((addedUser) => {
             res.status(201).json(addedUser);
         })
@@ -43,7 +44,8 @@ app.post("/registration", (req, res) => {
 
 app.post("/monthly", (req, res) => {
     const eventToAdd = req.body;
-    userService.addEvent(eventToAdd)
+    userService
+        .addEvent(eventToAdd)
         .then((addedEvent) => {
             res.status(201).json(addedEvent);
         })
@@ -55,7 +57,8 @@ app.post("/monthly", (req, res) => {
 
 app.post("/weekly", (req, res) => {
     const eventToAdd = req.body;
-    userService.addEvent(eventToAdd)
+    userService
+        .addEvent(eventToAdd)
         .then((addedEvent) => {
             res.status(201).json(addedEvent);
         })
@@ -67,7 +70,8 @@ app.post("/weekly", (req, res) => {
 
 app.post("/todo", (req, res) => {
     const eventToAdd = req.body;
-    userService.addEvent(eventToAdd)
+    userService
+        .addEvent(eventToAdd)
         .then((addedEvent) => {
             res.status(201).json(addedEvent);
         })
@@ -79,7 +83,8 @@ app.post("/todo", (req, res) => {
 
 app.post("/settings", (req, res) => {
     const settingToChange = req.body;
-    userService.changeSetting(settingToChange)
+    userService
+        .changeSetting(settingToChange)
         .then((changedSetting) => {
             res.status(201).json(changedSetting);
         })
@@ -88,7 +93,6 @@ app.post("/settings", (req, res) => {
             res.status(500).send("Internal Server Error");
         });
 });
-
 
 // get requests
 
@@ -106,7 +110,8 @@ app.get("/users", (req, res) => {
 app.get("/login", (req, res) => {
     const { name, password } = req.query;
     // Fetch users based on name and/or job using userService.getUsers
-    userService.getUsers(name, password)
+    userService
+        .getUsers(name, password)
         .then((result) => {
             res.send({ users_list: result });
         })
@@ -119,7 +124,8 @@ app.get("/login", (req, res) => {
 app.get("/monthly", (req, res) => {
     const { name, job } = req.query;
     // Fetch users based on name and/or job using userService.getUsers
-    userService.getUsers(name, job)
+    userService
+        .getUsers(name, job)
         .then((result) => {
             res.send({ users_list: result });
         })
@@ -132,7 +138,8 @@ app.get("/monthly", (req, res) => {
 app.get("/weekly", (req, res) => {
     const { name, job } = req.query;
     // Fetch users based on name and/or job using userService.getUsers
-    userService.getUsers(name, job)
+    userService
+        .getUsers(name, job)
         .then((result) => {
             res.send({ users_list: result });
         })
@@ -145,7 +152,8 @@ app.get("/weekly", (req, res) => {
 app.get("/todo", (req, res) => {
     const { name, job } = req.query;
     // Fetch users based on name and/or job using userService.getUsers
-    userService.getUsers(name, job)
+    userService
+        .getUsers(name, job)
         .then((result) => {
             res.send({ users_list: result });
         })
@@ -158,7 +166,8 @@ app.get("/todo", (req, res) => {
 app.get("/settings", (req, res) => {
     const { name, job } = req.query;
     // Fetch users based on name and/or job using userService.getUsers
-    userService.getUsers(name, job)
+    userService
+        .getUsers(name, job)
         .then((result) => {
             res.send({ users_list: result });
         })
@@ -168,10 +177,7 @@ app.get("/settings", (req, res) => {
         });
 });
 
-
 // delete requests
-
-
 
 /*old stuff
 
@@ -231,7 +237,6 @@ app.delete("/users/:id", (req, res) => {
             res.status(500).send("Internal Server Error");
         });
 });*/
-
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

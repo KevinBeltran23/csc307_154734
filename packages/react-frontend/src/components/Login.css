@@ -1,162 +1,162 @@
 /* Main Box */
 .main-box {
-  box-sizing: border-box;
-  position: absolute;
-  width: 800px;
-  height: 600px;
-  left: 50%; /* Center horizontally */
-  top: calc(50% - 600px/2); /* Center vertically */
-  margin-left: -400px; /* Half of the width to offset the left position */
-  background: #E4E3D3;
-  border: 10px solid #154734;
+    box-sizing: border-box;
+    position: absolute;
+    width: 800px;
+    height: 600px;
+    left: 50%; /* Center horizontally */
+    top: calc(50% - 600px / 2); /* Center vertically */
+    margin-left: -400px; /* Half of the width to offset the left position */
+    background: #e4e3d3;
+    border: 10px solid #154734;
 }
 
 /* Username Box */
 .username-box {
-  box-sizing: border-box;
-  position: absolute;
-  width: 600px;
-  height: 60px;
-  left: 50%; /* Center horizontally */
-  top: calc(50% - 60px/2 - 60px); /* Center vertically */
-  margin-left: -300px; /* Half of the width to offset the left position */
-  background: #FFFFFF;
-  border: 1px solid #154734;
+    box-sizing: border-box;
+    position: absolute;
+    width: 600px;
+    height: 60px;
+    left: 50%; /* Center horizontally */
+    top: calc(50% - 60px / 2 - 60px); /* Center vertically */
+    margin-left: -300px; /* Half of the width to offset the left position */
+    background: #ffffff;
+    border: 1px solid #154734;
 }
 
 /* Password Box */
 .password-box {
-  box-sizing: border-box;
-  position: absolute;
-  width: 600px;
-  height: 60px;
-  left: 50%; /* Center horizontally */
-  top: calc(50% - 60px/2 + 60px); /* Center vertically */
-  margin-left: -300px; /* Half of the width to offset the left position */
-  background: #FFFFFF;
-  border: 1px solid #154734;
+    box-sizing: border-box;
+    position: absolute;
+    width: 600px;
+    height: 60px;
+    left: 50%; /* Center horizontally */
+    top: calc(50% - 60px / 2 + 60px); /* Center vertically */
+    margin-left: -300px; /* Half of the width to offset the left position */
+    background: #ffffff;
+    border: 1px solid #154734;
 }
 
 /* Login Box */
 .login-box {
-  box-sizing: border-box;
-  position: absolute;
-  width: 600px;
-  height: 60px;
-  left: 50%; /* Center horizontally */
-  top: calc(50% - 60px/2 + 180px); /* Center vertically */
-  margin-left: -300px; /* Half of the width to offset the left position */
-  background: #154734;
-  border: 1px solid #154734;
-  border-radius: 10px;
-  cursor: pointer; /* Change cursor to pointer */
-  transition: background-color 0.3s; /* Smooth transition for background color change */
+    box-sizing: border-box;
+    position: absolute;
+    width: 600px;
+    height: 60px;
+    left: 50%; /* Center horizontally */
+    top: calc(50% - 60px / 2 + 180px); /* Center vertically */
+    margin-left: -300px; /* Half of the width to offset the left position */
+    background: #154734;
+    border: 1px solid #154734;
+    border-radius: 10px;
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s; /* Smooth transition for background color change */
 }
 
 /* Change background color when hovered over */
 .login-box:hover {
-  background: #0D2B24;
+    background: #0d2b24;
 }
 
 /* Gold Box */
 .gold-box {
-  box-sizing: border-box;
-  position: absolute;
-  width: 800px;
-  height: 30px;
-  left: 50%; /* Center horizontally */
-  top: calc(50% - 30px/2 - 285px); /* Center vertically */
-  margin-left: -400px; /* Half of the width to offset the left position */
-  background: #BD8B13;
-  border-width: 10px 10px 1px 10px;
-  border-style: solid;
-  border-color: #154734;
+    box-sizing: border-box;
+    position: absolute;
+    width: 800px;
+    height: 30px;
+    left: 50%; /* Center horizontally */
+    top: calc(50% - 30px / 2 - 285px); /* Center vertically */
+    margin-left: -400px; /* Half of the width to offset the left position */
+    background: #bd8b13;
+    border-width: 10px 10px 1px 10px;
+    border-style: solid;
+    border-color: #154734;
 }
 
 /* Poly Planner */
 .poly-planner {
-  position: absolute;
-  width: 400px;
-  height: 100px;
-  left: 50%; /* Center horizontally */
-  top: calc(50% - 100px/2 - 180px); /* Center vertically */
-  margin-left: -150px; /* Half of the width to offset the left position */
-  font-family: 'Josefin Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 64px;
-  line-height: 64px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #154734;
+    position: absolute;
+    width: 400px;
+    height: 100px;
+    left: 50%; /* Center horizontally */
+    top: calc(50% - 100px / 2 - 180px); /* Center vertically */
+    margin-left: -150px; /* Half of the width to offset the left position */
+    font-family: "Josefin Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 64px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #154734;
 }
 
 /* Username */
 .username {
-  position: absolute;
-  width: 150px;
-  height: 50px;
-  left: 50%; /* Center horizontally */
-  top: calc(50% - 50px/2 - 105px); /* Center vertically */
-  margin-left: -300px; /* Half of the width to offset the left position */
-  font-family: 'Josefin Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #154734;
+    position: absolute;
+    width: 150px;
+    height: 50px;
+    left: 50%; /* Center horizontally */
+    top: calc(50% - 50px / 2 - 105px); /* Center vertically */
+    margin-left: -300px; /* Half of the width to offset the left position */
+    font-family: "Josefin Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #154734;
 }
 
 /* Password */
 .password {
-  position: absolute;
-  width: 150px;
-  height: 50px;
-  left: 50%; /* Center horizontally */
-  top: calc(50% - 50px/2 + 15px); /* Center vertically */
-  margin-left: -300px; /* Half of the width to offset the left position */
-  font-family: 'Josefin Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #154734;
+    position: absolute;
+    width: 150px;
+    height: 50px;
+    left: 50%; /* Center horizontally */
+    top: calc(50% - 50px / 2 + 15px); /* Center vertically */
+    margin-left: -300px; /* Half of the width to offset the left position */
+    font-family: "Josefin Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #154734;
 }
 
 /* Login */
 .login {
-  position: absolute;
-  width: 400px;
-  height: 100px;
-  left: 50%; /* Center horizontally */
-  top: calc(50% - 100px/2 + 180px); /* Center vertically */
-  margin-left: -50px; /* Half of the width to offset the left position */
-  font-family: 'Josefin Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 40px;
-  line-height: 40px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #FFFFFF;
+    position: absolute;
+    width: 400px;
+    height: 100px;
+    left: 50%; /* Center horizontally */
+    top: calc(50% - 100px / 2 + 180px); /* Center vertically */
+    margin-left: -50px; /* Half of the width to offset the left position */
+    font-family: "Josefin Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 40px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #ffffff;
 }
 
 .error-message {
-  position: absolute;
-  bottom: 100px; /* Adjust as needed */
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #FFC0CB; /* Light pink */
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14px;
-  color: #800000; /* Dark red */
+    position: absolute;
+    bottom: 100px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffc0cb; /* Light pink */
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #800000; /* Dark red */
 }
