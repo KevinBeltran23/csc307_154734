@@ -78,6 +78,11 @@ function MyApp() {
                 `Signup successful for user: ${creds.username}; auth token saved`
               );
               return 1;
+            } else if (response.status === 409) {
+              setMessage(
+                `Signup failed for user: ${creds.username}; Username already taken`
+              );
+              return -1
             } else {
               setMessage(
                 `Signup Error ${response.status}: ${response.data}`
