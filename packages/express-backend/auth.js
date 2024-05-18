@@ -1,7 +1,7 @@
 import "./backend.js"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import User from './models/user.js';
+import User from './user.js';
 
 // need to modify all of this to store in the DB rather than locally in creds
 
@@ -25,24 +25,39 @@ function generateAccessToken(username) {
 }
 
 export function registerUser(req, res) {
-    const { username, pwd } = req.body; // from form
-  
-    if (!username || !pwd) {
-      res.status(400).send("Bad request: Invalid input data.");
-    } else if (creds.find((c) => c.username === username)) {
-      res.status(409).send("Username already taken");
-    } else {
-      bcrypt
-        .genSalt(10)
-        .then((salt) => bcrypt.hash(pwd, salt))
-        .then((hashedPassword) => {
-          generateAccessToken(username).then((token) => {
-            console.log("Token:", token);
-            res.status(201).send({ token: token });
-            creds.push({ username, hashedPassword });
-          });
-        });
-    }
+  const { username, pwd } = req.body; // from form
+
+  if (!username || !pwd) {
+    res.status(400).send('Bad request: Invalid input data.');
+  } else {
+    User.findOne({ username: username })
+      .then(existingUser => {
+        if (existingUser) {
+          res.status(409).send('Username already taken');
+        } else {
+          bcrypt.genSalt(10)
+            .then(salt => bcrypt.hash(pwd, salt))
+            .then(password => {
+              const userToAdd = new User({ username, password });
+              const promise = userToAdd.save();
+              return promise
+            })
+            .then(savedUser => generateAccessToken(username))
+            .then(token => {
+              console.log('Token:', token);
+              res.status(201).send({ token: token });
+            })
+            .catch(err => {
+              console.error('Error saving user or generating token:', err);
+              res.status(500).send('Internal server error');
+            });
+        }
+      })
+      .catch(err => {
+        console.error('Error checking existing user:', err);
+        res.status(500).send('Internal server error');
+      });
+  }
 }
 
 export function authenticateUser(req, res, next) {
@@ -70,31 +85,33 @@ export function authenticateUser(req, res, next) {
 }
 
 export function loginUser(req, res) {
-    const { username, pwd } = req.body; // from form
-    const retrievedUser = creds.find(
-      (c) => c.username === username
-    );
-  
-    if (!retrievedUser) {
-      // invalid username
-      res.status(401).send("Unauthorized");
-    } else {
-      bcrypt
-        .compare(pwd, retrievedUser.hashedPassword)
-        .then((matched) => {
-          if (matched) {
-            generateAccessToken(username).then((token) => {
-              res.status(200).send({ token: token });
-            });
-          } else {
-            // invalid password
-            res.status(401).send("Unauthorized");
-          }
-        })
-        .catch(() => {
-          res.status(401).send("Unauthorized");
-        });
-    }
+  const { username, pwd } = req.body; // from form
+  User.findOne({ username: username })
+    .then(retrievedUser => {
+      if (!retrievedUser) {
+        // invalid username
+        res.status(401).send('Unauthorized');
+      } else {
+        bcrypt.compare(pwd, retrievedUser.password)
+          .then(matched => {
+            if (matched) {
+              generateAccessToken(username).then(token => {
+                res.status(200).send({ token: token });
+              });
+            } else {
+              // invalid password
+              res.status(401).send('Unauthorized');
+            }
+          })
+          .catch(() => {
+            res.status(401).send('Unauthorized');
+          });
+      }
+    })
+    .catch(err => {
+      console.error('Error logging in user:', err);
+      res.status(500).send('Internal server error');
+    });
 }
 
 export default {
