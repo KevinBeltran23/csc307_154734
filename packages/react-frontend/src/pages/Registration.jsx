@@ -4,37 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 function Registration() {
 
-
-    const handleRegistration = () => {
-        /*
-                // Need to put both username and password to login
-                if (!loginData.name || !loginData.password) {
-                    console.error("Username and password are required");
-                    setErrorMessage("Username and password are required");
-                    return;
-                }
-        
-                // Make an HTTP request to your backend function
-                fetch("http://localhost:8000/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(loginData)
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            console.log("Login successful"); // Log success message
-                            navigate("/Monthly");
-                        } else {
-                            console.error("Login failed"); // Log failure message
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error:", error); // Log error message
-                    });*/
-    };
-
     return (
         <div className="position-relative">
             {/* Main Box */}

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const EventSchema = new mongoose.Schema(
+// automatically generates a unique _id field
+const ClassSchema = new mongoose.Schema(
     {
         title: {
             type: String,
@@ -21,7 +22,7 @@ const EventSchema = new mongoose.Schema(
             type: String,
             trim: true
         },
-        location: {
+        professor: {
             type: String,
             trim: true
         },
@@ -30,9 +31,9 @@ const EventSchema = new mongoose.Schema(
             ref: "User"
         }
     },
-    { collection: "events" }
+    { collection: "classes" }
 );
 
-const Event = mongoose.model("Event", EventSchema);
+const Class = mongoose.model("Class", ClassSchema);
 
-export default Event;
+export default Class;
