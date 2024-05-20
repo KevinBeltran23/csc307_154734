@@ -72,7 +72,7 @@ const Settings = () => {
     return (
       <div>
         {Object.keys(settings[selectedOption]).map(setting => (
-          <label key={setting}>
+          <label key={setting} className="settings-label">
             <input
               type="checkbox"
               checked={settings[selectedOption][setting]}
