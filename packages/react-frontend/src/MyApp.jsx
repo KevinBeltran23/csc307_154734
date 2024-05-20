@@ -7,6 +7,7 @@ import ToDo from "./pages/ToDo";
 import Weekly from "./pages/Weekly";
 import SignUp from "./pages/SignUp";
 import Settings from "./pages/Settings";
+import Registration from "./pages/Registration";
 
 
 function MyApp() {
@@ -128,7 +129,8 @@ function MyApp() {
               <Route path="/monthly" element={<Monthly />} />
               <Route path="/todo" element={<ToDo />} />
               <Route path="/weekly" element={<Weekly />} />         
-              <Route path="/settings" element={<Settings />} />                  
+              <Route path="/settings" element={<Settings />} />       
+              <Route path="/registration" element={<Registration />} />               
             </Routes>
           </div>
         </Router>

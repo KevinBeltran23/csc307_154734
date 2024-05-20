@@ -39,10 +39,15 @@ function Login(props) {
       {props.message && <div className="error-message">{props.message}</div>}
 
       {/* Login Box */}
-      <button className="login-box" onClick={submitForm}> </button>
+      <button className="login-box" onClick={submitForm}> 
+        <p className="login">Login</p>
+      </button>
 
-      {/* Submit Box */}
-      <button className="submit-box" onClick={submitForm}> </button>
+      {/* Register Box */}
+      <button 
+        className="register-box" onClick={handleRegistration}> 
+        <p className="register">Create an Account</p>
+      </button>
 
       {/* Gold Box */}
       <div className="gold-box"></div>
@@ -57,9 +62,6 @@ function Login(props) {
 
         {/* Password */}
         <div className="password">Password</div>
-
-        {/* Login */}
-        <div className="login">Login</div>
       </div>
     </div>
   );
@@ -74,6 +76,10 @@ function Login(props) {
         setCreds({ ...creds, pwd: value });
         break;
     }
+  }
+
+  function handleRegistration() {
+    navigate('/signup')
   }
 
   function submitForm() {
