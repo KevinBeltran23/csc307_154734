@@ -6,57 +6,54 @@ export default function Main() {
   return (
     <div className='main-container'>
       <div className='calendar-dropdown-container'>
-        <div className='rectangle'>  {/*calendar*/}
+        <div className='rectangle'>
           <button className='button-frame'>
             <span className='calendars'>Calendars</span>
-            <div className='polygon' />
+            <div className='dropdown-arrow' />
           </button>
         </div>
       </div>
       <div className='todo-dropdown-container'>
-        <div className='rectangle'>  {/*todo*/}
+        <div className='rectangle'>
           <button className='button-frame'>
             <span className='todo'>Todo</span>
-            <div className='polygon' />
+            <div className='dropdown-arrow' />
           </button>
         </div>
       </div>
+
       <div className='top-left-nav-bar'>
         <button className='button-frame-1'>
           <span className='today'>Today</span>
         </button>
-
         <button className="arrow-frame left-arrow" />
         <button className=" arrow-frame right-arrow" />
-
         <span className='week-1'>Week 1</span>
       </div>
 
+      <span className='time'>6:22 PM</span>
 
-      <button className='change-view'>
-        <span className='weekly-view'>Monthly View</span>
+      <button className='monthly-view-frame'>
+        <span className='change-view'>Monthly View</span>
+      </button>
+
+      <button className='todo-view-frame'>
+        <span className='change-view'>ToDo</span>
       </button>
 
       <button className='settings-frame'>
-        <div className='settings-circle' />
-        <div className='gear' />
+        {/* <div className='gear' /> */}
+        <span className='gear'></span>
       </button>
 
-      <div className='download'>
+      <div className='download-frame'>
         <div className='download-icon' />
       </div>
-
-      <button className='frame'>
+      <button className='create-frame'>
         <span className='create'>Create</span>
-        <div className='polygon-3' />
+        <div className='dropdown-arrow' />
       </button>
 
-      <span className='time'>6:22 PM</span>
-      <div className='line' />
-
-      <button className='change-view-4'>
-        <span className='weekly-view-5'>To Do</span>
-      </button>
 
       <div className='days'>
         <span className='sun'>SUN</span>
@@ -67,25 +64,8 @@ export default function Main() {
         <span className='fri'>FRI</span>
         <span className='sat'>SAT</span>
       </div>
-      <div className='calendar-square'>
-        <div className='divider-lines'>
-          <div className='line-6' />
-          <div className='line-7' />
-          <div className='line-8' />
-          <div className='line-9' />
-          <div className='line-a' />
-          <div className='line-b' />
-        </div>
-        <div className='date-squares'>
-          <div className='sunday-date-square' />
-          <div className='monday-date-square' />
-          <div className='tuesday-date-square' />
-          <div className='wednesday-date-square' />
-          <div className='thursday-date-square' />
-          <div className='friday-date-square' />
-          <div className='saturday-date-square' />
-        </div>
-      </div>
+
+
       <div className='time-container'>
         {/* Time slots */}
         <span className='time-slot'>8am</span>
@@ -102,13 +82,27 @@ export default function Main() {
         <span className='time-slot'>7pm</span>
         <span className='time-slot'>8pm</span>
       </div>
-      <div className='expand' />
-      <div className='rectangle-17'>
-        <button className='frame-18'>
-          <span className='to-do'>To Do</span>
-          <div className='polygon-19' />
-        </button>
+
+      {/* <div className='expand' /> */}
+
+      {/* CalendarSquare */}
+      <div className="calendar-square"></div>
+
+      {/* DividerLines */}
+
+
+      {/* DateSquares */}
+      <div className="date-squares">
+        <div className="date-square sunday-date-square"></div>
+        <div className="date-square monday-date-square"></div>
+        <div className="date-square tuesday-date-square"></div>
+        <div className="date-square wednesday-date-square"></div>
+        <div className="date-square thursday-date-square"></div>
+        <div className="date-square friday-date-square"></div>
+        <div className="date-square saturday-date-square"></div>
       </div>
+
+
     </div>
   );
 }

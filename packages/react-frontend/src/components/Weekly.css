@@ -40,7 +40,7 @@ button {
     position: absolute;
     width: 152px;
     height: 920px;
-    left: 53px;
+    left: 35px;
     top: 27px;
 }
 
@@ -53,7 +53,7 @@ button {
     position: absolute;
     width: 152px;
     height: 920px;
-    left: 53px;
+    left: 35px;
     top: 500px;
 }
 
@@ -67,13 +67,13 @@ button {
     border-radius: 24px;
     flex: none;
     flex-grow: 0;
-    /*margin: 12px 0 0 12px;*/
+    margin: 12px 0 0 12px;
 }
 
 .button-frame {
     display: flex;
     align-items: center;
-    justify-content: center; /* Added to center horizontally */
+    justify-content: center;
     flex-wrap: nowrap;
     gap: 10px;
     position: relative;
@@ -126,13 +126,14 @@ button {
     z-index: 51;
 }
 
-.polygon {
+.dropdown-arrow {
     width: 13px;
     height: 11px;
     background: url(../assets/empty.jpg) no-repeat center;
     background-size: cover;
     /* Add additional styles for the arrow */
-    fill: #000; /* Change the color of the arrow */
+    fill: #000;
+    /* Change the color of the arrow */
 }
 
 
@@ -143,14 +144,15 @@ button {
     flex-wrap: nowrap;
     gap: 15px;
     position: absolute;
-    width: 419px;
-    height: 64px;
-    top: 31px;
-    left: 252px;
+    width: 420px;
+    height: 65px;
+    top: 30px;
+    left: 250px;
     z-index: 21;
 }
 
 .button-frame-1 {
+    /*remove*/
     display: flex;
     align-items: center;
     justify-content: center;
@@ -176,7 +178,7 @@ button {
     font-family: Inter, var(--default-font-family);
     font-size: 18px;
     font-weight: 400;
-    line-height: 21.784px;
+    line-height: 22px;
     text-align: left;
     white-space: nowrap;
     z-index: 23;
@@ -209,6 +211,7 @@ button {
     z-index: 25;
 }
 
+
 .right-arrow {
     flex-shrink: 0;
     position: relative;
@@ -226,8 +229,8 @@ button {
     flex-shrink: 0;
     flex-basis: auto;
     position: relative;
-    width: 199px;
-    height: 64px;
+    width: 200px;
+    height: 65px;
     color: #154734;
     font-family: Josefin Sans, var(--default-font-family);
     font-size: 64px;
@@ -238,6 +241,24 @@ button {
     z-index: 26;
 }
 
+.time {
+    position: absolute;
+    width: 88px;
+    height: 24px;
+    left: 945px;
+    top: 52px;
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 24px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
+
 /* Days */
 .days {
     display: flex;
@@ -245,7 +266,7 @@ button {
     align-items: flex-start;
     padding: 0px;
     position: absolute;
-    width: 1267px;
+    width: 1270px;
     height: 45px;
     left: 320px;
     top: 120px;
@@ -259,7 +280,7 @@ button {
 .thu,
 .fri,
 .sat {
-    width: 181px;
+    width: 180px;
     height: 45px;
     font-family: 'Josefin Sans';
     font-style: normal;
@@ -318,8 +339,8 @@ button {
     padding: 0px;
     gap: 37px;
     position: absolute;
-    width: 41px;
-    height: 691px;
+    width: 40px;
+    height: 690px;
     left: 220px;
     top: 200px;
 }
@@ -332,36 +353,23 @@ button {
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
-    line-height: 19px;
+    line-height: 20px;
     color: #000000;
     flex: none;
     flex-grow: 0;
 }
 
-
-
-.ellipse {
-    position: absolute;
-    width: 26px;
-    height: 23px;
-    top: 36px;
-    left: 1112px;
-    background: url(../assets/empty.jpg) no-repeat center;
-    background-size: cover;
-    z-index: 11;
-}
-
-.change-view {
+.monthly-view-frame {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: nowrap;
     gap: 10px;
     position: absolute;
-    width: 136px;
-    height: 27px;
-    top: 39px;
-    left: 1324px;
+    width: 135px;
+    height: 25px;
+    top: 40px;
+    left: 1325px;
     padding: 10px 10px 10px 10px;
     cursor: pointer;
     background: #ffffff;
@@ -369,7 +377,31 @@ button {
     z-index: 12;
 }
 
-.weekly-view {
+.todo-view-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    position: absolute;
+    width: 135px;
+    height: 25px;
+    top: 70px;
+    left: 1325px;
+    padding: 10px 10px 10px 10px;
+    cursor: pointer;
+    background: #ffffff;
+    border: 1px solid #000000;
+    z-index: 12;
+}
+
+.monthly-view-frame:hover,
+.todo-view-frame:hover,
+.settings-frame:hover {
+    background: #DFDFDB;
+}
+
+.change-view {
     flex-shrink: 0;
     flex-basis: auto;
     position: relative;
@@ -378,34 +410,28 @@ button {
     font-family: Inter, var(--default-font-family);
     font-size: 18px;
     font-weight: 400;
-    line-height: 21.784px;
+    line-height: 22px;
     text-align: left;
     white-space: nowrap;
     z-index: 13;
 }
 
+
+
 .settings-frame {
+    position: absolute;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    background-color: #ffffff; /* Set background color to white */
-    border: 1px solid #000000;
-  }
-  
-
-.settings-circle {
-    position: absolute;
-    width: 40px;
-    height: 40px;
     top: 39px;
     left: 1263px;
-    background-color: #ffffff; /* Set background color to white */
-    z-index: 14;
     border-radius: 50%;
+    background-color: #ffffff;
+    /* Set background color to white */
+    border: 1px solid #000000;
 }
 
 
@@ -413,23 +439,22 @@ button {
     position: absolute;
     width: 40px;
     height: 40px;
-    top: 39px;
-    left: 1263px;
     background: url(../assets/Gear.png) no-repeat center;
     background-size: cover;
     z-index: 71;
+    /* Higher z-index */
 }
 
-.download {
+.download-frame {
     display: flex;
     align-items: flex-start;
     flex-wrap: nowrap;
     gap: 10px;
     position: absolute;
-    width: 42px;
-    height: 41px;
+    width: 40px;
+    height: 40px;
     top: 40px;
-    left: 1052px;
+    left: 1050px;
     padding: 3px 6px 3px 6px;
     background: #d9d9d9;
     z-index: 44;
@@ -445,22 +470,22 @@ button {
     flex-shrink: 0;
     position: relative;
     width: 30px;
-    height: 35px;
-    background: url(../assets/empty.jpg) no-repeat center;
+    height: 30px;
+    background: url(../assets/Download.png) no-repeat center;
     background-size: cover;
     z-index: 45;
 }
 
-.frame {
+.create-frame {
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
     gap: 6px;
     position: absolute;
     width: 80px;
-    height: 23px;
-    top: 49px;
-    left: 1162px;
+    height: 25px;
+    top: 50px;
+    left: 1165px;
     padding: 4px 12px 4px 12px;
     cursor: pointer;
     background: #ffffff;
@@ -477,18 +502,85 @@ button {
     font-family: Inter, var(--default-font-family);
     font-size: 12px;
     font-weight: 400;
-    line-height: 14.523px;
+    line-height: 15px;
     text-align: left;
     white-space: nowrap;
     z-index: 17;
 }
 
-.polygon-3 {
+.dropdown-arrow {
     flex-shrink: 0;
     position: relative;
-    width: 11px;
-    height: 9px;
-    background: url(../assets/empty.jpg) no-repeat center;
+    width: 10px;
+    height: 10px;
+    background: url(../assets/dropdown_arrow.png) no-repeat center;
     background-size: cover;
     z-index: 18;
+}
+
+
+
+/* CalendarSquare */
+.calendar-square {
+    box-sizing: border-box;
+    position: absolute;
+    width: 1220px;
+    height: 755px;
+    left: 273px;
+    top: 164px;
+    background: #DFDFDB;
+    border: 1px solid #154734;
+    border-radius: 24px;
+}
+
+/* DateSquares */
+.date-squares {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 149px;
+    position: absolute;
+    width: 1069px;
+    height: 755px;
+    left: 285px;
+    top: 178px;
+}
+
+/* DividerLines */
+.divider-lines {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 173px;
+    position: absolute;
+    width: 871px;
+    height: 754px;
+    left: 446px;
+    top: 164px;
+}
+
+.line {
+    width: 754px;
+    height: 0px;
+    border: 1px solid #000000;
+    transform: rotate(90.08deg);
+    flex: none;
+    flex-grow: 0;
+}
+
+/* Individual Date Squares */
+.sunday-date-square,
+.monday-date-square,
+.tuesday-date-square,
+.wednesday-date-square,
+.thursday-date-square,
+.friday-date-square,
+.saturday-date-square {
+    width: 25px;
+    height: 25px;
+    background: #777777;
+    flex: none;
+    flex-grow: 0;
 }
