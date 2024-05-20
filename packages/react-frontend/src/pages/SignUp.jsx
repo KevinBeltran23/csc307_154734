@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import "../components/SignUp.css"
 
 
 function SignUp(props) {
@@ -11,13 +12,13 @@ function SignUp(props) {
   const navigate = useNavigate(); // Access the history object
 
   return (
-    <div className="position-relative">
+    <div className="signup-position-relative">
       {/* Main Box */}
-      <div className="main-box"></div>
+      <div className="signup-main-box"></div>
 
       {/* Username Box */}
       <input
-        className="username-box"
+        className="signup-username-box"
         type="text"
         name="username"
         value={creds.username}
@@ -27,7 +28,7 @@ function SignUp(props) {
 
       {/* Password Box */}
       <input
-        className="password-box"
+        className="signup-password-box"
         type="password"
         name="password"
         value={creds.pwd}
@@ -36,27 +37,27 @@ function SignUp(props) {
       />
 
       {/* Error Message */}
-      {props.message && <div className="error-message">{props.message}</div>}
+      {props.message && <div className="signup-error-message">{props.message}</div>}
 
       {/* Login Box */}
-      <button className="login-box" onClick={submitForm}> </button>
+      <button className="signup-login-box" onClick={submitForm}> </button>
 
       {/* Gold Box */}
-      <div className="gold-box"></div>
+      <div className="signup-gold-box"></div>
       
       {/* Text elements */}
-      <div className="text-elements">
+      <div className="signup-text-elements">
         {/* Poly Planner */}
-        <div className="poly-planner">Poly Planner</div>
+        <div className="signup-poly-planner">Poly Planner</div>
 
         {/* Username */}
-        <div className="username">Username</div>
+        <div className="signup-username">Username</div>
 
         {/* Password */}
-        <div className="password">Password</div>
+        <div className="signup-password">Password</div>
 
         {/* Login */}
-        <div className="login">Sign Up</div>
+        <div className="signup-login">Sign Up</div>
       </div>
     </div>
   );

@@ -1,8 +1,5 @@
-body {
-    background-color: #b7cdc2;
-}
 
-.ToDo {
+.todo-ToDo {
     position: absolute;
     left: 242px;
     top: 122px;
@@ -13,7 +10,7 @@ body {
     background: var(--gray, #dfdfdb);
 }
 
-.entry {
+.todo-entry {
     width: 1215px;
     button {
         width: 80px;
@@ -31,14 +28,4 @@ body {
             margin: 5px;
         }
     }
-}
-
-h1 {
-    color: var(--Poly-Green, #154734);
-    text-align: center;
-    font-family: "Josefin Sans";
-    font-size: 64px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
 }

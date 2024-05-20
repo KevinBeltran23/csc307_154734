@@ -1,5 +1,5 @@
 /* Main Box */
-.main-box {
+.login-main-box {
     box-sizing: border-box;
     position: absolute;
     width: 800px;
@@ -12,7 +12,7 @@
 }
 
 /* Username Box */
-.username-box {
+.login-username-box {
     box-sizing: border-box;
     position: absolute;
     width: 600px;
@@ -25,7 +25,7 @@
 }
 
 /* Password Box */
-.password-box {
+.login-password-box {
     box-sizing: border-box;
     position: absolute;
     width: 600px;
@@ -38,7 +38,7 @@
 }
 
 /* Login Box */
-.login-box {
+.login-login-box {
     box-sizing: border-box;
     position: absolute;
     width: 600px;
@@ -54,12 +54,12 @@
 }
 
 /* Change background color when hovered over */
-.login-box:hover {
+.login-login-box:hover {
     background: #0d2b24;
 }
 
 /* Gold Box */
-.gold-box {
+.login-gold-box {
     box-sizing: border-box;
     position: absolute;
     width: 800px;
@@ -74,7 +74,7 @@
 }
 
 /* Poly Planner */
-.poly-planner {
+.login-poly-planner {
     position: absolute;
     width: 400px;
     height: 100px;
@@ -93,7 +93,7 @@
 }
 
 /* Username */
-.username {
+.login-username {
     position: absolute;
     width: 150px;
     height: 50px;
@@ -112,7 +112,7 @@
 }
 
 /* Password */
-.password {
+.login-password {
     position: absolute;
     width: 150px;
     height: 50px;
@@ -131,7 +131,7 @@
 }
 
 /* Login */
-.login {
+.login-login {
     position: absolute;
     width: 400px;
     height: 100px;
@@ -149,7 +149,7 @@
     color: #ffffff;
 }
 
-.error-message {
+.login-error-message {
     position: absolute;
     bottom: 100px; /* Adjust as needed */
     left: 50%;
@@ -161,13 +161,13 @@
     color: #800000; /* Dark red */
 }
 
-.span {
+.login-span {
     font-size: 14px;
     }
-    .create-account {
+    .login-create-account {
     position: relative;
     }
-    .newaccountbutton {
+    .login-newaccountbutton {
     width: 100%;
     position: relative;
     background-color: #bd8b13;

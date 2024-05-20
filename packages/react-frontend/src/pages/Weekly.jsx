@@ -1,5 +1,6 @@
 // src/pages/Weekly.jsx
 import React from "react";
+import "../components/Weekly.css"
 
 const Weekly = () => {
     return (

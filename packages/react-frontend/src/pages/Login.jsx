@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-
+import "../components/Login.css";
 
 function Login(props) {
   const [creds, setCreds] = useState({
@@ -11,13 +11,13 @@ function Login(props) {
   const navigate = useNavigate(); // Access the history object
 
   return (
-    <div className="position-relative">
+    <div className="login-position-relative">
       {/* Main Box */}
-      <div className="main-box"></div>
+      <div className="login-main-box"></div>
 
       {/* Username Box */}
       <input
-        className="username-box"
+        className="login-username-box"
         type="text"
         name="username"
         value={creds.username}
@@ -27,7 +27,7 @@ function Login(props) {
 
       {/* Password Box */}
       <input
-        className="password-box"
+        className="login-password-box"
         type="password"
         name="password"
         value={creds.pwd}
@@ -36,32 +36,32 @@ function Login(props) {
       />
 
       {/* Error Message */}
-      {props.message && <div className="error-message">{props.message}</div>}
+      {props.message && <div className="login-error-message">{props.message}</div>}
 
       {/* Login Box */}
-      <button className="login-box" onClick={submitForm}> 
-        <p className="login">Login</p>
+      <button className="login-login-box" onClick={submitForm}> 
+        <p className="login-login">Login</p>
       </button>
 
       {/* Register Box */}
       <button 
-        className="register-box" onClick={handleRegistration}> 
-        <p className="register">Create an Account</p>
+        className="login-register-box" onClick={handleRegistration}> 
+        <p className="login-register">Create an Account</p>
       </button>
 
       {/* Gold Box */}
-      <div className="gold-box"></div>
+      <div className="login-gold-box"></div>
 
       {/* Text elements */}
-      <div className="text-elements">
+      <div className="login-text-elements">
         {/* Poly Planner */}
-        <div className="poly-planner">Poly Planner</div>
+        <div className="login-poly-planner">Poly Planner</div>
 
         {/* Username */}
-        <div className="username">Username</div>
+        <div className="login-username">Username</div>
 
         {/* Password */}
-        <div className="password">Password</div>
+        <div className="login-password">Password</div>
       </div>
     </div>
   );
