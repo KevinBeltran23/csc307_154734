@@ -181,3 +181,8 @@
     color: #fff;
     font-family: 'Josefin Sans';
 }
+
+  /* Change background color when hovered over */
+.login-register-button:hover {
+    background: #282b0d;
+}
