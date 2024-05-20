@@ -160,3 +160,27 @@
     font-size: 14px;
     color: #800000; /* Dark red */
 }
+
+.span {
+    font-size: 14px;
+    }
+    .create-account {
+    position: relative;
+    }
+    .newaccountbutton {
+    width: 100%;
+    position: relative;
+    background-color: #bd8b13;
+    height: 29px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+    text-align: center;
+    font-size: 24px;
+    color: #fff;
+    font-family: 'Josefin Sans';
+    }

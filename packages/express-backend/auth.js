@@ -24,29 +24,6 @@ function generateAccessToken(username) {
     });
 }
 
-/*
-export function registerUser(req, res) {
-    const { username, pwd } = req.body; // from form
-  
-    if (!username || !pwd) {
-      res.status(400).send("Bad request: Invalid input data.");
-    } else if (creds.find((c) => c.username === username)) {
-      res.status(409).send("Username already taken");
-    } else {
-      bcrypt
-        .genSalt(10)
-        .then((salt) => bcrypt.hash(pwd, salt))
-        .then((password) => {
-          generateAccessToken(username).then((token) => {
-            console.log("Token:", token);
-            res.status(201).send({ token: token });
-            creds.push({ username, password });
-          });
-        });
-    }
-}
-*/
-
 export function registerUser(req, res) {
   const { username, pwd } = req.body; // from form
 

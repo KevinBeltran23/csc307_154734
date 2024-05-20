@@ -41,6 +41,9 @@ function Login(props) {
       {/* Login Box */}
       <button className="login-box" onClick={submitForm}> </button>
 
+      {/* Submit Box */}
+      <button className="submit-box" onClick={submitForm}> </button>
+
       {/* Gold Box */}
       <div className="gold-box"></div>
       
