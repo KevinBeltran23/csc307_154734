@@ -1,25 +1,28 @@
 {
-  "name": "csc-307-app",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"npm run dev -w react-frontend\" \"npm start -w express-backend\""
-  },
-  "author": "",
-  "license": "ISC",
-  "workspaces": [
-    "packages/*"
-  ],
-  "devDependencies": {
-    "nodemon": "^3.1.0"
-  },
-  "dependencies": {
-    "concurrently": "^8.2.2",
-    "mongoose": "^8.3.2",
-    "prettier": "^3.2.5",
-    "react-calendar": "^5.0.0",
-    "router-dom": "^2.2.11"
-  }
+    "name": "csc-307-app",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "concurrently \"npm run dev -w react-frontend\" \"npm start -w express-backend\""
+    },
+    "author": "",
+    "license": "ISC",
+    "workspaces": [
+        "packages/*"
+    ],
+    "devDependencies": {
+        "nodemon": "^3.1.0",
+        "prettier": "^3.2.5"
+    },
+    "dependencies": {
+        "bcrypt": "^5.1.1",
+        "concurrently": "^8.2.2",
+        "jsonwebtoken": "^9.0.2",
+        "mongodb": "^6.6.1",
+        "mongoose": "^8.3.2",
+        "react-calendar": "^5.0.0",
+        "router-dom": "^2.2.11"
+    }
 }
