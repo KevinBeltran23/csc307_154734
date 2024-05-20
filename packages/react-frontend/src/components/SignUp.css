@@ -54,7 +54,7 @@
 }
 
 /* Change background color when hovered over */
-.signup-signup-box:hover {
+.signup-login-box:hover {
   background: #0d2b24;
 }
 
@@ -134,10 +134,11 @@
 .signup-login {
   position: absolute;
   width: 400px;
-  height: 100px;
+  height: 0px;
   left: 50%; /* Center horizontally */
   top: calc(50% - 100px / 2 + 180px); /* Center vertically */
-  margin-left: -50px; /* Half of the width to offset the left position */
+  margin-left: -65px; /* Half of the width to offset the left position */
+  margin-top: -130px; /* Half of the width to offset the left position */
   font-family: "Josefin Sans";
   font-style: normal;
   font-weight: 400;
@@ -161,26 +162,22 @@
   color: #800000; /* Dark red */
 }
 
-.signup-span {
-  font-size: 14px;
-  }
-  .signup-create-account {
-  position: relative;
-  }
-  .signup-newaccountbutton {
-  width: 100%;
-  position: relative;
-  background-color: #bd8b13;
+.signup-return-button {
+  width: 209px;
   height: 29px;
+  padding: 10px;
+  margin-left: 90px; /* Half of the width to offset the left position */
+  margin-top: 400px; /* Half of the width to offset the left position */
+  position: absolute;
+  background-color: #bd8b13;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 10px;
   box-sizing: border-box;
   cursor: pointer;
   text-align: center;
   font-size: 24px;
   color: #fff;
   font-family: 'Josefin Sans';
-  }
+}
