@@ -44,10 +44,6 @@ const Settings = () => {
   });
 
   useEffect(() => {
-    localStorage.setItem("selectedOption", selectedOption);
-  }, [selectedOption]);
-
-  useEffect(() => {
     const savedSettings = localStorage.getItem("settings");
     if (savedSettings) {
       setSettings(JSON.parse(savedSettings));
@@ -55,17 +51,21 @@ const Settings = () => {
   }, []);
 
   useEffect(() => {
+    localStorage.setItem("selectedOption", selectedOption);
     localStorage.setItem("settings", JSON.stringify(settings));
-  }, [settings]);
+  }, [selectedOption, settings]);
 
   const handleCheckboxChange = (option, setting) => {
-    setSettings(prevSettings => ({
-      ...prevSettings,
-      [option]: {
-        ...prevSettings[option],
-        [setting]: !prevSettings[option][setting],
-      },
-    }));
+    const updatedSettings = { ...settings };
+    // For options like language and colors, uncheck other options when one is checked
+    if (option === "Language & Region" || option === "Appearance" || option === "Colors") {
+      Object.keys(updatedSettings[option]).forEach(key => {
+        updatedSettings[option][key] = key === setting;
+      });
+    } else {
+      updatedSettings[option][setting] = !updatedSettings[option][setting];
+    }
+    setSettings(updatedSettings);
   };
 
   const renderOptionContent = () => {
