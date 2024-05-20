@@ -35,6 +35,7 @@ import Settings from "./pages/Settings"
 import "./components/Login.css";
 import ToDo from "./pages/ToDo";
 import "./components/Monthly.css"
+import "./components/Settings.css"
 import "./components/ToDo.css"
 
 // Create the container

@@ -1,3 +1,7 @@
+#settings-button.active {
+    background-color: #E4E3D3; /* Example active button color */
+  }
+
 .settings-box {
     width: 1000px;
     height: 700px;
