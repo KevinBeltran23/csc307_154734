@@ -259,77 +259,6 @@ button {
     color: #000000;
 }
 
-/* Days */
-.days {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 0px;
-    position: absolute;
-    width: 1270px;
-    height: 45px;
-    left: 320px;
-    top: 120px;
-}
-
-/* SUN, MON, TUE, WED, THU, FRI, SAT */
-.sun,
-.mon,
-.tue,
-.wed,
-.thu,
-.fri,
-.sat {
-    width: 180px;
-    height: 45px;
-    font-family: 'Josefin Sans';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 36px;
-    line-height: 36px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    color: #154734;
-    flex: none;
-    flex-grow: 0;
-}
-
-/* SUN */
-.sun {
-    order: 0;
-}
-
-/* MON */
-.mon {
-    order: 1;
-}
-
-/* TUE */
-.tue {
-    order: 2;
-}
-
-/* WED */
-.wed {
-    order: 3;
-}
-
-/* THU */
-.thu {
-    order: 4;
-}
-
-/* FRI */
-.fri {
-    order: 5;
-}
-
-/* SAT */
-.sat {
-    order: 6;
-}
-
 
 /* Times */
 .time-container {
@@ -416,8 +345,6 @@ button {
     z-index: 13;
 }
 
-
-
 .settings-frame {
     position: absolute;
     cursor: pointer;
@@ -433,7 +360,6 @@ button {
     /* Set background color to white */
     border: 1px solid #000000;
 }
-
 
 .gear {
     position: absolute;
@@ -520,21 +446,67 @@ button {
 
 
 
+/* Days */
+/* Days */
+.days-frame {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Center the items horizontally */
+    align-items: center; /* Align items vertically */
+    padding: 0px;
+    position: absolute;
+    gap: 100px;
+    width: 1220px;
+    height: 45px;
+    left: 270px;
+    top: 120px;
+}
+
+/* SUN, MON, TUE, WED, THU, FRI, SAT */
+.day {
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 36px;
+    text-align: center; /* Center the text horizontally */
+    color: #154734;
+    flex: none;
+    flex-grow: 0;
+}
+
+
 /* CalendarSquare */
 .calendar-square {
-    box-sizing: border-box;
     position: absolute;
     width: 1220px;
     height: 755px;
-    left: 273px;
-    top: 164px;
     background: #DFDFDB;
     border: 1px solid #154734;
     border-radius: 24px;
+    top: 164px;
+    left: 273px;
+}
+
+/* DividerLines */
+.divider-lines {
+    display: flex;
+    gap: 173px;
+    position: absolute;
+    width: 871px;
+    height: 754px;
+    top: 164px;
+    left: 446px;
+}
+
+.line {
+    width: 1px;
+    height: 754px;
+    background-color: #154734; /* This creates a solid black line */
 }
 
 /* DateSquares */
-.date-squares {
+.date-squares-frame {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -547,40 +519,21 @@ button {
     top: 178px;
 }
 
-/* DividerLines */
-.divider-lines {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 173px;
-    position: absolute;
-    width: 871px;
-    height: 754px;
-    left: 446px;
-    top: 164px;
-}
-
-.line {
-    width: 754px;
-    height: 0px;
-    border: 1px solid #000000;
-    transform: rotate(90.08deg);
-    flex: none;
-    flex-grow: 0;
-}
-
-/* Individual Date Squares */
-.sunday-date-square,
-.monday-date-square,
-.tuesday-date-square,
-.wednesday-date-square,
-.thursday-date-square,
-.friday-date-square,
-.saturday-date-square {
+.date-square {
     width: 25px;
     height: 25px;
-    background: #777777;
+    background: whitesmoke;
     flex: none;
     flex-grow: 0;
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    color: #154734; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #154734;
 }

@@ -55,17 +55,6 @@ export default function Main() {
       </button>
 
 
-      <div className='days'>
-        <span className='sun'>SUN</span>
-        <span className='mon'>MON</span>
-        <span className='tue'>TUE</span>
-        <span className='wed'>WED</span>
-        <span className='thu'>THU</span>
-        <span className='fri'>FRI</span>
-        <span className='sat'>SAT</span>
-      </div>
-
-
       <div className='time-container'>
         {/* Time slots */}
         <span className='time-slot'>8am</span>
@@ -85,22 +74,39 @@ export default function Main() {
 
       {/* <div className='expand' /> */}
 
+      <div className='days-frame'>
+        <span className='day'>SUN</span>
+        <span className='day'>MON</span>
+        <span className='day'>TUE</span>
+        <span className='day'>WED</span>
+        <span className='day'>THU</span>
+        <span className='day'>FRI</span>
+        <span className='day'>SAT</span>
+      </div>
+
       {/* CalendarSquare */}
       <div className="calendar-square"></div>
 
       {/* DividerLines */}
-
+      <div className="divider-lines">
+        <div className="line"></div>
+        <div className="line"></div>
+        <div className="line"></div>
+        <div className="line"></div>
+        <div className="line"></div>
+        <div className="line"></div>
+      </div>
 
       {/* DateSquares */}
-      <div className="date-squares">
-        <div className="date-square sunday-date-square"></div>
-        <div className="date-square monday-date-square"></div>
-        <div className="date-square tuesday-date-square"></div>
-        <div className="date-square wednesday-date-square"></div>
-        <div className="date-square thursday-date-square"></div>
-        <div className="date-square friday-date-square"></div>
-        <div className="date-square saturday-date-square"></div>
-      </div>
+      {/*<div className="date-squares-frame">
+        <span className="date-square">29</span>
+        <div className="date-square"></div>
+        <div className="date-square"></div>
+        <div className="date-square"></div>
+        <div className="date-square"></div>
+        <div className="date-square"></div>
+        <div className="date-square"></div>
+    </div>*/}
 
 
     </div>
