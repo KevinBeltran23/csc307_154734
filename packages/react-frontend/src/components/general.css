@@ -1,0 +1,9 @@
+@font-face {
+    font-family: JosefinSans;
+    src: url(Josefin-Sans-regular.woff);
+}
+
+body {
+    background-color: #B7CDC2;
+    font-family: JosefinSans;
+}

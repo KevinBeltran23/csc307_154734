@@ -1,0 +1,100 @@
+.settings-box {
+    width: 1000px;
+    height: 700px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #E4E3D3;
+    border-width: 10px; 
+    border-style: solid;
+    border-color: #154734;
+    border-radius: 2px;
+    padding: none;
+}
+
+/* Gold Bar */
+.settings-bar {
+    box-sizing: border-box;
+    width: 1000px;
+    height: 30px;
+    background: #BD8B13;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #154734;
+    /* z-index: 1; */
+}
+
+/* Settings Header */
+.settings-header {
+    width: 175px;
+    height: 48px;
+    padding: 40px;
+    /*font-family: JosefinSans; */
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 48px;
+    margin: auto;
+    text-align: center;
+    color: #154734;
+}
+
+.settings-buttons-options {
+    width: 800px;
+    height: 450px;
+    left: 100px;
+    position: relative;
+}
+
+.settings-buttons {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 194px;
+    vertical-align: top;
+}
+
+/* Apperance Button */
+#settings-button {
+    width: 186px;
+    height: 42px;
+    background: #CAC7A7;
+    border: 2px solid #000000;
+    border-radius: 2px;
+    margin-bottom: 9px;
+    margin-left: none;
+}
+
+/* Button Text */
+.settings-text {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*font-family: JosefinSans; */
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #000000;
+}
+
+.settings-options {
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+    width: 600px;
+    height: 450px;
+    border-style: solid;
+    border-radius: 2px;
+    border-width: 2px;
+    background: #CAC7A7;
+    p {
+        padding: 2px;
+        margin: 2px;
+        font-size: 24px;
+        /*font-family: JosefinSans; */
+    }
+}

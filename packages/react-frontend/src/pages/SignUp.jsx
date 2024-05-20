@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 
-function Login(props) {
+function SignUp(props) {
   const [creds, setCreds] = useState({
     username: "",
     pwd: ""
@@ -41,12 +41,9 @@ function Login(props) {
       {/* Login Box */}
       <button className="login-box" onClick={submitForm}> </button>
 
-      {/* Submit Box */}
-      <button className="submit-box" onClick={submitForm}> </button>
-
       {/* Gold Box */}
       <div className="gold-box"></div>
-
+      
       {/* Text elements */}
       <div className="text-elements">
         {/* Poly Planner */}
@@ -59,7 +56,7 @@ function Login(props) {
         <div className="password">Password</div>
 
         {/* Login */}
-        <div className="login">Login</div>
+        <div className="login">Sign Up</div>
       </div>
     </div>
   );
@@ -78,11 +75,11 @@ function Login(props) {
 
   function submitForm() {
     props.handleSubmit(creds)
-      .then((response) => {
-        if (response == 1) {
-            navigate('/monthly');
-        }})
+    .then((response) => {
+      if (response == 1) {
+          navigate('/monthly');
+      }})
     setCreds({ username: "", pwd: "" });
   }
 }
-export default Login;
+export default SignUp;
