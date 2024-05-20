@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../components/Settings.css";
 
 const Settings = () => {
-  const [selectedOption, setSelectedOption] = useState("Language & Region");
+  const [selectedOption, setSelectedOption] = useState(
+    localStorage.getItem("selectedOption") || "Language & Region"
+  );
   const [settings, setSettings] = useState({
     "Language & Region": {
       "English": false,
@@ -41,6 +43,21 @@ const Settings = () => {
     }
   });
 
+  useEffect(() => {
+    localStorage.setItem("selectedOption", selectedOption);
+  }, [selectedOption]);
+
+  useEffect(() => {
+    const savedSettings = localStorage.getItem("settings");
+    if (savedSettings) {
+      setSettings(JSON.parse(savedSettings));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("settings", JSON.stringify(settings));
+  }, [settings]);
+
   const handleCheckboxChange = (option, setting) => {
     setSettings(prevSettings => ({
       ...prevSettings,
@@ -55,7 +72,7 @@ const Settings = () => {
     return (
       <div>
         {Object.keys(settings[selectedOption]).map(setting => (
-          <label key={setting} className="settings-label">
+          <label key={setting}>
             <input
               type="checkbox"
               checked={settings[selectedOption][setting]}
