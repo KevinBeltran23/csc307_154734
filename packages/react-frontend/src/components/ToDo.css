@@ -15,22 +15,6 @@ body {
 
 .entry {
     width: 1215px;
-    button {
-        width: 80px;
-        height: 50px;
-        background-color: var(--Stadium-Gold, #F8E08E);
-        border: none;
-        color: 
-    }
-    .textEntry {
-        input {
-            width: 1117px;
-            height: 62px;
-            border-radius: 24px;
-            border: none;
-            margin: 5px;
-        }
-    }
 }
 
 h1 {
@@ -42,4 +26,93 @@ font-style: normal;
 font-weight: 400;
 line-height: normal;
 
+}
+.todo {
+    position: absolute;
+    left: 242px;
+    top: 122px;
+    width: 1215px;
+    height: 794.975px;
+    flex-shrink: 0;
+    border-radius: 24px;
+    background: var(--gray, #DFDFDB);
+}
+
+.entry {
+    width: 1215px;
+}
+
+#todo-input {
+    width: 1117px;
+    height: 62px;
+    border-radius: 24px;
+    border: none;
+    margin: 5px;
+    font-size: 24px;
+}
+
+#todo-input-id {
+    width: 80px;
+    height: 50px;
+    background-color: var(--Stadium-Gold, #F8E08E);
+    border: none;
+    border-radius: 24px;
+}
+
+#todo-radioButton {
+    width: 50px;
+}
+
+h1 {
+    color: var(--Poly-Green, #154734);
+    text-align: center;
+    font-family: "Josefin Sans";
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.todo-items {
+    width: 1117px;
+    height: 62px;
+    border-radius: 24px;
+    border: none;
+    margin: 5px;
+    background-color: white;
+}
+
+.todo-text {
+    padding-left: 20px;
+    font-size: 24px;
+    position: inline-block;
+}
+
+.todo-checkbox {
+    width: 25px;
+    height: 25px;
+    position: inline-block;
+}
+
+.todo-buttons {
+    position: inline-block;
+    width: 80px;
+    height: 50px;
+}
+
+#delete {
+    box-sizing: border-box;
+    width: 80px;
+    height: 25px;
+}
+
+#edit {
+    box-sizing: border-box;
+    width: 80px;
+    height: 25px;
+}
+
+.todo-outer {
+    width: 1215px;
+    height: 794.975px;
 }
