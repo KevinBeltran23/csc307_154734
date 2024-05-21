@@ -61,7 +61,14 @@ function SignUp(props) {
 
   function handleChange(event) {
     const { name, value } = event.target;
-    setCreds(prevCreds => ({ ...prevCreds, [name]: value }));
+    switch (name) {
+      case "username":
+        setCreds({ ...creds, username: value });
+        break;
+      case "password":
+        setCreds({ ...creds, pwd: value });
+        break;
+    }
   }
 
   function handleReturn() {
