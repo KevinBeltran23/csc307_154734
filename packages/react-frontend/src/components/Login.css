@@ -53,7 +53,7 @@
     transition: background-color 0.3s; /* Smooth transition for background color change */
 }
   
-  /* Change background color when hovered over */
+/* Change background color when hovered over */
 .login-login-box:hover {
     background: #0d2b24;
 }

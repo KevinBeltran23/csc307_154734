@@ -6,10 +6,11 @@ import "../components/SignUp.css"
 function SignUp(props) {
   const [creds, setCreds] = useState({
     username: "",
-    pwd: ""
+    pwd: "",
+    confirmPwd: "" 
   });
 
-  const navigate = useNavigate(); // Access the history object
+  const navigate = useNavigate(); 
 
   return (
     <div className="signup-position-relative">
@@ -43,6 +44,17 @@ function SignUp(props) {
           style={{ fontSize: "18px" }}
         />
 
+        {/* Confirm Password */}
+        <div className="signup-confirm-password">Confirm Password</div>
+        <input
+          className="signup-confirm-password-box"
+          type="password"
+          name="confirmPwd"
+          value={creds.confirmPwd}
+          onChange={handleChange}
+          style={{ fontSize: "18px" }}
+        />
+
         {/* Error Message */}
         {props.message && <div className="signup-error-message">{props.message}</div>}
 
@@ -68,6 +80,9 @@ function SignUp(props) {
       case "password":
         setCreds({ ...creds, pwd: value });
         break;
+      case "confirmPwd":
+        setCreds({ ...creds, confirmPwd: value });
+        break;
     }
   }
 
@@ -76,13 +91,18 @@ function SignUp(props) {
   }
 
   function submitForm() {
+    if (creds.pwd !== creds.confirmPwd) {
+      props.setMessage("Signup Error: Passwords do not match");
+      return;
+    }
+
     props.handleSubmit(creds)
       .then((response) => {
         if (response === 1) {
           navigate('/monthly');
         }
       });
-    setCreds({ username: "", pwd: "" });
+    setCreds({ username: "", pwd: "", confirmPwd: "" });
   }
 }
 

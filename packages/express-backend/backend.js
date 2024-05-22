@@ -12,22 +12,17 @@ const port = 8000;
 app.use(cors());
 app.use(express.json());
 
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
+
 app.get("/", (req, res) => {
     res.send("Wassup this is the Poly Planner");
 });
 
-// Post Requests
+// signup page
 
 app.post("/signup", registerUser);
-
-app.post("/login", loginUser);
-
-app.post("/users", authenticateUser, (req, res) => {
-    const userToAdd = req.body;
-    Users.addUser(userToAdd).then((result) =>
-      res.status(201).send(result)
-    );
-});
 
 app.post("/registration", (req, res) => {
     const userToAdd = req.body;
@@ -42,7 +37,28 @@ app.post("/registration", (req, res) => {
         });
 });
 
-app.post("/monthly", (req, res) => {
+
+// login page
+
+app.post("/login", loginUser);
+
+// events
+
+
+app.get("/event", (req, res) => { // get all the events for a user
+    const { name, job } = req.query;
+    userService
+        .getUsers(name, job)
+        .then((result) => {
+            res.send({ users_list: result });
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
+
+app.post("/event", (req, res) => { // add an event for the user
     const eventToAdd = req.body;
     userService
         .addEvent(eventToAdd)
@@ -55,7 +71,10 @@ app.post("/monthly", (req, res) => {
         });
 });
 
-app.post("/weekly", (req, res) => {
+
+// monthly page
+
+app.post("/monthly", (req, res) => { // add an event to the monthly calendar
     const eventToAdd = req.body;
     userService
         .addEvent(eventToAdd)
@@ -68,7 +87,23 @@ app.post("/weekly", (req, res) => {
         });
 });
 
-app.post("/todo", (req, res) => {
+app.get("/monthly", (req, res) => { // get all the information for the monthly calendar for a user
+    const { name, job } = req.query;
+    userService
+        .getUsers(name, job)
+        .then((result) => {
+            res.send({ users_list: result });
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
+
+
+// weekly page
+
+app.post("/weekly", (req, res) => { // add an event to the weekly calendar
     const eventToAdd = req.body;
     userService
         .addEvent(eventToAdd)
@@ -81,7 +116,69 @@ app.post("/todo", (req, res) => {
         });
 });
 
-app.post("/settings", (req, res) => {
+app.get("/weekly", (req, res) => { // get all the information for the weekly calendar for a user
+    const { name, job } = req.query;
+    // Fetch users based on name and/or job using userService.getUsers
+    userService
+        .getUsers(name, job)
+        .then((result) => {
+            res.send({ users_list: result });
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
+
+
+// todo page : not implemented
+
+app.post("/todo", (req, res) => {  // add an item to the todo list
+    const eventToAdd = req.body;
+    userService
+        .addEvent(eventToAdd)
+        .then((addedEvent) => {
+            res.status(201).json(addedEvent);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
+
+app.get("/todo", (req, res) => {  // get all of the todo list items
+    const { name, job } = req.query;
+    userService
+        .getUsers(name, job)
+        .then((result) => {
+            res.send({ users_list: result });
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
+
+app.delete("/todo/:id", (req, res) => { // delete an item from the todo list 
+    const id = req.params["id"];
+    userService.deleteUserById(id)
+        .then((result) => {
+            if (result) {
+                res.status(204).send();
+            } else {
+                res.status(404).send("User not found.");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
+
+
+// settings page : not implemented
+
+app.post("/settings", (req, res) => { // change a setting in the settings page
     const settingToChange = req.body;
     userService
         .changeSetting(settingToChange)
@@ -94,9 +191,24 @@ app.post("/settings", (req, res) => {
         });
 });
 
-// get requests
+app.get("/settings", (req, res) => { // retrieve the saved settings for a user
+    const { name, job } = req.query;
+    userService
+        .getUsers(name, job)
+        .then((result) => {
+            res.send({ users_list: result });
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
 
-app.get("/users", (req, res) => {
+
+``
+// misc
+
+app.get("/users", (req, res) => { // get all users
     userService.getAllUsers()
         .then((result) => {
             res.send({ users_list: result });
@@ -107,92 +219,7 @@ app.get("/users", (req, res) => {
         });
 });
 
-app.get("/login", (req, res) => {
-    const { name, password } = req.query;
-    // Fetch users based on name and/or job using userService.getUsers
-    userService
-        .getUsers(name, password)
-        .then((result) => {
-            res.send({ users_list: result });
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
-
-app.get("/monthly", (req, res) => {
-    const { name, job } = req.query;
-    // Fetch users based on name and/or job using userService.getUsers
-    userService
-        .getUsers(name, job)
-        .then((result) => {
-            res.send({ users_list: result });
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
-
-app.get("/weekly", (req, res) => {
-    const { name, job } = req.query;
-    // Fetch users based on name and/or job using userService.getUsers
-    userService
-        .getUsers(name, job)
-        .then((result) => {
-            res.send({ users_list: result });
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
-
-app.get("/todo", (req, res) => {
-    const { name, job } = req.query;
-    // Fetch users based on name and/or job using userService.getUsers
-    userService
-        .getUsers(name, job)
-        .then((result) => {
-            res.send({ users_list: result });
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
-
-app.get("/settings", (req, res) => {
-    const { name, job } = req.query;
-    // Fetch users based on name and/or job using userService.getUsers
-    userService
-        .getUsers(name, job)
-        .then((result) => {
-            res.send({ users_list: result });
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
-
-// delete requests
-
 /*old stuff
-
-app.get("/users", (req, res) => {
-    const { name, job } = req.query;
-    // Fetch users based on name and/or job using userService.getUsers
-    userService.getUsers(name, job)
-        .then((result) => {
-            res.send({ users_list: result });
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
 
 app.get("/users/:id", (req, res) => {
     const id = req.params["id"];
@@ -208,36 +235,4 @@ app.get("/users/:id", (req, res) => {
             console.log(error);
             res.status(500).send("Internal Server Error");
         });
-});
-
-app.post("/users", (req, res) => {
-    const userToAdd = req.body;
-    userService.addUser(userToAdd)
-        .then((addedUser) => {
-            res.status(201).json(addedUser);
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
-
-app.delete("/users/:id", (req, res) => {
-    const id = req.params["id"];
-    userService.deleteUserById(id)
-        .then((result) => {
-            if (result) {
-                res.status(204).send();
-            } else {
-                res.status(404).send("User not found.");
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});*/
-
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+}); */

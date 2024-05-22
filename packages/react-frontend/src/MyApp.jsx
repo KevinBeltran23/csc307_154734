@@ -119,11 +119,11 @@ function MyApp() {
             <Routes>
               <Route
                 path="/"
-                element={<Login handleSubmit={loginUser} message={message} />}
+                element={<Login handleSubmit={loginUser} message={message} setMessage={setMessage}/>}
               />
               <Route
                 path="/signup"
-                element={<SignUp handleSubmit={signupUser} message={message}/>}
+                element={<SignUp handleSubmit={signupUser} message={message} setMessage={setMessage}/>}
               />     
               <Route path="/monthly" element={<Monthly />} />
               <Route path="/todo" element={<ToDo />} />
