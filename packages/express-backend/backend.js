@@ -87,17 +87,8 @@ app.post("/monthly", (req, res) => { // add an event to the monthly calendar
         });
 });
 
-app.get("/monthly", (req, res) => { // get all the information for the monthly calendar for a user
-    const { name, job } = req.query;
-    userService
-        .getUsers(name, job)
-        .then((result) => {
-            res.send({ users_list: result });
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
+app.get("/monthly", authenticateUser, (req, res) => { // get all the information for the monthly calendar for a user
+
 });
 
 
@@ -116,18 +107,8 @@ app.post("/weekly", (req, res) => { // add an event to the weekly calendar
         });
 });
 
-app.get("/weekly", (req, res) => { // get all the information for the weekly calendar for a user
-    const { name, job } = req.query;
-    // Fetch users based on name and/or job using userService.getUsers
-    userService
-        .getUsers(name, job)
-        .then((result) => {
-            res.send({ users_list: result });
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
+app.get("/weekly", authenticateUser, (req, res) => { // get all the information for the weekly calendar for a user
+
 });
 
 
@@ -146,17 +127,8 @@ app.post("/todo", (req, res) => {  // add an item to the todo list
         });
 });
 
-app.get("/todo", (req, res) => {  // get all of the todo list items
-    const { name, job } = req.query;
-    userService
-        .getUsers(name, job)
-        .then((result) => {
-            res.send({ users_list: result });
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
+app.get("/todo", authenticateUser, (req, res) => {  // get all of the todo list items
+
 });
 
 app.delete("/todo/:id", (req, res) => { // delete an item from the todo list 
@@ -191,24 +163,14 @@ app.post("/settings", (req, res) => { // change a setting in the settings page
         });
 });
 
-app.get("/settings", (req, res) => { // retrieve the saved settings for a user
-    const { name, job } = req.query;
-    userService
-        .getUsers(name, job)
-        .then((result) => {
-            res.send({ users_list: result });
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
+app.get("/settings", authenticateUser, (req, res) => { // retrieve the saved settings for a user
+
 });
 
 
-``
 // misc
 
-app.get("/users", (req, res) => { // get all users
+app.get("/users", authenticateUser, (req, res) => { // get all users
     userService.getAllUsers()
         .then((result) => {
             res.send({ users_list: result });

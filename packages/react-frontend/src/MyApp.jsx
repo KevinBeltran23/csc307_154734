@@ -93,9 +93,40 @@ function MyApp() {
           .catch((error) => {
             setMessage(`Signup Error: ${error}`);
           });
-      
         return promise;
-      }
+    }
+
+    function todoListAuthenticate(creds) {
+      const promise = fetch("http://localhost:8000/todo", {
+        method: "GET",
+        headers: addAuthHeader() 
+      })
+        .then((response) => {
+          if (response.status === 201) {
+            response
+              .json()
+              .then((payload) => setToken(payload.token));
+            setMessage(
+              `todoList successful for user: ${creds.username}`
+            );
+            return 1;
+          } else if (response.status === 409) {
+            setMessage(
+              `todoList failed for user: ${creds.username}`
+            );
+            return -1
+          } else {
+            setMessage(
+              `todoList Error ${response.status}: ${response.data}`
+            );
+            return -1;
+          }
+        })
+        .catch((error) => {
+          setMessage(`todoList Error: ${error}`);
+        });
+      return promise;
+  }
 
     useEffect(() => {
         fetchUsers()
