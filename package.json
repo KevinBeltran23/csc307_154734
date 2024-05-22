@@ -22,8 +22,8 @@
         "dotenv": "^16.4.5",
         "jsonwebtoken": "^9.0.2",
         "mongodb": "^6.6.1",
-        "mongoose": "^8.3.2",
-        "react-calendar": "^5.0.0",
+        "mongoose": "^8.4.0",
+        "react-big-calendar": "^1.12.2",
         "router-dom": "^2.2.11"
     }
 }
