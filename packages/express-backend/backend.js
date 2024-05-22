@@ -170,7 +170,7 @@ app.get("/settings", authenticateUser, (req, res) => { // retrieve the saved set
 
 // misc
 
-app.get("/users", authenticateUser, (req, res) => { // get all users
+app.get("/users", (req, res) => { // get all users
     userService.getAllUsers()
         .then((result) => {
             res.send({ users_list: result });
