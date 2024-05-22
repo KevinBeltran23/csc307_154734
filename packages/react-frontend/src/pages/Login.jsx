@@ -1,6 +1,7 @@
+
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-
+import "../components/Login.css"
 
 function Login(props) {
   const [creds, setCreds] = useState({
@@ -8,60 +9,52 @@ function Login(props) {
     pwd: ""
   });
 
-  const navigate = useNavigate(); // Access the history object
+  const navigate = useNavigate(); 
 
   return (
-    <div className="position-relative">
+    <div className="login-position-relative">
       {/* Main Box */}
-      <div className="main-box"></div>
+      <div className="login-main-box">
+        {/* Gold Box */}
+        <div className="login-gold-box"></div>
 
-      {/* Username Box */}
-      <input
-        className="username-box"
-        type="text"
-        name="username"
-        value={creds.username}
-        onChange={handleChange}
-        style={{ fontSize: "18px" }}
-      />
-
-      {/* Password Box */}
-      <input
-        className="password-box"
-        type="password"
-        name="password"
-        value={creds.pwd}
-        onChange={handleChange}
-        style={{ fontSize: "18px" }}
-      />
-
-      {/* Error Message */}
-      {props.message && <div className="error-message">{props.message}</div>}
-
-      {/* Login Box */}
-      <button className="login-box" onClick={submitForm}> 
-        <p className="login">Login</p>
-      </button>
-
-      {/* Register Box */}
-      <button 
-        className="register-box" onClick={handleRegistration}> 
-        <p className="register">Create an Account</p>
-      </button>
-
-      {/* Gold Box */}
-      <div className="gold-box"></div>
-
-      {/* Text elements */}
-      <div className="text-elements">
         {/* Poly Planner */}
-        <div className="poly-planner">Poly Planner</div>
+        <div className="login-poly-planner">Poly Planner</div>
 
         {/* Username */}
-        <div className="username">Username</div>
+        <div className="login-username">Username</div>
+        <input
+          className="login-username-box"
+          type="text"
+          name="username"
+          value={creds.username}
+          onChange={handleChange}
+          style={{ fontSize: "18px" }}
+        />
 
         {/* Password */}
-        <div className="password">Password</div>
+        <div className="login-password">Password</div>
+        <input
+          className="login-password-box"
+          type="password"
+          name="password"
+          value={creds.pwd}
+          onChange={handleChange}
+          style={{ fontSize: "18px" }}
+        />
+
+        {/* Error Message */}
+        {props.message && <div className="login-error-message">{props.message}</div>}
+
+        {/* Login Box */}
+        <button className="login-login-box" onClick={submitForm}>
+          <p className="login-login">Login</p>
+        </button>
+
+        {/* Register Button */}
+        <button className="login-register-button" onClick={handleRegister}> 
+          <p className="login-register-text">Create Account</p>
+        </button>
       </div>
     </div>
   );
@@ -78,17 +71,19 @@ function Login(props) {
     }
   }
 
-  function handleRegistration() {
-    navigate('/signup')
+  function handleRegister() {
+    navigate('/signup');
   }
 
   function submitForm() {
     props.handleSubmit(creds)
       .then((response) => {
-        if (response == 1) {
-            navigate('/monthly');
-        }})
+        if (response === 1) {
+          navigate('/monthly');
+        }
+      });
     setCreds({ username: "", pwd: "" });
   }
 }
+
 export default Login;

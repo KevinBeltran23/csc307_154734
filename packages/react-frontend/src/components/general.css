@@ -4,6 +4,30 @@
 }
 
 body {
-    background-color: #B7CDC2;
+    background-color: #98c9b0;
     font-family: JosefinSans;
+}
+
+h1 {
+    color: var(--Poly-Green, #154734);
+    text-align: center;
+    font-family: "Josefin Sans";
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+:root {
+    --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+        "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
+        "Source Han Sans CN", sans-serif;
+}
+
+input,
+select,
+textarea,
+button {
+    outline: 0;
 }
