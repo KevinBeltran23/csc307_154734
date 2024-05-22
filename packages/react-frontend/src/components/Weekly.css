@@ -1,4 +1,11 @@
 
+
+.weekly-main-container,
+.weekly-main-container * {
+    box-sizing: border-box;
+}
+
+
 .weekly-main-container {
     position: relative;
     width: 1512px;
