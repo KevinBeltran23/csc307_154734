@@ -1,45 +1,120 @@
-// src/pages/Weekly.jsx
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {
+    format,
+    startOfWeek,
+    addDays,
+    endOfWeek,
+    isSameMonth,
+    isSameDay,
+    subWeeks,
+    addWeeks
+  } from "date-fns";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import '../components/Weekly.css';
 
-
 function Weekly(props) {
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [activeDate, setActiveDate] = useState(new Date());
+
+    const getHeader = () => {
+        return (
+          <div className="weekly-header">
+            <div
+              className="weekly-todayButton"
+              onClick={() => {
+                setSelectedDate(new Date());
+                setActiveDate(new Date());
+              }}
+            >
+              Today
+            </div>
+            <AiOutlineLeft
+              className="weekly-navIcon"
+              onClick={() => setActiveDate(subWeeks(activeDate, 1))}
+            />
+            <AiOutlineRight
+              className="weekly-navIcon"
+              onClick={() => setActiveDate(addWeeks(activeDate, 1))}
+            />
+            <div className="weekly-currentWeek">{format(activeDate, "MMMM yyyy")}</div>
+          </div>
+        );
+    };
+
+    const generateDatesForCurrentWeek = (date, selectedDate, activeDate) => {
+        let currentDate = date;
+        const week = [];
+        for (let day = 0; day < 7; day++) {
+          const cloneDate = currentDate;
+          week.push(
+            <div
+              className={`weekly-day ${
+                isSameMonth(currentDate, activeDate) ? "" : "weekly-inactiveDay"
+              } ${isSameDay(currentDate, selectedDate) ? "weekly-selectedDay" : ""}
+              ${isSameDay(currentDate, new Date()) ? "weekly-today" : ""}`}
+            >
+              {format(currentDate, "d")}
+            </div>
+          );
+          currentDate = addDays(currentDate, 1);
+        }
+        return <>{week}</>;
+    };
+
+    const getDates = () => {
+        const startDate = startOfWeek(activeDate);
+        const endDate = endOfWeek(activeDate);
+    
+        let currentDate = startDate;
+    
+        const allWeeks = [];
+    
+        while (currentDate <= endDate) {
+          allWeeks.push(
+            generateDatesForCurrentWeek(currentDate, selectedDate, activeDate)
+          );
+          currentDate = addDays(currentDate, 7);
+        }
+    
+        return (
+          <div className="weekly-dayContainer">
+              {allWeeks}
+          </div>
+          );
+    };
+  
+      /*const getEvents = () => {
+  
+      } */
+
+
 
     const navigate = useNavigate(); 
-
     function handleToday() {
         // go to current month
     }
-
     function handleSettings() {
         // go to settings page
         navigate('/settings');
     }
-
     function handleWeekly() {
         // go to weekly page
         navigate('/weekly');
     }
-
     function handleToDo() {
         // go to todo page
         navigate('/todo');
     }
-
     function handleCreate() {
         // create an event
     }
-
     function handleCalendarsDropdown() {
         // open calendars drop down
     }
-
     function handleToDoDropdown() {
         // open todo dropdown
     }
-
     function handleClickingOnEvent() {
         // implement functionality
     }
@@ -62,31 +137,18 @@ function Weekly(props) {
             </button>
             </div>
         </div>
-
-        <div className='weekly-top-left-nav-bar'>
-            <button className='weekly-button-frame-1'>
-            <span className='weekly-today'>Today</span>
-            </button>
-            <button className="arrow-frame left-arrow" />
-            <button className=" arrow-frame right-arrow" />
-            <span className='weekly-week-1'>Week 1</span>
-        </div>
-
+        {getHeader()}
         <span className='weekly-time'>6:22 PM</span>
-
         <button className='weekly-monthly-view-frame'>
             <span className='weekly-change-view'>Monthly View</span>
         </button>
-
         <button className='weekly-todo-view-frame'>
-            <span className='weekly-change-view'>ToDo</span>
+            <span className='weekly-change-view'>To Do</span>
         </button>
-
-        <button className='weekly-settings-frame'>
+    <button className='weekly-settings-frame'>
             {/* <div className='weekly-gear' /> */}
             <span className='weekly-gear'></span>
         </button>
-
         <div className='weekly-download-frame'>
             <div className='weekly-download-icon' />
         </div>
@@ -94,8 +156,6 @@ function Weekly(props) {
             <span className='weekly-create'>Create</span>
             <div className='weekly-dropdown-arrow' />
         </button>
-
-
         <div className='weekly-time-container'>
             {/* Time slots */}
             <span className='weekly-time-slot'>8am</span>
@@ -112,22 +172,17 @@ function Weekly(props) {
             <span className='weekly-time-slot'>7pm</span>
             <span className='weekly-time-slot'>8pm</span>
         </div>
-
         {/* <div className='weekly-expand' /> */}
-
         <div className='weekly-days-frame'>
-            <span className='weekly-day'>SUN</span>
-            <span className='weekly-day'>MON</span>
-            <span className='weekly-day'>TUE</span>
-            <span className='weekly-day'>WED</span>
-            <span className='weekly-day'>THU</span>
-            <span className='weekly-day'>FRI</span>
-            <span className='weekly-day'>SAT</span>
+            <span className='weekly-dayHeader'>SUN</span>
+            <span className='weekly-dayHeader'>MON</span>
+            <span className='weekly-dayHeader'>TUE</span>
+            <span className='weekly-dayHeader'>WED</span>
+            <span className='weekly-dayHeader'>THU</span>
+            <span className='weekly-dayHeader'>FRI</span>
+            <span className='weekly-dayHeader'>SAT</span>
         </div>
-
-        {/* CalendarSquare */}
-        <div className="weekly-calendar-square"></div>
-
+        {getDates()}
         {/* DividerLines */}
         <div className="weekly-divider-lines">
             <div className="weekly-line"></div>
@@ -137,7 +192,6 @@ function Weekly(props) {
             <div className="weekly-line"></div>
             <div className="weekly-line"></div>
         </div>
-
         {/* DateSquares */}
         {/*<div className="date-squares-frame">
             <span className="date-square">29</span>
@@ -151,5 +205,5 @@ function Weekly(props) {
         </div>
     );
 }
-
 export default Weekly;
+

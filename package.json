@@ -19,11 +19,13 @@
     "dependencies": {
         "bcrypt": "^5.1.1",
         "concurrently": "^8.2.2",
+        "date-fn": "^0.0.2",
         "dotenv": "^16.4.5",
         "jsonwebtoken": "^9.0.2",
         "mongodb": "^6.6.1",
-        "mongoose": "^8.3.2",
+        "mongoose": "^8.4.0",
         "react-calendar": "^5.0.0",
+        "react-icons": "^5.2.1",
         "router-dom": "^2.2.11"
     }
 }
