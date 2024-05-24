@@ -1,62 +1,72 @@
+
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-
+import "../components/SignUp.css"
 
 function SignUp(props) {
   const [creds, setCreds] = useState({
     username: "",
-    pwd: ""
+    pwd: "",
+    confirmPwd: "" 
   });
 
-  const navigate = useNavigate(); // Access the history object
+  const navigate = useNavigate(); 
 
   return (
-    <div className="position-relative">
+    <div className="signup-position-relative">
       {/* Main Box */}
-      <div className="main-box"></div>
+      <div className="signup-main-box">
+        {/* Gold Box */}
+        <div className="signup-gold-box"></div>
 
-      {/* Username Box */}
-      <input
-        className="username-box"
-        type="text"
-        name="username"
-        value={creds.username}
-        onChange={handleChange}
-        style={{ fontSize: "18px" }}
-      />
-
-      {/* Password Box */}
-      <input
-        className="password-box"
-        type="password"
-        name="password"
-        value={creds.pwd}
-        onChange={handleChange}
-        style={{ fontSize: "18px" }}
-      />
-
-      {/* Error Message */}
-      {props.message && <div className="error-message">{props.message}</div>}
-
-      {/* Login Box */}
-      <button className="login-box" onClick={submitForm}> </button>
-
-      {/* Gold Box */}
-      <div className="gold-box"></div>
-      
-      {/* Text elements */}
-      <div className="text-elements">
         {/* Poly Planner */}
-        <div className="poly-planner">Poly Planner</div>
+        <div className="signup-poly-planner">Poly Planner</div>
 
         {/* Username */}
-        <div className="username">Username</div>
+        <div className="signup-username">Username</div>
+        <input
+          className="signup-username-box"
+          type="text"
+          name="username"
+          value={creds.username}
+          onChange={handleChange}
+          style={{ fontSize: "18px" }}
+        />
 
         {/* Password */}
-        <div className="password">Password</div>
+        <div className="signup-password">Password</div>
+        <input
+          className="signup-password-box"
+          type="password"
+          name="password"
+          value={creds.pwd}
+          onChange={handleChange}
+          style={{ fontSize: "18px" }}
+        />
 
-        {/* Login */}
-        <div className="login">Sign Up</div>
+        {/* Confirm Password */}
+        <div className="signup-confirm-password">Confirm Password</div>
+        <input
+          className="signup-confirm-password-box"
+          type="password"
+          name="confirmPwd"
+          value={creds.confirmPwd}
+          onChange={handleChange}
+          style={{ fontSize: "18px" }}
+        />
+
+        {/* Error Message */}
+        {props.message && <div className="signup-error-message">{props.message}</div>}
+
+        {/* Sign Up Box */}
+        <button className="signup-login-box" onClick={submitForm}>
+          <p className="signup-login">Sign Up</p>
+        </button>
+
+        {/* Login Box */}
+        <button className="signup-return-button" onClick={handleReturn}>
+          <p className="signup-return-text">Return To Login</p>
+        </button>
       </div>
     </div>
   );
@@ -70,16 +80,30 @@ function SignUp(props) {
       case "password":
         setCreds({ ...creds, pwd: value });
         break;
+      case "confirmPwd":
+        setCreds({ ...creds, confirmPwd: value });
+        break;
     }
   }
 
+  function handleReturn() {
+    navigate('/');
+  }
+
   function submitForm() {
+    if (creds.pwd !== creds.confirmPwd) {
+      props.setMessage("Signup Error: Passwords do not match");
+      return;
+    }
+
     props.handleSubmit(creds)
-    .then((response) => {
-      if (response == 1) {
+      .then((response) => {
+        if (response === 1) {
           navigate('/monthly');
-      }})
-    setCreds({ username: "", pwd: "" });
+        }
+      });
+    setCreds({ username: "", pwd: "", confirmPwd: "" });
   }
 }
+
 export default SignUp;
