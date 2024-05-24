@@ -182,6 +182,12 @@ const Monthly = () => {
             <div className="monthly-line"></div>
             <div className="monthly-line"></div>
         </div>
+        <div className="monthly-horiz-divider-lines">
+            <div className="monthly-horiz-line"></div>
+            <div className="monthly-horiz-line"></div>
+            <div className="monthly-horiz-line"></div>
+            <div className="monthly-horiz-line"></div>
+        </div>
         
       </div>
     );

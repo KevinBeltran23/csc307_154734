@@ -107,9 +107,26 @@
     left: 446px;
 }
 
+.monthly-horiz-divider-lines {
+    display: flex;
+    gap: 150px;
+    position: absolute;
+    width: 871px;
+    height: 754px;
+    top: 373px;
+    left: 679px;
+    rotate:calc(90deg);
+}
+
 .monthly-line {
     width: 1px;
     height: 754px;
+    background-color: #154734; /* This creates a solid black line */
+}
+
+.monthly-horiz-line {
+    width: 1px;
+    height: 1218px;
     background-color: #154734; /* This creates a solid black line */
 }
 
