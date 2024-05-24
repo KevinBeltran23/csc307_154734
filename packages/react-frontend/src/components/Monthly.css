@@ -107,9 +107,26 @@
     left: 446px;
 }
 
+.monthly-horiz-divider-lines {
+    display: flex;
+    gap: 150px;
+    position: absolute;
+    width: 871px;
+    height: 754px;
+    top: 373px;
+    left: 679px;
+    rotate:calc(90deg);
+}
+
 .monthly-line {
     width: 1px;
     height: 754px;
+    background-color: #154734; /* This creates a solid black line */
+}
+
+.monthly-horiz-line {
+    width: 1px;
+    height: 1218px;
     background-color: #154734; /* This creates a solid black line */
 }
 
@@ -129,8 +146,6 @@
 
 /* SUN, MON, TUE, WED, THU, FRI, SAT */
 .monthly-dayHeader {
-    font-style: normal;
-    font-weight: 400;
     font-size: 36px;
     line-height: 36px;
     text-align: center; /* Center the text horizontally */
@@ -209,7 +224,6 @@
     color: #000000;
     font-family: Inter, var(--default-font-family);
     font-size: 16px;
-    font-weight: 400;
     line-height: 18px;
     text-align: left;
     white-space: nowrap;
@@ -228,7 +242,6 @@
     color: #000000;
     font-family: Inter, var(--default-font-family);
     font-size: 16px;
-    font-weight: 400;
     line-height: 18px;
     text-align: left;
     white-space: nowrap;
@@ -245,14 +258,12 @@
     /* Change the color of the arrow */
 }
 
-.monthly-time {
+.monthly-clock {
     position: absolute;
     width: 88px;
     height: 24px;
     left: 945px;
     top: 52px;
-    font-style: normal;
-    font-weight: 400;
     font-size: 24px;
     line-height: 24px;
     /* identical to box height */
@@ -312,7 +323,6 @@
     color: #000000;
     font-family: Inter, var(--default-font-family);
     font-size: 18px;
-    font-weight: 400;
     line-height: 22px;
     text-align: left;
     white-space: nowrap;
@@ -401,7 +411,6 @@
     color: #000000;
     font-family: Inter, var(--default-font-family);
     font-size: 12px;
-    font-weight: 400;
     line-height: 15px;
     text-align: left;
     white-space: nowrap;

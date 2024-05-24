@@ -168,7 +168,6 @@
     color: #000000;
     font-family: Inter, var(--default-font-family);
     font-size: 16px;
-    font-weight: 400;
     line-height: 18px;
     text-align: left;
     white-space: nowrap;
@@ -187,7 +186,6 @@
     color: #000000;
     font-family: Inter, var(--default-font-family);
     font-size: 16px;
-    font-weight: 400;
     line-height: 18px;
     text-align: left;
     white-space: nowrap;
@@ -210,8 +208,6 @@
     height: 24px;
     left: 945px;
     top: 52px;
-    font-style: normal;
-    font-weight: 400;
     font-size: 24px;
     line-height: 24px;
     /* identical to box height */
@@ -241,8 +237,6 @@
     width: auto;
     height: 19px;
     font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
     font-size: 16px;
     line-height: 20px;
     color: #000000;
@@ -300,7 +294,6 @@
     color: #000000;
     font-family: Inter, var(--default-font-family);
     font-size: 18px;
-    font-weight: 400;
     line-height: 22px;
     text-align: left;
     white-space: nowrap;
@@ -389,7 +382,6 @@
     color: #000000;
     font-family: Inter, var(--default-font-family);
     font-size: 12px;
-    font-weight: 400;
     line-height: 15px;
     text-align: left;
     white-space: nowrap;
@@ -423,8 +415,6 @@
 
 /* SUN, MON, TUE, WED, THU, FRI, SAT */
 .weekly-dayHeader {
-    font-style: normal;
-    font-weight: 400;
     font-size: 36px;
     line-height: 36px;
     text-align: center; /* Center the text horizontally */
