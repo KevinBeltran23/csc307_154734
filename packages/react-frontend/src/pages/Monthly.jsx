@@ -4,7 +4,7 @@
 
 // npm install date-fn react-icons
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import {
     format,
@@ -95,6 +95,33 @@ const Monthly = () => {
         );
     };
 
+    function clock(s) {
+        // https://www.educative.io/answers/how-to-create-a-dynamic-digital-clock-in-react
+        const [date, setDate] = useState(new Date());
+        var t;
+        useEffect(() => {
+          const interval = setInterval(() => {
+            setDate(new Date());
+          }, 1000);
+    
+          return () => clearInterval(interval);
+        }, []);
+    
+        /*if (s) {
+          t = date.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
+        }
+        else {
+          t = date.toLocaleTimeString();
+        } */
+    
+        return (
+          <div className="monthly-clock">
+            {date.toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})}
+          </div>
+        );
+    }
+    
+
     /*const getEvents = () => {
 
     } */
@@ -146,7 +173,7 @@ const Monthly = () => {
             </div>
         </div>
         {getHeader()}
-        <span className='monthly-time'>6:22 PM</span>
+        {clock()}
         <button className='monthly-monthly-view-frame' onClick={handleWeekly}>
             <span className='monthly-change-view'>Weekly View</span>
         </button>
