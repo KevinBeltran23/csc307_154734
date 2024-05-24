@@ -5,6 +5,7 @@
 // npm install date-fn react-icons
 
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import {
     format,
     startOfWeek,
@@ -97,12 +98,40 @@ const Monthly = () => {
     /*const getEvents = () => {
 
     } */
+
+    const navigate = useNavigate(); 
+    
+    function handleSettings() {
+        // go to settings page
+        navigate('/settings');
+    }
+    function handleWeekly() {
+        // go to weekly page
+        navigate('/weekly');
+    }
+    function handleToDo() {
+        // go to todo page
+        navigate('/todo');
+    }
+    function handleCreate() {
+        // create an event
+    }
+    function handleCalendarsDropdown() {
+        // open calendars drop down
+    }
+    function handleToDoDropdown() {
+        // open todo dropdown
+    }
+    function handleClickingOnEvent() {
+        // implement functionality
+    }
+
   
     return (
       <div className="monthly-main-container">
         <div className='monthly-calendar-dropdown-container'>
             <div className='monthly-rectangle'>
-            <button className='monthly-button-frame'>
+            <button className='monthly-button-frame' onClick={handleCalendarsDropdown}>
                 <span className='monthly-calendars'>Calendars</span>
                 <div className='monthly-dropdown-arrow' />
             </button>
@@ -110,7 +139,7 @@ const Monthly = () => {
         </div>
         <div className='monthly-todo-dropdown-container'>
             <div className='monthly-rectangle'>
-            <button className='monthly-button-frame'>
+            <button className='monthly-button-frame' onClick={handleToDoDropdown}>
                 <span className='monthly-todo'>Todo</span>
                 <div className='monthly-dropdown-arrow' />
             </button>
@@ -118,20 +147,20 @@ const Monthly = () => {
         </div>
         {getHeader()}
         <span className='monthly-time'>6:22 PM</span>
-        <button className='monthly-monthly-view-frame'>
+        <button className='monthly-monthly-view-frame' onClick={handleWeekly}>
             <span className='monthly-change-view'>Weekly View</span>
         </button>
-        <button className='monthly-todo-view-frame'>
+        <button className='monthly-todo-view-frame' onClick={handleToDo}>
             <span className='monthly-change-view'>To Do</span>
         </button>
-        <button className='monthly-settings-frame'>
+        <button className='monthly-settings-frame' onClick={handleSettings}> 
             {/* <div className='weekly-gear' /> */}
             <span className='monthly-gear'></span>
         </button>
         <div className='monthly-download-frame'>
             <div className='monthly-download-icon' />
         </div>
-        <button className='monthly-create-frame'>
+        <button className='monthly-create-frame' onClick={handleCreate}>
             <span className='monthly-create'>Create</span>
             <div className='monthly-dropdown-arrow' />
         </button>

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -91,16 +92,14 @@ function Weekly(props) {
 
 
     const navigate = useNavigate(); 
-    function handleToday() {
-        // go to current month
-    }
+
     function handleSettings() {
         // go to settings page
         navigate('/settings');
     }
-    function handleWeekly() {
+    function handleMonthly() {
         // go to weekly page
-        navigate('/weekly');
+        navigate('/monthly');
     }
     function handleToDo() {
         // go to todo page
@@ -123,7 +122,7 @@ function Weekly(props) {
         <div className='weekly-main-container'>
         <div className='weekly-calendar-dropdown-container'>
             <div className='weekly-rectangle'>
-            <button className='weekly-button-frame'>
+            <button className='weekly-button-frame' onClick={handleCalendarsDropdown}>
                 <span className='weekly-calendars'>Calendars</span>
                 <div className='weekly-dropdown-arrow' />
             </button>
@@ -131,7 +130,7 @@ function Weekly(props) {
         </div>
         <div className='weekly-todo-dropdown-container'>
             <div className='weekly-rectangle'>
-            <button className='weekly-button-frame'>
+            <button className='weekly-button-frame' onClick={handleToDoDropdown}>
                 <span className='weekly-todo'>Todo</span>
                 <div className='weekly-dropdown-arrow' />
             </button>
@@ -139,20 +138,20 @@ function Weekly(props) {
         </div>
         {getHeader()}
         <span className='weekly-time'>6:22 PM</span>
-        <button className='weekly-monthly-view-frame'>
+        <button className='weekly-monthly-view-frame' onClick={handleMonthly}>
             <span className='weekly-change-view'>Monthly View</span>
         </button>
-        <button className='weekly-todo-view-frame'>
+        <button className='weekly-todo-view-frame' onClick={handleToDo}>
             <span className='weekly-change-view'>To Do</span>
         </button>
-    <button className='weekly-settings-frame'>
+    <button className='weekly-settings-frame' onClick={handleSettings}>
             {/* <div className='weekly-gear' /> */}
             <span className='weekly-gear'></span>
         </button>
         <div className='weekly-download-frame'>
             <div className='weekly-download-icon' />
         </div>
-        <button className='weekly-create-frame'>
+        <button className='weekly-create-frame' onClick={handleCreate}>
             <span className='weekly-create'>Create</span>
             <div className='weekly-dropdown-arrow' />
         </button>
