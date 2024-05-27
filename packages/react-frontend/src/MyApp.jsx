@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from "./pages/Login"; 
 import Monthly from "./pages/Monthly"; 
@@ -16,6 +16,8 @@ function MyApp() {
     const [token, setToken] = useState(localStorage.getItem('token') || INVALID_TOKEN);
     const [message, setMessage] = useState("");
     const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated') || false)
+
+    // useEffect if need to continuously update frontend with new backend data
 
     // add this to every backend api call for authentication
     function addAuthHeader(otherHeaders = {}) {

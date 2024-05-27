@@ -143,15 +143,19 @@ function Monthly(props) {
     }
     function handleCreate() {
         // create an event
+        // there will be a POST request here to /event
     }
     function handleCalendarsDropdown() {
         // open calendars drop down
+        // there will be a GET request here to /calendars
     }
     function handleToDoDropdown() {
         // open todo dropdown
+        // there will be a GET request here to /todo
     }
     function handleClickingOnEvent() {
         // implement functionality
+        // there will be a GET request here to /event/:id
     }
 
   
