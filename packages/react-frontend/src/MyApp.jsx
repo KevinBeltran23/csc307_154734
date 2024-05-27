@@ -12,19 +12,74 @@ import Settings from "./pages/Settings";
 function MyApp() {
 
     const INVALID_TOKEN = "INVALID_TOKEN";
-    const [token, setToken] = useState(INVALID_TOKEN);
-
+    const [token, setToken] = useState(localStorage.getItem('token') || INVALID_TOKEN);
     const [message, setMessage] = useState("");
-    const [registeredUsers, setUsers] = useState([]);
 
+    // this is only for testing
     function fetchUsers() {
-        const promise = fetch("http://localhost:8000/users", {
-        headers: addAuthHeader() 
-        });
-        return promise;
+      const promise = fetch("http://localhost:8000/users", {
+      headers: addAuthHeader() 
+      });
+      return promise;
     }
 
+    // this is only for testing
+    function showUsers() {
+      const promise = fetch("http://localhost:8000/users", {
+        method: "GET",
+        headers: addAuthHeader(),
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json(); // Return the parsed JSON data
+        } else {
+          throw new Error(`Failed to fetch users: ${response.status}`);
+        }
+      })
+      .then((data) => {
+        // Check if data is an array
+        if (Array.isArray(data)) {
+          // Iterate over each element if it's an array
+          data.forEach((user) => {
+            console.log("Username:", user.username);
+            console.log("Email:", user.email);
+            // Access other fields as needed
+          });
+        } else {
+          // Assume data is an object
+          for (const key in data) {
+            console.log(`${key}:`, data[key]);
+          }
+        }
+        return 1; // Indicate successful fetch
+      })
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+        return -1; // Indicate failed fetch
+      });
+    
+      return promise;
+    }
+
+    /*
+    useEffect(() => {
+      fetchUsers()
+          .then((res) =>
+          res.status === 200 ? res.json() : undefined
+          )
+          .then((json) => {
+          if (json) {
+              setUserData(json["user-data"]);
+          } else {
+              setUserData(null);
+          }
+          })
+          .catch((error) => { console.log(error); });
+    }, []);
+    */
+
     function addAuthHeader(otherHeaders = {}) {
+        console.log(token);
         if (token === INVALID_TOKEN) {
         return otherHeaders;
         } else {
@@ -47,7 +102,10 @@ function MyApp() {
             if (response.status === 200) {
             response
                 .json()
-                  .then((payload) => setToken(payload.token));
+                .then((payload) => {
+                  setToken(payload.token);
+                  localStorage.setItem('token', payload.token);
+              });
             setMessage(`Login successful; auth token saved`);
             return 1;
             } else {
@@ -73,7 +131,10 @@ function MyApp() {
             if (response.status === 201) {
               response
                 .json()
-                .then((payload) => setToken(payload.token));
+                .then((payload) => {
+                  setToken(payload.token);
+                  localStorage.setItem('token', payload.token);
+              });
               setMessage(
                 `Signup successful for user: ${creds.username}; auth token saved`
               );
@@ -95,54 +156,6 @@ function MyApp() {
           });
         return promise;
     }
-
-    function todoListAuthenticate(creds) {
-      const promise = fetch("http://localhost:8000/todo", {
-        method: "GET",
-        headers: addAuthHeader() 
-      })
-        .then((response) => {
-          if (response.status === 201) {
-            response
-              .json()
-              .then((payload) => setToken(payload.token));
-            setMessage(
-              `todoList successful for user: ${creds.username}`
-            );
-            return 1;
-          } else if (response.status === 409) {
-            setMessage(
-              `todoList failed for user: ${creds.username}`
-            );
-            return -1
-          } else {
-            setMessage(
-              `todoList Error ${response.status}: ${response.data}`
-            );
-            return -1;
-          }
-        })
-        .catch((error) => {
-          setMessage(`todoList Error: ${error}`);
-        });
-      return promise;
-  }
-
-    useEffect(() => {
-        fetchUsers()
-            .then((res) =>
-            res.status === 200 ? res.json() : undefined
-            )
-            .then((json) => {
-            if (json) {
-                setUsers(json["users"]);
-            } else {
-                setUsers(null);
-            }
-            })
-            .catch((error) => { console.log(error); });
-    }, [] 
-    );
 
     return (
         <Router>

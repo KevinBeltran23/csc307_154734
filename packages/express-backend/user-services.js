@@ -10,10 +10,10 @@ mongoose.set("debug", true);
 mongoose
     .connect(
         "mongodb+srv://Karen:karen@154754.qdl82np.mongodb.net/?retryWrites=true&w=majority&appName=154754",
-        {
+        /*{
             useNewUrlParser: true,
             useUnifiedTopology: true
-        }
+        }*/
     )
     .catch((error) => console.log(error));
 

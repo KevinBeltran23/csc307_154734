@@ -4,7 +4,7 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import userService from "./user-services.js";
-import { registerUser, loginUser, authenticateUser } from "./auth.js";
+import auth, { registerUser, loginUser, authenticateUser } from "./auth.js";
 
 const app = express();
 const port = 8000;
@@ -170,7 +170,7 @@ app.get("/settings", authenticateUser, (req, res) => { // retrieve the saved set
 
 // misc
 
-app.get("/users", (req, res) => { // get all users
+app.get("/users", authenticateUser, (req, res) => { // get all users
     userService.getAllUsers()
         .then((result) => {
             res.send({ users_list: result });
