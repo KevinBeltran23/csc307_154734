@@ -30,12 +30,12 @@ const Settings = () => {
     },
     "Colors": {
       "Cal Poly Colors": false,
-      "High Contrast": false,
+      "High Contrasst": false,
       "Random": false,
     },
     "Text": {
       "Bold Text": false,
-      "Italic Text": false,
+      "Large Text": false,
     },
     "Secret Settings": {
       "Secret Setting 1": false,
@@ -54,6 +54,15 @@ const Settings = () => {
     localStorage.setItem("selectedOption", selectedOption);
     localStorage.setItem("settings", JSON.stringify(settings));
   }, [selectedOption, settings]);
+
+  // Effect to toggle bold text class
+  useEffect(() => {
+    if (settings.Text["Bold Text"]) {
+      document.body.classList.add("bold-text");
+    } else {
+      document.body.classList.remove("bold-text");
+    }
+  }, [settings.Text["Bold Text"]]);
 
   const handleCheckboxChange = (option, setting) => {
     const updatedSettings = { ...settings };

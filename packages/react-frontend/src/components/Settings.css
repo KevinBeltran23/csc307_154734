@@ -1,8 +1,13 @@
+.bold-text {
+    font-weight: bold;
+  }
+  
+
 /* Common font style */
 .settings-font {
     font-family: Arial, sans-serif; /* Example font family */
     font-style: normal;
-    font-weight: 400;
+    /* font-weight: 400; */
 }
 
 /* Active button style */
@@ -44,7 +49,7 @@
     width: 175px;
     height: 48px;
     padding: 40px;
-    font-weight: 400;
+    /* font-weight: 400; */
     font-size: 48px;
     line-height: 48px;
     margin: auto;
@@ -75,7 +80,7 @@
     border: 2px solid #000000;
     border-radius: 2px;
     margin-bottom: 9px;
-    font-size: 14px; /* Ensure font size is consistent */
+    font-size: 14px;
     cursor: pointer;
 }
 
@@ -86,7 +91,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 14px; /* Ensure font size is consistent */
+    font-size: 14px;
     color: #000000;
 }
 
@@ -128,5 +133,5 @@
 .settings-font {
     font-family: Arial, sans-serif;
     font-style: normal;
-    font-weight: 400;
+    /* font-weight: 400; */
 }
