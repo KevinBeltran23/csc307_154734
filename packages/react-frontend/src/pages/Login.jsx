@@ -79,7 +79,7 @@ function Login(props) {
     props.handleSubmit(creds)
       .then((response) => {
         if (response === 1) {
-          //navigate('/monthly');
+          navigate('/monthly');
         }
       });
     setCreds({ username: "", pwd: "" });

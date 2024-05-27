@@ -45,7 +45,7 @@ app.post("/login", loginUser);
 // events
 
 
-app.get("/event", (req, res) => { // get all the events for a user
+app.get("/event", authenticateUser, (req, res) => { // get all the events for a user
     const { name, job } = req.query;
     userService
         .getUsers(name, job)
@@ -58,7 +58,7 @@ app.get("/event", (req, res) => { // get all the events for a user
         });
 });
 
-app.post("/event", (req, res) => { // add an event for the user
+app.post("/event", authenticateUser, (req, res) => { // add an event for the user
     const eventToAdd = req.body;
     userService
         .addEvent(eventToAdd)
@@ -74,7 +74,7 @@ app.post("/event", (req, res) => { // add an event for the user
 
 // monthly page
 
-app.post("/monthly", (req, res) => { // add an event to the monthly calendar
+app.post("/monthly", authenticateUser, (req, res) => { // add an event to the monthly calendar
     const eventToAdd = req.body;
     userService
         .addEvent(eventToAdd)
@@ -94,7 +94,7 @@ app.get("/monthly", authenticateUser, (req, res) => { // get all the information
 
 // weekly page
 
-app.post("/weekly", (req, res) => { // add an event to the weekly calendar
+app.post("/weekly", authenticateUser, (req, res) => { // add an event to the weekly calendar
     const eventToAdd = req.body;
     userService
         .addEvent(eventToAdd)
@@ -114,7 +114,7 @@ app.get("/weekly", authenticateUser, (req, res) => { // get all the information 
 
 // todo page : not implemented
 
-app.post("/todo", (req, res) => {  // add an item to the todo list
+app.post("/todo", authenticateUser, (req, res) => {  // add an item to the todo list
     const eventToAdd = req.body;
     userService
         .addEvent(eventToAdd)
@@ -131,7 +131,7 @@ app.get("/todo", authenticateUser, (req, res) => {  // get all of the todo list 
 
 });
 
-app.delete("/todo/:id", (req, res) => { // delete an item from the todo list 
+app.delete("/todo/:id", authenticateUser, (req, res) => { // delete an item from the todo list 
     const id = req.params["id"];
     userService.deleteUserById(id)
         .then((result) => {
@@ -150,7 +150,7 @@ app.delete("/todo/:id", (req, res) => { // delete an item from the todo list
 
 // settings page : not implemented
 
-app.post("/settings", (req, res) => { // change a setting in the settings page
+app.post("/settings", authenticateUser, (req, res) => { // change a setting in the settings page
     const settingToChange = req.body;
     userService
         .changeSetting(settingToChange)
