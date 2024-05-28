@@ -352,7 +352,7 @@
 .monthly-download-icon {
     width: 28px;
     height: 28px;
-    background: url(../assets/dowload_icon.png) no-repeat center;
+    background: url(../assets/download_icon.png) no-repeat center;
     background-size: cover;
     z-index: 45;
 }
