@@ -57,6 +57,7 @@ function MyApp() {
                   setIsAuthenticated(true);
                   localStorage.setItem('isAuthenticated', 'true');
                   console.log(token);
+                  setuserId(payload.userId);
                   localStorage.setItem('userId', payload.userId); // Store the user ID
                   console.log('User ID:', payload.userId);
               });
@@ -90,6 +91,7 @@ function MyApp() {
                   localStorage.setItem('token', payload.token);
                   setIsAuthenticated(true);
                   localStorage.setItem('isAuthenticated', 'true');
+                  setuserId(payload.userId);
                   localStorage.setItem('userId', payload.userId); // Store the user ID
                   console.log('User ID:', payload.userId);
               });

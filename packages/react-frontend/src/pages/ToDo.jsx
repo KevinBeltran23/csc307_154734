@@ -113,7 +113,7 @@ function ToDo(props) {
     }
 
     function fetchItems() {
-        const promise = fetch("http://localhost:8000/todo", {
+        const promise = fetch(`http://localhost:8000/todo?user=${props.userId}`, {
             method: "GET",
             headers: props.addAuthHeader(),
             });

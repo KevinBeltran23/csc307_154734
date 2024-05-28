@@ -120,10 +120,10 @@ app.post("/todo", authenticateUser, (req, res) => {  // add an item to the todo 
         });
 });
 
-app.get("/todo", authenticateUser, (req, res) => { // get all the events for a user
+app.get("/todo", authenticateUser, (req, res) => { // get todo items
     const { duedate, contents, user } = req.query;
     Service
-        .getTodoItems(duedate, contents, user)
+        .getTodoItems(duedate, user)
         .then((result) => {
             res.send({ todo_list: result });
         })
@@ -132,6 +132,7 @@ app.get("/todo", authenticateUser, (req, res) => { // get all the events for a u
             res.status(500).send("Internal Server Error");
         });
 });
+
 
 app.delete("/todo/:id", authenticateUser, (req, res) => { // delete an item from the todo list 
     const id = req.params["id"];
@@ -148,22 +149,6 @@ app.delete("/todo/:id", authenticateUser, (req, res) => { // delete an item from
             res.status(500).send("Internal Server Error");
         });
 });
-
-app.get("/todo/:id", (req, res) => { // get one todo items information
-    const id = req.params["id"];
-    Service.findTodoItemById(id)
-        .then((result) => {
-            if (!result) {
-                res.status(404).send("Resource not found.");
-            } else {
-                res.send(result);
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-}); 
 
 
 // events
