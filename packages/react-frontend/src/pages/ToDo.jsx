@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "../components/ToDo.css";
+
+import "../components/ToDo.css";
+import Clock from "./Clock.jsx"
 
 
 function ToDo(props) {
@@ -66,6 +70,10 @@ function ToDo(props) {
         setTodoEditing(null);
         setEditingText("");
     }
+    function handleToDo() {
+        // go to todo page
+        navigate('/todo');
+    }
 
     */ //stuff I am replacing or revamping above
 
@@ -74,13 +82,16 @@ function ToDo(props) {
     const [item, setItem] = useState({
         duedate: "",
         contents: "",
-        user: ""
+        user: props.userId
     });
 
     const [items, setItems] = useState([]);
     const [message, setMessage] = useState(""); // Add message state for displaying feedback
+    const navigate = useNavigate();
+    const [todoEditing, setTodoEditing] = useState(null); 
+    const [editingText, setEditingText] = useState(""); 
 
-    function handleChange(event) {
+    /* function handleChange(event) {
         const { name, value} = event.target;
         switch (name) {
           case "duedate":
@@ -92,7 +103,14 @@ function ToDo(props) {
           case "user":
             setItem({ ...item, user: value});
         }
-      }
+    }*/
+    function handleChange(event) {
+        const { name, value } = event.target;
+        setItem((prevItem) => ({
+            ...prevItem,
+            [name]: value
+        }));
+    }
 
     function fetchItems() {
         const promise = fetch("http://localhost:8000/todo", {
@@ -145,20 +163,57 @@ function ToDo(props) {
             console.error(error);
         });
     }
-    
+
     function updateItems(event) {
         event.preventDefault();
-        postItem(item)
-            .then((newItem) => {
-                if (newItem) {
-                    setItems((prevItems) => [...prevItems, newItem]);
-                    setItem({ duedate: "", contents: "", user: "" }); // Clear form after submission
+        
+        // Ensure the item has the correct user ID before posting
+        const newItem = {
+            ...item,
+            user: props.userId // Set the user ID from props
+        };
+        
+        postItem(newItem)
+            .then((newItemResponse) => {
+                if (newItemResponse) {
+                    setItems((prevItems) => [...prevItems, newItemResponse]);
+                    setItem({ duedate: "", contents: "", user: props.userId }); // Clear form but keep user ID
                 }
             })
             .catch((error) => {
                 console.log(error);
             });
     }
+
+    function editItem(itemId) {
+        const updatedItem = {
+            ...items.find(item => item._id === itemId),
+            contents: editingText,
+            user: props.userId // Ensure the user ID is included
+        };
+    
+        fetch(`http://localhost:8000/todo/${itemId}`, {
+            method: "PUT",
+            headers: props.addAuthHeader({
+                "Content-Type": "application/json"
+            }),
+            body: JSON.stringify(updatedItem)
+        })
+        .then(response => {
+            if (response.ok) {
+                setItems(items.map(item => (item._id === itemId ? updatedItem : item)));
+                setTodoEditing(null);
+                setEditingText("");
+            } else {
+                throw new Error(`Update Error ${response.status}: ${response.statusText}`);
+            }
+        })
+        .catch(error => {
+            setMessage(`Update Error: ${error.message}`);
+            console.error(error);
+        });
+    }
+    
 
     useEffect(() => {
         fetchItems()
@@ -186,12 +241,47 @@ function ToDo(props) {
         console.log('Items state changed:', items);
     }, []);
 
+    
     // Kevin doing stuff above
 
+    function handleWeekly() {
+        // go to weekly page
+        navigate('/weekly');
+    }
+    function handleMonthly() {
+        // go to weekly page
+        navigate('/monthly');
+    }
+
     return (
+        <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
         <div className="page">
-            <h1>Wednesday</h1>
+            <div className='todo-clock'>
+                <Clock />
+            </div>
+
+            <h1> To Dos </h1>
+             
+            <button className='todo-weekly-view-frame' onClick={handleWeekly}>
+                <span className='todo-change-view'>Weekly View</span>
+            </button> 
+
+            <button className='todo-monthly-view-frame' onClick={handleMonthly}>
+                <span className='todo-change-view'>Monthly View</span>
+            </button>
+
+            {/*<div className='todo-calendar-dropdown-container'>
+                <div className='todo-rectangle'>
+                <button className='todo-button-frame' onClick={handleCalendarsDropdown}>
+                    <span className='todo-calendars'>Calendars</span>
+                    <div className='todo-dropdown-arrow' />
+                </button>
+                </div>
+    </div>*/}
+
             <div className="ToDo">
+
+            
                 <div className="entry">
                     <form onSubmit={updateItems}>
                         <div className="textEntry">
@@ -210,19 +300,46 @@ function ToDo(props) {
                                 value={item.duedate}
                                 placeholder="Due date"
                             />
-                            <input
-                                type="text"
-                                name="user"
-                                onChange={handleChange}
-                                value={item.user}
-                                placeholder="User"
-                            />
                             <button type="submit">Add Todo</button>
                         </div>
                     </form>
                 </div>
     
                 {items && items.length > 0 ? (
+                    items.map((todo) => (
+                        <div key={todo._id}>
+                            {todoEditing === todo._id ? (
+                                <>
+                                    <input
+                                        type="text"
+                                        onChange={(e) => setEditingText(e.target.value)}
+                                        value={editingText}
+                                    />
+                                    <button onClick={() => editItem(todo._id)}>Submit Edits</button>
+                                    <button onClick={() => setTodoEditing(null)}>Cancel</button>
+                                </>
+                            ) : (
+                                <>
+                                    <div>{todo.contents}</div>
+                                    <button onClick={() => {
+                                        setTodoEditing(todo._id);
+                                        setEditingText(todo.contents);
+                                    }}>Edit Todo</button>
+                                </>
+                            )}
+                            <button onClick={() => deleteItem(todo._id)}>Delete</button>
+                            <input
+                                type="checkbox"
+                                onChange={() => console.log("Toggle complete functionality not implemented yet")}
+                                checked={todo.completed}
+                            />
+                        </div>
+                    ))
+                ) : (
+                    <p>No items available</p>
+                )}
+
+                {/*{items && items.length > 0 ? (
                     items.map((todo) => {
                         console.log('Rendering todo:', todo); // Log each todo being rendered
                         return (
@@ -244,10 +361,13 @@ function ToDo(props) {
                     })
                 ) : (
                     <p>No items available</p>
-                )}
+                )}*/}
             </div>
             {message && <p>{message}</p>}
-        </div>
+        </div></>
+        
     );
 }
 export default ToDo;
+
+

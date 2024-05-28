@@ -25,9 +25,9 @@ const EventSchema = new mongoose.Schema(
             type: String,
             trim: true
         },
-        user: {
+        calendar: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
+            ref: "Calendar"
         }
     },
     { collection: "events" }
