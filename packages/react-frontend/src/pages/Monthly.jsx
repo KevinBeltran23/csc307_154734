@@ -60,14 +60,14 @@ function Monthly(props) {
         const cloneDate = currentDate;
         week.push(
           <div className='monthly-day-box'>
-          <div
-            className={`monthly-day ${
-              isSameMonth(currentDate, activeDate) ? "" : "monthly-inactiveDay"
-            } ${isSameDay(currentDate, selectedDate) ? "monthly-selectedDay" : ""}
-            ${isSameDay(currentDate, new Date()) ? "monthly-today" : ""}`}
-          >
-            {format(currentDate, "d")}
-          </div>
+            <div
+              className={`monthly-day ${
+                isSameMonth(currentDate, activeDate) ? "" : "monthly-inactiveDay"
+              } ${isSameDay(currentDate, selectedDate) ? "monthly-selectedDay" : ""}
+              ${isSameDay(currentDate, new Date()) ? "monthly-today" : ""}`}
+            >
+              {format(currentDate, "d")}
+            </div>
           </div>
         );
         currentDate = addDays(currentDate, 1);
