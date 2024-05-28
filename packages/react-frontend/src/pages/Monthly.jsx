@@ -20,7 +20,8 @@ import {
   } from "date-fns";
   
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
-import "../components/Monthly.css"
+import "../components/Monthly.css";
+import Clock from "./Clock";
 
   
 function Monthly(props) {
@@ -95,8 +96,13 @@ function Monthly(props) {
         </div>
         );
     };
-    
+    const addEvents = () => {
+      var testDate;
+      var desc;
+      var startTime;
+      var endTime;
 
+    }
     /*const getEvents = () => {
 
     } */
@@ -131,32 +137,6 @@ function Monthly(props) {
         // implement functionality
         // there will be a GET request here to /event/:id
     }
-
-    function clock() {
-      // https://www.educative.io/answers/how-to-create-a-dynamic-digital-clock-in-react
-      const [date, setDate] = useState(new Date());
-      var t;
-  
-      useEffect(() => {
-        const interval = setInterval(() => {
-          setDate(new Date());
-        }, 1000);
-  
-        return () => clearInterval(interval);
-      }, []);
-  
-      /*if (s) {
-        t = date.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
-      }
-      else {
-        t = date.toLocaleTimeString();
-      } */
-      return (
-        <div className="monthly-clock">
-          {date.toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})}
-        </div>
-      );
-    }
   
     return (
       <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
@@ -178,7 +158,7 @@ function Monthly(props) {
           </div>
         </div>
         {getHeader()}
-        {clock()}
+        <Clock />
         <button className='monthly-monthly-view-frame' onClick={handleWeekly}>
           <span className='monthly-change-view'>Weekly View</span>
         </button>
