@@ -50,13 +50,16 @@ function Weekly(props) {
     for (let day = 0; day < 7; day++) {
       const cloneDate = currentDate;
       week.push(
-        <div
-          className={`weekly-day ${isSameMonth(currentDate, activeDate) ? "" : "weekly-inactiveDay"
+        <div className="weekly-day-box">
+          <div
+            className={`weekly-day ${isSameMonth(currentDate, activeDate) ? "" : "weekly-inactiveDay"
             } ${isSameDay(currentDate, selectedDate) ? "weekly-selectedDay" : ""}
               ${isSameDay(currentDate, new Date()) ? "weekly-today" : ""}`}
-        >
+          >
           {format(currentDate, "d")}
         </div>
+        </div>
+
       );
       currentDate = addDays(currentDate, 1);
     }
@@ -183,15 +186,6 @@ function Weekly(props) {
           <span className='weekly-dayHeader'>SAT</span>
         </div>
         {getDates()}
-        {/* DividerLines */}
-        <div className="weekly-divider-lines">
-          <div className="weekly-line"></div>
-          <div className="weekly-line"></div>
-          <div className="weekly-line"></div>
-          <div className="weekly-line"></div>
-          <div className="weekly-line"></div>
-          <div className="weekly-line"></div>
-        </div>
       </div></>
   );
 }

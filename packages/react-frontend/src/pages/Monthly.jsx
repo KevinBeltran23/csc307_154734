@@ -59,13 +59,15 @@ function Monthly(props) {
       for (let day = 0; day < 7; day++) {
         const cloneDate = currentDate;
         week.push(
-          <div
-            className={`monthly-day ${
-              isSameMonth(currentDate, activeDate) ? "" : "monthly-inactiveDay"
-            } ${isSameDay(currentDate, selectedDate) ? "monthly-selectedDay" : ""}
-            ${isSameDay(currentDate, new Date()) ? "monthly-today" : ""}`}
-          >
-            {format(currentDate, "d")}
+          <div className='monthly-day-box'>
+            <div
+              className={`monthly-day ${
+                isSameMonth(currentDate, activeDate) ? "" : "monthly-inactiveDay"
+              } ${isSameDay(currentDate, selectedDate) ? "monthly-selectedDay" : ""}
+              ${isSameDay(currentDate, new Date()) ? "monthly-today" : ""}`}
+            >
+              {format(currentDate, "d")}
+            </div>
           </div>
         );
         currentDate = addDays(currentDate, 1);
@@ -196,13 +198,6 @@ function Monthly(props) {
           <div className="monthly-line"></div>
           <div className="monthly-line"></div>
         </div>
-        <div className="monthly-horiz-divider-lines">
-          <div className="monthly-horiz-line"></div>
-          <div className="monthly-horiz-line"></div>
-          <div className="monthly-horiz-line"></div>
-          <div className="monthly-horiz-line"></div>
-        </div>
-
       </div></>
     );
 };
