@@ -1,5 +1,6 @@
 import React from "react";
 import "../components/ToDo.css";
+import Clock from "./Clock.jsx"
 
 
 function ToDo() {
@@ -66,7 +67,8 @@ function ToDo() {
 
     return (
         <div className="page">
-            <h1> Wednesday </h1>
+            <h1> To Dos </h1>
+            <Clock />
             <div className="ToDo">
                 <div className="entry">
                     <form onSubmit={handleSubmit}>
