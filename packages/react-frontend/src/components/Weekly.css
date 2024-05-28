@@ -122,7 +122,7 @@
     width: 152px;
     height: 920px;
     left: 35px;
-    top: 500px;
+    top: 450px;
 }
 
 /* Individual rectangle styles */
@@ -206,7 +206,7 @@
     position: absolute;
     width: 88px;
     height: 24px;
-    left: 945px;
+    left: 65%;
     top: 52px;
     font-size: 24px;
     line-height: 24px;
@@ -216,7 +216,6 @@
     text-align: center;
     color: #000000;
 }
-
 
 /* Times */
 .weekly-time-container {
@@ -282,7 +281,8 @@
 
 .weekly-monthly-view-frame:hover,
 .weekly-todo-view-frame:hover,
-.weekly-settings-frame:hover {
+.weekly-settings-frame:hover,
+.weekly-download-frame:hover {
     background: #DFDFDB;
 }
 
@@ -308,8 +308,8 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    top: 39px;
-    left: 1263px;
+    top: 45px;
+    left: 1270px;
     border-radius: 50%;
     background-color: #ffffff;
     /* Set background color to white */
@@ -327,35 +327,30 @@
 }
 
 .weekly-download-frame {
+    cursor: pointer;
     display: flex;
-    align-items: flex-start;
-    flex-wrap: nowrap;
-    gap: 10px;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
     position: absolute;
     width: 40px;
     height: 40px;
-    top: 40px;
-    left: 1050px;
-    padding: 3px 6px 3px 6px;
-    background: #d9d9d9;
+    top: 45px;
+    left: 1217px;
+    padding: 3px 6px;
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 5%;
     z-index: 44;
-    border-radius: 4px;
 }
 
 .weekly-download-icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;
-    flex-shrink: 0;
-    position: relative;
-    width: 30px;
-    height: 30px;
-    background: url(../assets/Download.png) no-repeat center;
+    width: 28px;
+    height: 28px;
+    background: url(../assets/dowload_icon.png) no-repeat center;
     background-size: cover;
     z-index: 45;
 }
+
 
 .weekly-create-frame {
     display: flex;
@@ -366,7 +361,7 @@
     width: 80px;
     height: 25px;
     top: 50px;
-    left: 1165px;
+    left: 74%;
     padding: 4px 12px 4px 12px;
     cursor: pointer;
     background: #ffffff;

@@ -171,9 +171,11 @@ function Weekly(props) {
         {/* <div className='weekly-gear' /> */}
         <span className='weekly-gear'></span>
       </button>
-      <div className='weekly-download-frame'>
-        <div className='weekly-download-icon' />
-      </div>
+      
+      <button className='weekly-download-frame'>
+        <span className='weekly-download-icon' ></span>
+      </button>
+      
       <button className='weekly-create-frame' onClick={handleCreate}>
         <span className='weekly-create'>Create</span>
         <div className='weekly-dropdown-arrow' />
