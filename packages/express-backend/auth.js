@@ -70,6 +70,7 @@ export function authenticateUser(req, res, next) {
         process.env.TOKEN_SECRET,
         (error, decoded) => {
           if (decoded) {
+            console.log("Data retrieved");
             next();
           } else {
             console.log("JWT error:", error);
