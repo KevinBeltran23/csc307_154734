@@ -110,7 +110,7 @@ app.get("/settings", authenticateUser, (req, res) => { // retrieve the saved set
 app.post("/todo", authenticateUser, (req, res) => {  // add an item to the todo list
     const todoItemToAdd = req.body;
     Service
-        .addEvent(todoItemToAdd)
+        .addTodoItem(todoItemToAdd)
         .then((addedItem) => {
             res.status(201).json(addedItem);
         })
@@ -121,9 +121,9 @@ app.post("/todo", authenticateUser, (req, res) => {  // add an item to the todo 
 });
 
 app.get("/todo", authenticateUser, (req, res) => { // get all the events for a user
-    const { duedate, user } = req.query;
+    const { duedate, contents, user } = req.query;
     Service
-        .getTodoItems(duedate, user)
+        .getTodoItems(duedate, contents, user)
         .then((result) => {
             res.send({ todo_list: result });
         })

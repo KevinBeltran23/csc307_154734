@@ -20,9 +20,10 @@ import {
   } from "date-fns";
   
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
-import "../components/Monthly.css"
-import { PiDropSimple } from "react-icons/pi";
-  
+import "../components/Monthly.css";
+import Clock from "./Clock";
+
+
 function Monthly(props) {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [activeDate, setActiveDate] = useState(new Date());
@@ -95,34 +96,13 @@ function Monthly(props) {
         </div>
         );
     };
+    const addEvents = () => {
+      var testDate;
+      var desc;
+      var startTime;
+      var endTime;
 
-    function clock(s) {
-        // https://www.educative.io/answers/how-to-create-a-dynamic-digital-clock-in-react
-        const [date, setDate] = useState(new Date());
-        var t;
-        useEffect(() => {
-          const interval = setInterval(() => {
-            setDate(new Date());
-          }, 1000);
-    
-          return () => clearInterval(interval);
-        }, []);
-    
-        /*if (s) {
-          t = date.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
-        }
-        else {
-          t = date.toLocaleTimeString();
-        } */
-    
-        return (
-          <div className="monthly-clock">
-            {date.toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})}
-          </div>
-        );
     }
-    
-
     /*const getEvents = () => {
 
     } */
@@ -157,7 +137,6 @@ function Monthly(props) {
         // implement functionality
         // there will be a GET request here to /event/:id
     }
-
   
     return (
       <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
@@ -179,8 +158,10 @@ function Monthly(props) {
           </div>
         </div>
         {getHeader()}
-        {clock()}
-        <button className='monthly-monthly-view-frame' onClick={handleWeekly}>
+        <div className='monthly-clock'>
+          <Clock />
+        </div>
+        <button className='monthly-weekly-view-frame' onClick={handleWeekly}>
           <span className='monthly-change-view'>Weekly View</span>
         </button>
         <button className='monthly-todo-view-frame' onClick={handleToDo}>
@@ -190,9 +171,9 @@ function Monthly(props) {
           {/* <div className='weekly-gear' /> */}
           <span className='monthly-gear'></span>
         </button>
-        <div className='monthly-download-frame'>
-          <div className='monthly-download-icon' />
-        </div>
+        <button className='monthly-download-frame'>
+          <span className='monthly-download-icon' ></span>
+        </button>
         <button className='monthly-create-frame' onClick={handleCreate}>
           <span className='monthly-create'>Create</span>
           <div className='monthly-dropdown-arrow' />
