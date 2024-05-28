@@ -21,7 +21,7 @@ import {
   
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import "../components/Monthly.css"
-import { PiDropSimple } from "react-icons/pi";
+
   
 function Monthly(props) {
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -95,32 +95,6 @@ function Monthly(props) {
         </div>
         );
     };
-
-    function clock(s) {
-        // https://www.educative.io/answers/how-to-create-a-dynamic-digital-clock-in-react
-        const [date, setDate] = useState(new Date());
-        var t;
-        useEffect(() => {
-          const interval = setInterval(() => {
-            setDate(new Date());
-          }, 1000);
-    
-          return () => clearInterval(interval);
-        }, []);
-    
-        /*if (s) {
-          t = date.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
-        }
-        else {
-          t = date.toLocaleTimeString();
-        } */
-    
-        return (
-          <div className="monthly-clock">
-            {date.toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})}
-          </div>
-        );
-    }
     
 
     /*const getEvents = () => {
@@ -158,6 +132,31 @@ function Monthly(props) {
         // there will be a GET request here to /event/:id
     }
 
+    function clock() {
+      // https://www.educative.io/answers/how-to-create-a-dynamic-digital-clock-in-react
+      const [date, setDate] = useState(new Date());
+      var t;
+  
+      useEffect(() => {
+        const interval = setInterval(() => {
+          setDate(new Date());
+        }, 1000);
+  
+        return () => clearInterval(interval);
+      }, []);
+  
+      /*if (s) {
+        t = date.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
+      }
+      else {
+        t = date.toLocaleTimeString();
+      } */
+      return (
+        <div className="monthly-clock">
+          {date.toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})}
+        </div>
+      );
+    }
   
     return (
       <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
