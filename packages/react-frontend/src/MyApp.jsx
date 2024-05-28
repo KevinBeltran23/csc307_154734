@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from "./pages/Login"; 
 import Monthly from "./pages/Monthly"; 
@@ -7,24 +7,21 @@ import ToDo from "./pages/ToDo";
 import Weekly from "./pages/Weekly";
 import SignUp from "./pages/SignUp";
 import Settings from "./pages/Settings";
+import PrivateRoute from "./PrivateRoute";
 
 
 function MyApp() {
 
     const INVALID_TOKEN = "INVALID_TOKEN";
-    const [token, setToken] = useState(INVALID_TOKEN);
-
+    const [token, setToken] = useState(localStorage.getItem('token') || INVALID_TOKEN);
     const [message, setMessage] = useState("");
-    const [registeredUsers, setUsers] = useState([]);
+    const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated') || false)
 
-    function fetchUsers() {
-        const promise = fetch("http://localhost:8000/users", {
-        headers: addAuthHeader() 
-        });
-        return promise;
-    }
+    // useEffect if need to continuously update frontend with new backend data
 
+    // add this to every backend api call for authentication
     function addAuthHeader(otherHeaders = {}) {
+        console.log(token);
         if (token === INVALID_TOKEN) {
         return otherHeaders;
         } else {
@@ -33,6 +30,13 @@ function MyApp() {
             Authorization: `Bearer ${token}`
         };
         }
+    }
+
+    function logoutUser() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('isAuthenticated'); 
+      setToken(INVALID_TOKEN);
+      setMessage(`Logged out successfully`);
     }
 
     function loginUser(creds) {
@@ -47,7 +51,13 @@ function MyApp() {
             if (response.status === 200) {
             response
                 .json()
-                  .then((payload) => setToken(payload.token));
+                .then((payload) => {
+                  setToken(payload.token);
+                  localStorage.setItem('token', payload.token);
+                  setIsAuthenticated(true);
+                  localStorage.setItem('isAuthenticated', 'true');
+                  console.log(token);
+              });
             setMessage(`Login successful; auth token saved`);
             return 1;
             } else {
@@ -73,7 +83,12 @@ function MyApp() {
             if (response.status === 201) {
               response
                 .json()
-                .then((payload) => setToken(payload.token));
+                .then((payload) => {
+                  setToken(payload.token);
+                  localStorage.setItem('token', payload.token);
+                  setIsAuthenticated(true);
+                  localStorage.setItem('isAuthenticated', 'true');
+              });
               setMessage(
                 `Signup successful for user: ${creds.username}; auth token saved`
               );
@@ -96,74 +111,38 @@ function MyApp() {
         return promise;
     }
 
-    function todoListAuthenticate(creds) {
-      const promise = fetch("http://localhost:8000/todo", {
-        method: "GET",
-        headers: addAuthHeader() 
-      })
-        .then((response) => {
-          if (response.status === 201) {
-            response
-              .json()
-              .then((payload) => setToken(payload.token));
-            setMessage(
-              `todoList successful for user: ${creds.username}`
-            );
-            return 1;
-          } else if (response.status === 409) {
-            setMessage(
-              `todoList failed for user: ${creds.username}`
-            );
-            return -1
-          } else {
-            setMessage(
-              `todoList Error ${response.status}: ${response.data}`
-            );
-            return -1;
-          }
-        })
-        .catch((error) => {
-          setMessage(`todoList Error: ${error}`);
-        });
-      return promise;
-  }
-
-    useEffect(() => {
-        fetchUsers()
-            .then((res) =>
-            res.status === 200 ? res.json() : undefined
-            )
-            .then((json) => {
-            if (json) {
-                setUsers(json["users"]);
-            } else {
-                setUsers(null);
-            }
-            })
-            .catch((error) => { console.log(error); });
-    }, [] 
-    );
-
     return (
-        <Router>
-          <div className="container">
-            <Routes>
-              <Route
-                path="/"
-                element={<Login handleSubmit={loginUser} message={message} setMessage={setMessage}/>}
-              />
-              <Route
-                path="/signup"
-                element={<SignUp handleSubmit={signupUser} message={message} setMessage={setMessage}/>}
-              />     
-              <Route path="/monthly" element={<Monthly />} />
-              <Route path="/todo" element={<ToDo />} />
-              <Route path="/weekly" element={<Weekly />} />         
-              <Route path="/settings" element={<Settings />} />       
-            </Routes>
-          </div>
-        </Router>
-      );
+      <Router>
+        <div className="container">
+          <Routes>
+            <Route
+              path="/"
+              element={<Login handleSubmit={loginUser} message={message} setMessage={setMessage} />}
+            />
+            <Route
+              path="/signup"
+              element={<SignUp handleSubmit={signupUser} message={message} setMessage={setMessage}/>}
+            />
+            <Route
+              path="/monthly"
+              element={<PrivateRoute element={Monthly} message={message} setMessage={setMessage} logout={logoutUser}/>}
+            />
+            <Route
+              path="/todo"
+              element={<PrivateRoute element={ToDo} message={message} setMessage={setMessage} logout={logoutUser}/>}
+            />
+            <Route
+              path="/weekly"
+              element={<PrivateRoute element={Weekly} message={message} setMessage={setMessage} logout={logoutUser}/>}
+            />
+            <Route
+              path="/settings"
+              element={<PrivateRoute element={Settings} message={message} setMessage={setMessage} logout={logoutUser}/>}
+            />
+          </Routes>
+        </div>
+      </Router>
+    );
 }
 
 export default MyApp;

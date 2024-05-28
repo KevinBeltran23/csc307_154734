@@ -21,8 +21,9 @@ import {
   
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import "../components/Monthly.css"
+
   
-const Monthly = () => {
+function Monthly(props) {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [activeDate, setActiveDate] = useState(new Date());
   
@@ -94,32 +95,6 @@ const Monthly = () => {
         </div>
         );
     };
-
-    function clock(s) {
-        // https://www.educative.io/answers/how-to-create-a-dynamic-digital-clock-in-react
-        const [date, setDate] = useState(new Date());
-        var t;
-        useEffect(() => {
-          const interval = setInterval(() => {
-            setDate(new Date());
-          }, 1000);
-    
-          return () => clearInterval(interval);
-        }, []);
-    
-        /*if (s) {
-          t = date.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
-        }
-        else {
-          t = date.toLocaleTimeString();
-        } */
-    
-        return (
-          <div className="monthly-clock">
-            {date.toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})}
-          </div>
-        );
-    }
     
 
     /*const getEvents = () => {
@@ -142,81 +117,111 @@ const Monthly = () => {
     }
     function handleCreate() {
         // create an event
+        // there will be a POST request here to /event
     }
     function handleCalendarsDropdown() {
         // open calendars drop down
+        // there will be a GET request here to /calendars
     }
     function handleToDoDropdown() {
         // open todo dropdown
+        // there will be a GET request here to /todo
     }
     function handleClickingOnEvent() {
         // implement functionality
+        // there will be a GET request here to /event/:id
     }
 
+    function clock() {
+      // https://www.educative.io/answers/how-to-create-a-dynamic-digital-clock-in-react
+      const [date, setDate] = useState(new Date());
+      var t;
+  
+      useEffect(() => {
+        const interval = setInterval(() => {
+          setDate(new Date());
+        }, 1000);
+  
+        return () => clearInterval(interval);
+      }, []);
+  
+      /*if (s) {
+        t = date.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
+      }
+      else {
+        t = date.toLocaleTimeString();
+      } */
+      return (
+        <div className="monthly-clock">
+          {date.toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})}
+        </div>
+      );
+    }
   
     return (
+      <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
       <div className="monthly-main-container">
         <div className='monthly-calendar-dropdown-container'>
-            <div className='monthly-rectangle'>
+          <div className='monthly-rectangle'>
             <button className='monthly-button-frame' onClick={handleCalendarsDropdown}>
-                <span className='monthly-calendars'>Calendars</span>
-                <div className='monthly-dropdown-arrow' />
+              <span className='monthly-calendars'>Calendars</span>
+              <div className='monthly-dropdown-arrow' />
             </button>
-            </div>
+          </div>
         </div>
         <div className='monthly-todo-dropdown-container'>
-            <div className='monthly-rectangle'>
+          <div className='monthly-rectangle'>
             <button className='monthly-button-frame' onClick={handleToDoDropdown}>
-                <span className='monthly-todo'>Todo</span>
-                <div className='monthly-dropdown-arrow' />
+              <span className='monthly-todo'>Todo</span>
+              <div className='monthly-dropdown-arrow' />
             </button>
-            </div>
+          </div>
         </div>
         {getHeader()}
         {clock()}
         <button className='monthly-monthly-view-frame' onClick={handleWeekly}>
-            <span className='monthly-change-view'>Weekly View</span>
+          <span className='monthly-change-view'>Weekly View</span>
         </button>
         <button className='monthly-todo-view-frame' onClick={handleToDo}>
-            <span className='monthly-change-view'>To Do</span>
+          <span className='monthly-change-view'>To Do</span>
         </button>
-        <button className='monthly-settings-frame' onClick={handleSettings}> 
-            {/* <div className='weekly-gear' /> */}
-            <span className='monthly-gear'></span>
+        <button className='monthly-settings-frame' onClick={handleSettings}>
+          {/* <div className='weekly-gear' /> */}
+          <span className='monthly-gear'></span>
         </button>
         <div className='monthly-download-frame'>
-            <div className='monthly-download-icon' />
+          <div className='monthly-download-icon' />
         </div>
         <button className='monthly-create-frame' onClick={handleCreate}>
-            <span className='monthly-create'>Create</span>
-            <div className='monthly-dropdown-arrow' />
+          <span className='monthly-create'>Create</span>
+          <div className='monthly-dropdown-arrow' />
         </button>
         <div className='monthly-days-frame'>
-            <span className='monthly-dayHeader'>SUN</span>
-            <span className='monthly-dayHeader'>MON</span>
-            <span className='monthly-dayHeader'>TUE</span>
-            <span className='monthly-dayHeader'>WED</span>
-            <span className='monthly-dayHeader'>THU</span>
-            <span className='monthly-dayHeader'>FRI</span>
-            <span className='monthly-dayHeader'>SAT</span>
+          <span className='monthly-dayHeader'>SUN</span>
+          <span className='monthly-dayHeader'>MON</span>
+          <span className='monthly-dayHeader'>TUE</span>
+          <span className='monthly-dayHeader'>WED</span>
+          <span className='monthly-dayHeader'>THU</span>
+          <span className='monthly-dayHeader'>FRI</span>
+          <span className='monthly-dayHeader'>SAT</span>
         </div>
-            {getDates()}
+        {getDates()}
         <div className="monthly-divider-lines">
-            <div className="monthly-line"></div>
-            <div className="monthly-line"></div>
-            <div className="monthly-line"></div>
-            <div className="monthly-line"></div>
-            <div className="monthly-line"></div>
-            <div className="monthly-line"></div>
+          <div className="monthly-line"></div>
+          <div className="monthly-line"></div>
+          <div className="monthly-line"></div>
+          <div className="monthly-line"></div>
+          <div className="monthly-line"></div>
+          <div className="monthly-line"></div>
         </div>
         <div className="monthly-horiz-divider-lines">
-            <div className="monthly-horiz-line"></div>
-            <div className="monthly-horiz-line"></div>
-            <div className="monthly-horiz-line"></div>
-            <div className="monthly-horiz-line"></div>
+          <div className="monthly-horiz-line"></div>
+          <div className="monthly-horiz-line"></div>
+          <div className="monthly-horiz-line"></div>
+          <div className="monthly-horiz-line"></div>
         </div>
-        
-      </div>
+
+      </div></>
     );
 };
   

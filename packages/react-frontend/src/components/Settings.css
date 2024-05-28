@@ -1,3 +1,21 @@
+.bold-text {
+    font-weight: bold;
+  }
+  
+
+/* Common font style */
+.settings-font {
+    font-family: Arial, sans-serif; /* Example font family */
+    font-style: normal;
+    /* font-weight: 400; */
+}
+
+/* Active button style */
+#settings-button.active {
+    background-color: #E4E3D3; /* Example active button color */
+}
+
+/* Settings box */
 .settings-box {
     width: 1000px;
     height: 700px;
@@ -15,7 +33,7 @@
     padding: none;
 }
 
-/* Gold Bar */
+/* Gold bar */
 .settings-bar {
     box-sizing: border-box;
     width: 1000px;
@@ -24,17 +42,14 @@
     border-width: 1px;
     border-style: solid;
     border-color: #154734;
-    /* z-index: 1; */
 }
 
-/* Settings Header */
+/* Settings header */
 .settings-header {
     width: 175px;
     height: 48px;
     padding: 40px;
-    /*font-family: JosefinSans; */
-    font-style: normal;
-    font-weight: 400;
+    /* font-weight: 400; */
     font-size: 48px;
     line-height: 48px;
     margin: auto;
@@ -42,6 +57,7 @@
     color: #154734;
 }
 
+/* Settings buttons and options container */
 .settings-buttons-options {
     width: 800px;
     height: 450px;
@@ -49,6 +65,7 @@
     position: relative;
 }
 
+/* Settings buttons */
 .settings-buttons {
     box-sizing: border-box;
     display: inline-block;
@@ -56,7 +73,6 @@
     vertical-align: top;
 }
 
-/* Apperance Button */
 #settings-button {
     width: 186px;
     height: 42px;
@@ -64,23 +80,22 @@
     border: 2px solid #000000;
     border-radius: 2px;
     margin-bottom: 9px;
-    margin-left: none;
+    font-size: 14px;
+    cursor: pointer;
 }
 
-/* Button Text */
+/* Button text */
 .settings-text {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    /*font-family: JosefinSans; */
-    font-style: normal;
-    font-weight: 400;
     font-size: 14px;
     color: #000000;
 }
 
+/* Settings options */
 .settings-options {
     box-sizing: border-box;
     display: inline-block;
@@ -91,10 +106,32 @@
     border-radius: 2px;
     border-width: 2px;
     background: #CAC7A7;
-    p {
-        padding: 2px;
-        margin: 2px;
-        font-size: 24px;
-        /*font-family: JosefinSans; */
-    }
+    padding: 10px;
+    overflow-y: auto; /* Add scroll if content overflows */
+}
+
+.settings-option {
+    display: block;
+}
+
+/* Label styling for settings options */
+.settings-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 18px;
+    padding: 5px;
+    /* background: #E4E3D3; */
+    border-radius: 4px;
+}
+
+.settings-label input {
+    margin-right: 10px;
+}
+
+/* Apply common font style */
+.settings-font {
+    font-family: Arial, sans-serif;
+    font-style: normal;
+    /* font-weight: 400; */
 }
