@@ -137,7 +137,9 @@ function Weekly(props) {
             </div>
         </div>
         {getHeader()}
-        <Clock />
+        <div className='weekly-clock'>
+          <Clock />
+        </div>
         <button className='weekly-monthly-view-frame' onClick={handleMonthly}>
             <span className='weekly-change-view'>Monthly View</span>
         </button>
