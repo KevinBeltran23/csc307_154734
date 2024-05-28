@@ -122,6 +122,29 @@ function ToDo(props) {
         });
         return promise;
     }
+
+    function deleteItem(_id) {
+        fetch(`http://localhost:8000/todo/${_id}`, {
+            method: "DELETE",
+            headers: props.addAuthHeader({
+                "Content-Type": "application/json"
+            }),
+        })
+        .then((response) => {
+            if (response.status === 204) {
+                // Filter out the item with the specified _id and update the items list
+                const updated = items.filter((item) => item._id !== _id);
+                setItems(updated);
+            } else if (response.status === 404) {
+                console.log("Resource not found.");
+            } else {
+                throw new Error("Failed to delete item. Status code: " + response.status);
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    }
     
     function updateItems(event) {
         event.preventDefault();
@@ -161,7 +184,7 @@ function ToDo(props) {
 
     useEffect(() => {
         console.log('Items state changed:', items);
-    }, [items]);
+    }, []);
 
     // Kevin doing stuff above
 
@@ -205,7 +228,7 @@ function ToDo(props) {
                         return (
                             <div key={todo._id}>
                                 <div>{todo.contents}</div>
-                                <button onClick={() => console.log("Delete functionality not implemented yet")}>
+                                <button onClick={() => deleteItem(todo._id)}>
                                     Delete
                                 </button>
                                 <input
