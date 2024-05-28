@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "../components/ToDo.css";
 
 import "../components/ToDo.css";
 import Clock from "./Clock.jsx"
+
 
 function ToDo(props) {
 
@@ -80,11 +82,12 @@ function ToDo(props) {
     const [item, setItem] = useState({
         duedate: "",
         contents: "",
-        user: ""
+        user: props.userId
     });
 
     const [items, setItems] = useState([]);
     const [message, setMessage] = useState(""); // Add message state for displaying feedback
+    const navigate = useNavigate();
 
     function handleChange(event) {
         const { name, value} = event.target;
@@ -151,14 +154,21 @@ function ToDo(props) {
             console.error(error);
         });
     }
-    
+
     function updateItems(event) {
         event.preventDefault();
-        postItem(item)
-            .then((newItem) => {
-                if (newItem) {
-                    setItems((prevItems) => [...prevItems, newItem]);
-                    setItem({ duedate: "", contents: "", user: "" }); // Clear form after submission
+        
+        // Ensure the item has the correct user ID before posting
+        const newItem = {
+            ...item,
+            user: props.userId // Set the user ID from props
+        };
+        
+        postItem(newItem)
+            .then((newItemResponse) => {
+                if (newItemResponse) {
+                    setItems((prevItems) => [...prevItems, newItemResponse]);
+                    setItem({ duedate: "", contents: "", user: props.userId }); // Clear form but keep user ID
                 }
             })
             .catch((error) => {
@@ -205,7 +215,7 @@ function ToDo(props) {
     }
 
     return (
-        
+        <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
         <div className="page">
             <div className='todo-clock'>
                 <Clock />
@@ -221,7 +231,17 @@ function ToDo(props) {
                 <span className='todo-change-view'>Monthly View</span>
             </button>
 
+            {/*<div className='todo-calendar-dropdown-container'>
+                <div className='todo-rectangle'>
+                <button className='todo-button-frame' onClick={handleCalendarsDropdown}>
+                    <span className='todo-calendars'>Calendars</span>
+                    <div className='todo-dropdown-arrow' />
+                </button>
+                </div>
+    </div>*/}
+
             <div className="ToDo">
+
             
                 <div className="entry">
                     <form onSubmit={updateItems}>
@@ -240,13 +260,6 @@ function ToDo(props) {
                                 onChange={handleChange}
                                 value={item.duedate}
                                 placeholder="Due date"
-                            />
-                            <input
-                                type="text"
-                                name="user"
-                                onChange={handleChange}
-                                value={item.user}
-                                placeholder="User"
                             />
                             <button type="submit">Add Todo</button>
                         </div>
@@ -278,7 +291,7 @@ function ToDo(props) {
                 )}
             </div>
             {message && <p>{message}</p>}
-        </div>
+        </div></>
         
     );
 }
