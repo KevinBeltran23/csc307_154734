@@ -88,8 +88,31 @@ function Weekly(props) {
       /*const getEvents = () => {
   
       } */
+    function clock(s) {
+      // https://www.educative.io/answers/how-to-create-a-dynamic-digital-clock-in-react
+      const [date, setDate] = useState(new Date());
+      var t;
+      useEffect(() => {
+        const interval = setInterval(() => {
+          setDate(new Date());
+        }, 1000);
 
+        return () => clearInterval(interval);
+      }, []);
 
+      /*if (s) {
+        t = date.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
+      }
+      else {
+        t = date.toLocaleTimeString();
+      } */
+
+      return (
+        <div className="monthly-clock">
+          {date.toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})}
+        </div>
+      );
+    }
 
     const navigate = useNavigate(); 
 
@@ -191,17 +214,7 @@ function Weekly(props) {
             <div className="weekly-line"></div>
             <div className="weekly-line"></div>
         </div>
-        {/* DateSquares */}
-        {/*<div className="date-squares-frame">
-            <span className="date-square">29</span>
-            <div className="date-square"></div>
-            <div className="date-square"></div>
-            <div className="date-square"></div>
-            <div className="date-square"></div>
-            <div className="date-square"></div>
-            <div className="date-square"></div>
-        </div>*/}
-        </div>
+      </div>
     );
 }
 export default Weekly;

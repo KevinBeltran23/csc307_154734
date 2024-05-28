@@ -16,6 +16,24 @@
 }
 
 /* Settings box */
+.bold-text {
+    font-weight: bold;
+  }
+  
+
+/* Common font style */
+.settings-font {
+    font-family: Arial, sans-serif; /* Example font family */
+    font-style: normal;
+    /* font-weight: 400; */
+}
+
+/* Active button style */
+#settings-button.active {
+    background-color: #E4E3D3; /* Example active button color */
+}
+
+/* Settings box */
 .settings-box {
     width: 1000px;
     height: 700px;
@@ -34,6 +52,7 @@
 }
 
 /* Gold bar */
+/* Gold bar */
 .settings-bar {
     box-sizing: border-box;
     width: 1000px;
@@ -45,10 +64,12 @@
 }
 
 /* Settings header */
+/* Settings header */
 .settings-header {
     width: 175px;
     height: 48px;
     padding: 40px;
+    /* font-weight: 400; */
     /* font-weight: 400; */
     font-size: 48px;
     line-height: 48px;
@@ -58,6 +79,7 @@
 }
 
 /* Settings buttons and options container */
+/* Settings buttons and options container */
 .settings-buttons-options {
     width: 800px;
     height: 450px;
@@ -65,6 +87,7 @@
     position: relative;
 }
 
+/* Settings buttons */
 /* Settings buttons */
 .settings-buttons {
     box-sizing: border-box;
@@ -82,8 +105,11 @@
     margin-bottom: 9px;
     font-size: 14px;
     cursor: pointer;
+    font-size: 14px;
+    cursor: pointer;
 }
 
+/* Button text */
 /* Button text */
 .settings-text {
     width: 100%;
@@ -95,6 +121,7 @@
     color: #000000;
 }
 
+/* Settings options */
 /* Settings options */
 .settings-options {
     box-sizing: border-box;
