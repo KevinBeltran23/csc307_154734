@@ -125,19 +125,19 @@ function MyApp() {
             />
             <Route
               path="/monthly"
-              element={<PrivateRoute element={Monthly} message={message} setMessage={setMessage} logout={logoutUser}/>}
+              element={<PrivateRoute element={Monthly} message={message} setMessage={setMessage} logout={logoutUser} addAuthHeader={addAuthHeader}/>}
             />
             <Route
               path="/todo"
-              element={<PrivateRoute element={ToDo} message={message} setMessage={setMessage} logout={logoutUser}/>}
+              element={<PrivateRoute element={ToDo} message={message} setMessage={setMessage} logout={logoutUser} addAuthHeader={addAuthHeader}/>}
             />
             <Route
               path="/weekly"
-              element={<PrivateRoute element={Weekly} message={message} setMessage={setMessage} logout={logoutUser}/>}
+              element={<PrivateRoute element={Weekly} message={message} setMessage={setMessage} logout={logoutUser} addAuthHeader={addAuthHeader}/>}
             />
             <Route
               path="/settings"
-              element={<PrivateRoute element={Settings} message={message} setMessage={setMessage} logout={logoutUser}/>}
+              element={<PrivateRoute element={Settings} message={message} setMessage={setMessage} logout={logoutUser} addAuthHeader={addAuthHeader}/>}
             />
           </Routes>
         </div>

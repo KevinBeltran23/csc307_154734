@@ -23,7 +23,7 @@ import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import "../components/Monthly.css";
 import Clock from "./Clock";
 
-  
+
 function Monthly(props) {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [activeDate, setActiveDate] = useState(new Date());
