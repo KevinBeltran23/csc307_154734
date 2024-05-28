@@ -13,6 +13,7 @@ import {
   } from "date-fns";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import '../components/Weekly.css';
+import Clock from "./Clock";
 
 function Weekly(props) {
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -116,32 +117,6 @@ function Weekly(props) {
         // implement functionality
     }
 
-    function clock() {
-      // https://www.educative.io/answers/how-to-create-a-dynamic-digital-clock-in-react
-      const [date, setDate] = useState(new Date());
-      var t;
-  
-      useEffect(() => {
-        const interval = setInterval(() => {
-          setDate(new Date());
-        }, 1000);
-  
-        return () => clearInterval(interval);
-      }, []);
-  
-      /*if (s) {
-        t = date.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
-      }
-      else {
-        t = date.toLocaleTimeString();
-      } */
-      return (
-        <div className="weekly-clock">
-          {date.toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})}
-        </div>
-      );
-    }
-
     return (
         <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
         <div className='weekly-main-container'>
@@ -162,7 +137,7 @@ function Weekly(props) {
             </div>
         </div>
         {getHeader()}
-        {clock()}
+        <Clock />
         <button className='weekly-monthly-view-frame' onClick={handleMonthly}>
             <span className='weekly-change-view'>Monthly View</span>
         </button>
