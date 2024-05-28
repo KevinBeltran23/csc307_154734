@@ -10,7 +10,25 @@
     background: var(--gray, #dfdfdb);
 }
 
-.todo-todo-view-frame {
+.todo-weekly-view-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    position: absolute;
+    width: 135px;
+    height: 25px;
+    top: 40px;
+    left: 1325px;
+    padding: 10px 10px 10px 10px;
+    cursor: pointer;
+    background: #ffffff;
+    border: 1px solid #000000;
+    z-index: 12;
+}
+
+.todo-monthly-view-frame {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,6 +44,21 @@
     background: #ffffff;
     border: 1px solid #000000;
     z-index: 12;
+}
+
+.todo-clock {
+    position: absolute;
+    width: 88px;
+    height: 24px;
+    left: 945px;
+    top: 52px;
+    font-size: 24px;
+    line-height: 24px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
 }
 
 .todo-entry {

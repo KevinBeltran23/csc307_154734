@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-import React from "react";
-// import React, { useEffect, useState } from "react";
-// import { useNavigate } from 'react-router-dom';
-=======
 import React, { useEffect, useState } from "react";
 import "../components/ToDo.css";
->>>>>>> main
 
 import "../components/ToDo.css";
 import Clock from "./Clock.jsx"
@@ -175,21 +169,37 @@ function ToDo(props) {
         console.log('Items state changed:', items);
     }, [items]);
 
+    
     // Kevin doing stuff above
+
+    function handleWeekly() {
+        // go to weekly page
+        navigate('/weekly');
+    }
+    function handleMonthly() {
+        // go to weekly page
+        navigate('/monthly');
+    }
 
     return (
         
         <div className="page">
-<<<<<<< HEAD
+            <div className='todo-clock'>
+                <Clock />
+            </div>
+
             <h1> To Dos </h1>
-            <Clock />
-            <button className='todo-todo-view-frame' onClick={handleToDo}>
-                <span className='todo-change-view'>To Do</span>
+             
+            <button className='todo-weekly-view-frame' onClick={handleWeekly}>
+                <span className='todo-change-view'>Weekly View</span>
+            </button> 
+
+            <button className='todo-monthly-view-frame' onClick={handleMonthly}>
+                <span className='todo-change-view'>Monthly View</span>
             </button>
-=======
-            <h1>Wednesday</h1>
->>>>>>> main
+
             <div className="ToDo">
+            
                 <div className="entry">
                     <form onSubmit={updateItems}>
                         <div className="textEntry">
