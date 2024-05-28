@@ -161,7 +161,7 @@ function Monthly(props) {
         <div className='monthly-clock'>
           <Clock />
         </div>
-        <button className='monthly-monthly-view-frame' onClick={handleWeekly}>
+        <button className='monthly-weekly-view-frame' onClick={handleWeekly}>
           <span className='monthly-change-view'>Weekly View</span>
         </button>
         <button className='monthly-todo-view-frame' onClick={handleToDo}>
@@ -171,9 +171,9 @@ function Monthly(props) {
           {/* <div className='weekly-gear' /> */}
           <span className='monthly-gear'></span>
         </button>
-        <div className='monthly-download-frame'>
-          <div className='monthly-download-icon' />
-        </div>
+        <button className='monthly-download-frame'>
+          <span className='monthly-download-icon' ></span>
+        </button>
         <button className='monthly-create-frame' onClick={handleCreate}>
           <span className='monthly-create'>Create</span>
           <div className='monthly-dropdown-arrow' />

@@ -60,6 +60,28 @@
     color: #9e9e9e;
 }
 
+.monthly-todayButton {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 95px;
+    height: 40px;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    font-size: 20px;
+    flex-shrink: 0;
+    border: 1px solid #000;
+    background: var(--White, #FFF);
+    vertical-align: text-bottom;
+    text-align: center;
+}
+  
+.monthly-todayButton:hover {
+    background: #DFDFDB;
+    cursor: pointer;
+}
+
 .monthly-today {
     background: #efefee;
     border-radius: 50%;
@@ -75,27 +97,7 @@
     fill: #DFDFDB;
     cursor: pointer;
 }
-  
-.monthly-todayButton {
-    display: inline-block;
-    box-sizing: border-box;
-    width: 95px;
-    height: 40px;
-    padding: 10px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-    border: 1px solid #000;
-    background: var(--White, #FFF);
-    vertical-align: text-bottom;
-    text-align: center;
-}
-  
-.monthly-todayButton:hover {
-    background: #DFDFDB;
-    cursor: pointer;
-}
+
 
 .monthly-divider-lines {
     display: flex;
@@ -154,6 +156,7 @@
     flex-grow: 0;
 }
 
+
 /* Dropdowns */
 .monthly-calendar-dropdown-container {
     display: flex;
@@ -178,14 +181,14 @@
     width: 152px;
     height: 920px;
     left: 35px;
-    top: 500px;
+    top: 450px;
 }
 
 /* Individual rectangle styles */
 .monthly-rectangle {
     box-sizing: border-box;
     width: 152px;
-    height: 456px;
+    height: 400px;
     background: #DFDFDB;
     border: 4px solid #154734;
     border-radius: 24px;
@@ -251,29 +254,15 @@
 .monthly-dropdown-arrow {
     width: 13px;
     height: 11px;
-    background: url(../assets/empty.jpg) no-repeat center;
+    background: url(../assets/Dropdown_arrow.png) no-repeat center;
     background-size: cover;
     /* Add additional styles for the arrow */
     fill: #000;
     /* Change the color of the arrow */
 }
 
-.monthly-clock {
-    position: absolute;
-    width: 88px;
-    height: 24px;
-    left: 945px;
-    top: 52px;
-    font-size: 24px;
-    line-height: 24px;
-    /* identical to box height */
-    display: flex;
-    align-items: center;
-    text-align: center;
-    color: #000000;
-}
 
-.monthly-monthly-view-frame {
+.monthly-weekly-view-frame {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -282,7 +271,7 @@
     position: absolute;
     width: 135px;
     height: 25px;
-    top: 40px;
+    top: 50px;
     left: 1325px;
     padding: 10px 10px 10px 10px;
     cursor: pointer;
@@ -300,7 +289,7 @@
     position: absolute;
     width: 135px;
     height: 25px;
-    top: 70px;
+    top: 80px;
     left: 1325px;
     padding: 10px 10px 10px 10px;
     cursor: pointer;
@@ -309,10 +298,15 @@
     z-index: 12;
 }
 
-.monthly-monthly-view-frame:hover,
+.monthly-weekly-view-frame:hover,
 .monthly-todo-view-frame:hover,
-.monthly-settings-frame:hover {
+.monthly-settings-frame:hover
+{
     background: #DFDFDB;
+}
+
+.monthly-download-frame:hover{
+    background:  #f8f8f821;
 }
 
 .monthly-change-view {
@@ -337,8 +331,8 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    top: 39px;
-    left: 1263px;
+    top: 0%;
+    left: 97%;
     border-radius: 50%;
     background-color: #ffffff;
     /* Set background color to white */
@@ -356,35 +350,30 @@
 }
 
 .monthly-download-frame {
+    cursor: pointer;
     display: flex;
-    align-items: flex-start;
-    flex-wrap: nowrap;
-    gap: 10px;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
     position: absolute;
     width: 40px;
     height: 40px;
-    top: 40px;
-    left: 1050px;
-    padding: 3px 6px 3px 6px;
-    background: #d9d9d9;
+    top: 5%;
+    left: 97%;
+    padding: 3px 6px;
+    background: #ffffff00;
+    border: 0px solid #000000;
+    border-radius: 5%;
     z-index: 44;
-    border-radius: 4px;
 }
 
 .monthly-download-icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;
-    flex-shrink: 0;
-    position: relative;
-    width: 30px;
-    height: 30px;
-    background: url(../assets/Download.png) no-repeat center;
+    width: 28px;
+    height: 28px;
+    background: url(../assets/download_icon.png) no-repeat center;
     background-size: cover;
     z-index: 45;
 }
+
 
 .monthly-create-frame {
     display: flex;
@@ -392,10 +381,10 @@
     flex-wrap: nowrap;
     gap: 6px;
     position: absolute;
-    width: 80px;
+    width: 100px;
     height: 25px;
     top: 50px;
-    left: 1165px;
+    left: 1220px;
     padding: 4px 12px 4px 12px;
     cursor: pointer;
     background: #ffffff;
@@ -407,22 +396,27 @@
     flex-shrink: 0;
     flex-basis: auto;
     position: relative;
-    height: 15px;
+    height: 22px;
     color: #000000;
     font-family: Inter, var(--default-font-family);
-    font-size: 12px;
-    line-height: 15px;
-    text-align: left;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
     white-space: nowrap;
     z-index: 17;
 }
 
-.monthly-dropdown-arrow {
-    flex-shrink: 0;
-    position: relative;
-    width: 10px;
-    height: 10px;
-    background: url(../assets/dropdown_arrow.png) no-repeat center;
-    background-size: cover;
-    z-index: 18;
+.monthly-clock {
+    position: absolute;
+    width: 150px;
+    height: 0px;
+    left: 1315px;
+    top: 20px;
+    font-size: 40px;
+    line-height: 100px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
 }

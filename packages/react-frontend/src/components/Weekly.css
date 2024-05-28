@@ -82,10 +82,11 @@
     box-sizing: border-box;
     width: 95px;
     height: 40px;
-    padding: 10px;
+    padding: 5px;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
+    font-size: 20px;
     flex-shrink: 0;
     border: 1px solid #000;
     background: var(--White, #FFF);
@@ -122,14 +123,14 @@
     width: 152px;
     height: 920px;
     left: 35px;
-    top: 500px;
+    top: 450px;
 }
 
 /* Individual rectangle styles */
 .weekly-rectangle {
     box-sizing: border-box;
     width: 152px;
-    height: 456px;
+    height: 400px;
     background: #DFDFDB;
     border: 4px solid #154734;
     border-radius: 24px;
@@ -195,7 +196,7 @@
 .weekly-dropdown-arrow {
     width: 13px;
     height: 11px;
-    background: url(../assets/empty.jpg) no-repeat center;
+    background: url(../assets/Dropdown_arrow.png) no-repeat center;
     background-size: cover;
     /* Add additional styles for the arrow */
     fill: #000;
@@ -206,8 +207,6 @@
     position: absolute;
     width: 88px;
     height: 24px;
-    left: 945px;
-    top: 52px;
     font-size: 24px;
     line-height: 24px;
     /* identical to box height */
@@ -216,7 +215,6 @@
     text-align: center;
     color: #000000;
 }
-
 
 /* Times */
 .weekly-time-container {
@@ -253,7 +251,7 @@
     position: absolute;
     width: 135px;
     height: 25px;
-    top: 40px;
+    top: 50px;
     left: 1325px;
     padding: 10px 10px 10px 10px;
     cursor: pointer;
@@ -271,7 +269,7 @@
     position: absolute;
     width: 135px;
     height: 25px;
-    top: 70px;
+    top: 80px;
     left: 1325px;
     padding: 10px 10px 10px 10px;
     cursor: pointer;
@@ -282,8 +280,13 @@
 
 .weekly-monthly-view-frame:hover,
 .weekly-todo-view-frame:hover,
-.weekly-settings-frame:hover {
+.weekly-settings-frame:hover
+{
     background: #DFDFDB;
+}
+
+.weekly-download-frame:hover{
+    background:  #f8f8f821;
 }
 
 .weekly-change-view {
@@ -308,8 +311,8 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    top: 39px;
-    left: 1263px;
+    top: 0%;
+    left: 97%;
     border-radius: 50%;
     background-color: #ffffff;
     /* Set background color to white */
@@ -327,35 +330,30 @@
 }
 
 .weekly-download-frame {
+    cursor: pointer;
     display: flex;
-    align-items: flex-start;
-    flex-wrap: nowrap;
-    gap: 10px;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
     position: absolute;
     width: 40px;
     height: 40px;
-    top: 40px;
-    left: 1050px;
-    padding: 3px 6px 3px 6px;
-    background: #d9d9d9;
+    top: 5%;
+    left: 97%;
+    padding: 3px 6px;
+    background: #ffffff00;
+    border: 0px solid #000000;
+    border-radius: 5%;
     z-index: 44;
-    border-radius: 4px;
 }
 
 .weekly-download-icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;
-    flex-shrink: 0;
-    position: relative;
-    width: 30px;
-    height: 30px;
-    background: url(../assets/Download.png) no-repeat center;
+    width: 28px;
+    height: 28px;
+    background: url(../assets/download_icon.png) no-repeat center;
     background-size: cover;
     z-index: 45;
 }
+
 
 .weekly-create-frame {
     display: flex;
@@ -363,10 +361,10 @@
     flex-wrap: nowrap;
     gap: 6px;
     position: absolute;
-    width: 80px;
+    width: 100px;
     height: 25px;
     top: 50px;
-    left: 1165px;
+    left: 1220px;
     padding: 4px 12px 4px 12px;
     cursor: pointer;
     background: #ffffff;
@@ -378,24 +376,14 @@
     flex-shrink: 0;
     flex-basis: auto;
     position: relative;
-    height: 15px;
+    height: 22px;
     color: #000000;
     font-family: Inter, var(--default-font-family);
-    font-size: 12px;
-    line-height: 15px;
-    text-align: left;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
     white-space: nowrap;
     z-index: 17;
-}
-
-.weekly-dropdown-arrow {
-    flex-shrink: 0;
-    position: relative;
-    width: 10px;
-    height: 10px;
-    background: url(../assets/dropdown_arrow.png) no-repeat center;
-    background-size: cover;
-    z-index: 18;
 }
 
 /* Days */
@@ -442,12 +430,12 @@
 
 .weekly-clock {
     position: absolute;
-    width: 88px;
-    height: 24px;
-    left: 945px;
-    top: 52px;
-    font-size: 24px;
-    line-height: 24px;
+    width: 150px;
+    height: 0px;
+    left: 1315px;
+    top: 20px;
+    font-size: 40px;
+    line-height: 100px;
     /* identical to box height */
     display: flex;
     align-items: center;
