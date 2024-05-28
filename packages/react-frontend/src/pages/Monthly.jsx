@@ -158,7 +158,9 @@ function Monthly(props) {
           </div>
         </div>
         {getHeader()}
-        <Clock />
+        <div className='monthly-clock'>
+          <Clock />
+        </div>
         <button className='monthly-monthly-view-frame' onClick={handleWeekly}>
           <span className='monthly-change-view'>Weekly View</span>
         </button>

@@ -20,7 +20,7 @@ function Clock() {
       t = date.toLocaleTimeString();
     } */
     return (
-      <div className="monthly-clock">
+      <div className="clock">
         {date.toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})}
       </div>
     );
