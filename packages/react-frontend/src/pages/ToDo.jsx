@@ -8,77 +8,6 @@ import Clock from "./Clock.jsx"
 
 function ToDo(props) {
 
-    /* stuff I am replacing or revamping below
-
-    const [todos, setTodos] = useState([]);
-    const [todo, setTodo] = useState("");
-    const [todoEditing, setTodoEditing] = useState(null);
-    const [editingText, setEditingText] = useState("");
-
-    useEffect(() => {
-        const temp = localStorage.getItem("todos");
-        const loadedTodos = JSON.parse(temp);
-
-        if (loadedTodos) {
-            setTodos(loadedTodos);
-        }
-    }, []);
-
-    useEffect(() => {
-        const temp = JSON.stringify(todos);
-        localStorage.setItem("todos", temp);
-    }, [todos]);
-
-    function handleSubmit(e) {
-        e.preventDefault();
-
-        const newTodo = {
-            id: new Date().getTime(),
-            text: todo,
-            completed: false
-        };
-
-        setTodos([...todos].concat(newTodo));
-        setTodo("");
-    }
-
-    function deleteTodo(id) {
-        const updatedTodos = [...todos].filter((todo) => todo.id !== id);
-
-        setTodos(updatedTodos);
-    }
-
-    function toggleComplete(id) {
-        const updatedTodos = [...todos].map((todo) => {
-            if (todo.id === id) {
-                todo.completed = !todo.completed;
-            }
-            return todo;
-        });
-
-        setTodos(updatedTodos);
-    }
-
-    function editTodo(id) {
-        const updatedTodos = [...todos].map((todo) => {
-            if (todo.id === id) {
-                todo.text = editingText;
-            }
-            return todo;
-        });
-        setTodos(updatedTodos);
-        setTodoEditing(null);
-        setEditingText("");
-    }
-    function handleToDo() {
-        // go to todo page
-        navigate('/todo');
-    }
-
-    */ //stuff I am replacing or revamping above
-
-    // kevin doing stuff below
-
     const [item, setItem] = useState({
         duedate: "",
         contents: "",
@@ -90,20 +19,8 @@ function ToDo(props) {
     const navigate = useNavigate();
     const [todoEditing, setTodoEditing] = useState(null); 
     const [editingText, setEditingText] = useState(""); 
+    
 
-    /* function handleChange(event) {
-        const { name, value} = event.target;
-        switch (name) {
-          case "duedate":
-            setItem({ ...item, duedate: value });
-            break;
-          case "contents":
-            setItem({ ...item, contents: value });
-            break;
-          case "user":
-            setItem({ ...item, user: value});
-        }
-    }*/
     function handleChange(event) {
         const { name, value } = event.target;
         setItem((prevItem) => ({
@@ -112,8 +29,17 @@ function ToDo(props) {
         }));
     }
 
+    function handleWeekly() {
+        // go to weekly page
+        navigate('/weekly');
+    }
+    function handleMonthly() {
+        // go to weekly page
+        navigate('/monthly');
+    }
+
     function fetchItems() {
-        const promise = fetch("http://localhost:8000/todo", {
+        const promise = fetch(`http://localhost:8000/todo?user=${props.userId}`, {
             method: "GET",
             headers: props.addAuthHeader(),
             });
@@ -236,22 +162,6 @@ function ToDo(props) {
                 console.log('Fetch error:', error);
             });
     }, []);
-
-    useEffect(() => {
-        console.log('Items state changed:', items);
-    }, []);
-
-    
-    // Kevin doing stuff above
-
-    function handleWeekly() {
-        // go to weekly page
-        navigate('/weekly');
-    }
-    function handleMonthly() {
-        // go to weekly page
-        navigate('/monthly');
-    }
 
     return (
         <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>

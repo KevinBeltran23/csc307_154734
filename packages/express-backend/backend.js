@@ -4,7 +4,7 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import Service from "./services.js";
-import { registerUser, loginUser, authenticateUser } from "./auth.js";
+import auth, { registerUser, loginUser, authenticateUser } from "./auth.js";
 
 const app = express();
 const port = 8000;
@@ -120,10 +120,10 @@ app.post("/todo", authenticateUser, (req, res) => {  // add an item to the todo 
         });
 });
 
-app.get("/todo", authenticateUser, (req, res) => { // get all the events for a user
+app.get("/todo", authenticateUser, (req, res) => { // get todo items
     const { duedate, contents, user } = req.query;
     Service
-        .getTodoItems(duedate, contents, user)
+        .getTodoItems(duedate, user)
         .then((result) => {
             res.send({ todo_list: result });
         })
@@ -132,6 +132,7 @@ app.get("/todo", authenticateUser, (req, res) => { // get all the events for a u
             res.status(500).send("Internal Server Error");
         });
 });
+
 
 app.delete("/todo/:id", authenticateUser, (req, res) => { // delete an item from the todo list 
     const id = req.params["id"];
@@ -148,22 +149,6 @@ app.delete("/todo/:id", authenticateUser, (req, res) => { // delete an item from
             res.status(500).send("Internal Server Error");
         });
 });
-
-app.get("/todo/:id", (req, res) => { // get one todo items information
-    const id = req.params["id"];
-    Service.findTodoItemById(id)
-        .then((result) => {
-            if (!result) {
-                res.status(404).send("Resource not found.");
-            } else {
-                res.send(result);
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-}); 
 
 
 // events
@@ -230,10 +215,11 @@ app.delete("/event/:id", authenticateUser, (req, res) => { // delete an event by
 
 // users 
 
-app.get("/users", authenticateUser, (req, res) => { // get all users 
-    Service.getAllUsers()
+app.get("/users", authenticateUser, (req, res) => { // get users by username, password, both, or none
+    const { username, password } = req.query; // Use req.query to get query parameters
+    Service.getUsers(username, password)
         .then((result) => {
-            res.send({ users_list: result });
+            res.send({ result: result });
         })
         .catch((error) => {
             console.log(error);
