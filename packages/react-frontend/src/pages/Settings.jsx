@@ -44,17 +44,17 @@ const Settings = () => {
     }
   });
 
-  useEffect(() => {
-    const savedSettings = localStorage.getItem("settings");
-    if (savedSettings) {
-      setSettings(JSON.parse(savedSettings));
-    }
-  }, []);
+  // useEffect(() => {
+  //   const savedSettings = localStorage.getItem("settings");
+  //   if (savedSettings) {
+  //     setSettings(JSON.parse(savedSettings));
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    localStorage.setItem("selectedOption", selectedOption);
-    localStorage.setItem("settings", JSON.stringify(settings));
-  }, [selectedOption, settings]);
+  // useEffect(() => {
+  //   localStorage.setItem("selectedOption", selectedOption);
+  //   localStorage.setItem("settings", JSON.stringify(settings));
+  // }, [selectedOption, settings]);
 
   // Effect to toggle bold text class
   useEffect(() => {
