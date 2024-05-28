@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Translate from "./Translate"; // Import the Translate component
 import "../components/Settings.css";
 
 const Settings = () => {
@@ -65,22 +66,36 @@ const Settings = () => {
   }, [settings.Text["Bold Text"]]);
 
   const handleCheckboxChange = (option, setting) => {
-    const updatedSettings = { ...settings };
-    // For options like language and colors, uncheck other options when one is checked
-    if (option === "Language & Region" || option === "Appearance" || option === "Colors") {
-      Object.keys(updatedSettings[option]).forEach(key => {
-        updatedSettings[option][key] = key === setting;
-      });
-    } else {
-      updatedSettings[option][setting] = !updatedSettings[option][setting];
-    }
-    setSettings(updatedSettings);
+    setSettings((prevSettings) => {
+      const updatedSettings = { ...prevSettings };
+      // For options like language and colors, uncheck other options when one is checked
+      if (option === "Language & Region" || option === "Appearance" || option === "Colors") {
+        Object.keys(updatedSettings[option]).forEach((key) => {
+          updatedSettings[option][key] = key === setting;
+        });
+      } else {
+        updatedSettings[option][setting] = !updatedSettings[option][setting];
+      }
+
+      if (option === "Language & Region") {
+        const selectedLanguage = setting === "English" ? "en" : "es";
+        const googleTranslateElement = document.querySelector(".goog-te-combo");
+        if (googleTranslateElement) {
+          googleTranslateElement.value = selectedLanguage;
+          setTimeout(() => {
+            googleTranslateElement.dispatchEvent(new Event("change"));
+          }, 0); // Trigger change event after setting the value
+        }
+      }
+
+      return updatedSettings;
+    });
   };
 
   const renderOptionContent = () => {
     return (
       <div>
-        {Object.keys(settings[selectedOption]).map(setting => (
+        {Object.keys(settings[selectedOption]).map((setting) => (
           <label key={setting} className="settings-label">
             <input
               type="checkbox"
@@ -95,9 +110,8 @@ const Settings = () => {
   };
 
   return (
-    <div className="page-container"> {/* Added a container */}
+    <div className="page-container">
       <div className="settings-box">
-
         {/* Gold Bar */}
         <div className="settings-bar"></div>
 
@@ -105,9 +119,9 @@ const Settings = () => {
         <div className="settings-header">Settings</div>
         <div className="settings-buttons-options">
           <div className="settings-buttons">
-            {Object.keys(settings).map(option => (
-              <button 
-                key={option} 
+            {Object.keys(settings).map((option) => (
+              <button
+                key={option}
                 className={`settings-button ${selectedOption === option ? "active" : ""}`}
                 onClick={() => setSelectedOption(option)}
               >
@@ -118,14 +132,11 @@ const Settings = () => {
 
           {/* Setting Options */}
           <div className="settings-options">
-            <div className="settings-option">
-              {renderOptionContent()}
-            </div>
+            <div className="settings-option">{renderOptionContent()}</div>
           </div>
-
         </div>
-
       </div>
+      <Translate /> {/* Add the Translate component */}
     </div>
   );
 };
