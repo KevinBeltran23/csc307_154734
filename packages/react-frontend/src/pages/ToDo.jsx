@@ -88,8 +88,10 @@ function ToDo(props) {
     const [items, setItems] = useState([]);
     const [message, setMessage] = useState(""); // Add message state for displaying feedback
     const navigate = useNavigate();
+    const [todoEditing, setTodoEditing] = useState(null); 
+    const [editingText, setEditingText] = useState(""); 
 
-    function handleChange(event) {
+    /* function handleChange(event) {
         const { name, value} = event.target;
         switch (name) {
           case "duedate":
@@ -101,7 +103,14 @@ function ToDo(props) {
           case "user":
             setItem({ ...item, user: value});
         }
-      }
+    }*/
+    function handleChange(event) {
+        const { name, value } = event.target;
+        setItem((prevItem) => ({
+            ...prevItem,
+            [name]: value
+        }));
+    }
 
     function fetchItems() {
         const promise = fetch("http://localhost:8000/todo", {
@@ -175,6 +184,36 @@ function ToDo(props) {
                 console.log(error);
             });
     }
+
+    function editItem(itemId) {
+        const updatedItem = {
+            ...items.find(item => item._id === itemId),
+            contents: editingText,
+            user: props.userId // Ensure the user ID is included
+        };
+    
+        fetch(`http://localhost:8000/todo/${itemId}`, {
+            method: "PUT",
+            headers: props.addAuthHeader({
+                "Content-Type": "application/json"
+            }),
+            body: JSON.stringify(updatedItem)
+        })
+        .then(response => {
+            if (response.ok) {
+                setItems(items.map(item => (item._id === itemId ? updatedItem : item)));
+                setTodoEditing(null);
+                setEditingText("");
+            } else {
+                throw new Error(`Update Error ${response.status}: ${response.statusText}`);
+            }
+        })
+        .catch(error => {
+            setMessage(`Update Error: ${error.message}`);
+            console.error(error);
+        });
+    }
+    
 
     useEffect(() => {
         fetchItems()
@@ -267,6 +306,40 @@ function ToDo(props) {
                 </div>
     
                 {items && items.length > 0 ? (
+                    items.map((todo) => (
+                        <div key={todo._id}>
+                            {todoEditing === todo._id ? (
+                                <>
+                                    <input
+                                        type="text"
+                                        onChange={(e) => setEditingText(e.target.value)}
+                                        value={editingText}
+                                    />
+                                    <button onClick={() => editItem(todo._id)}>Submit Edits</button>
+                                    <button onClick={() => setTodoEditing(null)}>Cancel</button>
+                                </>
+                            ) : (
+                                <>
+                                    <div>{todo.contents}</div>
+                                    <button onClick={() => {
+                                        setTodoEditing(todo._id);
+                                        setEditingText(todo.contents);
+                                    }}>Edit Todo</button>
+                                </>
+                            )}
+                            <button onClick={() => deleteItem(todo._id)}>Delete</button>
+                            <input
+                                type="checkbox"
+                                onChange={() => console.log("Toggle complete functionality not implemented yet")}
+                                checked={todo.completed}
+                            />
+                        </div>
+                    ))
+                ) : (
+                    <p>No items available</p>
+                )}
+
+                {/*{items && items.length > 0 ? (
                     items.map((todo) => {
                         console.log('Rendering todo:', todo); // Log each todo being rendered
                         return (
@@ -288,7 +361,7 @@ function ToDo(props) {
                     })
                 ) : (
                     <p>No items available</p>
-                )}
+                )}*/}
             </div>
             {message && <p>{message}</p>}
         </div></>
@@ -296,3 +369,5 @@ function ToDo(props) {
     );
 }
 export default ToDo;
+
+
