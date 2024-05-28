@@ -24,35 +24,36 @@ export function registerUser(req, res) {
   const { username, pwd } = req.body; // from form
 
   if (!username || !pwd) {
-    res.status(400).send('Bad request: Invalid input data.');
+      res.status(400).send('Bad request: Invalid input data.');
   } else {
-    User.findOne({ username: username })
-      .then(existingUser => {
-        if (existingUser) {
-          res.status(409).send('Username already taken');
-        } else {
-          bcrypt.genSalt(10)
-            .then(salt => bcrypt.hash(pwd, salt))
-            .then(password => {
-              const userToAdd = new User({ username, password });
-              const promise = userToAdd.save();
-              return promise
-            })
-            .then(savedUser => generateAccessToken(username))
-            .then(token => {
-              console.log('Token:', token);
-              res.status(201).send({ token: token });
-            })
-            .catch(err => {
-              console.error('Error saving user or generating token:', err);
+      User.findOne({ username: username })
+          .then(existingUser => {
+              if (existingUser) {
+                  res.status(409).send('Username already taken');
+              } else {
+                  bcrypt.genSalt(10)
+                      .then(salt => bcrypt.hash(pwd, salt))
+                      .then(password => {
+                          const userToAdd = new User({ username, password });
+                          return userToAdd.save();
+                      })
+                      .then(savedUser => {
+                          return generateAccessToken(username)
+                              .then(token => {
+                                  console.log('Token:', token);
+                                  res.status(201).send({ token: token, userId: savedUser._id });
+                              });
+                      })
+                      .catch(err => {
+                          console.error('Error saving user or generating token:', err);
+                          res.status(500).send('Internal server error');
+                      });
+              }
+          })
+          .catch(err => {
+              console.error('Error checking existing user:', err);
               res.status(500).send('Internal server error');
-            });
-        }
-      })
-      .catch(err => {
-        console.error('Error checking existing user:', err);
-        res.status(500).send('Internal server error');
-      });
+          });
   }
 }
 
@@ -93,7 +94,7 @@ export function loginUser(req, res) {
           .then(matched => {
             if (matched) {
               generateAccessToken(username).then(token => {
-                res.status(200).send({ token: token });
+                res.status(200).send({ token: token, userId: retrievedUser._id });
               });
             } else {
               // invalid password

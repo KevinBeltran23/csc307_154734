@@ -27,7 +27,14 @@ function getAllUsers() {
 function getUsers(username, password) {
     let query = {};
     if (username && password) {
-        query = { name: username, password: password };
+        query = { username: username, password: password };
+        return userModel.findOne({ username: username, password: password });
+    }
+    else if (username) {
+        query = { username: username};
+    }
+    else if (password) {
+        query = { password: password};
     }
     return userModel.find(query);
 }
