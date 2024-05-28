@@ -14,6 +14,7 @@ function MyApp() {
 
     const INVALID_TOKEN = "INVALID_TOKEN";
     const [token, setToken] = useState(localStorage.getItem('token') || INVALID_TOKEN);
+    const [userId, setuserId] = useState(localStorage.getItem('userId') || 0);
     const [message, setMessage] = useState("");
     const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated') || false)
 
@@ -32,9 +33,31 @@ function MyApp() {
         }
     }
 
+    function getUserId(username, password) {
+      return fetch(`http://localhost:8000/users/id?username=${username}&password=${password}`, {
+          method: 'GET',
+          headers: addAuthHeader({
+            "Content-Type": "application/json"
+          }),
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Failed to retrieve user ID');
+          }
+          return response.json();
+      })
+      .then(data => {
+          return data._id;
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
+  }
+
     function logoutUser() {
       localStorage.removeItem('token');
       localStorage.removeItem('isAuthenticated'); 
+      localStorage.removeItem('userId'); 
       setToken(INVALID_TOKEN);
       setMessage(`Logged out successfully`);
     }
@@ -57,6 +80,15 @@ function MyApp() {
                   setIsAuthenticated(true);
                   localStorage.setItem('isAuthenticated', 'true');
                   console.log(token);
+
+                  getUserId(creds.username, creds.password)
+                    .then(userId => {
+                        localStorage.setItem('userId', userId); // Store the user ID
+                        console.log('User ID:', userId);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
               });
             setMessage(`Login successful; auth token saved`);
             return 1;
@@ -88,6 +120,15 @@ function MyApp() {
                   localStorage.setItem('token', payload.token);
                   setIsAuthenticated(true);
                   localStorage.setItem('isAuthenticated', 'true');
+
+                  getUserId(creds.username, creds.password)
+                    .then(userId => {
+                        localStorage.setItem('userId', userId); // Store the user ID
+                        console.log('User ID:', userId);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
               });
               setMessage(
                 `Signup successful for user: ${creds.username}; auth token saved`
