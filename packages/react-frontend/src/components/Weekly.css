@@ -439,3 +439,18 @@
     height: 754px;
     background-color: #154734; /* This creates a solid black line */
 }
+
+.weekly-clock {
+    position: absolute;
+    width: 88px;
+    height: 24px;
+    left: 945px;
+    top: 52px;
+    font-size: 24px;
+    line-height: 24px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}

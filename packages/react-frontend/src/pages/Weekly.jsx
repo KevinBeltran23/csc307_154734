@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     format,
@@ -88,31 +88,6 @@ function Weekly(props) {
       /*const getEvents = () => {
   
       } */
-    function clock(s) {
-      // https://www.educative.io/answers/how-to-create-a-dynamic-digital-clock-in-react
-      const [date, setDate] = useState(new Date());
-      var t;
-      useEffect(() => {
-        const interval = setInterval(() => {
-          setDate(new Date());
-        }, 1000);
-
-        return () => clearInterval(interval);
-      }, []);
-
-      /*if (s) {
-        t = date.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
-      }
-      else {
-        t = date.toLocaleTimeString();
-      } */
-
-      return (
-        <div className="monthly-clock">
-          {date.toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})}
-        </div>
-      );
-    }
 
     const navigate = useNavigate(); 
 
@@ -141,7 +116,34 @@ function Weekly(props) {
         // implement functionality
     }
 
+    function clock() {
+      // https://www.educative.io/answers/how-to-create-a-dynamic-digital-clock-in-react
+      const [date, setDate] = useState(new Date());
+      var t;
+  
+      useEffect(() => {
+        const interval = setInterval(() => {
+          setDate(new Date());
+        }, 1000);
+  
+        return () => clearInterval(interval);
+      }, []);
+  
+      /*if (s) {
+        t = date.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
+      }
+      else {
+        t = date.toLocaleTimeString();
+      } */
+      return (
+        <div className="weekly-clock">
+          {date.toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})}
+        </div>
+      );
+    }
+
     return (
+        <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
         <div className='weekly-main-container'>
         <div className='weekly-calendar-dropdown-container'>
             <div className='weekly-rectangle'>
@@ -160,14 +162,14 @@ function Weekly(props) {
             </div>
         </div>
         {getHeader()}
-        <span className='weekly-time'>6:22 PM</span>
+        {clock()}
         <button className='weekly-monthly-view-frame' onClick={handleMonthly}>
             <span className='weekly-change-view'>Monthly View</span>
         </button>
         <button className='weekly-todo-view-frame' onClick={handleToDo}>
             <span className='weekly-change-view'>To Do</span>
         </button>
-    <button className='weekly-settings-frame' onClick={handleSettings}>
+        <button className='weekly-settings-frame' onClick={handleSettings}>
             {/* <div className='weekly-gear' /> */}
             <span className='weekly-gear'></span>
         </button>
@@ -214,8 +216,9 @@ function Weekly(props) {
             <div className="weekly-line"></div>
             <div className="weekly-line"></div>
         </div>
-      </div>
+      </div></>
     );
-}
+};
+
 export default Weekly;
 
