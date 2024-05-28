@@ -10,6 +10,24 @@
     background: var(--gray, #dfdfdb);
 }
 
+.todo-todo-view-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    position: absolute;
+    width: 135px;
+    height: 25px;
+    top: 70px;
+    left: 1325px;
+    padding: 10px 10px 10px 10px;
+    cursor: pointer;
+    background: #ffffff;
+    border: 1px solid #000000;
+    z-index: 12;
+}
+
 .todo-entry {
     width: 1215px;
     button {

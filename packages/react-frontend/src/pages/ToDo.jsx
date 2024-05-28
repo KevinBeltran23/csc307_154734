@@ -1,7 +1,9 @@
 import React from "react";
+// import React, { useEffect, useState } from "react";
+// import { useNavigate } from 'react-router-dom';
+
 import "../components/ToDo.css";
 import Clock from "./Clock.jsx"
-
 
 function ToDo() {
     const [todos, setTodos] = React.useState([]);
@@ -64,11 +66,19 @@ function ToDo() {
         setTodoEditing(null);
         setEditingText("");
     }
+    function handleToDo() {
+        // go to todo page
+        navigate('/todo');
+    }
 
     return (
+        
         <div className="page">
             <h1> To Dos </h1>
             <Clock />
+            <button className='todo-todo-view-frame' onClick={handleToDo}>
+                <span className='todo-change-view'>To Do</span>
+            </button>
             <div className="ToDo">
                 <div className="entry">
                     <form onSubmit={handleSubmit}>
@@ -117,6 +127,7 @@ function ToDo() {
                 ))}
             </div>
         </div>
+        
     );
 }
 
