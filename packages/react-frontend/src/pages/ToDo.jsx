@@ -19,21 +19,8 @@ function ToDo(props) {
     const navigate = useNavigate();
     const [todoEditing, setTodoEditing] = useState(null); 
     const [editingText, setEditingText] = useState(""); 
-
-    /* function handleChange(event) {
-        const { name, value} = event.target;
-        switch (name) {
-          case "duedate":
-            setItem({ ...item, duedate: value });
-            break;
-          case "contents":
-            setItem({ ...item, contents: value });
-            break;
-          case "user":
-            setItem({ ...item, user: value});
-        }
-    }*/
     
+
     function handleChange(event) {
         const { name, value } = event.target;
         setItem((prevItem) => ({
@@ -42,8 +29,17 @@ function ToDo(props) {
         }));
     }
 
+    function handleWeekly() {
+        // go to weekly page
+        navigate('/weekly');
+    }
+    function handleMonthly() {
+        // go to weekly page
+        navigate('/monthly');
+    }
+
     function fetchItems() {
-        const promise = fetch("http://localhost:8000/todo", {
+        const promise = fetch(`http://localhost:8000/todo?user=${props.userId}`, {
             method: "GET",
             headers: props.addAuthHeader(),
             });
@@ -166,22 +162,6 @@ function ToDo(props) {
                 console.log('Fetch error:', error);
             });
     }, []);
-
-    useEffect(() => {
-        console.log('Items state changed:', items);
-    }, []);
-
-    
-    // Kevin doing stuff above
-
-    function handleWeekly() {
-        // go to weekly page
-        navigate('/weekly');
-    }
-    function handleMonthly() {
-        // go to weekly page
-        navigate('/monthly');
-    }
 
     return (
         <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>

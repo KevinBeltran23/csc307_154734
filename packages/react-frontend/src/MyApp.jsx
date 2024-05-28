@@ -18,8 +18,6 @@ function MyApp() {
     const [message, setMessage] = useState("");
     const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated') || false)
 
-    // useEffect if need to continuously update frontend with new backend data
-
     // add this to every backend api call for authentication
     function addAuthHeader(otherHeaders = {}) {
         console.log(token);
@@ -32,27 +30,6 @@ function MyApp() {
         };
         }
     }
-
-    function getUserId(username, password) {
-      return fetch(`http://localhost:8000/users/id?username=${username}&password=${password}`, {
-          method: 'GET',
-          headers: addAuthHeader({
-            "Content-Type": "application/json"
-          }),
-      })
-      .then(response => {
-          if (!response.ok) {
-              throw new Error('Failed to retrieve user ID');
-          }
-          return response.json();
-      })
-      .then(data => {
-          return data._id;
-      })
-      .catch(error => {
-          console.error('Error:', error);
-      });
-  }
 
     function logoutUser() {
       localStorage.removeItem('token');
@@ -80,15 +57,9 @@ function MyApp() {
                   setIsAuthenticated(true);
                   localStorage.setItem('isAuthenticated', 'true');
                   console.log(token);
-
-                  getUserId(creds.username, creds.password)
-                    .then(userId => {
-                        localStorage.setItem('userId', userId); // Store the user ID
-                        console.log('User ID:', userId);
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
+                  setuserId(payload.userId);
+                  localStorage.setItem('userId', payload.userId); // Store the user ID
+                  console.log('User ID:', payload.userId);
               });
             setMessage(`Login successful; auth token saved`);
             return 1;
@@ -120,15 +91,9 @@ function MyApp() {
                   localStorage.setItem('token', payload.token);
                   setIsAuthenticated(true);
                   localStorage.setItem('isAuthenticated', 'true');
-
-                  getUserId(creds.username, creds.password)
-                    .then(userId => {
-                        localStorage.setItem('userId', userId); // Store the user ID
-                        console.log('User ID:', userId);
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
+                  setuserId(payload.userId);
+                  localStorage.setItem('userId', payload.userId); // Store the user ID
+                  console.log('User ID:', payload.userId);
               });
               setMessage(
                 `Signup successful for user: ${creds.username}; auth token saved`
@@ -166,19 +131,19 @@ function MyApp() {
             />
             <Route
               path="/monthly"
-              element={<PrivateRoute element={Monthly} message={message} setMessage={setMessage} logout={logoutUser} addAuthHeader={addAuthHeader}/>}
+              element={<PrivateRoute element={Monthly} message={message} setMessage={setMessage} logout={logoutUser} addAuthHeader={addAuthHeader} userId={userId}/>}
             />
             <Route
               path="/todo"
-              element={<PrivateRoute element={ToDo} message={message} setMessage={setMessage} logout={logoutUser} addAuthHeader={addAuthHeader}/>}
+              element={<PrivateRoute element={ToDo} message={message} setMessage={setMessage} logout={logoutUser} addAuthHeader={addAuthHeader} userId={userId}/>}
             />
             <Route
               path="/weekly"
-              element={<PrivateRoute element={Weekly} message={message} setMessage={setMessage} logout={logoutUser} addAuthHeader={addAuthHeader}/>}
+              element={<PrivateRoute element={Weekly} message={message} setMessage={setMessage} logout={logoutUser} addAuthHeader={addAuthHeader} userId={userId}/>}
             />
             <Route
               path="/settings"
-              element={<PrivateRoute element={Settings} message={message} setMessage={setMessage} logout={logoutUser} addAuthHeader={addAuthHeader}/>}
+              element={<PrivateRoute element={Settings} message={message} setMessage={setMessage} logout={logoutUser} addAuthHeader={addAuthHeader} userId={userId}/>}
             />
           </Routes>
         </div>
