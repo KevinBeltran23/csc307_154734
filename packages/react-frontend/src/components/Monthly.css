@@ -99,7 +99,7 @@
 }
 
 
-.monthly-divider-lines {
+/*.monthly-divider-lines {
     display: flex;
     gap: 173px;
     position: absolute;
@@ -112,8 +112,8 @@
 .monthly-line {
     width: 1px;
     height: 754px;
-    background-color: #154734; /* This creates a solid black line */
-}
+    background-color: #154734;
+} */
 
 .monthly-days-frame {
     display: flex;
@@ -405,11 +405,16 @@
 }
 
 .monthly-day-box {
-    border-width: 0px 0px 1px 0px;
+    border-width: 0px 1px 1px 0px;
     border-style: solid;  
 }
 
 .monthly-day-box:nth-last-child(n+1):nth-last-child(-n+7) {
-    border-width: 0px 0px 0px 0px;
+    border-width: 0px 1px 0px 0px;
+    border-style: solid;
+}
+
+.monthly-day-box:nth-child(n+7){
+    border-width: 0px 0px 1px 0px;
     border-style: solid;
 }
