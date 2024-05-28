@@ -1,36 +1,17 @@
-.bold-text {
+.bold-text,
+.bold-text * {
     font-weight: bold;
-  }
-  
+}
 
 /* Common font style */
 .settings-font {
-    font-family: Arial, sans-serif; /* Example font family */
-    font-style: normal;
-    /* font-weight: 400; */
+    font-family: Arial, sans-serif;
 }
 
 /* Active button style */
-#settings-button.active {
-    background-color: #E4E3D3; /* Example active button color */
-}
-
-/* Settings box */
-.bold-text {
-    font-weight: bold;
-  }
-  
-
-/* Common font style */
-.settings-font {
-    font-family: Arial, sans-serif; /* Example font family */
-    font-style: normal;
-    /* font-weight: 400; */
-}
-
-/* Active button style */
-#settings-button.active {
-    background-color: #E4E3D3; /* Example active button color */
+.settings-button.active {
+    background-color: #E4E3D3;
+    /* Example active button color */
 }
 
 /* Settings box */
@@ -44,14 +25,13 @@
     bottom: 0;
     margin: auto;
     background: #E4E3D3;
-    border-width: 10px; 
+    border-width: 10px;
     border-style: solid;
     border-color: #154734;
     border-radius: 2px;
     padding: none;
 }
 
-/* Gold bar */
 /* Gold bar */
 .settings-bar {
     box-sizing: border-box;
@@ -64,13 +44,10 @@
 }
 
 /* Settings header */
-/* Settings header */
 .settings-header {
     width: 175px;
     height: 48px;
     padding: 40px;
-    /* font-weight: 400; */
-    /* font-weight: 400; */
     font-size: 48px;
     line-height: 48px;
     margin: auto;
@@ -78,7 +55,6 @@
     color: #154734;
 }
 
-/* Settings buttons and options container */
 /* Settings buttons and options container */
 .settings-buttons-options {
     width: 800px;
@@ -88,7 +64,6 @@
 }
 
 /* Settings buttons */
-/* Settings buttons */
 .settings-buttons {
     box-sizing: border-box;
     display: inline-block;
@@ -96,7 +71,7 @@
     vertical-align: top;
 }
 
-#settings-button {
+.settings-button {
     width: 186px;
     height: 42px;
     background: #CAC7A7;
@@ -105,11 +80,8 @@
     margin-bottom: 9px;
     font-size: 14px;
     cursor: pointer;
-    font-size: 14px;
-    cursor: pointer;
 }
 
-/* Button text */
 /* Button text */
 .settings-text {
     width: 100%;
@@ -122,7 +94,6 @@
 }
 
 /* Settings options */
-/* Settings options */
 .settings-options {
     box-sizing: border-box;
     display: inline-block;
@@ -134,7 +105,8 @@
     border-width: 2px;
     background: #CAC7A7;
     padding: 10px;
-    overflow-y: auto; /* Add scroll if content overflows */
+    overflow-y: auto;
+    /* Add scroll if content overflows */
 }
 
 .settings-option {
@@ -148,7 +120,6 @@
     margin-bottom: 5px;
     font-size: 18px;
     padding: 5px;
-    /* background: #E4E3D3; */
     border-radius: 4px;
 }
 
@@ -160,5 +131,4 @@
 .settings-font {
     font-family: Arial, sans-serif;
     font-style: normal;
-    /* font-weight: 400; */
 }

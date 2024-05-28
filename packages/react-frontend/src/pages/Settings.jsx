@@ -108,9 +108,8 @@ const Settings = () => {
             {Object.keys(settings).map(option => (
               <button 
                 key={option} 
-                id="settings-button"
+                className={`settings-button ${selectedOption === option ? "active" : ""}`}
                 onClick={() => setSelectedOption(option)}
-                className={selectedOption === option ? "active" : ""}
               >
                 <div className="settings-text">{option}</div>
               </button>
