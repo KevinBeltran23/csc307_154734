@@ -8,77 +8,6 @@ import Clock from "./Clock.jsx"
 
 function ToDo(props) {
 
-    /* stuff I am replacing or revamping below
-
-    const [todos, setTodos] = useState([]);
-    const [todo, setTodo] = useState("");
-    const [todoEditing, setTodoEditing] = useState(null);
-    const [editingText, setEditingText] = useState("");
-
-    useEffect(() => {
-        const temp = localStorage.getItem("todos");
-        const loadedTodos = JSON.parse(temp);
-
-        if (loadedTodos) {
-            setTodos(loadedTodos);
-        }
-    }, []);
-
-    useEffect(() => {
-        const temp = JSON.stringify(todos);
-        localStorage.setItem("todos", temp);
-    }, [todos]);
-
-    function handleSubmit(e) {
-        e.preventDefault();
-
-        const newTodo = {
-            id: new Date().getTime(),
-            text: todo,
-            completed: false
-        };
-
-        setTodos([...todos].concat(newTodo));
-        setTodo("");
-    }
-
-    function deleteTodo(id) {
-        const updatedTodos = [...todos].filter((todo) => todo.id !== id);
-
-        setTodos(updatedTodos);
-    }
-
-    function toggleComplete(id) {
-        const updatedTodos = [...todos].map((todo) => {
-            if (todo.id === id) {
-                todo.completed = !todo.completed;
-            }
-            return todo;
-        });
-
-        setTodos(updatedTodos);
-    }
-
-    function editTodo(id) {
-        const updatedTodos = [...todos].map((todo) => {
-            if (todo.id === id) {
-                todo.text = editingText;
-            }
-            return todo;
-        });
-        setTodos(updatedTodos);
-        setTodoEditing(null);
-        setEditingText("");
-    }
-    function handleToDo() {
-        // go to todo page
-        navigate('/todo');
-    }
-
-    */ //stuff I am replacing or revamping above
-
-    // kevin doing stuff below
-
     const [item, setItem] = useState({
         duedate: "",
         contents: "",
@@ -104,6 +33,7 @@ function ToDo(props) {
             setItem({ ...item, user: value});
         }
     }*/
+    
     function handleChange(event) {
         const { name, value } = event.target;
         setItem((prevItem) => ({
@@ -256,20 +186,17 @@ function ToDo(props) {
     return (
         <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
         <div className="page">
-            <div className='todo-clock'>
-                <Clock />
-            </div>
-
-            <h1> To Dos </h1>
-             
-            <button className='todo-weekly-view-frame' onClick={handleWeekly}>
-                <span className='todo-change-view'>Weekly View</span>
-            </button> 
-
-            <button className='todo-monthly-view-frame' onClick={handleMonthly}>
-                <span className='todo-change-view'>Monthly View</span>
-            </button>
-
+            <div className="todo-main-container">
+                <div className='todo-clock'>
+                    <Clock />
+                </div>
+                <h1> To Dos </h1>
+                <button className='todo-weekly-view-frame' onClick={handleWeekly}>
+                    <span className='todo-change-view'>Weekly View</span>
+                </button> 
+                <button className='todo-monthly-view-frame' onClick={handleMonthly}>
+                    <span className='todo-change-view'>Monthly View</span>
+                </button>
             {/*<div className='todo-calendar-dropdown-container'>
                 <div className='todo-rectangle'>
                 <button className='todo-button-frame' onClick={handleCalendarsDropdown}>
@@ -277,94 +204,70 @@ function ToDo(props) {
                     <div className='todo-dropdown-arrow' />
                 </button>
                 </div>
-    </div>*/}
-
-            <div className="ToDo">
-
+            </div>*/}
             
-                <div className="entry">
-                    <form onSubmit={updateItems}>
-                        <div className="textEntry">
-                            <input
-                                type="text"
-                                name="contents"
-                                onChange={handleChange}
-                                value={item.contents}
-                                style={{ fontSize: "18px" }}
-                                placeholder="Contents"
-                            />
-                            <input
-                                type="text"
-                                name="duedate"
-                                onChange={handleChange}
-                                value={item.duedate}
-                                placeholder="Due date"
-                            />
-                            <button type="submit">Add Todo</button>
-                        </div>
-                    </form>
-                </div>
+                <div className="ToDo">
+                    <div className="entry">
+                        <form onSubmit={updateItems}>
+                            <div className="textEntry">
+                                <input
+                                    type="text"
+                                    name="contents"
+                                    onChange={handleChange}
+                                    value={item.contents}
+                                    style={{ fontSize: "18px" }}
+                                    placeholder="Contents"
+                                />
+                                <input
+                                    type="text"
+                                    name="duedate"
+                                    onChange={handleChange}
+                                    value={item.duedate}
+                                    placeholder="Due date"
+                                />
+                                <button type="submit">Add Todo</button>
+                            </div>
+                        </form>
+                    </div>
     
-                {items && items.length > 0 ? (
-                    items.map((todo) => (
-                        <div key={todo._id}>
-                            {todoEditing === todo._id ? (
-                                <>
-                                    <input
-                                        type="text"
-                                        onChange={(e) => setEditingText(e.target.value)}
-                                        value={editingText}
-                                    />
-                                    <button onClick={() => editItem(todo._id)}>Submit Edits</button>
-                                    <button onClick={() => setTodoEditing(null)}>Cancel</button>
-                                </>
-                            ) : (
-                                <>
-                                    <div>{todo.contents}</div>
-                                    <button onClick={() => {
-                                        setTodoEditing(todo._id);
-                                        setEditingText(todo.contents);
-                                    }}>Edit Todo</button>
-                                </>
-                            )}
-                            <button onClick={() => deleteItem(todo._id)}>Delete</button>
-                            <input
-                                type="checkbox"
-                                onChange={() => console.log("Toggle complete functionality not implemented yet")}
-                                checked={todo.completed}
-                            />
-                        </div>
-                    ))
-                ) : (
-                    <p>No items available</p>
-                )}
-
-                {/*{items && items.length > 0 ? (
-                    items.map((todo) => {
-                        console.log('Rendering todo:', todo); // Log each todo being rendered
-                        return (
+                    {items && items.length > 0 ? (
+                        items.map((todo) => (
                             <div key={todo._id}>
-                                <div>{todo.contents}</div>
-                                <button onClick={() => deleteItem(todo._id)}>
-                                    Delete
-                                </button>
+                                {todoEditing === todo._id ? (
+                                    <>
+                                        <input
+                                            type="text"
+                                            onChange={(e) => setEditingText(e.target.value)}
+                                            value={editingText}
+                                        />
+                                        <button onClick={() => editItem(todo._id)}>Submit Edits</button>
+                                        <button onClick={() => setTodoEditing(null)}>Cancel</button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div>{todo.contents}</div>
+                                        <button onClick={() => {
+                                            setTodoEditing(todo._id);
+                                            setEditingText(todo.contents);
+                                        }}>Edit Todo</button>
+                                    </>
+                                )}
+                                <button onClick={() => deleteItem(todo._id)}>Delete</button>
                                 <input
                                     type="checkbox"
                                     onChange={() => console.log("Toggle complete functionality not implemented yet")}
                                     checked={todo.completed}
                                 />
-                                <button onClick={() => console.log("Edit functionality not implemented yet")}>
-                                    Edit Todo
-                                </button>
                             </div>
-                        );
-                    })
-                ) : (
-                    <p>No items available</p>
-                )}*/}
+                        ))
+                    ) : (
+                        <p>No items available</p>
+                    )}
+                </div>
+                {message && <p>{message}</p>}
             </div>
-            {message && <p>{message}</p>}
-        </div></>
+        </div>
+        </>
         
     );
 }
