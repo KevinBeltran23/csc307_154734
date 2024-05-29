@@ -3,6 +3,7 @@
     position: relative;
     width: 1512px;
     height: 982px;
+    /*font-family: Inter, var(--default-font-family); */
     margin: 0 auto;
     overflow: hidden;
     box-sizing: border-box;
@@ -14,6 +15,7 @@
     top: 122px;
     width: 1215px;
     height: 794.975px;
+    
     flex-shrink: 0;
     border-radius: 24px;
     background: var(--gray, #dfdfdb);
