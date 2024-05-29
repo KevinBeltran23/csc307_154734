@@ -22,6 +22,7 @@ import {
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import "../components/Monthly.css";
 import Clock from "./Clock";
+import Dropdown from "./Dropdown"
 
 
 function Monthly(props) {
@@ -139,24 +140,35 @@ function Monthly(props) {
         // implement functionality
         // there will be a GET request here to /event/:id
     }
+
+    // DROPDOWN CREATE OPTIONS
+    var create_lst = [ { value: "Create", label: "Create" },
+    { value: "Option 2", label: "Option 2" },
+    { value: "Option 3", label: "Option 3" }];
+
+    var cal_lst = [ { value: "Create", label: "Calendars" },
+    { value: "Option 2", label: "Option 2" },
+    { value: "Option 3", label: "Option 3" }];
+
+    var todo_lst = [ { value: "Create", label: "To Do" },
+    { value: "Option 2", label: "Option 2" },
+    { value: "Option 3", label: "Option 3" }];
   
     return (
       <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
       <div className="monthly-main-container">
         <div className='monthly-calendar-dropdown-container'>
           <div className='monthly-rectangle'>
-            <button className='monthly-button-frame' onClick={handleCalendarsDropdown}>
-              <span className='monthly-calendars'>Calendars</span>
-              <div className='monthly-dropdown-arrow' />
-            </button>
+            <div className='monthly-calendar-todo-dropdown'>
+                {Dropdown(cal_lst)}
+            </div>
           </div>
         </div>
         <div className='monthly-todo-dropdown-container'>
           <div className='monthly-rectangle'>
-            <button className='monthly-button-frame' onClick={handleToDoDropdown}>
-              <span className='monthly-todo'>Todo</span>
-              <div className='monthly-dropdown-arrow' />
-            </button>
+            <div className='monthly-calendar-todo-dropdown'>
+                {Dropdown(todo_lst)}
+            </div>
           </div>
         </div>
         {getHeader()}
@@ -176,10 +188,9 @@ function Monthly(props) {
         <button className='monthly-download-frame'>
           <span className='monthly-download-icon' ></span>
         </button>
-        <button className='monthly-create-frame' onClick={handleCreate}>
-          <span className='monthly-create'>Create</span>
-          <div className='monthly-dropdown-arrow' />
-        </button>
+        <div className='monthly-create'>
+          {Dropdown(create_lst)}
+        </div>
         <div className='monthly-days-frame'>
           <span className='monthly-dayHeader'>SUN</span>
           <span className='monthly-dayHeader'>MON</span>
@@ -190,14 +201,6 @@ function Monthly(props) {
           <span className='monthly-dayHeader'>SAT</span>
         </div>
         {getDates()}
-        <div className="monthly-divider-lines">
-          <div className="monthly-line"></div>
-          <div className="monthly-line"></div>
-          <div className="monthly-line"></div>
-          <div className="monthly-line"></div>
-          <div className="monthly-line"></div>
-          <div className="monthly-line"></div>
-        </div>
       </div></>
     );
 };

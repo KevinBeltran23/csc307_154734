@@ -180,7 +180,7 @@
     margin: 12px 0 0 12px;
 }
 
-.monthly-button-frame {
+.monthly-calendar-todo-dropdown #dropdown {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -233,17 +233,6 @@
     white-space: nowrap;
     z-index: 51;
 }
-
-.monthly-dropdown-arrow {
-    width: 13px;
-    height: 11px;
-    background: url(../assets/Dropdown_arrow.png) no-repeat center;
-    background-size: cover;
-    /* Add additional styles for the arrow */
-    fill: #000;
-    /* Change the color of the arrow */
-}
-
 
 .monthly-weekly-view-frame {
     display: flex;
@@ -358,24 +347,22 @@
 }
 
 
-.monthly-create-frame {
+.monthly-create #dropdown{
     display: flex;
     align-items: center;
-    flex-wrap: nowrap;
     gap: 6px;
     position: absolute;
     width: 100px;
     height: 25px;
     top: 50px;
     left: 1220px;
-    padding: 4px 12px 4px 12px;
     cursor: pointer;
     background: #ffffff;
     border: 1px solid #000000;
     z-index: 16;
 }
 
-.monthly-create {
+/*.monthly-create {
     flex-shrink: 0;
     flex-basis: auto;
     position: relative;
@@ -387,17 +374,16 @@
     text-align: center;
     white-space: nowrap;
     z-index: 17;
-}
+} */
 
 .monthly-clock {
     position: absolute;
-    width: 150px;
+    width: 200px;
     height: 0px;
     left: 1315px;
     top: 20px;
     font-size: 40px;
     line-height: 100px;
-    /* identical to box height */
     display: flex;
     align-items: center;
     text-align: center;
