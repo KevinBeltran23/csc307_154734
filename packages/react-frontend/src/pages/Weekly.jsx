@@ -23,7 +23,7 @@ function Weekly(props) {
     return (
       <div className="weekly-header">
         <div
-          className="weekly-todayButton"
+          className="todayButton"
           onClick={() => {
             setSelectedDate(new Date());
             setActiveDate(new Date());
@@ -53,11 +53,11 @@ function Weekly(props) {
         <div className="weekly-day-box">
           <div
             className={`weekly-day ${isSameMonth(currentDate, activeDate) ? "" : "weekly-inactiveDay"
-            } ${isSameDay(currentDate, selectedDate) ? "weekly-selectedDay" : ""}
-              ${isSameDay(currentDate, new Date()) ? "weekly-today" : ""}`}
+              } ${isSameDay(currentDate, selectedDate) ? "weekly-selectedDay" : ""}
+              ${isSameDay(currentDate, new Date()) ? "today" : ""}`}
           >
-          {format(currentDate, "d")}
-        </div>
+            {format(currentDate, "d")}
+          </div>
         </div>
 
       );
@@ -121,72 +121,68 @@ function Weekly(props) {
 
   return (
     <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
-      <div className='weekly-main-container'>
-        <div className='weekly-calendar-dropdown-container'>
-          <div className='weekly-rectangle'>
-            <button className='weekly-button-frame' onClick={handleCalendarsDropdown}>
-              <span className='weekly-calendars'>Calendars</span>
-              <div className='weekly-dropdown-arrow' />
-            </button>
-          </div>
+      <div className='calendar-dropdown-container'>
+        <div className='dropdown-rectangle'>
+          <button className='weekly-button-frame' onClick={handleCalendarsDropdown}>
+            <span className='calendars'>Calendars</span>
+            <div className='weekly-dropdown-arrow' />
+          </button>
         </div>
-        <div className='weekly-todo-dropdown-container'>
-          <div className='weekly-rectangle'>
-            <button className='weekly-button-frame' onClick={handleToDoDropdown}>
-              <span className='weekly-todo'>Todo</span>
-              <div className='weekly-dropdown-arrow' />
-            </button>
-          </div>
+      </div>
+      <div className='todo-dropdown-container'>
+        <div className='dropdown-rectangle'>
+          <button className='weekly-button-frame' onClick={handleToDoDropdown}>
+            <span className='todo'>Todo</span>
+            <div className='weekly-dropdown-arrow' />
+          </button>
         </div>
-        {getHeader()}
-        <div className='weekly-clock'>
-          <Clock />
-        </div>
-        <button className='weekly-monthly-view-frame' onClick={handleMonthly}>
-          <span className='weekly-change-view'>Monthly View</span>
-        </button>
-        <button className='weekly-todo-view-frame' onClick={handleToDo}>
-          <span className='weekly-change-view'>To Do</span>
-        </button>
-        <button className='weekly-settings-frame' onClick={handleSettings}>
-          {/* <div className='weekly-gear' /> */}
-          <span className='weekly-gear'></span>
-        </button>
-        <button className='weekly-download-frame'>
-          <span className='weekly-download-icon' ></span>
-        </button>
-        <button className='weekly-create-frame' onClick={handleCreate}>
-          <span className='weekly-create'>Create</span>
-          <div className='weekly-dropdown-arrow' />
-        </button>
-        <div className='weekly-time-container'>
-          {/* Time slots */}
-          <span className='weekly-time-slot'>8am</span>
-          <span className='weekly-time-slot'>9am</span>
-          <span className='weekly-time-slot'>10am</span>
-          <span className='weekly-time-slot'>11am</span>
-          <span className='weekly-time-slot'>12pm</span>
-          <span className='weekly-time-slot'>1pm</span>
-          <span className='weekly-time-slot'>2pm</span>
-          <span className='weekly-time-slot'>3pm</span>
-          <span className='weekly-time-slot'>4pm</span>
-          <span className='weekly-time-slot'>5pm</span>
-          <span className='weekly-time-slot'>6pm</span>
-          <span className='weekly-time-slot'>7pm</span>
-          <span className='weekly-time-slot'>8pm</span>
-        </div>
-        {/* <div className='weekly-expand' /> */}
-        <div className='weekly-days-frame'>
-          <span className='weekly-dayHeader'>SUN</span>
-          <span className='weekly-dayHeader'>MON</span>
-          <span className='weekly-dayHeader'>TUE</span>
-          <span className='weekly-dayHeader'>WED</span>
-          <span className='weekly-dayHeader'>THU</span>
-          <span className='weekly-dayHeader'>FRI</span>
-          <span className='weekly-dayHeader'>SAT</span>
-        </div>
-        {getDates()}
-      </div></>
+      </div>
+      {getHeader()}
+      <div className='the-clock'>
+        <Clock />
+      </div>
+      <button className='change-view-frame' onClick={handleWeekly}>
+        <span className='change-view'>Weekly View</span>
+      </button>
+      <button className='todo-view-frame' onClick={handleToDo}>
+        <span className='change-view'>To Do</span>
+      </button>
+      <button className='settings-frame' onClick={handleSettings}>
+        {/* <div className='weekly-gear' /> */}
+        <span className='gear'></span>
+      </button>
+      <button className='download-frame'>
+        <span className='download-icon' ></span>
+      </button>
+
+      <div className='weekly-time-container'>
+        {/* Time slots */}
+        <span className='weekly-time-slot'>8am</span>
+        <span className='weekly-time-slot'>9am</span>
+        <span className='weekly-time-slot'>10am</span>
+        <span className='weekly-time-slot'>11am</span>
+        <span className='weekly-time-slot'>12pm</span>
+        <span className='weekly-time-slot'>1pm</span>
+        <span className='weekly-time-slot'>2pm</span>
+        <span className='weekly-time-slot'>3pm</span>
+        <span className='weekly-time-slot'>4pm</span>
+        <span className='weekly-time-slot'>5pm</span>
+        <span className='weekly-time-slot'>6pm</span>
+        <span className='weekly-time-slot'>7pm</span>
+        <span className='weekly-time-slot'>8pm</span>
+      </div>
+      {/* <div className='weekly-expand' /> */}
+      <div className='days-frame'>
+        <span className='days-header'>SUN</span>
+        <span className='days-header'>MON</span>
+        <span className='days-header'>TUE</span>
+        <span className='days-header'>WED</span>
+        <span className='days-header'>THU</span>
+        <span className='days-header'>FRI</span>
+        <span className='days-header'>SAT</span>
+      </div>
+      {getDates()}
+    </>
   );
 }
 export default Weekly;
