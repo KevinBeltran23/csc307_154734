@@ -89,7 +89,7 @@ function ToDo(props) {
         });
     }
 
-    function updateItems(event) {
+    /*function updateItems(event) {
         // Ensure the item has the correct user ID before posting
         const newItem = {
             ...item,
@@ -107,7 +107,28 @@ function ToDo(props) {
                 console.log(error);
             });
 
-    }
+    }*/
+    function updateItems(event) {
+        const newItem = {
+            ...item,
+            user: props.userId // Set the user ID from props
+        };
+        postItem(newItem)
+          .then((res) => {
+            if (res.ok && res.status === 201) {
+              return res.json();
+            } else {
+              throw new Error("User failed to post");
+            }
+          })
+          .then((newItemResponse) => {
+            setItems((prevItems) => [...prevItems, newItemResponse]);
+            setItem({ duedate: "", contents: "", user: props.userId });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
 
     function editItem(itemId) {
         const updatedItem = {
