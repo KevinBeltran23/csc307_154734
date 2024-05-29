@@ -115,13 +115,7 @@ function ToDo(props) {
             user: props.userId // Ensure the user ID is included
         };
 
-        fetch(`http://localhost:8000/todo/${itemId}`, {
-            method: "PUT",
-            headers: props.addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(updatedItem)
-        })
+        fetchItems()
         .then(response => {
             if (response.ok) {
                 setItems(items.map(item => (item._id === itemId ? updatedItem : item)));
