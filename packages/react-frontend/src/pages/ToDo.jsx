@@ -19,13 +19,12 @@ function ToDo(props) {
     const navigate = useNavigate();
     const [todoEditing, setTodoEditing] = useState(null); 
     const [editingText, setEditingText] = useState(""); 
-    
 
     function handleChange(event) {
         const { name, value } = event.target;
         setItem((prevItem) => ({
             ...prevItem,
-            [name]: value
+            [name]: value,
         }));
     }
 
@@ -91,8 +90,6 @@ function ToDo(props) {
     }
 
     function updateItems(event) {
-        event.preventDefault();
-        
         // Ensure the item has the correct user ID before posting
         const newItem = {
             ...item,
@@ -109,6 +106,7 @@ function ToDo(props) {
             .catch((error) => {
                 console.log(error);
             });
+
     }
 
     function editItem(itemId) {
@@ -140,28 +138,12 @@ function ToDo(props) {
         });
     }
     
-
     useEffect(() => {
         fetchItems()
-            .then((res) => {
-                console.log('Fetch response:', res);
-                return res.status === 200 ? res.json() : undefined;
-            })
-            .then((json) => {
-                console.log('JSON response:', json);
-                if (json && json.todo_list) { // Check if todo_list exists
-                    console.log('Todos:', json.todo_list);
-                    setItems(json.todo_list); // Set items to todo_list
-                    console.log('Items state after setting:', json.todo_list);
-                } else {
-                    setItems([]);
-                    console.log('No todos found');
-                }
-            })
-            .catch((error) => {
-                console.log('Fetch error:', error);
-            });
-    }, []);
+              .then((res) => res.json())
+              .then((json) => setItems(json.todo_list))
+              .catch((error) => { console.log(error); });
+      }, [] );
 
     return (
         <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
@@ -170,7 +152,7 @@ function ToDo(props) {
                 <div className='todo-clock'>
                     <Clock />
                 </div>
-                <h1> To Dos </h1>
+                <div className = "todo-header-name"> To Dos </div>
                 <button className='todo-weekly-view-frame' onClick={handleWeekly}>
                     <span className='todo-change-view'>Weekly View</span>
                 </button> 

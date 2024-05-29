@@ -7,6 +7,7 @@
     margin: 0 auto;
     overflow: hidden;
     box-sizing: border-box;
+    border-style: solid;
 }
 
 .todo-ToDo {
@@ -78,7 +79,7 @@
     position: relative;
     height: 22px;
     color: #000000;
-    font-family: Inter, var(--default-font-family);
+    /*font-family: Inter, var(--default-font-family);*/
     font-size: 18px;
     line-height: 22px;
     text-align: left;
@@ -139,7 +140,7 @@
     width: 79px;
     height: 18px;
     color: #000000;
-    font-family: Inter, var(--default-font-family);
+    /* -family: Inter, var(--default-font-family);*/ 
     font-size: 16px;
     line-height: 18px;
     text-align: left;
@@ -157,6 +158,14 @@
     /* Change the color of the arrow */
 }
 
+.todo-header-name {
+    position: relative;
+    margin: auto;
+    color: var(--Poly-Green, #154734);
+    box-sizing: border-box;
+    font-size: 64px;
+    padding: 8px;
+}
 
 
 .todo-entry {
