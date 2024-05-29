@@ -115,7 +115,7 @@ function ToDo(props) {
         };
         postItem(newItem)
           .then((res) => {
-            if (res.ok && res.status === 201) {
+            if (res.status === 201) {
               return res.json();
             } else {
               throw new Error("User failed to post");
