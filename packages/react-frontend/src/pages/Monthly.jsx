@@ -53,6 +53,8 @@ function Monthly(props) {
         </div>
       );
     };
+
+    //var lst1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35]
   
     const generateDatesForCurrentWeek = (date, selectedDate, activeDate) => {
       let currentDate = date;
@@ -85,20 +87,78 @@ function Monthly(props) {
       let currentDate = startDate;
   
       const allWeeks = [];
-  
+      const events = []; // need a generateEventsForCurrentWeek!!!!
+
       while (currentDate <= endDate) {
         allWeeks.push(
           generateDatesForCurrentWeek(currentDate, selectedDate, activeDate)
         );
         currentDate = addDays(currentDate, 7);
       }
+
+      /*console.log(format(startOfTheSelectedMonth, 'MM-dd-yyyy hh:mm:ss'))
+      console.log(allWeeks) */
   
       return (
-        <div className="monthly-dayContainer">
+        <div>
+          <div className="monthly-dayContainer">
             {allWeeks}
+          </div>
+          <div className="monthly-eventContainer">
+            {events}
+          </div>
         </div>
         );
     };
+
+    // write helper function to 
+    const generateEventsForCurrentWeek = (date, selectedDate, activeDate) => {
+      let currentDate = date;
+      const week = [];
+      const item = ["1", null, "2"];
+      for (let day = 0; day < 7; day++) {
+        const cloneDate = currentDate;
+        week.push(
+          <div className='monthly-event'>
+            <div className="event">
+              {item[day]}
+            </div>
+          </div>
+        );
+        currentDate = addDays(currentDate, 1);
+      }
+      console.log(week.length)
+      return <>{week}</>;
+    };
+  
+    const getEvents = () => {
+      const startOfTheSelectedMonth = startOfMonth(activeDate);
+      const endOfTheSelectedMonth = endOfMonth(activeDate);
+      const startDate = startOfWeek(startOfTheSelectedMonth);
+      const endDate = endOfWeek(endOfTheSelectedMonth);
+  
+      let currentDate = startDate;
+  
+      const allWeeks = [];
+      const events = []; // need a generateEventsForCurrentWeek!!!!
+
+      while (currentDate <= endDate) {
+        events.push(
+          generateEventsForCurrentWeek(currentDate, selectedDate, activeDate)
+        );
+        currentDate = addDays(currentDate, 7);
+      }
+  
+      return (
+        <div>
+          <div className="monthly-eventContainer">
+            {events}
+          </div>
+        </div>
+        );
+    };
+    
+    
     const addEvents = () => {
       var testDate;
       var desc;
@@ -143,8 +203,9 @@ function Monthly(props) {
 
     // DROPDOWN CREATE OPTIONS
     var create_lst = [ { value: "Create", label: "Create" },
-    { value: "Option 2", label: "Option 2" },
-    { value: "Option 3", label: "Option 3" }];
+    { value: "Event", label: "Event" },
+    { value: "Calendar", label: "Calendar"}, 
+    {value: "To Do Item", label: "To Do Item"}];
 
     var cal_lst = [ { value: "Create", label: "Calendars" },
     { value: "Option 2", label: "Option 2" },
@@ -201,6 +262,7 @@ function Monthly(props) {
           <span className='monthly-dayHeader'>SAT</span>
         </div>
         {getDates()}
+        {getEvents()}
       </div></>
     );
 };

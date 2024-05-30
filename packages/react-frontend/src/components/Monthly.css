@@ -45,6 +45,16 @@
     border: 1px solid var(--Poly-Green, #154734);
     background: var(--gray, #DFDFDB);
 }
+
+.monthly-eventContainer {
+    display: grid;
+    width: 1218px;
+    height: 754px;
+    grid-template-columns: repeat(7, 1fr);
+    position: absolute;
+    top: 164px;
+    left: 273px;
+}
   
 .monthly-day {
     margin: 12px;
@@ -349,6 +359,7 @@
 
 .monthly-create #dropdown{
     display: flex;
+    text-align: center;
     align-items: center;
     gap: 6px;
     position: absolute;

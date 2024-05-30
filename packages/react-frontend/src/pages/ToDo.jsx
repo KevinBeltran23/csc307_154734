@@ -18,6 +18,9 @@ function ToDo(props) {
 
     function handleChange(event) {
         const { name, value } = event.target;
+        if (name === "date") {
+            value = new Date(value);
+        }
         setItem((prevItem) => ({
             ...prevItem,
             [name]: value,
