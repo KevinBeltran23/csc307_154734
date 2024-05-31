@@ -15,23 +15,17 @@ const Settings = () => {
       "Email Notifications": false,
       "Text Notifications": false,
     },
-    "Event Settings": {
-      "Reminders": false,
+    "Calendar Settings": {
       "Poly Time": false,
+      "Default to Weekly": false,
     },
     "Account Settings": {
       "Change Password": false,
-    },
-    "Appearance": {
-      "Light Mode": false,
-      "Dark Mode": false,
-    },
-    "View Options": {
-      "Default to Weekly": false,
+      "Change Email": false,
+      "Change Phone Number": false
     },
     "Colors": {
       "Cal Poly Colors": false,
-      "High Contrasst": false,
       "Random": false,
     },
     "Text": {
@@ -44,17 +38,17 @@ const Settings = () => {
     }
   });
 
-  useEffect(() => {
-    const savedSettings = localStorage.getItem("settings");
-    if (savedSettings) {
-      setSettings(JSON.parse(savedSettings));
-    }
-  }, []);
+  // useEffect(() => {
+  //   const savedSettings = localStorage.getItem("settings");
+  //   if (savedSettings) {
+  //     setSettings(JSON.parse(savedSettings));
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    localStorage.setItem("selectedOption", selectedOption);
-    localStorage.setItem("settings", JSON.stringify(settings));
-  }, [selectedOption, settings]);
+  // useEffect(() => {
+  //   localStorage.setItem("selectedOption", selectedOption);
+  //   localStorage.setItem("settings", JSON.stringify(settings));
+  // }, [selectedOption, settings]);
 
   // Effect to toggle bold text class
   useEffect(() => {
@@ -69,7 +63,7 @@ const Settings = () => {
     setSettings((prevSettings) => {
       const updatedSettings = { ...prevSettings };
       // For options like language and colors, uncheck other options when one is checked
-      if (option === "Language & Region" || option === "Appearance" || option === "Colors") {
+      if (option === "Language & Region" || option === "Colors") {
         Object.keys(updatedSettings[option]).forEach((key) => {
           updatedSettings[option][key] = key === setting;
         });
