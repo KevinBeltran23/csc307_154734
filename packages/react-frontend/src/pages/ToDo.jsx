@@ -170,20 +170,19 @@ function ToDo(props) {
     }
 
     function toggleCheck(itemId){
-        const updatedItem = items.find(item => item._id === itemId);
-        updatedItem.checked = !updatedItem.checked;
+        const updatedItem = {
+            ...items.find(item => item._id === itemId),
+            checked: !item.checked,
+            user: props.userId // Ensure the user ID is included
+        };
 
-        putItems(itemId)
-        .then(response => {
-            if (response.ok) {
-                setItems(items.map(item => (item._id === itemId ? updatedItem : item)));
-            } else {
-                throw new Error(`Update Error ${response.status}: ${response.statusText}`);
-            }
+        putItem(itemId, updatedItem) // Pass itemId and updatedItem separately
+          .then((updatedItemResponseJson) => {
+            setItems(items.map(item => (item._id === itemId ? updatedItemResponseJson : item)));
         })
-        .catch(error => {
+          .catch((error) => {
             setMessage(`Update Error: ${error.message}`);
-            console.error(error);
+            console.log(error);
         });
     }
 
