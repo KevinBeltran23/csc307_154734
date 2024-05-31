@@ -90,6 +90,30 @@ function ToDo(props) {
         return promise;
     }
 
+    function putItem(itemId, updatedItem) {
+        const promise = fetch(`http://localhost:8000/todo/${itemId}`, {
+            method: "PUT",
+            headers: props.addAuthHeader({
+                "Content-Type": "application/json"
+            }),
+            body: JSON.stringify(updatedItem)
+        })
+        .then((response) => {
+            if (response.status === 200) {
+                setMessage("Item updated successfully");
+                return response.json(); // Return the JSON response for chaining
+            } else {
+                setMessage(`PUT Error ${response.status}: ${response.statusText}`);
+                throw new Error(`PUT Error ${response.status}: ${response.statusText}`);
+            }
+        })
+        .catch((error) => {
+            setMessage(`PUT Error: ${error.message}`);
+            throw error;
+        });
+        return promise;
+    }
+
     function updateItems(event) {
         event.preventDefault(); // Prevent form submission from causing a page reload
 
@@ -115,19 +139,15 @@ function ToDo(props) {
             user: props.userId // Ensure the user ID is included
         };
 
-        fetchItems()
-        .then(response => {
-            if (response.ok) {
-                setItems(items.map(item => (item._id === itemId ? updatedItem : item)));
-                setTodoEditing(null);
-                setEditingText("");
-            } else {
-                throw new Error(`Update Error ${response.status}: ${response.statusText}`);
-            }
+        putItem(itemId, updatedItem) // Pass itemId and updatedItem separately
+          .then((updatedItemResponseJson) => {
+            setItems(items.map(item => (item._id === itemId ? updatedItemResponseJson : item)));
+            setTodoEditing(null);
+            setEditingText("");
         })
-        .catch(error => {
+          .catch((error) => {
             setMessage(`Update Error: ${error.message}`);
-            console.error(error);
+            console.log(error);
         });
     }
 

@@ -120,6 +120,21 @@ app.post("/todo", authenticateUser, (req, res) => {  // add an item to the todo 
         });
 });
 
+app.put("/todo/:id", authenticateUser, (req, res) => {
+    const itemId = req.params.id; // Get the ID from the URL parameters
+    const updatedItem = req.body; // Get the updated item data from the request body
+
+    Service
+        .editTodoItem(itemId, updatedItem)
+        .then((editedItem) => {
+            res.status(200).json(editedItem);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
+
 app.get("/todo", authenticateUser, (req, res) => { // get todo items
     const { duedate, contents, user } = req.query;
     Service

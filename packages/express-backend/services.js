@@ -151,6 +151,15 @@ function addTodoItem(item) {
     return promise;
 }
 
+function editTodoItem(itemId, updatedItem) {
+    const promise = todoModel.findByIdAndUpdate(
+        itemId,             // The ID of the item to update
+        updatedItem,        // The updated item data
+        { new: true }       // Return the updated document
+    ).exec();
+    return promise;
+}
+
 function findTodoItemById(id) {
     return todoModel.findById(id);
 }
@@ -184,5 +193,6 @@ export default {
   getTodoItems,
   addTodoItem,
   deleteTodoItemById,
-  findTodoItemById
+  findTodoItemById,
+  editTodoItem
 };
