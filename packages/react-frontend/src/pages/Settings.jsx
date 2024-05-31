@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Translate from "./Translate"; // Import the Translate component
 import "../components/Settings.css";
 
-
 /* Google Translate Language Codes */
 const languageOptions = {
   "Mandarin Chinese": "zh-CN",
@@ -16,12 +15,9 @@ const languageOptions = {
   "Vietnamese": "vi"
 };
 
-
-/* Options for various settings */
+/* Settings Component */
 const Settings = () => {
-  const [selectedOption, setSelectedOption] = useState(
-    "Language & Region"
-  );
+  const [selectedOption, setSelectedOption] = useState("Language & Region");
   const [settings, setSettings] = useState({
     "Language & Region": {
       "Mandarin Chinese": false,
@@ -61,6 +57,15 @@ const Settings = () => {
     }
   });
 
+  /* Reload the page when the component is first mounted */
+  useEffect(() => {
+    if (!sessionStorage.getItem("reloaded")) {
+      sessionStorage.setItem("reloaded", "true");
+      window.location.reload();
+    } else {
+      sessionStorage.removeItem("reloaded");
+    }
+  }, []);
 
   /* Activates or deactivates bold text */
   useEffect(() => {
@@ -70,7 +75,6 @@ const Settings = () => {
       document.body.classList.remove("bold-text");
     }
   }, [settings.Text["Bold Text"]]);
-
 
   /* Handles dropdown change for language options */
   const handleDropdownChange = (option, event) => {
@@ -146,14 +150,12 @@ const Settings = () => {
   return (
     <div className="page-container">
       <div className="settings-box">
-
         {/* Gold Bar */}
         <div className="settings-bar"></div>
 
         {/* Settings Text */}
         <div className="settings-header">Settings</div>
         <div className="settings-buttons-options">
-
           {/* Settings Buttons */}
           <div className="settings-buttons">
             {Object.keys(settings).map((option) => (
@@ -171,7 +173,6 @@ const Settings = () => {
           <div className="settings-options">
             <div className="settings-option">{renderOptionContent()}</div>
           </div>
-
         </div>
       </div>
       <Translate /> {/* Add the Translate component */}
