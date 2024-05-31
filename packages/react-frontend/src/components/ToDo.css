@@ -7,7 +7,7 @@
     margin: 0 auto;
     overflow: hidden;
     box-sizing: border-box;
-    border-style: solid;
+    /*border-style: solid;*/
 }
 
 .todo-ToDo {
@@ -163,6 +163,7 @@
     margin: auto;
     color: var(--Poly-Green, #154734);
     box-sizing: border-box;
+    text-align: center;
     font-size: 64px;
     padding: 8px;
 }

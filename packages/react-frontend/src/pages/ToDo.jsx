@@ -7,6 +7,7 @@ function ToDo(props) {
     const [item, setItem] = useState({
         duedate: "",
         contents: "",
+        checked: false,
         user: props.userId
     });
 
@@ -16,8 +17,12 @@ function ToDo(props) {
     const [todoEditing, setTodoEditing] = useState(null); 
     const [editingText, setEditingText] = useState(""); 
 
+
     function handleChange(event) {
         const { name, value } = event.target;
+        if(name === "date"){
+            value = new Date(value);
+        }
         setItem((prevItem) => ({
             ...prevItem,
             [name]: value,
@@ -42,14 +47,27 @@ function ToDo(props) {
         return promise;
     }
 
+    function putItems(itemId) {
+        const promise = fetch(`http://localhost:8000/todo/${itemId}`, {
+            method: "PUT",
+            headers: props.addAuthHeader({
+                "Content-Type": "application/json"
+            }),
+            body: JSON.stringify(item),
+        })
+
+        return promise;
+    }
+
     function postItem(item) {
         const promise = fetch("http://localhost:8000/todo", {
             method: "POST",
             headers: props.addAuthHeader({
                 "Content-Type": "application/json"
             }),
-            body: JSON.stringify(item)
+            body: JSON.stringify(item),
         })
+
         .then((response) => {
             if (response.status === 200 || response.status === 201) {
                 setMessage("Item created successfully");
@@ -101,7 +119,7 @@ function ToDo(props) {
         postItem(newItem)
           .then((newItemResponseJson) => {
             setItems((prevItems) => [...prevItems, newItemResponseJson]);
-            setItem({ duedate: "", contents: "", user: props.userId });
+            setItem({ duedate: "", contents: "", checked: "", user: props.userId });
           })
           .catch((error) => {
             console.log(error);
@@ -121,6 +139,24 @@ function ToDo(props) {
                 setItems(items.map(item => (item._id === itemId ? updatedItem : item)));
                 setTodoEditing(null);
                 setEditingText("");
+            } else {
+                throw new Error(`Update Error ${response.status}: ${response.statusText}`);
+            }
+        })
+        .catch(error => {
+            setMessage(`Update Error: ${error.message}`);
+            console.error(error);
+        });
+    }
+
+    function toggleCheck(itemId){
+        const updatedItem = items.find(item => item._id === itemId);
+        updatedItem.checked = !updatedItem.checked;
+
+        putItems(itemId)
+        .then(response => {
+            if (response.ok) {
+                setItems(items.map(item => (item._id === itemId ? updatedItem : item)));
             } else {
                 throw new Error(`Update Error ${response.status}: ${response.statusText}`);
             }
@@ -156,6 +192,7 @@ function ToDo(props) {
                     <button className='todo-monthly-view-frame' onClick={handleMonthly}>
                         <span className='todo-change-view'>Monthly View</span>
                     </button>
+
                     <div className="ToDo">
                         <div className="entry">
                             <form onSubmit={updateItems}>
@@ -195,7 +232,10 @@ function ToDo(props) {
                                         </>
                                     ) : (
                                         <>
+                                            {/* this displays the contents and the date to the screen*/}
                                             <div>{todo.contents}</div>
+                                            <div>{todo.duedate}</div>
+
                                             <button onClick={() => {
                                                 setTodoEditing(todo._id);
                                                 setEditingText(todo.contents);
@@ -203,10 +243,11 @@ function ToDo(props) {
                                         </>
                                     )}
                                     <button onClick={() => deleteItem(todo._id)}>Delete</button>
+
                                     <input
                                         type="checkbox"
-                                        onChange={() => console.log("Toggle complete functionality not implemented yet")}
-                                        checked={todo.completed}
+                                        onChange={() => toggleCheck(todo._id)}
+                                        checked={todo.checked}
                                     />
                                 </div>
                             ))
