@@ -156,22 +156,24 @@ function Monthly(props) {
 
       <div className='calendar-dropdown-container'>
         <div className='dropdown-rectangle'>
-          <div className='monthly-button-frame' onClick={handleCalendarsDropdown}>
-          {Dropdown(cal_lst)}
-        </div>
+          <div className='calendar-todo-dropdown'>
+            {Dropdown(cal_lst)}
+          </div>
         </div>
       </div>
       <div className='todo-dropdown-container'>
         <div className='dropdown-rectangle'>
-          <button className='monthly-button-frame' onClick={handleToDoDropdown}>
-            <span className='todo'>Todo</span>
-            <div className='monthly-dropdown-arrow' />
-          </button>
+          <div className='calendar-todo-dropdown'>
+            {Dropdown(cal_lst)}
+          </div>
         </div>
       </div>
       {getHeader()}
       <div className='the-clock'>
         <Clock />
+      </div>
+      <div className='create-dropdown'>
+          {Dropdown(create_lst)}
       </div>
       <button className='change-view-frame' onClick={handleWeekly}>
         <span className='change-view'>Weekly View</span>

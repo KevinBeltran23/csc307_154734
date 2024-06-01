@@ -14,6 +14,7 @@ import {
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import '../components/Weekly.css';
 import Clock from "./Clock";
+import Dropdown from "./Dropdown";
 
 function Weekly(props) {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -119,30 +120,44 @@ function Weekly(props) {
     // implement functionality
   }
 
+  var create_lst = [ { value: "Create", label: "Create" },
+  { value: "Event", label: "Event" },
+  { value: "Calendar", label: "Calendar"}, 
+  {value: "To Do Item", label: "To Do Item"}];
+
+  var cal_lst = [ { value: "Create", label: "Calendars" },
+  { value: "Option 2", label: "Option 2" },
+  { value: "Option 3", label: "Option 3" }];
+
+  var todo_lst = [ { value: "Create", label: "To Do" },
+  { value: "Option 2", label: "Option 2" },
+  { value: "Option 3", label: "Option 3" }];
+
   return (
     <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
       <div className='calendar-dropdown-container'>
         <div className='dropdown-rectangle'>
-          <button className='weekly-button-frame' onClick={handleCalendarsDropdown}>
-            <span className='calendars'>Calendars</span>
-            <div className='weekly-dropdown-arrow' />
-          </button>
+          <div className='calendar-todo-dropdown'>
+            {Dropdown(cal_lst)}
+          </div>
         </div>
       </div>
       <div className='todo-dropdown-container'>
         <div className='dropdown-rectangle'>
-          <button className='weekly-button-frame' onClick={handleToDoDropdown}>
-            <span className='todo'>Todo</span>
-            <div className='weekly-dropdown-arrow' />
-          </button>
+          <div className='calendar-todo-dropdown'>
+            {Dropdown(cal_lst)}
+          </div>
         </div>
       </div>
       {getHeader()}
       <div className='the-clock'>
         <Clock />
       </div>
+      <div className='create-dropdown'>
+          {Dropdown(create_lst)}
+      </div>
       <button className='change-view-frame' onClick={handleMonthly}>
-        <span className='change-view'>Weekly View</span>
+        <span className='change-view'>Monthly View</span>
       </button>
       <button className='todo-view-frame' onClick={handleToDo}>
         <span className='change-view'>To Do</span>
