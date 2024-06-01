@@ -138,16 +138,27 @@ function Monthly(props) {
     // there will be a GET request here to /event/:id
   }
 
+  var create_lst = [ { value: "Create", label: "Create" },
+  { value: "Event", label: "Event" },
+  { value: "Calendar", label: "Calendar"}, 
+  {value: "To Do Item", label: "To Do Item"}];
+
+  var cal_lst = [ { value: "Create", label: "Calendars" },
+  { value: "Option 2", label: "Option 2" },
+  { value: "Option 3", label: "Option 3" }];
+
+  var todo_lst = [ { value: "Create", label: "To Do" },
+  { value: "Option 2", label: "Option 2" },
+  { value: "Option 3", label: "Option 3" }];
+
   return (
     <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
 
       <div className='calendar-dropdown-container'>
         <div className='dropdown-rectangle'>
-          {Dropdown()}
-          {/*<button className='monthly-button-frame' onClick={handleCalendarsDropdown}>
-            <span className='calendars'>Calendars</span>
-            <div className='monthly-dropdown-arrow' />
-  </button> */}
+          <div className='monthly-button-frame' onClick={handleCalendarsDropdown}>
+          {Dropdown(cal_lst)}
+        </div>
         </div>
       </div>
       <div className='todo-dropdown-container'>
