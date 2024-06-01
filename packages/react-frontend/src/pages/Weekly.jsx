@@ -141,7 +141,7 @@ function Weekly(props) {
       <div className='the-clock'>
         <Clock />
       </div>
-      <button className='change-view-frame' onClick={handleWeekly}>
+      <button className='change-view-frame' onClick={handleMonthly}>
         <span className='change-view'>Weekly View</span>
       </button>
       <button className='todo-view-frame' onClick={handleToDo}>
