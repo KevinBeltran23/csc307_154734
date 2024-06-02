@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import "../components/Login.css"
 
@@ -10,7 +10,7 @@ function Login(props) {
   });
 
   const navigate = useNavigate(); 
-
+  
   return (
     <div className="login-position-relative">
       {/* Main Box */}
@@ -58,7 +58,7 @@ function Login(props) {
       </div>
     </div>
   );
-
+  
   function handleChange(event) {
     const { name, value } = event.target;
     switch (name) {
@@ -78,7 +78,8 @@ function Login(props) {
   function submitForm() {
     props.handleSubmit(creds)
       .then((response) => {
-        if (response === 1) {
+        if (response === true) {
+          console.log("navigating to monthly");
           navigate('/monthly');
         }
       });

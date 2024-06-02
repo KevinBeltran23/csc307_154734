@@ -98,7 +98,7 @@ function SignUp(props) {
 
     props.handleSubmit(creds)
       .then((response) => {
-        if (response === 1) {
+        if (response === true) {
           navigate('/monthly');
         }
       });
