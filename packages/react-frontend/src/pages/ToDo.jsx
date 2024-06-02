@@ -268,6 +268,7 @@ function ToDo(props) {
                                         onChange={() => toggleCheck(todo._id)}
                                         checked={todo.checked}
                                     />
+                                    
                                 </div>
                             ))
                         ) : (
