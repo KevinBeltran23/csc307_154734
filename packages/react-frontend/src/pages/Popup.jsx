@@ -1,13 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
-function Popup(props) {
-
+function Popup({ openPopup, closePopup, children }) {
+    const ref = useRef();
+    console.log("!!!!!");
+  
+    useEffect(() => {
+      if (openPopup) {
+        ref.current?.show();
+      } else {
+        ref.current?.close();
+      }
+    }, [openPopup]);
+  
     return (
-        <div className="popup">
-            {}
-        </div>
+      <dialog
+        ref={ref}
+        onCancel={closePopup}
+      >
+        {children}
+        <button onClick={closePopup}>
+          Close
+        </button>
+      </dialog>
     );
+  }
 
-}
 
 export default Popup;

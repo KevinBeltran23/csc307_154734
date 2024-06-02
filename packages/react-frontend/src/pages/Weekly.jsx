@@ -88,11 +88,7 @@ function Weekly(props) {
       </div>
     );
   };
-
-  /*const getEvents = () => {
- 
-  } */
-
+  
   const navigate = useNavigate();
 
   function handleSettings() {
@@ -106,15 +102,6 @@ function Weekly(props) {
   function handleToDo() {
     // go to todo page
     navigate('/todo');
-  }
-  function handleCreate() {
-    // create an event
-  }
-  function handleCalendarsDropdown() {
-    // open calendars drop down
-  }
-  function handleToDoDropdown() {
-    // open todo dropdown
   }
   function handleClickingOnEvent() {
     // implement functionality

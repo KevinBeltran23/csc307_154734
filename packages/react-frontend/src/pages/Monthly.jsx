@@ -95,17 +95,7 @@ function Monthly(props) {
         {allWeeks}
       </div>
     );
-  };
-  const addEvents = () => {
-    var testDate;
-    var desc;
-    var startTime;
-    var endTime;
-
-  }
-  /*const getEvents = () => {
-
-  } */
+  }; 
 
   const navigate = useNavigate();
 
@@ -120,18 +110,6 @@ function Monthly(props) {
   function handleToDo() {
     // go to todo page
     navigate('/todo');
-  }
-  function handleCreate() {
-    // create an event
-    // there will be a POST request here to /event
-  }
-  function handleCalendarsDropdown() {
-    // open calendars drop down
-    // there will be a GET request here to /calendars
-  }
-  function handleToDoDropdown() {
-    // open todo dropdown
-    // there will be a GET request here to /todo
   }
   function handleClickingOnEvent() {
     // implement functionality
@@ -164,7 +142,7 @@ function Monthly(props) {
       <div className='todo-dropdown-container'>
         <div className='dropdown-rectangle'>
           <div className='calendar-todo-dropdown'>
-            {Dropdown(cal_lst)}
+            {Dropdown(todo_lst)}
           </div>
         </div>
       </div>
@@ -172,8 +150,8 @@ function Monthly(props) {
       <div className='the-clock'>
         <Clock />
       </div>
-      <div className='create-dropdown'>
-          {Dropdown(create_lst)}
+      <div className="create-dropdown">
+        {Dropdown(create_lst)}
       </div>
       <button className='change-view-frame' onClick={handleWeekly}>
         <span className='change-view'>Weekly View</span>
