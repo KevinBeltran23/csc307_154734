@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 
 function Popup({ openPopup, closePopup, children }) {
     const ref = useRef();
-    console.log("!!!!!");
   
     useEffect(() => {
       if (openPopup) {
