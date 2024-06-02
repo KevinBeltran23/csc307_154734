@@ -29,3 +29,304 @@ textarea,
 button {
     outline: 0;
 }
+
+/* Dropdowns */
+.calendar-dropdown-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 8px;
+    position: absolute;
+    width: 152px;
+    height: 920px;
+    left: 35px;
+    top: 27px;
+}
+
+.todo-dropdown-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 8px;
+    position: absolute;
+    width: 152px;
+    height: 920px;
+    left: 35px;
+    top: 450px;
+}
+
+.calendars {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    width: 79px;
+    height: 18px;
+    color: #000000;
+    font-family: Inter, var(--default-font-family);
+    font-size: 16px;
+    line-height: 18px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 51;
+}
+
+.todo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    width: 79px;
+    height: 18px;
+    color: #000000;
+    font-family: Inter, var(--default-font-family);
+    font-size: 16px;
+    line-height: 18px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 51;
+}
+
+/* Individual rectangle styles */
+.dropdown-rectangle {
+    box-sizing: border-box;
+    width: 152px;
+    height: 400px;
+    background: #DFDFDB;
+    border: 2px solid #154734;
+    border-radius: 24px;
+    flex: none;
+    flex-grow: 0;
+    margin: 12px 0 0 12px;
+}
+
+.todayButton {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 95px;
+    height: 40px;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    font-size: 20px;
+    flex-shrink: 0;
+    border: 1px solid #000;
+    background: var(--White, #FFF);
+    vertical-align: text-bottom;
+    text-align: center;
+}
+  
+.todayButton:hover {
+    background: #DFDFDB;
+    cursor: pointer;
+}
+
+.today {
+    background:  #789F90;
+    border-radius: 50%;
+}
+
+.days-frame {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Center the items horizontally */
+    align-items: center; /* Align items vertically */
+    padding: 0px;
+    position: absolute;
+    gap: 100px;
+    width: 1220px;
+    height: 45px;
+    left: 270px;
+    top: 120px;
+}
+
+/* SUN, MON, TUE, WED, THU, FRI, SAT */
+.days-header {
+    font-size: 36px;
+    line-height: 36px;
+    text-align: center; /* Center the text horizontally */
+    color: #154734;
+    flex: none;
+    flex-grow: 0;
+}
+
+.change-view-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    position: absolute;
+    width: 135px;
+    height: 25px;
+    top: 50px;
+    left: 1325px;
+    padding: 10px 10px 10px 10px;
+    cursor: pointer;
+    background: #ffffff;
+    border: 1px solid #000000;
+    z-index: 12;
+}
+
+.todo-view-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    position: absolute;
+    width: 135px;
+    height: 25px;
+    top: 80px;
+    left: 1325px;
+    padding: 10px 10px 10px 10px;
+    cursor: pointer;
+    background: #ffffff;
+    border: 1px solid #000000;
+    z-index: 12;
+}
+
+.monthly-view-frame:hover,
+.todo-view-frame:hover,
+.settings-frame:hover
+{
+    background: #DFDFDB;
+}
+
+.download-frame:hover{
+    background:  #f8f8f821;
+}
+
+.change-view {
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    height: 22px;
+    color: #000000;
+    font-family: Inter, var(--default-font-family);
+    font-size: 18px;
+    line-height: 22px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 13;
+}
+
+.settings-frame {
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    top: 0%;
+    left: 97%;
+    border-radius: 50%;
+    background-color: #ffffff;
+    /* Set background color to white */
+    border: 1px solid #000000;
+}
+
+.gear {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: url(../assets/Gear.png) no-repeat center;
+    background-size: cover;
+    z-index: 71;
+    /* Higher z-index */
+}
+
+.download-frame {
+    cursor: pointer;
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 5%;
+    left: 97%;
+    padding: 3px 6px;
+    background: #ffffff00;
+    border: 0px solid #000000;
+    border-radius: 5%;
+    z-index: 44;
+}
+
+.download-icon {
+    width: 28px;
+    height: 28px;
+    background: url(../assets/download_icon.png) no-repeat center;
+    background-size: cover;
+    z-index: 45;
+}
+
+.the-clock {
+    position: absolute;
+    width: 150px;
+    height: 0px;
+    left: 1315px;
+    top: 20px;
+    font-size: 40px;
+    line-height: 100px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
+
+/* NEW */
+
+.calendar-todo-dropdown #dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    position: relative;
+    width: 126px;
+    height: 26px;
+    margin: 12px 0 0 12px;
+    padding: 4px 12px 4px 12px;
+    left: -3px;
+    cursor: pointer;
+    background: #b7cdc2;
+    border: 1px solid #000000;
+    z-index: 50;
+}
+
+.create-dropdown #dropdown{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    gap: 6px;
+    position: absolute;
+    width: 100px;
+    height: 25px;
+    top: 50px;
+    left: 1220px;
+    cursor: pointer;
+    background: #ffffff;
+    border: 1px solid #000000;
+    z-index: 16;
+}
+
+#popup {
+    width: 200px;
+    z-index: 50;
+    position: relative;
+    left: 325px;
+}
+
+#inputs {
+    width: 110px;
+}
