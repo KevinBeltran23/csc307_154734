@@ -59,8 +59,8 @@ function Monthly(props) {
       week.push(
         <div className='monthly-day-box'>
           <div
-            className={`monthly-day ${isSameMonth(currentDate, activeDate) ? "" : "monthly-inactiveDay"
-              } ${isSameDay(currentDate, selectedDate) ? "monthly-selectedDay" : ""}
+            className={`monthly-day ${isSameMonth(currentDate, activeDate) ? "" : "inactiveDay"
+              } ${isSameDay(currentDate, selectedDate) ? "selectedDay" : ""}
               ${isSameDay(currentDate, new Date()) ? "today" : ""}`}
           >
             {format(currentDate, "d")}
@@ -90,7 +90,7 @@ function Monthly(props) {
     }
 
     return (
-      <div className="monthly-dayContainer">
+      <div className="calendar-container">
         {allWeeks}
       </div>
     );
@@ -142,17 +142,17 @@ function Monthly(props) {
 
       <div className='calendar-dropdown-container'>
         <div className='dropdown-rectangle'>
-          <button className='monthly-button-frame' onClick={handleCalendarsDropdown}>
-            <span className='calendars'>Calendars</span>
-            <div className='monthly-dropdown-arrow' />
+          <button className='dropdown-button-frame' onClick={handleCalendarsDropdown}>
+            <span className='calendars-text'>Calendars</span>
+            <div className='dropdown-arrow' />
           </button>
         </div>
       </div>
       <div className='todo-dropdown-container'>
         <div className='dropdown-rectangle'>
-          <button className='monthly-button-frame' onClick={handleToDoDropdown}>
-            <span className='todo'>Todo</span>
-            <div className='monthly-dropdown-arrow' />
+          <button className='dropdown-button-frame' onClick={handleToDoDropdown}>
+            <span className='todo-text'>Todo</span>
+            <div className='dropdown-arrow' />
           </button>
         </div>
       </div>

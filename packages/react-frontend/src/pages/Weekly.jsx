@@ -52,8 +52,8 @@ function Weekly(props) {
       week.push(
         <div className="weekly-day-box">
           <div
-            className={`weekly-day ${isSameMonth(currentDate, activeDate) ? "" : "weekly-inactiveDay"
-              } ${isSameDay(currentDate, selectedDate) ? "weekly-selectedDay" : ""}
+            className={`weekly-day ${isSameMonth(currentDate, activeDate) ? "" : "inactiveDay"
+              } ${isSameDay(currentDate, selectedDate) ? "selectedDay" : ""}
               ${isSameDay(currentDate, new Date()) ? "today" : ""}`}
           >
             {format(currentDate, "d")}
@@ -82,7 +82,7 @@ function Weekly(props) {
     }
 
     return (
-      <div className="weekly-dayContainer">
+      <div className="calendar-container">
         {allWeeks}
       </div>
     );
@@ -123,17 +123,17 @@ function Weekly(props) {
     <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
       <div className='calendar-dropdown-container'>
         <div className='dropdown-rectangle'>
-          <button className='weekly-button-frame' onClick={handleCalendarsDropdown}>
-            <span className='calendars'>Calendars</span>
-            <div className='weekly-dropdown-arrow' />
+          <button className='dropdown-button-frame' onClick={handleCalendarsDropdown}>
+            <span className='calendars-text'>Calendars</span>
+            <div className='dropdown-arrow' />
           </button>
         </div>
       </div>
       <div className='todo-dropdown-container'>
         <div className='dropdown-rectangle'>
-          <button className='weekly-button-frame' onClick={handleToDoDropdown}>
-            <span className='todo'>Todo</span>
-            <div className='weekly-dropdown-arrow' />
+          <button className='dropdown-button-frame' onClick={handleToDoDropdown}>
+            <span className='todo-text'>Todo</span>
+            <div className='dropdown-arrow' />
           </button>
         </div>
       </div>
@@ -141,8 +141,8 @@ function Weekly(props) {
       <div className='the-clock'>
         <Clock />
       </div>
-      <button className='change-view-frame' onClick={handleWeekly}>
-        <span className='change-view'>Weekly View</span>
+      <button className='change-view-frame' onClick={handleMonthly}>
+        <span className='change-view'>Monthly View</span>
       </button>
       <button className='todo-view-frame' onClick={handleToDo}>
         <span className='change-view'>To Do</span>
