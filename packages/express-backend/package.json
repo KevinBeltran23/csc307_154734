@@ -5,7 +5,8 @@
     "type": "module",
     "main": "backend.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "npx eslint . && npx prettier --check .",
+        "test": "echo \"Error: no test specified\"",
         "dev": "npx nodemon backend.js",
         "start": "node backend.js"
     },
