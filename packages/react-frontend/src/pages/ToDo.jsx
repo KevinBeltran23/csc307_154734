@@ -47,18 +47,6 @@ function ToDo(props) {
         return promise;
     }
 
-    function putItems(itemId) {
-        const promise = fetch(`http://localhost:8000/todo/${itemId}`, {
-            method: "PUT",
-            headers: props.addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(item),
-        })
-
-        return promise;
-    }
-
     function postItem(item) {
         const promise = fetch("http://localhost:8000/todo", {
             method: "POST",
