@@ -6,16 +6,16 @@ function Dropdown(opt) {
 
     return (
         <div className="Dropdown">
-        <select id = "dropdown"
-        value={selectedValue}
-        onChange={(e) => setSelectedValue(e.target.value)}
-        >
-        {options.map((option) => (
-        <option key={option.value} value={option.value}>
-        {option.label}
-        </option>
-        ))}
-        </select>
+            <select id = "dropdown"
+                value={selectedValue}
+                onChange={(e) => setSelectedValue(e.target.value)}
+            >
+                {options.map((option) => (
+                    <option key={option.value} value={option.value}>
+                    {option.label}
+                </option>
+                ))}
+            </select>
         </div>
         );
        }
