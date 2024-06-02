@@ -4,7 +4,7 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import Service from "./services.js";
-import auth, { registerUser, loginUser, authenticateUser } from "./auth.js";
+import { registerUser, loginUser, authenticateUser } from "./auth.js";
 
 const app = express();
 const port = 8000;
@@ -60,10 +60,10 @@ app.post("/monthly", authenticateUser, (req, res) => { // idk what this will do
         });
 });
 
-app.get("/monthly", authenticateUser, (req, res) => { // get all the information for the monthly calendar for a user
+/*app.get("/monthly", authenticateUser, (req, res) => { // get all the information for the monthly calendar for a user
 
 });
-
+*/
 
 // weekly page
 
@@ -80,10 +80,11 @@ app.post("/weekly", authenticateUser, (req, res) => { // idk what this will do
         });
 });
 
+/*
 app.get("/weekly", authenticateUser, (req, res) => { // get all the information for the weekly calendar for a user
 
 });
-
+*/
 
 // settings page 
 
@@ -100,10 +101,11 @@ app.post("/settings", authenticateUser, (req, res) => { // change a setting in t
         });
 });
 
+/*
 app.get("/settings", authenticateUser, (req, res) => { // retrieve the saved settings for a user
 
 });
-
+*/
 
 // todo page 
 
@@ -136,7 +138,7 @@ app.put("/todo/:id", authenticateUser, (req, res) => {
 });
 
 app.get("/todo", authenticateUser, (req, res) => { // get todo items
-    const { duedate, contents, user } = req.query;
+    const { duedate, user } = req.query;
     Service
         .getTodoItems(duedate, user)
         .then((result) => {
