@@ -143,7 +143,7 @@ function ToDo(props) {
         postItem(newItem)
           .then((newItemResponseJson) => {
             setItems((prevItems) => [...prevItems, newItemResponseJson]);
-            setItem({ duedate: "", contents: "", checked: "", user: props.userId });
+            setItem({ duedate: "", contents: "", checked: false, user: props.userId });
           })
           .catch((error) => {
             console.log(error);
@@ -170,15 +170,16 @@ function ToDo(props) {
     }
 
     function toggleCheck(itemId){
+        const itemToUpdate = items.find(item => item._id === itemId);
         const updatedItem = {
-            ...items.find(item => item._id === itemId),
-            checked: !item.checked,
+            ...itemToUpdate,
+            checked: !itemToUpdate.checked,
             user: props.userId // Ensure the user ID is included
         };
 
         putItem(itemId, updatedItem) // Pass itemId and updatedItem separately
           .then((updatedItemResponseJson) => {
-            setItems(items.map(item => (item._id === itemId ? updatedItemResponseJson : item)));
+            setItems(items.map(item => (item._id === itemId ? updatedItemResponseJson : item)).sort((a, b) => new Date(a.duedate) - new Date(b.duedate)));
         })
           .catch((error) => {
             setMessage(`Update Error: ${error.message}`);
@@ -189,7 +190,10 @@ function ToDo(props) {
     useEffect(() => {
         fetchItems()
             .then((res) => res.json())
-            .then((json) => setItems(json.todo_list))
+            .then((json) => {
+                const sortedItems = json.todo_list.sort((a,b) => new Date(a.duedate) - new Date(b.duedate));
+                setItems(sortedItems);
+            })
             .catch((error) => {
                 console.log(error);
                 setMessage(`Fetch Error: ${error.message}`);
@@ -225,7 +229,7 @@ function ToDo(props) {
                                         placeholder="Contents"
                                     />
                                     <input
-                                        type="text"
+                                        type="date"
                                         name="duedate"
                                         onChange={handleChange}
                                         value={item.duedate}
@@ -268,7 +272,7 @@ function ToDo(props) {
                                         onChange={() => toggleCheck(todo._id)}
                                         checked={todo.checked}
                                     />
-                                    
+
                                 </div>
                             ))
                         ) : (
