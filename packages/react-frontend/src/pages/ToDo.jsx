@@ -19,7 +19,7 @@ function ToDo(props) {
 
 
     function handleChange(event) {
-        const { name, value } = event.target;
+        var { name, value } = event.target;
         if(name === "date"){
             value = new Date(value);
         }
@@ -203,8 +203,6 @@ function ToDo(props) {
     return (
         <>
             <button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
-            <div className="page">
-                <div className="todo-main-container">
                     <div className='todo-clock'>
                         <Clock />
                     </div>
@@ -280,8 +278,6 @@ function ToDo(props) {
                         )}
                     </div>
                     {message && <p>{message}</p>}
-                </div>
-            </div>
         </>
     );
 }

@@ -10,16 +10,16 @@
     /*border-style: solid;*/
 }
 
-.todo-ToDo {
+.ToDo {
+    width: 99%;
+    margin:auto;
+    height: 754px;
     position: absolute;
-    left: 242px;
-    top: 122px;
-    width: 1215px;
-    height: 794.975px;
-    
-    flex-shrink: 0;
+    top: 164px;
+    /*left: 273px; */
     border-radius: 24px;
-    background: var(--gray, #dfdfdb);
+    border: 1px solid var(--Poly-Green, #154734);
+    background: var(--gray, #DFDFDB);
 }
 
 .todo-weekly-view-frame {
@@ -87,20 +87,7 @@
     z-index: 13;
 }
 
-.todo-calendar-dropdown-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 8px;
-    position: absolute;
-    width: 152px;
-    height: 920px;
-    left: 35px;
-    top: 27px;
-}
-
-.todo-rectangle {
+/*.todo-rectangle {
     box-sizing: border-box;
     width: 152px;
     height: 456px;
@@ -140,30 +127,22 @@
     width: 79px;
     height: 18px;
     color: #000000;
-    /* -family: Inter, var(--default-font-family);*/ 
     font-size: 16px;
     line-height: 18px;
     text-align: left;
     white-space: nowrap;
     z-index: 51;
-}
-
-.todo-dropdown-arrow {
-    width: 13px;
-    height: 11px;
-    background: url(../assets/empty.jpg) no-repeat center;
-    background-size: cover;
-    /* Add additional styles for the arrow */
-    fill: #000;
-    /* Change the color of the arrow */
-}
+} */
 
 .todo-header-name {
-    position: relative;
-    margin: auto;
+    width: 1216px;
+    height: inherit;
+    position: absolute;
+    top: 22px;
+    left: 274px;
     color: var(--Poly-Green, #154734);
     box-sizing: border-box;
-    text-align: center;
+    display: inline-block;
     font-size: 64px;
     padding: 8px;
 }
