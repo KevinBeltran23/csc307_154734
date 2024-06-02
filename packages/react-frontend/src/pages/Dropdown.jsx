@@ -30,7 +30,7 @@ function Dropdown(opt) {
         }
         else if (val === "Calendar") {
             return (
-                <div> HELLO </div>
+                <input type="date"></input>
             );
         }
     }
