@@ -56,16 +56,16 @@ function deleteUserById(id) {
 
 // event-services
 
-function getEvents(calendar, userId) {
+function getEvents(start, calendar, userId) {
     let query = {};
-    if (calendar && userId) {
-        query = { duedate: calendar, user: userId };
+    if (start) {
+        query.start = start;
     }
-    else if (calendar) {
-        query = { duedate: calendar};
+    if (calendar){
+        query.calendar = calendar;
     }
-    else if (userId) {
-        query = { user: userId};
+    if (userId) {
+        query.user = userId;
     }
     return eventModel.find(query);
 }
@@ -99,7 +99,7 @@ function deleteEventById(id) {
 function getCalendars(userId) {
     let query = {};
     if (userId) {
-        query = { user: userId };
+        query.user = userId;
     }
     return calendarModel.find(query);
 }
@@ -130,16 +130,16 @@ function deleteCalendarById(id) {
 
 // class-services
 
-function getClasses(calendar, userId) {
+function getClasses(start, calendar, userId) {
     let query = {};
-    if (calendar && userId) {
-        query = { duedate: calendar, user: userId };
+    if (start) {
+        query.start = start;
     }
-    else if (calendar) {
-        query = { duedate: calendar};
+    if (calendar){
+        query.calendar = calendar;
     }
-    else if (userId) {
-        query = { user: userId};
+    if (userId) {
+        query.user = userId;
     }
     return classModel.find(query);
 }
@@ -172,14 +172,11 @@ function deleteClassById(id) {
 
 function getTodoItems(duedate, userId) {
     let query = {};
-    if (duedate && userId) {
-        query = { duedate: duedate, user: userId };
+    if (duedate){
+        query.duedate = duedate;
     }
-    else if (duedate) {
-        query = { duedate: duedate};
-    }
-    else if (userId) {
-        query = { user: userId};
+    if (userId) {
+        query.user = userId;
     }
     return todoModel.find(query);
 }

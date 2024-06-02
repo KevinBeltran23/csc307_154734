@@ -166,7 +166,7 @@ app.delete("/todo/:id", authenticateUser, (req, res) => { // delete an item from
 app.get("/event", authenticateUser, (req, res) => { // get events for a user
     const { title, start, end, description, location, calendar, user } = req.query;
     Service
-        .getEvents(calendar, user)
+        .getEvents(start, calendar, user)
         .then((result) => {
             res.send({ event_list: result });
         })
@@ -241,7 +241,7 @@ app.delete("/event/:id", authenticateUser, (req, res) => { // delete an event by
 app.get("/class", authenticateUser, (req, res) => { // get classes for a user
     const { title, start, end, description, professor, calendar, user } = req.query;
     Service
-        .getClasses(calendar, user)
+        .getClasses(start, calendar, user) 
         .then((result) => {
             res.send({ class_list: result });
         })
