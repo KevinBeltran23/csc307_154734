@@ -36,22 +36,24 @@ function Dropdown(opt) {
     // this function builds the popups for each request
     function create(val) {
         if (val === "Event") {
-            var date = new Date().toDateString;
-            //format(date, "MM/dd/yyyy hh:mm:ss");
-            //console.log(date);
             return (
                 <div>
-                    Create Event
-                    Start Date: <input type="date"></input>
-                    Start Time: <input type="time" defaultValue="08:10"></input>
-                    End Date: <input type="date"></input>
-                    End Time: <input type="time" defaultValue="09:10"></input>
+                    <p>Create Event</p>
+                    <p>Start Date: <input id="inputs" type="date"></input> </p>
+                    <p>End Date: <input id="inputs" type="date"></input> </p>
+                    <p>Start Time: <input id="inputs" type="time" defaultValue="08:10"></input></p>
+                    <p>End Time: <input id="inputs" type="time" defaultValue="09:10"></input></p>
                 </div>
             );
         }
         else if (val === "Calendar") {
             return (
                 <input type="text" placeholder="Enter Calendar Name"></input>
+            );
+        }
+        else {
+            return (
+                <input type="text" placeholder="Enter To Do"></input>
             );
         }
     }
