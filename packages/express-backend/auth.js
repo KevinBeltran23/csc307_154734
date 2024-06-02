@@ -2,9 +2,6 @@ import "./backend.js"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from './user.js';
-import dotenv from 'dotenv';
-
-dotenv.config;
 
 function generateAccessToken(username) {
     return new Promise((resolve, reject) => {
