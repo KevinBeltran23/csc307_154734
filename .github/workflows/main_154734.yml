@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: '20.'
 
+      - name: Install apt-utils
+        run: sudo apt-get update && sudo apt-get install -y apt-utils
+
       - name: npm install, and build
         run: |
           npm install --workspaces=false
