@@ -294,7 +294,7 @@ app.delete("/class/:id", authenticateUser, (req, res) => {
         });
 });
 
-// calendar - working on these next
+// calendar - I think this is done
 
 app.get("/calendar", authenticateUser, (req, res) => {
     // get calendars for a user
