@@ -10,6 +10,32 @@ function Login(props) {
 
     const navigate = useNavigate();
 
+    function handleChange(event) {
+        const { name, value } = event.target;
+        switch (name) {
+            case "username":
+                setCreds({ ...creds, username: value });
+                break;
+            case "password":
+                setCreds({ ...creds, pwd: value });
+                break;
+        }
+    }
+
+    function handleRegister() {
+        navigate("/signup");
+    }
+
+    function submitForm() {
+        props.handleSubmit(creds).then((response) => {
+            if (response === true) {
+                console.log("navigating to monthly");
+                navigate("/monthly");
+            }
+        });
+        setCreds({ username: "", pwd: "" });
+    }
+
     return (
         <div className="login-position-relative">
             {/* Main Box */}
@@ -62,32 +88,6 @@ function Login(props) {
             </div>
         </div>
     );
-
-    function handleChange(event) {
-        const { name, value } = event.target;
-        switch (name) {
-            case "username":
-                setCreds({ ...creds, username: value });
-                break;
-            case "password":
-                setCreds({ ...creds, pwd: value });
-                break;
-        }
-    }
-
-    function handleRegister() {
-        navigate("/signup");
-    }
-
-    function submitForm() {
-        props.handleSubmit(creds).then((response) => {
-            if (response === true) {
-                console.log("navigating to monthly");
-                navigate("/monthly");
-            }
-        });
-        setCreds({ username: "", pwd: "" });
-    }
 }
 
 export default Login;
