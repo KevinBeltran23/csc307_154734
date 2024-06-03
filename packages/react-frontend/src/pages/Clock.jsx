@@ -6,11 +6,11 @@ function Clock() {
     var t;
 
     useEffect(() => {
-      const interval = setInterval(() => {
-        setDate(new Date());
-      }, 1000);
+        const interval = setInterval(() => {
+            setDate(new Date());
+        }, 1000);
 
-      return () => clearInterval(interval);
+        return () => clearInterval(interval);
     }, []);
 
     /*if (s) {
@@ -20,10 +20,13 @@ function Clock() {
       t = date.toLocaleTimeString();
     } */
     return (
-      <div className="clock">
-        {date.toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})}
-      </div>
+        <div className="clock">
+            {date.toLocaleTimeString([], {
+                hour: "numeric",
+                minute: "2-digit"
+            })}
+        </div>
     );
-  }
+}
 
 export default Clock;

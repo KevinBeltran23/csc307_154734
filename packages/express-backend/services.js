@@ -9,14 +9,13 @@ mongoose.set("debug", true);
 
 mongoose
     .connect(
-        "mongodb+srv://Karen:karen@154754.qdl82np.mongodb.net/?retryWrites=true&w=majority&appName=154754",
+        "mongodb+srv://Karen:karen@154754.qdl82np.mongodb.net/?retryWrites=true&w=majority&appName=154754"
         /*{
             useNewUrlParser: true,
             useUnifiedTopology: true
         }*/
     )
     .catch((error) => console.log(error));
-
 
 // user-services
 
@@ -25,12 +24,10 @@ function getUsers(username, password) {
     if (username && password) {
         query = { username: username, password: password };
         return userModel.findOne({ username: username, password: password });
-    }
-    else if (username) {
-        query = { username: username};
-    }
-    else if (password) {
-        query = { password: password};
+    } else if (username) {
+        query = { username: username };
+    } else if (password) {
+        query = { password: password };
     }
     return userModel.find(query);
 }
@@ -53,7 +50,6 @@ function deleteUserById(id) {
     return userModel.findByIdAndDelete(id);
 }
 
-
 // event-services
 
 function getEvents(start, calendar, userId) {
@@ -61,7 +57,7 @@ function getEvents(start, calendar, userId) {
     if (start) {
         query.start = start;
     }
-    if (calendar){
+    if (calendar) {
         query.calendar = calendar;
     }
     if (userId) {
@@ -77,11 +73,13 @@ function addEvent(event) {
 }
 
 function editEvent(eventId, updatedEvent) {
-    const promise = eventModel.findByIdAndUpdate(
-        eventId,             // The ID of the item to update
-        updatedEvent,        // The updated item data
-        { new: true }       // Return the updated document
-    ).exec();
+    const promise = eventModel
+        .findByIdAndUpdate(
+            eventId, // The ID of the item to update
+            updatedEvent, // The updated item data
+            { new: true } // Return the updated document
+        )
+        .exec();
     return promise;
 }
 
@@ -92,7 +90,6 @@ function findEventById(id) {
 function deleteEventById(id) {
     return eventModel.findByIdAndDelete(id);
 }
-
 
 // calendar-services
 
@@ -111,11 +108,13 @@ function addCalendar(calendar) {
 }
 
 function editCalendar(calendarId, updatedCalendar) {
-    const promise = classModel.findByIdAndUpdate(
-        calendarId,             // The ID of the item to update
-        updatedCalendar,        // The updated item data
-        { new: true }       // Return the updated document
-    ).exec();
+    const promise = classModel
+        .findByIdAndUpdate(
+            calendarId, // The ID of the item to update
+            updatedCalendar, // The updated item data
+            { new: true } // Return the updated document
+        )
+        .exec();
     return promise;
 }
 
@@ -127,7 +126,6 @@ function deleteCalendarById(id) {
     return calendarModel.findByIdAndDelete(id);
 }
 
-
 // class-services
 
 function getClasses(start, calendar, userId) {
@@ -135,7 +133,7 @@ function getClasses(start, calendar, userId) {
     if (start) {
         query.start = start;
     }
-    if (calendar){
+    if (calendar) {
         query.calendar = calendar;
     }
     if (userId) {
@@ -151,11 +149,13 @@ function addClass(event) {
 }
 
 function editClass(classId, updatedClass) {
-    const promise = classModel.findByIdAndUpdate(
-        classId,             // The ID of the item to update
-        updatedClass,        // The updated item data
-        { new: true }       // Return the updated document
-    ).exec();
+    const promise = classModel
+        .findByIdAndUpdate(
+            classId, // The ID of the item to update
+            updatedClass, // The updated item data
+            { new: true } // Return the updated document
+        )
+        .exec();
     return promise;
 }
 
@@ -167,12 +167,11 @@ function deleteClassById(id) {
     return classModel.findByIdAndDelete(id);
 }
 
-
 // todo-services
 
 function getTodoItems(duedate, userId) {
     let query = {};
-    if (duedate){
+    if (duedate) {
         query.duedate = duedate;
     }
     if (userId) {
@@ -188,11 +187,13 @@ function addTodoItem(item) {
 }
 
 function editTodoItem(itemId, updatedItem) {
-    const promise = todoModel.findByIdAndUpdate(
-        itemId,             // The ID of the item to update
-        updatedItem,        // The updated item data
-        { new: true }       // Return the updated document
-    ).exec();
+    const promise = todoModel
+        .findByIdAndUpdate(
+            itemId, // The ID of the item to update
+            updatedItem, // The updated item data
+            { new: true } // Return the updated document
+        )
+        .exec();
     return promise;
 }
 
@@ -205,33 +206,33 @@ function deleteTodoItemById(id) {
 }
 
 export default {
-  getUsers,
-  getUserByNameAndPassword,
-  addUser,
-  findUserById,
-  deleteUserById,
+    getUsers,
+    getUserByNameAndPassword,
+    addUser,
+    findUserById,
+    deleteUserById,
 
-  getEvents,
-  addEvent,
-  findEventById,
-  deleteEventById,
-  editEvent,
+    getEvents,
+    addEvent,
+    findEventById,
+    deleteEventById,
+    editEvent,
 
-  getCalendars,
-  addCalendar,
-  deleteCalendarById,
-  findCalendarById,
-  editCalendar,
+    getCalendars,
+    addCalendar,
+    deleteCalendarById,
+    findCalendarById,
+    editCalendar,
 
-  getClasses,
-  addClass,
-  deleteClassById,
-  findClassById,
-  editClass,
+    getClasses,
+    addClass,
+    deleteClassById,
+    findClassById,
+    editClass,
 
-  getTodoItems,
-  addTodoItem,
-  deleteTodoItemById,
-  findTodoItemById,
-  editTodoItem
+    getTodoItems,
+    addTodoItem,
+    deleteTodoItemById,
+    findTodoItemById,
+    editTodoItem
 };
