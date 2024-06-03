@@ -1,7 +1,6 @@
 .bold-text {
     font-weight: bold;
-  }
-  
+}
 
 /* Common font style */
 .settings-font {
@@ -12,7 +11,7 @@
 
 /* Active button style */
 #settings-button.active {
-    background-color: #E4E3D3; /* Example active button color */
+    background-color: #e4e3d3; /* Example active button color */
 }
 
 /* Settings box */
@@ -25,8 +24,8 @@
     top: 0;
     bottom: 0;
     margin: auto;
-    background: #E4E3D3;
-    border-width: 10px; 
+    background: #e4e3d3;
+    border-width: 10px;
     border-style: solid;
     border-color: #154734;
     border-radius: 2px;
@@ -38,7 +37,7 @@
     box-sizing: border-box;
     width: 1000px;
     height: 30px;
-    background: #BD8B13;
+    background: #bd8b13;
     border-width: 1px;
     border-style: solid;
     border-color: #154734;
@@ -76,7 +75,7 @@
 #settings-button {
     width: 186px;
     height: 42px;
-    background: #CAC7A7;
+    background: #cac7a7;
     border: 2px solid #000000;
     border-radius: 2px;
     margin-bottom: 9px;
@@ -105,7 +104,7 @@
     border-style: solid;
     border-radius: 2px;
     border-width: 2px;
-    background: #CAC7A7;
+    background: #cac7a7;
     padding: 10px;
     overflow-y: auto; /* Add scroll if content overflows */
 }

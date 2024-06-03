@@ -29,6 +29,11 @@ const ClassSchema = new mongoose.Schema(
         calendar: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Calendar"
+        },
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true
         }
     },
     { collection: "classes" }

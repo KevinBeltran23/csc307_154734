@@ -11,7 +11,7 @@
     border: 10px solid #154734;
 }
 
-  /* Username Box */
+/* Username Box */
 .login-username-box {
     box-sizing: border-box;
     position: absolute;
@@ -23,8 +23,8 @@
     background: #ffffff;
     border: 1px solid #154734;
 }
-  
-  /* Password Box */
+
+/* Password Box */
 .login-password-box {
     box-sizing: border-box;
     position: absolute;
@@ -36,8 +36,8 @@
     background: #ffffff;
     border: 1px solid #154734;
 }
-  
-  /* login Box */
+
+/* login Box */
 .login-login-box {
     box-sizing: border-box;
     position: absolute;
@@ -52,13 +52,13 @@
     cursor: pointer; /* Change cursor to pointer */
     transition: background-color 0.3s; /* Smooth transition for background color change */
 }
-  
+
 /* Change background color when hovered over */
 .login-login-box:hover {
     background: #0d2b24;
 }
-  
-  /* Gold Box */
+
+/* Gold Box */
 .login-gold-box {
     box-sizing: border-box;
     position: absolute;
@@ -72,8 +72,8 @@
     border-style: solid;
     border-color: #154734;
 }
-  
-  /* Poly Planner */
+
+/* Poly Planner */
 .login-poly-planner {
     position: absolute;
     width: 400px;
@@ -91,8 +91,8 @@
     text-align: center;
     color: #154734;
 }
-  
-  /* Username */
+
+/* Username */
 .login-username {
     position: absolute;
     width: 150px;
@@ -110,8 +110,8 @@
     text-align: center;
     color: #154734;
 }
-  
-  /* Password */
+
+/* Password */
 .login-password {
     position: absolute;
     width: 150px;
@@ -129,8 +129,8 @@
     text-align: center;
     color: #154734;
 }
-  
-  /* login */
+
+/* login */
 .login-login {
     position: absolute;
     width: 400px;
@@ -149,7 +149,7 @@
     text-align: center;
     color: #ffffff;
 }
-  
+
 /* Error Message */
 .login-error-message {
     position: absolute;
@@ -157,9 +157,9 @@
     left: 50%;
     transform: translateX(-50%);
     background-color: #ffc0cb; /* Light pink */
-    padding: 5px
+    padding: 5px;
 }
-  
+
 .login-register-button {
     width: 209px;
     height: 29px;
@@ -177,10 +177,10 @@
     text-align: center;
     font-size: 24px;
     color: #fff;
-    font-family: 'Josefin Sans';
+    font-family: "Josefin Sans";
 }
 
-  /* Change background color when hovered over */
+/* Change background color when hovered over */
 .login-register-button:hover {
     background: #282b0d;
 }

@@ -13,6 +13,10 @@ const ToDoSchema = new mongoose.Schema(
             required: true,
             trim: true
         },
+        checked: {
+            type: Boolean,
+            trim: true
+        },
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",

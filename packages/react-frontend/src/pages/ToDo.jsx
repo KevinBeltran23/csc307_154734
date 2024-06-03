@@ -1,28 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import "../components/ToDo.css";
-
-import "../components/ToDo.css";
-import Clock from "./Clock.jsx"
-
+import Clock from "./Clock.jsx";
 
 function ToDo(props) {
-
     const [item, setItem] = useState({
         duedate: "",
         contents: "",
+        checked: false,
         user: props.userId
     });
 
-    const [items, setItems] = useState([]);
-    const [message, setMessage] = useState(""); // Add message state for displaying feedback
     const navigate = useNavigate();
-    const [todoEditing, setTodoEditing] = useState(null); 
-    const [editingText, setEditingText] = useState(""); 
-    
+    const [message, setMessage] = useState(""); // Add message state for displaying feedback
+    const [todoEditing, setTodoEditing] = useState(null);
+    const [editingText, setEditingText] = useState("");
 
     function handleChange(event) {
-        const { name, value } = event.target;
+        var { name, value } = event.target;
+        if (name === "date") {
+            value = new Date(value);
+        }
         setItem((prevItem) => ({
             ...prevItem,
             [name]: value
@@ -31,80 +29,31 @@ function ToDo(props) {
 
     function handleWeekly() {
         // go to weekly page
-        navigate('/weekly');
+        navigate("/weekly");
     }
+
     function handleMonthly() {
         // go to weekly page
-        navigate('/monthly');
-    }
-
-    function fetchItems() {
-        const promise = fetch(`http://localhost:8000/todo?user=${props.userId}`, {
-            method: "GET",
-            headers: props.addAuthHeader(),
-            });
-        return promise;
-    }
-
-    function postItem(item) {
-        const promise = fetch("http://localhost:8000/todo", {
-        method: "POST",
-        headers: props.addAuthHeader({
-            "Content-Type": "application/json"
-          }),
-        body: JSON.stringify(item)
-        })
-        .then((response) => {
-            if (response.status === 200 || response.status === 201) {
-            setMessage(`Item created successfuly`);
-            } else {
-            setMessage( `Post Error ${response.status}: ${response.data}`);
-            }
-        })
-        .catch((error) => {
-            setMessage(`Post Error: ${error}`);
-        });
-        return promise;
-    }
-
-    function deleteItem(_id) {
-        fetch(`http://localhost:8000/todo/${_id}`, {
-            method: "DELETE",
-            headers: props.addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-        })
-        .then((response) => {
-            if (response.status === 204) {
-                // Filter out the item with the specified _id and update the items list
-                const updated = items.filter((item) => item._id !== _id);
-                setItems(updated);
-            } else if (response.status === 404) {
-                console.log("Resource not found.");
-            } else {
-                throw new Error("Failed to delete item. Status code: " + response.status);
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+        navigate("/monthly");
     }
 
     function updateItems(event) {
-        event.preventDefault();
-        
-        // Ensure the item has the correct user ID before posting
+        event.preventDefault(); // Prevent form submission from causing a page reload
+
         const newItem = {
             ...item,
             user: props.userId // Set the user ID from props
         };
-        
-        postItem(newItem)
-            .then((newItemResponse) => {
-                if (newItemResponse) {
-                    setItems((prevItems) => [...prevItems, newItemResponse]);
-                    setItem({ duedate: "", contents: "", user: props.userId }); // Clear form but keep user ID
-                }
+
+        props.postItem(newItem)
+            .then((newItemResponseJson) => {
+                props.setItems((prevItems) => [...prevItems, newItemResponseJson]);
+                setItem({
+                    duedate: "",
+                    contents: "",
+                    checked: false,
+                    user: props.userId
+                });
             })
             .catch((error) => {
                 console.log(error);
@@ -113,85 +62,86 @@ function ToDo(props) {
 
     function editItem(itemId) {
         const updatedItem = {
-            ...items.find(item => item._id === itemId),
+            ...props.items.find((item) => item._id === itemId),
             contents: editingText,
             user: props.userId // Ensure the user ID is included
         };
-    
-        fetch(`http://localhost:8000/todo/${itemId}`, {
-            method: "PUT",
-            headers: props.addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(updatedItem)
-        })
-        .then(response => {
-            if (response.ok) {
-                setItems(items.map(item => (item._id === itemId ? updatedItem : item)));
+
+        props.putItem(itemId, updatedItem) // Pass itemId and updatedItem separately
+            .then((updatedItemResponseJson) => {
+                props.setItems(
+                    props.items.map((item) =>
+                        item._id === itemId ? updatedItemResponseJson : item
+                    )
+                );
                 setTodoEditing(null);
                 setEditingText("");
-            } else {
-                throw new Error(`Update Error ${response.status}: ${response.statusText}`);
-            }
-        })
-        .catch(error => {
-            setMessage(`Update Error: ${error.message}`);
-            console.error(error);
-        });
-    }
-    
-
-    useEffect(() => {
-        fetchItems()
-            .then((res) => {
-                console.log('Fetch response:', res);
-                return res.status === 200 ? res.json() : undefined;
-            })
-            .then((json) => {
-                console.log('JSON response:', json);
-                if (json && json.todo_list) { // Check if todo_list exists
-                    console.log('Todos:', json.todo_list);
-                    setItems(json.todo_list); // Set items to todo_list
-                    console.log('Items state after setting:', json.todo_list);
-                } else {
-                    setItems([]);
-                    console.log('No todos found');
-                }
             })
             .catch((error) => {
-                console.log('Fetch error:', error);
+                setMessage(`Update Error: ${error.message}`);
+                console.log(error);
+            });
+    }
+
+    function toggleCheck(itemId) {
+        const itemToUpdate = props.items.find((item) => item._id === itemId);
+        const updatedItem = {
+            ...itemToUpdate,
+            checked: !itemToUpdate.checked,
+            user: props.userId // Ensure the user ID is included
+        };
+
+        putItem(itemId, updatedItem) // Pass itemId and updatedItem separately
+            .then((updatedItemResponseJson) => {
+                props.setItems(
+                    props.items
+                        .map((item) =>
+                            item._id === itemId ? updatedItemResponseJson : item
+                        )
+                        .sort(
+                            (a, b) => new Date(a.duedate) - new Date(b.duedate)
+                        )
+                );
+            })
+            .catch((error) => {
+                setMessage(`Update Error: ${error.message}`);
+                console.log(error);
+            });
+    }
+
+    useEffect(() => {
+        props.fetchItems()
+            .then((res) => res.json())
+            .then((json) => {
+                const sortedItems = json.todo_list.sort(
+                    (a, b) => new Date(a.duedate) - new Date(b.duedate)
+                );
+                props.setItems(sortedItems);
+            })
+            .catch((error) => {
+                console.log(error);
+                setMessage(`Fetch Error: ${error.message}`);
             });
     }, []);
 
     return (
-        <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
-        <div className="page">
-            <div className='todo-clock'>
+        <>
+            <button className="logout" onClick={props.logout}>
+                {" "}
+                Log Out Temporary Button{" "}
+            </button>
+            <div className="todo-clock">
                 <Clock />
             </div>
-
-            <h1> To Dos </h1>
-             
-            <button className='todo-weekly-view-frame' onClick={handleWeekly}>
-                <span className='todo-change-view'>Weekly View</span>
-            </button> 
-
-            <button className='todo-monthly-view-frame' onClick={handleMonthly}>
-                <span className='todo-change-view'>Monthly View</span>
+            <div className="todo-header-name"> To Dos </div>
+            <button className="todo-weekly-view-frame" onClick={handleWeekly}>
+                <span className="todo-change-view">Weekly View</span>
+            </button>
+            <button className="todo-monthly-view-frame" onClick={handleMonthly}>
+                <span className="todo-change-view">Monthly View</span>
             </button>
 
-            {/*<div className='todo-calendar-dropdown-container'>
-                <div className='todo-rectangle'>
-                <button className='todo-button-frame' onClick={handleCalendarsDropdown}>
-                    <span className='todo-calendars'>Calendars</span>
-                    <div className='todo-dropdown-arrow' />
-                </button>
-                </div>
-    </div>*/}
-
             <div className="ToDo">
-
-            
                 <div className="entry">
                     <form onSubmit={updateItems}>
                         <div className="textEntry">
@@ -204,7 +154,7 @@ function ToDo(props) {
                                 placeholder="Contents"
                             />
                             <input
-                                type="text"
+                                type="date"
                                 name="duedate"
                                 onChange={handleChange}
                                 value={item.duedate}
@@ -214,70 +164,62 @@ function ToDo(props) {
                         </div>
                     </form>
                 </div>
-    
-                {items && items.length > 0 ? (
-                    items.map((todo) => (
+
+                {props.items && props.items.length > 0 ? (
+                    props.items.map((todo) => (
                         <div key={todo._id}>
                             {todoEditing === todo._id ? (
                                 <>
                                     <input
                                         type="text"
-                                        onChange={(e) => setEditingText(e.target.value)}
+                                        onChange={(e) =>
+                                            setEditingText(e.target.value)
+                                        }
                                         value={editingText}
                                     />
-                                    <button onClick={() => editItem(todo._id)}>Submit Edits</button>
-                                    <button onClick={() => setTodoEditing(null)}>Cancel</button>
+                                    <button onClick={() => editItem(todo._id)}>
+                                        Submit Edits
+                                    </button>
+                                    <button
+                                        onClick={() => setTodoEditing(null)}
+                                    >
+                                        Cancel
+                                    </button>
                                 </>
                             ) : (
                                 <>
+                                    {/* this displays the contents and the date to the screen*/}
                                     <div>{todo.contents}</div>
-                                    <button onClick={() => {
-                                        setTodoEditing(todo._id);
-                                        setEditingText(todo.contents);
-                                    }}>Edit Todo</button>
+                                    <div>{todo.duedate}</div>
+
+                                    <button
+                                        onClick={() => {
+                                            setTodoEditing(todo._id);
+                                            setEditingText(todo.contents);
+                                        }}
+                                    >
+                                        Edit Todo
+                                    </button>
                                 </>
                             )}
-                            <button onClick={() => deleteItem(todo._id)}>Delete</button>
+                            <button onClick={() => props.deleteItem(todo._id)}>
+                                Delete
+                            </button>
+
                             <input
                                 type="checkbox"
-                                onChange={() => console.log("Toggle complete functionality not implemented yet")}
-                                checked={todo.completed}
+                                onChange={() => toggleCheck(todo._id)}
+                                checked={todo.checked}
                             />
                         </div>
                     ))
                 ) : (
                     <p>No items available</p>
                 )}
-
-                {/*{items && items.length > 0 ? (
-                    items.map((todo) => {
-                        console.log('Rendering todo:', todo); // Log each todo being rendered
-                        return (
-                            <div key={todo._id}>
-                                <div>{todo.contents}</div>
-                                <button onClick={() => deleteItem(todo._id)}>
-                                    Delete
-                                </button>
-                                <input
-                                    type="checkbox"
-                                    onChange={() => console.log("Toggle complete functionality not implemented yet")}
-                                    checked={todo.completed}
-                                />
-                                <button onClick={() => console.log("Edit functionality not implemented yet")}>
-                                    Edit Todo
-                                </button>
-                            </div>
-                        );
-                    })
-                ) : (
-                    <p>No items available</p>
-                )}*/}
             </div>
             {message && <p>{message}</p>}
-        </div></>
-        
+        </>
     );
 }
+
 export default ToDo;
-
-
