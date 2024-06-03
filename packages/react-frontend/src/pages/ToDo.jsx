@@ -36,7 +36,7 @@ function ToDo(props) {
 
     function fetchItems() {
         const promise = fetch(
-            `http://localhost:8000/todo?user=${props.userId}`,
+            `154734.azurewebsites.net/todo?user=${props.userId}`,
             {
                 method: "GET",
                 headers: props.addAuthHeader()
@@ -46,7 +46,7 @@ function ToDo(props) {
     }
 
     function postItem(item) {
-        const promise = fetch("http://localhost:8000/todo", {
+        const promise = fetch("154734.azurewebsites.net/todo", {
             method: "POST",
             headers: props.addAuthHeader({
                 "Content-Type": "application/json"
@@ -74,7 +74,7 @@ function ToDo(props) {
     }
 
     function deleteItem(_id) {
-        const promise = fetch(`http://localhost:8000/todo/${_id}`, {
+        const promise = fetch(`http://154734.azurewebsites.net/todo/${_id}`, {
             method: "DELETE",
             headers: props.addAuthHeader({
                 "Content-Type": "application/json"
@@ -100,7 +100,7 @@ function ToDo(props) {
     }
 
     function putItem(itemId, updatedItem) {
-        const promise = fetch(`http://localhost:8000/todo/${itemId}`, {
+        const promise = fetch(`http://154734.azurewebsites.net/todo/${itemId}`, {
             method: "PUT",
             headers: props.addAuthHeader({
                 "Content-Type": "application/json"

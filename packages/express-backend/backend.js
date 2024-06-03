@@ -12,8 +12,9 @@ const port = 8000;
 app.use(cors());
 app.use(express.json());
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+// can listen at azure port or at localhost 8000
+app.listen(process.env.PORT || port, () => {
+    console.log(`REST API is listening.`);
 });
 
 app.get("/", (req, res) => {
