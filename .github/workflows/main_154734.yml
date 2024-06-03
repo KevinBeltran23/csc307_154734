@@ -33,7 +33,7 @@ jobs:
         run: zip release.zip ./* -r
         working-directory: packages/express-backend
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: node-app
           path: release.zip
@@ -49,7 +49,7 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: node-app
 
@@ -57,7 +57,7 @@ jobs:
         run: unzip release.zip
       
       - name: Login to Azure
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_359FA02E03C146EC9D47E32A2FD3EE8E }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9308AB1ED1724DACA724BB2BE6BA6372 }}
