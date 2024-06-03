@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import "../components/ToDo.css";
 import Clock from "./Clock.jsx";
 
@@ -13,32 +13,35 @@ function ToDo(props) {
     const [items, setItems] = useState([]);
     const [message, setMessage] = useState(""); // Add message state for displaying feedback
     const navigate = useNavigate();
-    const [todoEditing, setTodoEditing] = useState(null); 
-    const [editingText, setEditingText] = useState(""); 
+    const [todoEditing, setTodoEditing] = useState(null);
+    const [editingText, setEditingText] = useState("");
 
     function handleChange(event) {
         const { name, value } = event.target;
         setItem((prevItem) => ({
             ...prevItem,
-            [name]: value,
+            [name]: value
         }));
     }
 
     function handleWeekly() {
         // go to weekly page
-        navigate('/weekly');
+        navigate("/weekly");
     }
 
     function handleMonthly() {
         // go to weekly page
-        navigate('/monthly');
+        navigate("/monthly");
     }
 
     function fetchItems() {
-        const promise = fetch(`http://localhost:8000/todo?user=${props.userId}`, {
-            method: "GET",
-            headers: props.addAuthHeader(),
-        });
+        const promise = fetch(
+            `http://localhost:8000/todo?user=${props.userId}`,
+            {
+                method: "GET",
+                headers: props.addAuthHeader()
+            }
+        );
         return promise;
     }
 
@@ -50,19 +53,23 @@ function ToDo(props) {
             }),
             body: JSON.stringify(item)
         })
-        .then((response) => {
-            if (response.status === 200 || response.status === 201) {
-                setMessage("Item created successfully");
-                return response.json(); // Return the JSON response for chaining
-            } else {
-                setMessage(`Post Error ${response.status}: ${response.statusText}`);
-                throw new Error(`Post Error ${response.status}: ${response.statusText}`);
-            }
-        })
-        .catch((error) => {
-            setMessage(`Post Error: ${error.message}`);
-            throw error;
-        });
+            .then((response) => {
+                if (response.status === 200 || response.status === 201) {
+                    setMessage("Item created successfully");
+                    return response.json(); // Return the JSON response for chaining
+                } else {
+                    setMessage(
+                        `Post Error ${response.status}: ${response.statusText}`
+                    );
+                    throw new Error(
+                        `Post Error ${response.status}: ${response.statusText}`
+                    );
+                }
+            })
+            .catch((error) => {
+                setMessage(`Post Error: ${error.message}`);
+                throw error;
+            });
         return promise;
     }
 
@@ -71,22 +78,24 @@ function ToDo(props) {
             method: "DELETE",
             headers: props.addAuthHeader({
                 "Content-Type": "application/json"
-            }),
+            })
         })
-        .then((response) => {
-            if (response.status === 204) {
-                // Filter out the item with the specified _id and update the items list
-                const updated = items.filter((item) => item._id !== _id);
-                setItems(updated);
-            } else if (response.status === 404) {
-                console.log("Resource not found.");
-            } else {
-                throw new Error("Failed to delete item. Status code: " + response.status);
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+            .then((response) => {
+                if (response.status === 204) {
+                    // Filter out the item with the specified _id and update the items list
+                    const updated = items.filter((item) => item._id !== _id);
+                    setItems(updated);
+                } else if (response.status === 404) {
+                    console.log("Resource not found.");
+                } else {
+                    throw new Error(
+                        "Failed to delete item. Status code: " + response.status
+                    );
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
         return promise;
     }
 
@@ -98,19 +107,23 @@ function ToDo(props) {
             }),
             body: JSON.stringify(updatedItem)
         })
-        .then((response) => {
-            if (response.status === 200) {
-                setMessage("Item updated successfully");
-                return response.json(); // Return the JSON response for chaining
-            } else {
-                setMessage(`PUT Error ${response.status}: ${response.statusText}`);
-                throw new Error(`PUT Error ${response.status}: ${response.statusText}`);
-            }
-        })
-        .catch((error) => {
-            setMessage(`PUT Error: ${error.message}`);
-            throw error;
-        });
+            .then((response) => {
+                if (response.status === 200) {
+                    setMessage("Item updated successfully");
+                    return response.json(); // Return the JSON response for chaining
+                } else {
+                    setMessage(
+                        `PUT Error ${response.status}: ${response.statusText}`
+                    );
+                    throw new Error(
+                        `PUT Error ${response.status}: ${response.statusText}`
+                    );
+                }
+            })
+            .catch((error) => {
+                setMessage(`PUT Error: ${error.message}`);
+                throw error;
+            });
         return promise;
     }
 
@@ -123,32 +136,36 @@ function ToDo(props) {
         };
 
         postItem(newItem)
-          .then((newItemResponseJson) => {
-            setItems((prevItems) => [...prevItems, newItemResponseJson]);
-            setItem({ duedate: "", contents: "", user: props.userId });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+            .then((newItemResponseJson) => {
+                setItems((prevItems) => [...prevItems, newItemResponseJson]);
+                setItem({ duedate: "", contents: "", user: props.userId });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     function editItem(itemId) {
         const updatedItem = {
-            ...items.find(item => item._id === itemId),
+            ...items.find((item) => item._id === itemId),
             contents: editingText,
             user: props.userId // Ensure the user ID is included
         };
 
         putItem(itemId, updatedItem) // Pass itemId and updatedItem separately
-          .then((updatedItemResponseJson) => {
-            setItems(items.map(item => (item._id === itemId ? updatedItemResponseJson : item)));
-            setTodoEditing(null);
-            setEditingText("");
-        })
-          .catch((error) => {
-            setMessage(`Update Error: ${error.message}`);
-            console.log(error);
-        });
+            .then((updatedItemResponseJson) => {
+                setItems(
+                    items.map((item) =>
+                        item._id === itemId ? updatedItemResponseJson : item
+                    )
+                );
+                setTodoEditing(null);
+                setEditingText("");
+            })
+            .catch((error) => {
+                setMessage(`Update Error: ${error.message}`);
+                console.log(error);
+            });
     }
 
     useEffect(() => {
@@ -163,18 +180,27 @@ function ToDo(props) {
 
     return (
         <>
-            <button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
+            <button className="logout" onClick={props.logout}>
+                {" "}
+                Log Out Temporary Button{" "}
+            </button>
             <div className="page">
                 <div className="todo-main-container">
-                    <div className='todo-clock'>
+                    <div className="todo-clock">
                         <Clock />
                     </div>
                     <div className="todo-header-name"> To Dos </div>
-                    <button className='todo-weekly-view-frame' onClick={handleWeekly}>
-                        <span className='todo-change-view'>Weekly View</span>
-                    </button> 
-                    <button className='todo-monthly-view-frame' onClick={handleMonthly}>
-                        <span className='todo-change-view'>Monthly View</span>
+                    <button
+                        className="todo-weekly-view-frame"
+                        onClick={handleWeekly}
+                    >
+                        <span className="todo-change-view">Weekly View</span>
+                    </button>
+                    <button
+                        className="todo-monthly-view-frame"
+                        onClick={handleMonthly}
+                    >
+                        <span className="todo-change-view">Monthly View</span>
                     </button>
                     <div className="ToDo">
                         <div className="entry">
@@ -207,25 +233,55 @@ function ToDo(props) {
                                         <>
                                             <input
                                                 type="text"
-                                                onChange={(e) => setEditingText(e.target.value)}
+                                                onChange={(e) =>
+                                                    setEditingText(
+                                                        e.target.value
+                                                    )
+                                                }
                                                 value={editingText}
                                             />
-                                            <button onClick={() => editItem(todo._id)}>Submit Edits</button>
-                                            <button onClick={() => setTodoEditing(null)}>Cancel</button>
+                                            <button
+                                                onClick={() =>
+                                                    editItem(todo._id)
+                                                }
+                                            >
+                                                Submit Edits
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    setTodoEditing(null)
+                                                }
+                                            >
+                                                Cancel
+                                            </button>
                                         </>
                                     ) : (
                                         <>
                                             <div>{todo.contents}</div>
-                                            <button onClick={() => {
-                                                setTodoEditing(todo._id);
-                                                setEditingText(todo.contents);
-                                            }}>Edit Todo</button>
+                                            <button
+                                                onClick={() => {
+                                                    setTodoEditing(todo._id);
+                                                    setEditingText(
+                                                        todo.contents
+                                                    );
+                                                }}
+                                            >
+                                                Edit Todo
+                                            </button>
                                         </>
                                     )}
-                                    <button onClick={() => deleteItem(todo._id)}>Delete</button>
+                                    <button
+                                        onClick={() => deleteItem(todo._id)}
+                                    >
+                                        Delete
+                                    </button>
                                     <input
                                         type="checkbox"
-                                        onChange={() => console.log("Toggle complete functionality not implemented yet")}
+                                        onChange={() =>
+                                            console.log(
+                                                "Toggle complete functionality not implemented yet"
+                                            )
+                                        }
                                         checked={todo.completed}
                                     />
                                 </div>

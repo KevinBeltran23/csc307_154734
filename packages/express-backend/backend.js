@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 
 import express from "express";
@@ -12,7 +12,6 @@ const port = 8000;
 app.use(cors());
 app.use(express.json());
 
-
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
@@ -24,7 +23,6 @@ app.get("/", (req, res) => {
 // NOTE: Arguments for these calls will certainly need to be modified when implementing them fully
 //       I have simply added some existing parameters as placeholders
 
-
 // signup and login pages
 
 app.post("/login", loginUser);
@@ -33,8 +31,7 @@ app.post("/signup", registerUser);
 
 app.post("/registration", (req, res) => {
     const userToAdd = req.body;
-    Service
-        .addUser(userToAdd)
+    Service.addUser(userToAdd)
         .then((addedUser) => {
             res.status(201).json(addedUser);
         })
@@ -44,13 +41,12 @@ app.post("/registration", (req, res) => {
         });
 });
 
-
 // monthly page
 
-app.post("/monthly", authenticateUser, (req, res) => { // idk what this will do
+app.post("/monthly", authenticateUser, (req, res) => {
+    // idk what this will do
     const eventToAdd = req.body;
-    Service
-        .addEvent(eventToAdd)
+    Service.addEvent(eventToAdd)
         .then((addedEvent) => {
             res.status(201).json(addedEvent);
         })
@@ -67,10 +63,10 @@ app.post("/monthly", authenticateUser, (req, res) => { // idk what this will do
 
 // weekly page
 
-app.post("/weekly", authenticateUser, (req, res) => { // idk what this will do
+app.post("/weekly", authenticateUser, (req, res) => {
+    // idk what this will do
     const eventToAdd = req.body;
-    Service
-        .addEvent(eventToAdd)
+    Service.addEvent(eventToAdd)
         .then((addedEvent) => {
             res.status(201).json(addedEvent);
         })
@@ -86,12 +82,12 @@ app.get("/weekly", authenticateUser, (req, res) => { // get all the information 
 });
 */
 
-// settings page 
+// settings page
 
-app.post("/settings", authenticateUser, (req, res) => { // change a setting in the settings page probably
+app.post("/settings", authenticateUser, (req, res) => {
+    // change a setting in the settings page probably
     const settingToChange = req.body;
-    Service
-        .changeSetting(settingToChange)
+    Service.changeSetting(settingToChange)
         .then((changedSetting) => {
             res.status(201).json(changedSetting);
         })
@@ -107,12 +103,12 @@ app.get("/settings", authenticateUser, (req, res) => { // retrieve the saved set
 });
 */
 
-// todo page 
+// todo page
 
-app.post("/todo", authenticateUser, (req, res) => {  // add an item to the todo list
+app.post("/todo", authenticateUser, (req, res) => {
+    // add an item to the todo list
     const todoItemToAdd = req.body;
-    Service
-        .addTodoItem(todoItemToAdd)
+    Service.addTodoItem(todoItemToAdd)
         .then((addedItem) => {
             res.status(201).json(addedItem);
         })
@@ -126,8 +122,7 @@ app.put("/todo/:id", authenticateUser, (req, res) => {
     const itemId = req.params.id; // Get the ID from the URL parameters
     const updatedItem = req.body; // Get the updated item data from the request body
 
-    Service
-        .editTodoItem(itemId, updatedItem)
+    Service.editTodoItem(itemId, updatedItem)
         .then((editedItem) => {
             res.status(200).json(editedItem);
         })
@@ -137,10 +132,10 @@ app.put("/todo/:id", authenticateUser, (req, res) => {
         });
 });
 
-app.get("/todo", authenticateUser, (req, res) => { // get todo items
+app.get("/todo", authenticateUser, (req, res) => {
+    // get todo items
     const { duedate, user } = req.query;
-    Service
-        .getTodoItems(duedate, user)
+    Service.getTodoItems(duedate, user)
         .then((result) => {
             res.send({ todo_list: result });
         })
@@ -150,8 +145,8 @@ app.get("/todo", authenticateUser, (req, res) => { // get todo items
         });
 });
 
-
-app.delete("/todo/:id", authenticateUser, (req, res) => { // delete an item from the todo list 
+app.delete("/todo/:id", authenticateUser, (req, res) => {
+    // delete an item from the todo list
     const id = req.params["id"];
     Service.deleteTodoItemById(id)
         .then((result) => {
@@ -167,13 +162,12 @@ app.delete("/todo/:id", authenticateUser, (req, res) => { // delete an item from
         });
 });
 
-
 // events
 
-app.get("/event", authenticateUser, (req, res) => { // get all the events for a user
+app.get("/event", authenticateUser, (req, res) => {
+    // get all the events for a user
     const { title, start } = req.query;
-    Service
-        .getEvents(title, start)
+    Service.getEvents(title, start)
         .then((result) => {
             res.send({ event_list: result });
         })
@@ -183,10 +177,10 @@ app.get("/event", authenticateUser, (req, res) => { // get all the events for a 
         });
 });
 
-app.post("/event", authenticateUser, (req, res) => { // add an event for the user
+app.post("/event", authenticateUser, (req, res) => {
+    // add an event for the user
     const eventToAdd = req.body;
-    Service
-        .addEvent(eventToAdd)
+    Service.addEvent(eventToAdd)
         .then((addedEvent) => {
             res.status(201).json(addedEvent);
         })
@@ -196,7 +190,8 @@ app.post("/event", authenticateUser, (req, res) => { // add an event for the use
         });
 });
 
-app.get("/event/:id", (req, res) => { // get one events information
+app.get("/event/:id", (req, res) => {
+    // get one events information
     const id = req.params["id"];
     Service.findEventById(id)
         .then((result) => {
@@ -210,10 +205,10 @@ app.get("/event/:id", (req, res) => { // get one events information
             console.log(error);
             res.status(500).send("Internal Server Error");
         });
-}); 
+});
 
-
-app.delete("/event/:id", authenticateUser, (req, res) => { // delete an event by id 
+app.delete("/event/:id", authenticateUser, (req, res) => {
+    // delete an event by id
     const id = req.params["id"];
     Service.deleteEventById(id)
         .then((result) => {
@@ -229,10 +224,10 @@ app.delete("/event/:id", authenticateUser, (req, res) => { // delete an event by
         });
 });
 
+// users
 
-// users 
-
-app.get("/users", authenticateUser, (req, res) => { // get users by username, password, both, or none
+app.get("/users", authenticateUser, (req, res) => {
+    // get users by username, password, both, or none
     const { username, password } = req.query; // Use req.query to get query parameters
     Service.getUsers(username, password)
         .then((result) => {
@@ -244,8 +239,8 @@ app.get("/users", authenticateUser, (req, res) => { // get users by username, pa
         });
 });
 
-
-app.delete("/user/:id", authenticateUser, (req, res) => { // delete a users account by id
+app.delete("/user/:id", authenticateUser, (req, res) => {
+    // delete a users account by id
     const id = req.params["id"];
     Service.deleteUserById(id)
         .then((result) => {
@@ -261,8 +256,8 @@ app.delete("/user/:id", authenticateUser, (req, res) => { // delete a users acco
         });
 });
 
-
-app.get("/users/:id", (req, res) => { // get users by id
+app.get("/users/:id", (req, res) => {
+    // get users by id
     const id = req.params["id"];
     Service.findUserById(id)
         .then((result) => {
@@ -276,15 +271,14 @@ app.get("/users/:id", (req, res) => { // get users by id
             console.log(error);
             res.status(500).send("Internal Server Error");
         });
-}); 
-
+});
 
 // class
 
-app.get("/class", authenticateUser, (req, res) => { // get all the classes for a user
+app.get("/class", authenticateUser, (req, res) => {
+    // get all the classes for a user
     const { title, start } = req.query;
-    Service
-        .getClasses(title, start)
+    Service.getClasses(title, start)
         .then((result) => {
             res.send({ class_list: result });
         })
@@ -294,10 +288,10 @@ app.get("/class", authenticateUser, (req, res) => { // get all the classes for a
         });
 });
 
-app.post("/class", authenticateUser, (req, res) => { // add a class for the user
+app.post("/class", authenticateUser, (req, res) => {
+    // add a class for the user
     const classToAdd = req.body;
-    Service
-        .addClass(classToAdd)
+    Service.addClass(classToAdd)
         .then((addedClass) => {
             res.status(201).json(addedClass);
         })
@@ -307,7 +301,8 @@ app.post("/class", authenticateUser, (req, res) => { // add a class for the user
         });
 });
 
-app.get("/class/:id", (req, res) => { // get one classes information
+app.get("/class/:id", (req, res) => {
+    // get one classes information
     const id = req.params["id"];
     Service.findClassById(id)
         .then((result) => {
@@ -321,10 +316,10 @@ app.get("/class/:id", (req, res) => { // get one classes information
             console.log(error);
             res.status(500).send("Internal Server Error");
         });
-}); 
+});
 
-
-app.delete("/class/:id", authenticateUser, (req, res) => { // delete a class by id 
+app.delete("/class/:id", authenticateUser, (req, res) => {
+    // delete a class by id
     const id = req.params["id"];
     Service.deleteClassById(id)
         .then((result) => {
@@ -340,13 +335,12 @@ app.delete("/class/:id", authenticateUser, (req, res) => { // delete a class by 
         });
 });
 
-
 // calendar
 
-app.get("/calendar", authenticateUser, (req, res) => { // get all the calendars for a user
+app.get("/calendar", authenticateUser, (req, res) => {
+    // get all the calendars for a user
     const { color, name } = req.query;
-    Service
-        .getCalendars(color, name)
+    Service.getCalendars(color, name)
         .then((result) => {
             res.send({ calendar_list: result });
         })
@@ -356,10 +350,10 @@ app.get("/calendar", authenticateUser, (req, res) => { // get all the calendars 
         });
 });
 
-app.post("/calendar", authenticateUser, (req, res) => { // add a calendar for the user
+app.post("/calendar", authenticateUser, (req, res) => {
+    // add a calendar for the user
     const calendarToAdd = req.body;
-    Service
-        .addCalendar(calendarToAdd)
+    Service.addCalendar(calendarToAdd)
         .then((addedCalendar) => {
             res.status(201).json(addedCalendar);
         })
@@ -369,7 +363,8 @@ app.post("/calendar", authenticateUser, (req, res) => { // add a calendar for th
         });
 });
 
-app.get("/calendar/:id", (req, res) => { // get one calendars information
+app.get("/calendar/:id", (req, res) => {
+    // get one calendars information
     const id = req.params["id"];
     Service.findCalendarById(id)
         .then((result) => {
@@ -383,10 +378,10 @@ app.get("/calendar/:id", (req, res) => { // get one calendars information
             console.log(error);
             res.status(500).send("Internal Server Error");
         });
-}); 
+});
 
-
-app.delete("/calendar/:id", authenticateUser, (req, res) => { // delete a calendar by event id 
+app.delete("/calendar/:id", authenticateUser, (req, res) => {
+    // delete a calendar by event id
     const id = req.params["id"];
     Service.deleteCalendarById(id)
         .then((result) => {
