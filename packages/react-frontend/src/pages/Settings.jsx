@@ -30,21 +30,12 @@ const Settings = () => {
       "Japanese": false,
       "Vietnamese": false,
     },
-    "Notifications": {
-      "Email Notifications": false,
-      "Text Notifications": false,
-    },
     "Calendar Settings": {
       "Poly Time": false,
-      "Default to Weekly": false,
-    },
-    "Account Settings": {
-      "Change Password": false,
-      "Change Email": false,
-      "Change Phone Number": false
+      "Default View": false,
     },
     "Colors": {
-      "Cal Poly Colors": false,
+      "Default": false,
       "Random": false,
     },
     "Text": {
@@ -181,4 +172,3 @@ const Settings = () => {
 };
 
 export default Settings;
-
