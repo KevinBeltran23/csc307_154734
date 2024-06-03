@@ -27,25 +27,21 @@ function Dropdown(props, opt = []) {
 
     const [eventItem, setEventItem] = useState({
         title: "",
-        startDate: "",
-        endDate: "",
-        startTime: "",
-        endTime: "",
+        start: "",
+        end: "",
         description: "",
         location: "",
-        calendar: "",
+        calendar: null,
         user: props.userId
     });
 
     const [classItem, setClassItem] = useState({
         title: "",
-        startDate: "",
-        endDate: "",
-        startTime: "",
-        endTime: "",
+        start: "",
+        end: "",
         description: "",
         professor: "",
-        calendar: "",
+        calendar: null,
         user: props.userId
     });
 
@@ -66,13 +62,15 @@ function Dropdown(props, opt = []) {
     };
 
     const handleInputChange = (event) => {
-        const { name, value } = event.target;
-
+        var { name, value } = event.target;
+    
         if (selectedValue === "Event") {
-            if (name === "date") {
-                value = new Date(value);
-            }
             setEventItem((prevItem) => ({
+                ...prevItem,
+                [name]: value,
+            }));
+        } else if (selectedValue === "Class") {
+            setClassItem((prevItem) => ({
                 ...prevItem,
                 [name]: value,
             }));
@@ -82,18 +80,7 @@ function Dropdown(props, opt = []) {
                 [name]: value,
             }));
         } else if (selectedValue === "To Do Item") {
-            if (name === "date") {
-                value = new Date(value);
-            }
             setTodoItem((prevItem) => ({
-                ...prevItem,
-                [name]: value,
-            }));
-        } else if (selectedValue === "Class") {
-            if (name === "date") {
-                value = new Date(value);
-            }
-            setClassItem((prevItem) => ({
                 ...prevItem,
                 [name]: value,
             }));
@@ -116,41 +103,6 @@ function Dropdown(props, opt = []) {
             props.postClass(classItem);
             console.log("Submitting Class:", classItem);
         }
-
-        // Reset the form and close the popup
-        setTodoItem({
-            duedate: "",
-            contents: "",
-            checked: false,
-            user: props.userId
-        });
-        setEventItem({
-            title: "",
-            startDate: "",
-            endDate: "",
-            startTime: "",
-            endTime: "",
-            description: "",
-            location: "",
-            calendar: "",
-            user: props.userId
-        });
-        setClassItem({
-            title: "",
-            startDate: "",
-            endDate: "",
-            startTime: "",
-            endTime: "",
-            description: "",
-            professor: "",
-            calendar: "",
-            user: props.userId
-        });
-        setCalendarItem({
-            name: "",
-            color: "",
-            user: props.userId
-        });
         setPopup(false);
     };
 
@@ -163,16 +115,10 @@ function Dropdown(props, opt = []) {
                         Title: <input id="inputs" type="text" name="title" onChange={handleInputChange}></input>
                     </p>
                     <p>
-                        Start Date: <input id="inputs" type="date" name="startDate" onChange={handleInputChange}></input>
+                        Start Date: <input id="inputs" type="date" name="start" onChange={handleInputChange}></input>
                     </p>
                     <p>
-                        End Date: <input id="inputs" type="date" name="endDate" onChange={handleInputChange}></input>
-                    </p>
-                    <p>
-                        Start Time: <input id="inputs" type="time" name="startTime" onChange={handleInputChange}></input>
-                    </p>
-                    <p>
-                        End Time: <input id="inputs" type="time" name="endTime" onChange={handleInputChange}></input>
+                        End Date: <input id="inputs" type="date" name="end" onChange={handleInputChange}></input>
                     </p>
                     <p>
                         Description: <input id="inputs" type="text" name="description" onChange={handleInputChange}></input>
@@ -181,7 +127,7 @@ function Dropdown(props, opt = []) {
                         Location: <input id="inputs" type="text" name="location" onChange={handleInputChange}></input>
                     </p>
                     <p>
-                        Calendar: <input id="inputs" type="text" name="calendar" onChange={handleInputChange}></input>
+                        Calendar: <input id="inputs" type="objectId" name="calendar" onChange={handleInputChange}></input>
                     </p>
                 </div>
             );
@@ -217,16 +163,10 @@ function Dropdown(props, opt = []) {
                         Title: <input id="inputs" type="text" name="title" onChange={handleInputChange}></input>
                     </p>
                     <p>
-                        Start Date: <input id="inputs" type="date" name="startDate" onChange={handleInputChange}></input>
+                        Start Date: <input id="inputs" type="date" name="start" onChange={handleInputChange}></input>
                     </p>
                     <p>
-                        End Date: <input id="inputs" type="date" name="endDate" onChange={handleInputChange}></input>
-                    </p>
-                    <p>
-                        Start Time: <input id="inputs" type="time" name="startTime" onChange={handleInputChange}></input>
-                    </p>
-                    <p>
-                        End Time: <input id="inputs" type="time" name="endTime" onChange={handleInputChange}></input>
+                        End Date: <input id="inputs" type="date" name="end" onChange={handleInputChange}></input>
                     </p>
                     <p>
                         Description: <input id="inputs" type="text" name="description" onChange={handleInputChange}></input>
@@ -235,7 +175,7 @@ function Dropdown(props, opt = []) {
                         Professor: <input id="inputs" type="text" name="professor" onChange={handleInputChange}></input>
                     </p>
                     <p>
-                        Calendar: <input id="inputs" type="text" name="calendar" onChange={handleInputChange}></input>
+                        Calendar: <input id="inputs" type="objectId" name="calendar" onChange={handleInputChange}></input>
                     </p>
                 </div>
             );
