@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Popup from './Popup';
+import Popup from "./Popup";
 import {
     format,
     startOfWeek,
@@ -11,14 +11,14 @@ import {
     isSameDay,
     subMonths,
     addMonths
-  } from "date-fns";
+} from "date-fns";
 
 function Dropdown(opt) {
     const [selectedValue, setSelectedValue] = useState();
     const [popup, setPopup] = useState(false);
     const options = opt;
 
-    const handleChange = event => {
+    const handleChange = (event) => {
         var val = event.target.value;
         setSelectedValue(val);
         // if Event or Calendar or To Do -> setPopup, build the popup
@@ -26,11 +26,10 @@ function Dropdown(opt) {
             setPopup(true);
         }
         // else -> fetch data
-            // i'm thinking this would just be a fetch events? not sure
+        // i'm thinking this would just be a fetch events? not sure
         else {
-            console.log("hi!")
+            console.log("hi!");
         }
-        
     };
 
     // this function builds the popups for each request
@@ -41,15 +40,13 @@ function Dropdown(opt) {
             //console.log(date);
             return (
                 <div>
-                    Create Event
-                    Start Date: <input type="date"></input>
+                    Create Event Start Date: <input type="date"></input>
                     Start Time: <input type="time" defaultValue="08:10"></input>
                     End Date: <input type="date"></input>
                     End Time: <input type="time" defaultValue="09:10"></input>
                 </div>
             );
-        }
-        else if (val === "Calendar") {
+        } else if (val === "Calendar") {
             return (
                 <input type="text" placeholder="Enter Calendar Name"></input>
             );
@@ -58,10 +55,10 @@ function Dropdown(opt) {
 
     return (
         <div>
-            <select id = "dropdown" value={selectedValue} onChange={handleChange}>
+            <select id="dropdown" value={selectedValue} onChange={handleChange}>
                 {options.map((option) => (
                     <option key={option.value} value={option.value}>
-                            {option.label}
+                        {option.label}
                     </option>
                 ))}
             </select>
@@ -70,8 +67,7 @@ function Dropdown(opt) {
                 {create(event.target.value)}
             </Popup>
         </div>
-        );
-       }
-
+    );
+}
 
 export default Dropdown;

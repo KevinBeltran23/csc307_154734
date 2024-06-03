@@ -98,7 +98,7 @@ button {
     box-sizing: border-box;
     width: 152px;
     height: 400px;
-    background: #DFDFDB;
+    background: #dfdfdb;
     border: 2px solid #154734;
     border-radius: 24px;
     flex: none;
@@ -118,18 +118,18 @@ button {
     font-size: 20px;
     flex-shrink: 0;
     border: 1px solid #000;
-    background: var(--White, #FFF);
+    background: var(--White, #fff);
     vertical-align: text-bottom;
     text-align: center;
 }
-  
+
 .todayButton:hover {
-    background: #DFDFDB;
+    background: #dfdfdb;
     cursor: pointer;
 }
 
 .today {
-    background:  #789F90;
+    background: #789f90;
     border-radius: 50%;
 }
 
@@ -195,13 +195,12 @@ button {
 
 .monthly-view-frame:hover,
 .todo-view-frame:hover,
-.settings-frame:hover
-{
-    background: #DFDFDB;
+.settings-frame:hover {
+    background: #dfdfdb;
 }
 
-.download-frame:hover{
-    background:  #f8f8f821;
+.download-frame:hover {
+    background: #f8f8f821;
 }
 
 .change-view {
@@ -304,7 +303,7 @@ button {
     z-index: 50;
 }
 
-.create-dropdown #dropdown{
+.create-dropdown #dropdown {
     display: flex;
     text-align: center;
     align-items: center;
