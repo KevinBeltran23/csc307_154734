@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
+//imports
 import express from "express";
 import cors from "cors";
 import Service from "./services.js";
