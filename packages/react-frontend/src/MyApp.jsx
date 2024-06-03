@@ -29,6 +29,7 @@ function MyApp() {
     const [events, setEvents] = useState([]);
     const [calendars, setCalendars] = useState([]);
     const [classes, setClasses] = useState([]);
+    const [settings, setSettings] = useState([]);
 
     // other stuff
 
@@ -61,7 +62,7 @@ function MyApp() {
 
     // fetch calls
 
-    function fetchItems() {
+    function fetchSettings() {
         const promise = fetch(
             `http://localhost:8000/settings?user=${userId}`,
             {
@@ -724,6 +725,13 @@ function MyApp() {
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
                                 userId={userId}
+
+                                settings={settings}
+                                setSettings={setSettings}
+                                postSetting={postSetting}
+                                putSetting={putSetting}
+                                deleteSetting={deleteSetting}
+                                fetchSettings={fetchSettings}
                             />
                         }
                     />
