@@ -30,9 +30,11 @@ const Settings = () => {
       "Japanese": false,
       "Vietnamese": false,
     },
+    "Event Settings": {
+      "Poly Time": true,
+    },
     "Calendar Settings": {
-      "Poly Time": false,
-      "Default View": false,
+      "Default View": "Monthly", // Default to Monthly
     },
     "Colors": {
       "Default": false,
@@ -69,15 +71,15 @@ const Settings = () => {
 
   /* Handles dropdown change for language options */
   const handleDropdownChange = (option, event) => {
-    const selectedLanguage = event.target.value;
+    const selectedValue = event.target.value;
     setSettings((prevSettings) => {
       const updatedSettings = { ...prevSettings };
       Object.keys(updatedSettings[option]).forEach((key) => {
-        updatedSettings[option][key] = key === selectedLanguage;
+        updatedSettings[option][key] = key === selectedValue;
       });
 
       if (option === "Language & Region") {
-        const languageCode = languageOptions[selectedLanguage];
+        const languageCode = languageOptions[selectedValue];
         const googleTranslateElement = document.querySelector(".goog-te-combo");
         if (googleTranslateElement) {
           googleTranslateElement.value = languageCode;
@@ -85,6 +87,10 @@ const Settings = () => {
             googleTranslateElement.dispatchEvent(new Event("change"));
           }, 0); // Trigger change event after setting the value
         }
+      }
+
+      if (option === "Calendar Settings") {
+        updatedSettings[option]["Default View"] = selectedValue;
       }
 
       return updatedSettings;
@@ -107,6 +113,21 @@ const Settings = () => {
                   {language}
                 </option>
               ))}
+            </select>
+          </label>
+        </div>
+      );
+    } else if (selectedOption === "Calendar Settings") {
+      return (
+        <div>
+          <label className="settings-label">
+            Default View:
+            <select
+              value={settings["Calendar Settings"]["Default View"]}
+              onChange={(event) => handleDropdownChange("Calendar Settings", event)}
+            >
+              <option value="Monthly">Monthly</option>
+              <option value="Weekly">Weekly</option>
             </select>
           </label>
         </div>
