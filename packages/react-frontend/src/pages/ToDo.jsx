@@ -100,13 +100,16 @@ function ToDo(props) {
     }
 
     function putItem(itemId, updatedItem) {
-        const promise = fetch(`http://154734.azurewebsites.net/todo/${itemId}`, {
-            method: "PUT",
-            headers: props.addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(updatedItem)
-        })
+        const promise = fetch(
+            `http://154734.azurewebsites.net/todo/${itemId}`,
+            {
+                method: "PUT",
+                headers: props.addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(updatedItem)
+            }
+        )
             .then((response) => {
                 if (response.status === 200) {
                     setMessage("Item updated successfully");
