@@ -138,14 +138,14 @@ function Weekly(props) {
             <div className="calendar-dropdown-container">
                 <div className="dropdown-rectangle">
                     <div className="calendar-todo-dropdown">
-                        {Dropdown(cal_lst)}
+                      {Dropdown(props, cal_lst)}
                     </div>
                 </div>
             </div>
             <div className="todo-dropdown-container">
                 <div className="dropdown-rectangle">
                     <div className="calendar-todo-dropdown">
-                        {Dropdown(cal_lst)}
+                      {Dropdown(props, todo_lst)}
                     </div>
                 </div>
             </div>
@@ -153,7 +153,7 @@ function Weekly(props) {
             <div className="the-clock">
                 <Clock />
             </div>
-            <div className="create-dropdown">{Dropdown(create_lst)}</div>
+            <div className="create-dropdown">{Dropdown(props, create_lst)}</div>
             <button className="change-view-frame" onClick={handleMonthly}>
                 <span className="change-view">Monthly View</span>
             </button>
