@@ -11,9 +11,8 @@ function ToDo(props) {
         user: props.userId
     });
 
-    const [items, setItems] = useState([]);
-    const [message, setMessage] = useState(""); // Add message state for displaying feedback
     const navigate = useNavigate();
+    const [message, setMessage] = useState(""); // Add message state for displaying feedback
     const [todoEditing, setTodoEditing] = useState(null);
     const [editingText, setEditingText] = useState("");
 
@@ -38,99 +37,6 @@ function ToDo(props) {
         navigate("/monthly");
     }
 
-    function fetchItems() {
-        const promise = fetch(
-            `http://localhost:8000/todo?user=${props.userId}`,
-            {
-                method: "GET",
-                headers: props.addAuthHeader()
-            }
-        );
-        return promise;
-    }
-
-    function postItem(item) {
-        const promise = fetch("http://localhost:8000/todo", {
-            method: "POST",
-            headers: props.addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(item)
-        })
-            .then((response) => {
-                if (response.status === 200 || response.status === 201) {
-                    setMessage("Item created successfully");
-                    return response.json(); // Return the JSON response for chaining
-                } else {
-                    setMessage(
-                        `Post Error ${response.status}: ${response.statusText}`
-                    );
-                    throw new Error(
-                        `Post Error ${response.status}: ${response.statusText}`
-                    );
-                }
-            })
-            .catch((error) => {
-                setMessage(`Post Error: ${error.message}`);
-                throw error;
-            });
-        return promise;
-    }
-
-    function deleteItem(_id) {
-        const promise = fetch(`http://localhost:8000/todo/${_id}`, {
-            method: "DELETE",
-            headers: props.addAuthHeader({
-                "Content-Type": "application/json"
-            })
-        })
-            .then((response) => {
-                if (response.status === 204) {
-                    // Filter out the item with the specified _id and update the items list
-                    const updated = items.filter((item) => item._id !== _id);
-                    setItems(updated);
-                } else if (response.status === 404) {
-                    console.log("Resource not found.");
-                } else {
-                    throw new Error(
-                        "Failed to delete item. Status code: " + response.status
-                    );
-                }
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-        return promise;
-    }
-
-    function putItem(itemId, updatedItem) {
-        const promise = fetch(`http://localhost:8000/todo/${itemId}`, {
-            method: "PUT",
-            headers: props.addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(updatedItem)
-        })
-            .then((response) => {
-                if (response.status === 200) {
-                    setMessage("Item updated successfully");
-                    return response.json(); // Return the JSON response for chaining
-                } else {
-                    setMessage(
-                        `PUT Error ${response.status}: ${response.statusText}`
-                    );
-                    throw new Error(
-                        `PUT Error ${response.status}: ${response.statusText}`
-                    );
-                }
-            })
-            .catch((error) => {
-                setMessage(`PUT Error: ${error.message}`);
-                throw error;
-            });
-        return promise;
-    }
-
     function updateItems(event) {
         event.preventDefault(); // Prevent form submission from causing a page reload
 
@@ -139,9 +45,9 @@ function ToDo(props) {
             user: props.userId // Set the user ID from props
         };
 
-        postItem(newItem)
+        props.postItem(newItem)
             .then((newItemResponseJson) => {
-                setItems((prevItems) => [...prevItems, newItemResponseJson]);
+                props.setItems((prevItems) => [...prevItems, newItemResponseJson]);
                 setItem({
                     duedate: "",
                     contents: "",
@@ -156,15 +62,15 @@ function ToDo(props) {
 
     function editItem(itemId) {
         const updatedItem = {
-            ...items.find((item) => item._id === itemId),
+            ...props.items.find((item) => item._id === itemId),
             contents: editingText,
             user: props.userId // Ensure the user ID is included
         };
 
-        putItem(itemId, updatedItem) // Pass itemId and updatedItem separately
+        props.putItem(itemId, updatedItem) // Pass itemId and updatedItem separately
             .then((updatedItemResponseJson) => {
-                setItems(
-                    items.map((item) =>
+                props.setItems(
+                    props.items.map((item) =>
                         item._id === itemId ? updatedItemResponseJson : item
                     )
                 );
@@ -178,7 +84,7 @@ function ToDo(props) {
     }
 
     function toggleCheck(itemId) {
-        const itemToUpdate = items.find((item) => item._id === itemId);
+        const itemToUpdate = props.items.find((item) => item._id === itemId);
         const updatedItem = {
             ...itemToUpdate,
             checked: !itemToUpdate.checked,
@@ -187,8 +93,8 @@ function ToDo(props) {
 
         putItem(itemId, updatedItem) // Pass itemId and updatedItem separately
             .then((updatedItemResponseJson) => {
-                setItems(
-                    items
+                props.setItems(
+                    props.items
                         .map((item) =>
                             item._id === itemId ? updatedItemResponseJson : item
                         )
@@ -204,13 +110,13 @@ function ToDo(props) {
     }
 
     useEffect(() => {
-        fetchItems()
+        props.fetchItems()
             .then((res) => res.json())
             .then((json) => {
                 const sortedItems = json.todo_list.sort(
                     (a, b) => new Date(a.duedate) - new Date(b.duedate)
                 );
-                setItems(sortedItems);
+                props.setItems(sortedItems);
             })
             .catch((error) => {
                 console.log(error);
@@ -259,8 +165,8 @@ function ToDo(props) {
                     </form>
                 </div>
 
-                {items && items.length > 0 ? (
-                    items.map((todo) => (
+                {props.items && props.items.length > 0 ? (
+                    props.items.map((todo) => (
                         <div key={todo._id}>
                             {todoEditing === todo._id ? (
                                 <>
@@ -296,7 +202,7 @@ function ToDo(props) {
                                     </button>
                                 </>
                             )}
-                            <button onClick={() => deleteItem(todo._id)}>
+                            <button onClick={() => props.deleteItem(todo._id)}>
                                 Delete
                             </button>
 

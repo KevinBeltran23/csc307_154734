@@ -25,9 +25,62 @@ import Clock from "./Clock";
 import Dropdown from "./Dropdown";
 
 function Monthly(props) {
+    // main variables 
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [activeDate, setActiveDate] = useState(new Date());
 
+    // useful
+    const navigate = useNavigate();
+
+    function handleSettings() {
+        navigate("/settings");
+    }
+    function handleWeekly() {
+        navigate("/weekly");
+    }
+    function handleToDo() {
+        navigate("/todo");
+    }
+    function handleClickingOnEvent() {
+        // there will be a GET request here to /event/:id
+    }
+
+    function handleChange(event) {
+        var { name, value } = event.target;
+        if (name === "date") {
+            value = new Date(value);
+        }
+        setItem((prevItem) => ({
+            ...prevItem,
+            [name]: value
+        }));
+    }
+
+
+    // misc variables
+
+    var create_lst = [
+        { value: "Create", label: "Create" },
+        { value: "Event", label: "Event" },
+        { value: "Class", label: "Class" },
+        { value: "Calendar", label: "Calendar" },
+        { value: "To Do Item", label: "To Do Item" }
+    ];
+
+    var cal_lst = [
+        { value: "Create", label: "Calendars" },
+        { value: "Option 2", label: "Option 2" },
+        { value: "Option 3", label: "Option 3" }
+    ];
+
+    var todo_lst = [
+        { value: "Create", label: "To Do" },
+        { value: "Option 2", label: "Option 2" },
+        { value: "Option 3", label: "Option 3" }
+    ];
+
+
+    // primary stuff
     const getHeader = () => {
         return (
             <div className="monthly-header">
@@ -103,44 +156,6 @@ function Monthly(props) {
         return <div className="monthly-dayContainer">{allWeeks}</div>;
     };
 
-    const navigate = useNavigate();
-
-    function handleSettings() {
-        // go to settings page
-        navigate("/settings");
-    }
-    function handleWeekly() {
-        // go to weekly page
-        navigate("/weekly");
-    }
-    function handleToDo() {
-        // go to todo page
-        navigate("/todo");
-    }
-    function handleClickingOnEvent() {
-        // implement functionality
-        // there will be a GET request here to /event/:id
-    }
-
-    var create_lst = [
-        { value: "Create", label: "Create" },
-        { value: "Event", label: "Event" },
-        { value: "Calendar", label: "Calendar" },
-        { value: "To Do Item", label: "To Do Item" }
-    ];
-
-    var cal_lst = [
-        { value: "Create", label: "Calendars" },
-        { value: "Option 2", label: "Option 2" },
-        { value: "Option 3", label: "Option 3" }
-    ];
-
-    var todo_lst = [
-        { value: "Create", label: "To Do" },
-        { value: "Option 2", label: "Option 2" },
-        { value: "Option 3", label: "Option 3" }
-    ];
-
     return (
         <>
             <button className="logout" onClick={props.logout}>
@@ -151,14 +166,14 @@ function Monthly(props) {
             <div className="calendar-dropdown-container">
                 <div className="dropdown-rectangle">
                     <div className="calendar-todo-dropdown">
-                        {Dropdown(cal_lst)}
+                        {Dropdown(props, cal_lst)}
                     </div>
                 </div>
             </div>
             <div className="todo-dropdown-container">
                 <div className="dropdown-rectangle">
                     <div className="calendar-todo-dropdown">
-                        {Dropdown(todo_lst)}
+                        {Dropdown(props, todo_lst)}
                     </div>
                 </div>
             </div>
@@ -166,7 +181,7 @@ function Monthly(props) {
             <div className="the-clock">
                 <Clock />
             </div>
-            <div className="create-dropdown">{Dropdown(create_lst)}</div>
+            <div className="create-dropdown">{Dropdown(props, create_lst)}</div>
             <button className="change-view-frame" onClick={handleWeekly}>
                 <span className="change-view">Weekly View</span>
             </button>
