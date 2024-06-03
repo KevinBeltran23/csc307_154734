@@ -25,6 +25,7 @@
         "bcrypt": "^5.1.1",
         "concurrently": "^8.2.2",
         "date-fn": "^0.0.2",
+        "date-fns": "^3.6.0",
         "dotenv": "^16.4.5",
         "jsonwebtoken": "^9.0.2",
         "mongodb": "^6.6.1",
