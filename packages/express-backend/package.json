@@ -14,5 +14,8 @@
     "dependencies": {
         "cors": "^2.8.5",
         "express": "^4.19.2"
+    },
+    "devDependencies": {
+        "@types/node": "^20.14.0"
     }
 }
