@@ -63,6 +63,17 @@ function MyApp() {
 
     function fetchItems() {
         const promise = fetch(
+            `http://localhost:8000/settings?user=${userId}`,
+            {
+                method: "GET",
+                headers: addAuthHeader()
+            }
+        );
+        return promise;
+    }
+
+    function fetchItems() {
+        const promise = fetch(
             `http://localhost:8000/todo?user=${userId}`,
             {
                 method: "GET",
@@ -103,6 +114,91 @@ function MyApp() {
                 headers: addAuthHeader()
             }
         );
+        return promise;
+    }
+
+    // settings api calls
+
+      
+    function postSetting(setting) {
+        const promise = fetch("http://localhost:8000/settings", {
+            method: "POST",
+            headers: addAuthHeader({
+                "Content-Type": "application/json"
+            }),
+            body: JSON.stringify(setting)
+        })
+            .then((response) => {
+                if (response.status === 200 || response.status === 201) {
+                    setMessage("Item created successfully");
+                    return response.json(); // Return the JSON response for chaining
+                } else {
+                    setMessage(
+                        `Post Error ${response.status}: ${response.statusText}`
+                    );
+                    throw new Error(
+                        `Post Error ${response.status}: ${response.statusText}`
+                    );
+                }
+            })
+            .catch((error) => {
+                setMessage(`Post Error: ${error.message}`);
+                throw error;
+            });
+        return promise;
+    }
+
+    function deleteSetting(_id) {
+        const promise = fetch(`http://localhost:8000/settings/${_id}`, {
+            method: "DELETE",
+            headers: addAuthHeader({
+                "Content-Type": "application/json"
+            })
+        })
+            .then((response) => {
+                if (response.status === 204) {
+                    // Filter out the item with the specified _id and update the items list
+                    const updated = items.filter((item) => item._id !== _id);
+                    setItems(updated);
+                } else if (response.status === 404) {
+                    console.log("Resource not found.");
+                } else {
+                    throw new Error(
+                        "Failed to delete item. Status code: " + response.status
+                    );
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        return promise;
+    }
+
+    function putSetting(settingId, updatedSetting) {
+        const promise = fetch(`http://localhost:8000/settings/${settingId}`, {
+            method: "PUT",
+            headers: addAuthHeader({
+                "Content-Type": "application/json"
+            }),
+            body: JSON.stringify(updatedSetting)
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    setMessage("Setting updated successfully");
+                    return response.json(); // Return the JSON response for chaining
+                } else {
+                    setMessage(
+                        `PUT Error ${response.status}: ${response.statusText}`
+                    );
+                    throw new Error(
+                        `PUT Error ${response.status}: ${response.statusText}`
+                    );
+                }
+            })
+            .catch((error) => {
+                setMessage(`PUT Error: ${error.message}`);
+                throw error;
+            });
         return promise;
     }
 
