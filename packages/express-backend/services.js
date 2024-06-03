@@ -56,10 +56,16 @@ function deleteUserById(id) {
 
 // event-services
 
-function getEvents(title, date) {
+function getEvents(start, calendar, userId) {
     let query = {};
-    if (title && date) {
-        query = { title: title, start: date };
+    if (start) {
+        query.start = start;
+    }
+    if (calendar){
+        query.calendar = calendar;
+    }
+    if (userId) {
+        query.user = userId;
     }
     return eventModel.find(query);
 }
@@ -67,6 +73,15 @@ function getEvents(title, date) {
 function addEvent(event) {
     const eventToAdd = new eventModel(event);
     const promise = eventToAdd.save();
+    return promise;
+}
+
+function editEvent(eventId, updatedEvent) {
+    const promise = eventModel.findByIdAndUpdate(
+        eventId,             // The ID of the item to update
+        updatedEvent,        // The updated item data
+        { new: true }       // Return the updated document
+    ).exec();
     return promise;
 }
 
@@ -81,17 +96,26 @@ function deleteEventById(id) {
 
 // calendar-services
 
-function getCalendars(color, name) {
+function getCalendars(userId) {
     let query = {};
-    if (color && name) {
-        query = { color: color, name: name };
+    if (userId) {
+        query.user = userId;
     }
-    return eventModel.find(query);
+    return calendarModel.find(query);
 }
 
 function addCalendar(calendar) {
     const calendarToAdd = new calendarModel(calendar);
     const promise = calendarToAdd.save();
+    return promise;
+}
+
+function editCalendar(calendarId, updatedCalendar) {
+    const promise = classModel.findByIdAndUpdate(
+        calendarId,             // The ID of the item to update
+        updatedCalendar,        // The updated item data
+        { new: true }       // Return the updated document
+    ).exec();
     return promise;
 }
 
@@ -106,10 +130,16 @@ function deleteCalendarById(id) {
 
 // class-services
 
-function getClasses(title, date) {
+function getClasses(start, calendar, userId) {
     let query = {};
-    if (title && date) {
-        query = { title: title, start: date };
+    if (start) {
+        query.start = start;
+    }
+    if (calendar){
+        query.calendar = calendar;
+    }
+    if (userId) {
+        query.user = userId;
     }
     return classModel.find(query);
 }
@@ -117,6 +147,15 @@ function getClasses(title, date) {
 function addClass(event) {
     const eventToAdd = new classModel(event);
     const promise = eventToAdd.save();
+    return promise;
+}
+
+function editClass(classId, updatedClass) {
+    const promise = classModel.findByIdAndUpdate(
+        classId,             // The ID of the item to update
+        updatedClass,        // The updated item data
+        { new: true }       // Return the updated document
+    ).exec();
     return promise;
 }
 
@@ -133,14 +172,11 @@ function deleteClassById(id) {
 
 function getTodoItems(duedate, userId) {
     let query = {};
-    if (duedate && userId) {
-        query = { duedate: duedate, user: userId };
+    if (duedate){
+        query.duedate = duedate;
     }
-    else if (duedate) {
-        query = { duedate: duedate};
-    }
-    else if (userId) {
-        query = { user: userId};
+    if (userId) {
+        query.user = userId;
     }
     return todoModel.find(query);
 }
@@ -179,16 +215,19 @@ export default {
   addEvent,
   findEventById,
   deleteEventById,
+  editEvent,
 
   getCalendars,
   addCalendar,
   deleteCalendarById,
   findCalendarById,
+  editCalendar,
 
   getClasses,
   addClass,
   deleteClassById,
   findClassById,
+  editClass,
 
   getTodoItems,
   addTodoItem,

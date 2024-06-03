@@ -21,11 +21,7 @@ app.get("/", (req, res) => {
     res.send("Wassup this is the Poly Planner");
 });
 
-// NOTE: Arguments for these calls will certainly need to be modified when implementing them fully
-//       I have simply added some existing parameters as placeholders
-
-
-// signup and login pages
+// signup and login pages - done
 
 app.post("/login", loginUser);
 
@@ -45,7 +41,7 @@ app.post("/registration", (req, res) => {
 });
 
 
-// monthly page
+// monthly page - Idk what would need to be done here
 
 app.post("/monthly", authenticateUser, (req, res) => { // idk what this will do
     const eventToAdd = req.body;
@@ -65,7 +61,7 @@ app.get("/monthly", authenticateUser, (req, res) => { // get all the information
 });
 
 
-// weekly page
+// weekly page - Idk what would need to be done here
 
 app.post("/weekly", authenticateUser, (req, res) => { // idk what this will do
     const eventToAdd = req.body;
@@ -85,7 +81,7 @@ app.get("/weekly", authenticateUser, (req, res) => { // get all the information 
 });
 
 
-// settings page 
+// settings page - gonna need a lot of work
 
 app.post("/settings", authenticateUser, (req, res) => { // change a setting in the settings page probably
     const settingToChange = req.body;
@@ -105,7 +101,20 @@ app.get("/settings", authenticateUser, (req, res) => { // retrieve the saved set
 });
 
 
-// todo page 
+// todo page - I think this is done
+
+app.get("/todo", authenticateUser, (req, res) => { // get todo items for a user
+    const { duedate, contents, user } = req.query;
+    Service
+        .getTodoItems(duedate, user)
+        .then((result) => {
+            res.send({ todo_list: result });
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
 
 app.post("/todo", authenticateUser, (req, res) => {  // add an item to the todo list
     const todoItemToAdd = req.body;
@@ -135,20 +144,6 @@ app.put("/todo/:id", authenticateUser, (req, res) => {
         });
 });
 
-app.get("/todo", authenticateUser, (req, res) => { // get todo items
-    const { duedate, contents, user } = req.query;
-    Service
-        .getTodoItems(duedate, user)
-        .then((result) => {
-            res.send({ todo_list: result });
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
-
-
 app.delete("/todo/:id", authenticateUser, (req, res) => { // delete an item from the todo list 
     const id = req.params["id"];
     Service.deleteTodoItemById(id)
@@ -166,27 +161,14 @@ app.delete("/todo/:id", authenticateUser, (req, res) => { // delete an item from
 });
 
 
-// events
+// events - I think this is done now 
 
-app.get("/event", authenticateUser, (req, res) => { // get all the events for a user
-    const { title, start } = req.query;
+app.get("/event", authenticateUser, (req, res) => { // get events for a user
+    const { title, start, end, description, location, calendar, user } = req.query;
     Service
-        .getEvents(title, start)
+        .getEvents(start, calendar, user)
         .then((result) => {
             res.send({ event_list: result });
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
-
-app.post("/event", authenticateUser, (req, res) => { // add an event for the user
-    const eventToAdd = req.body;
-    Service
-        .addEvent(eventToAdd)
-        .then((addedEvent) => {
-            res.status(201).json(addedEvent);
         })
         .catch((error) => {
             console.log(error);
@@ -210,6 +192,33 @@ app.get("/event/:id", (req, res) => { // get one events information
         });
 }); 
 
+app.post("/event", authenticateUser, (req, res) => { // add an event for the user
+    const eventToAdd = req.body;
+    Service
+        .addEvent(eventToAdd)
+        .then((addedEvent) => {
+            res.status(201).json(addedEvent);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
+
+app.put("/event/:id", authenticateUser, (req, res) => {
+    const eventId = req.params.id; // Get the ID from the URL parameters
+    const updatedEvent = req.body; // Get the updated item data from the request body
+
+    Service
+        .editEvent(eventId, updatedEvent)
+        .then((editedEvent) => {
+            res.status(200).json(editedEvent);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
 
 app.delete("/event/:id", authenticateUser, (req, res) => { // delete an event by id 
     const id = req.params["id"];
@@ -227,8 +236,129 @@ app.delete("/event/:id", authenticateUser, (req, res) => { // delete an event by
         });
 });
 
+// class - I think this is done now
 
-// users 
+app.get("/class", authenticateUser, (req, res) => { // get classes for a user
+    const { title, start, end, description, professor, calendar, user } = req.query;
+    Service
+        .getClasses(start, calendar, user) 
+        .then((result) => {
+            res.send({ class_list: result });
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
+
+app.get("/class/:id", (req, res) => { // get one classes information
+    const id = req.params["id"];
+    Service.findClassById(id)
+        .then((result) => {
+            if (!result) {
+                res.status(404).send("Resource not found.");
+            } else {
+                res.send(result);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+}); 
+
+app.post("/class", authenticateUser, (req, res) => { // add a class for the user
+    const classToAdd = req.body;
+    Service
+        .addClass(classToAdd)
+        .then((addedClass) => {
+            res.status(201).json(addedClass);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
+
+app.delete("/class/:id", authenticateUser, (req, res) => { // delete a class by id 
+    const id = req.params["id"];
+    Service.deleteClassById(id)
+        .then((result) => {
+            if (result) {
+                res.status(204).send();
+            } else {
+                res.status(404).send("User not found.");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
+
+
+// calendar - working on these next
+
+app.get("/calendar", authenticateUser, (req, res) => { // get calendars for a user
+    const { color, name, user } = req.query;
+    Service
+        .getClasses(user)
+        .then((result) => {
+            res.send({ calendar_list: result });
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
+
+app.get("/calendar/:id", (req, res) => { // get one calendars information
+    const id = req.params["id"];
+    Service.findCalendarById(id)
+        .then((result) => {
+            if (!result) {
+                res.status(404).send("Resource not found.");
+            } else {
+                res.send(result);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+}); 
+
+app.post("/calendar", authenticateUser, (req, res) => { // add a calendar for the user
+    const calendarToAdd = req.body;
+    Service
+        .addCalendar(calendarToAdd)
+        .then((addedCalendar) => {
+            res.status(201).json(addedCalendar);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
+
+app.delete("/calendar/:id", authenticateUser, (req, res) => { // delete a calendar by event id 
+    const id = req.params["id"];
+    Service.deleteCalendarById(id)
+        .then((result) => {
+            if (result) {
+                res.status(204).send();
+            } else {
+                res.status(404).send("User not found.");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
+
+
+// users - this is done
 
 app.get("/users", authenticateUser, (req, res) => { // get users by username, password, both, or none
     const { username, password } = req.query; // Use req.query to get query parameters
@@ -275,127 +405,3 @@ app.get("/users/:id", (req, res) => { // get users by id
             res.status(500).send("Internal Server Error");
         });
 }); 
-
-
-// class
-
-app.get("/class", authenticateUser, (req, res) => { // get all the classes for a user
-    const { title, start } = req.query;
-    Service
-        .getClasses(title, start)
-        .then((result) => {
-            res.send({ class_list: result });
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
-
-app.post("/class", authenticateUser, (req, res) => { // add a class for the user
-    const classToAdd = req.body;
-    Service
-        .addClass(classToAdd)
-        .then((addedClass) => {
-            res.status(201).json(addedClass);
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
-
-app.get("/class/:id", (req, res) => { // get one classes information
-    const id = req.params["id"];
-    Service.findClassById(id)
-        .then((result) => {
-            if (!result) {
-                res.status(404).send("Resource not found.");
-            } else {
-                res.send(result);
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-}); 
-
-
-app.delete("/class/:id", authenticateUser, (req, res) => { // delete a class by id 
-    const id = req.params["id"];
-    Service.deleteClassById(id)
-        .then((result) => {
-            if (result) {
-                res.status(204).send();
-            } else {
-                res.status(404).send("User not found.");
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
-
-
-// calendar
-
-app.get("/calendar", authenticateUser, (req, res) => { // get all the calendars for a user
-    const { color, name } = req.query;
-    Service
-        .getCalendars(color, name)
-        .then((result) => {
-            res.send({ calendar_list: result });
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
-
-app.post("/calendar", authenticateUser, (req, res) => { // add a calendar for the user
-    const calendarToAdd = req.body;
-    Service
-        .addCalendar(calendarToAdd)
-        .then((addedCalendar) => {
-            res.status(201).json(addedCalendar);
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
-
-app.get("/calendar/:id", (req, res) => { // get one calendars information
-    const id = req.params["id"];
-    Service.findCalendarById(id)
-        .then((result) => {
-            if (!result) {
-                res.status(404).send("Resource not found.");
-            } else {
-                res.send(result);
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-}); 
-
-
-app.delete("/calendar/:id", authenticateUser, (req, res) => { // delete a calendar by event id 
-    const id = req.params["id"];
-    Service.deleteCalendarById(id)
-        .then((result) => {
-            if (result) {
-                res.status(204).send();
-            } else {
-                res.status(404).send("User not found.");
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
