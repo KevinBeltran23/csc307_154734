@@ -1,45 +1,4 @@
-.monthly-header {
-    width: 1216px;
-    height: inherit;
-    position: absolute;
-    top: 22px;
-    left: 274px;
-}
-  
-.monthly-currentMonth {
-    color: var(--Poly-Green, #154734);
-    box-sizing: border-box;
-    display: inline-block;
-    font-size: 64px;
-    padding: 8px;
-}
-
-.monthly-navIcon {
-    display: inline-block;
-    width: 43.301px;
-    height: 37.5px;
-    fill: var(--Stadium-Gold, #F8E08E);
-    stroke-width: 1px;
-    stroke: #000;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.50));
-}
-  
-.monthly-day {
-    margin: 12px;
-    height: 30px;
-    width: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-}
-  
-.monthly-navIcon:hover {
-    fill: #DFDFDB;
-    cursor: pointer;
-}
-
-/* the order of these is important so that 
+  /* the order of these is important so that 
     there is no overlap on the rounded corners */
 
 .monthly-day-box {

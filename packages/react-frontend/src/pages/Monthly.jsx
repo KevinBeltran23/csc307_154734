@@ -30,7 +30,7 @@ function Monthly(props) {
 
   const getHeader = () => {
     return (
-      <div className="monthly-header">
+      <div className="header">
         <div
           className="todayButton"
           onClick={() => {
@@ -39,14 +39,14 @@ function Monthly(props) {
           }}
         >Today</div>
         <AiOutlineLeft
-          className="monthly-navIcon"
+          className="navIcon"
           onClick={() => setActiveDate(subMonths(activeDate, 1))}
         />
         <AiOutlineRight
-          className="monthly-navIcon"
+          className="navIcon"
           onClick={() => setActiveDate(addMonths(activeDate, 1))}
         />
-        <div className="monthly-currentMonth">{format(activeDate, "MMMM yyyy")}</div>
+        <div className="currentMonth">{format(activeDate, "MMMM yyyy")}</div>
       </div>
     );
   };
@@ -59,7 +59,7 @@ function Monthly(props) {
       week.push(
         <div className='monthly-day-box'>
           <div
-            className={`monthly-day ${isSameMonth(currentDate, activeDate) ? "" : "inactiveDay"
+            className={`selected-day-frame ${isSameMonth(currentDate, activeDate) ? "" : "inactiveDay"
               } ${isSameDay(currentDate, selectedDate) ? "selectedDay" : ""}
               ${isSameDay(currentDate, new Date()) ? "today" : ""}`}
           >
@@ -138,7 +138,7 @@ function Monthly(props) {
   }
 
   return (
-    <><button className="logout" onClick={props.logout}> Log Out Temporary Button </button>
+    <><button className="logout" onClick={props.logout}> Log Out </button>
 
       <div className='calendar-dropdown-container'>
         <div className='dropdown-rectangle'>
