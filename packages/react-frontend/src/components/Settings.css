@@ -9,9 +9,8 @@
 }
 
 /* Active button style */
-.settings-button.active {
-    background-color: #E4E3D3;
-    /* Example active button color */
+#settings-button.active {
+    background-color: #e4e3d3; /* Example active button color */
 }
 
 /* Settings box */
@@ -24,7 +23,7 @@
     top: 0;
     bottom: 0;
     margin: auto;
-    background: #E4E3D3;
+    background: #e4e3d3;
     border-width: 10px;
     border-style: solid;
     border-color: #154734;

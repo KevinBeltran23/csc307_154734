@@ -318,3 +318,14 @@ button {
     border: 1px solid #000000;
     z-index: 16;
 }
+
+#popup {
+    width: 200px;
+    z-index: 50;
+    position: relative;
+    left: 325px;
+}
+
+#inputs {
+    width: 110px;
+}
