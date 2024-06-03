@@ -28,9 +28,10 @@ function Monthly(props) {
     // main variables 
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [activeDate, setActiveDate] = useState(new Date());
-
+    
     // useful
     const navigate = useNavigate();
+
 
     function handleSettings() {
         navigate("/settings");
@@ -157,11 +158,55 @@ function Monthly(props) {
     };
 
     return (
-        <>
-            <button className="logout" onClick={props.logout}>
-                {" "}
-                Log Out Temporary Button{" "}
-            </button>
+      <div className="calendar-container">
+        {allWeeks}
+      </div>
+    );
+  };
+  const addEvents = () => {
+    var testDate;
+    var desc;
+    var startTime;
+    var endTime;
+
+  }
+  /*const getEvents = () => {
+
+  } */
+
+  const navigate = useNavigate();
+
+  function handleSettings() {
+    // go to settings page
+    navigate('/settings');
+  }
+  function handleWeekly() {
+    // go to weekly page
+    navigate('/weekly');
+  }
+  function handleToDo() {
+    // go to todo page
+    navigate('/todo');
+  }
+  function handleCreate() {
+    // create an event
+    // there will be a POST request here to /event
+  }
+  function handleCalendarsDropdown() {
+    // open calendars drop down
+    // there will be a GET request here to /calendars
+  }
+  function handleToDoDropdown() {
+    // open todo dropdown
+    // there will be a GET request here to /todo
+  }
+  function handleClickingOnEvent() {
+    // implement functionality
+    // there will be a GET request here to /event/:id
+  }
+
+  return (
+    <><button className="logout" onClick={props.logout}> Log Out </button>
 
             <div className="calendar-dropdown-container">
                 <div className="dropdown-rectangle">
@@ -177,37 +222,39 @@ function Monthly(props) {
                     </div>
                 </div>
             </div>
-            {getHeader()}
-            <div className="the-clock">
-                <Clock />
-            </div>
-            <div className="create-dropdown">{Dropdown(props, create_lst)}</div>
-            <button className="change-view-frame" onClick={handleWeekly}>
-                <span className="change-view">Weekly View</span>
-            </button>
-            <button className="todo-view-frame" onClick={handleToDo}>
-                <span className="change-view">To Do</span>
-            </button>
-            <button className="settings-frame" onClick={handleSettings}>
-                {/* <div className='weekly-gear' /> */}
-                <span className="gear"></span>
-            </button>
-            <button className="download-frame">
-                <span className="download-icon"></span>
-            </button>
 
-            <div className="days-frame">
-                <span className="days-header">SUN</span>
-                <span className="days-header">MON</span>
-                <span className="days-header">TUE</span>
-                <span className="days-header">WED</span>
-                <span className="days-header">THU</span>
-                <span className="days-header">FRI</span>
-                <span className="days-header">SAT</span>
-            </div>
-            {getDates()}
-        </>
-    );
-}
+<div className="create-dropdown">{Dropdown(props, create_lst)}</div>
+
+      {getHeader()}
+      <div className='the-clock'>
+        <Clock />
+      </div>
+      <button className='change-view-frame' onClick={handleWeekly}>
+        <span className='change-view'>Weekly View</span>
+      </button>
+      <button className='todo-view-frame' onClick={handleToDo}>
+        <span className='change-view'>To Do</span>
+      </button>
+      <button className='settings-frame' onClick={handleSettings}>
+        {/* <div className='weekly-gear' /> */}
+        <span className='gear'></span>
+      </button>
+      <button className='download-frame'>
+        <span className='download-icon' ></span>
+      </button>
+      
+      <div className='days-frame'>
+        <span className='days-header'>SUN</span>
+        <span className='days-header'>MON</span>
+        <span className='days-header'>TUE</span>
+        <span className='days-header'>WED</span>
+        <span className='days-header'>THU</span>
+        <span className='days-header'>FRI</span>
+        <span className='days-header'>SAT</span>
+      </div>
+      {getDates()}
+    </>
+  );
+};
 
 export default Monthly;

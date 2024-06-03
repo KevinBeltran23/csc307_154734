@@ -30,67 +30,153 @@ button {
     outline: 0;
 }
 
+/* CalendarSquare */
+.calendar-container {
+    display: grid;
+    width: 64.1%;
+    height: 80%;
+    grid-template-columns: repeat(7, 1fr);
+    position: absolute;
+    background: #DFDFDB;
+    border: 1px solid #154734;
+    border-radius: 20px;
+    top: 17%;
+    left: 20%;
+}
+
+.logout {
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 1vw;
+    border: 1px solid #000;
+    background: var(--White, #ffffff);
+    text-align: center;
+    cursor: pointer;
+    align-self: center
+        /* Adjust vertical position as needed */
+}
+
+.days-frame {
+    display: flex;
+    justify-content: space-between;
+    /* Evenly distribute the space between items */
+    align-items: center;
+    /* Center items vertically */
+    width: 63.6%;
+    height: 4.7%;
+    left: 19%;
+    top: 12.5%;
+    position: absolute;
+    /* Use relative positioning if needed */
+    z-index: 90;
+}
+
+.days-header {
+    font-size: calc(1.4vw + 1.4vh);
+    /* Adjust as needed */
+    /* Combine rem and vw for scaling */
+    line-height: 1;
+    /* Adjust line height to be proportional */
+    text-align: center;
+    /* Center the text horizontally */
+    color: #154734;
+    flex: 1;
+    /* Allow the items to grow and take up equal space */
+}
+
 /* Dropdowns */
 .calendar-dropdown-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 8px;
+    align-items: center;
+    /* Center items horizontally */
     position: absolute;
-    width: 152px;
-    height: 920px;
-    left: 35px;
-    top: 27px;
+    left: 5%;
+    top: 17%;
+    box-sizing: border-box;
+    width: 8%;
+    height: 38%;
+    background: #DFDFDB;
+    border: 2px solid #154734;
+    border-radius: 24px;
+
 }
 
 .todo-dropdown-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 8px;
+    align-items: center;
+    /* Center items horizontally */
     position: absolute;
-    width: 152px;
-    height: 920px;
-    left: 35px;
-    top: 450px;
+    left: 5%;
+    top: 58%;
+    box-sizing: border-box;
+    width: 8%;
+    height: 38%;
+    background: #DFDFDB;
+    border: 2px solid #154734;
+    border-radius: 24px;
+    flex: none;
+    flex-grow: 0;
 }
 
-.calendars {
+.calendars-text {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
     flex-shrink: 0;
     flex-basis: auto;
     position: relative;
-    width: 79px;
-    height: 18px;
     color: #000000;
-    font-family: Inter, var(--default-font-family);
-    font-size: 16px;
-    line-height: 18px;
-    text-align: left;
+    font-family: JosefinSans, var(--default-font-family);
+    font-size: calc(0.7vw + 0.7vh);
+    /* Adjust as needed */
+
     white-space: nowrap;
     z-index: 51;
 }
 
-.todo {
+.todo-text {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     flex-basis: auto;
     position: relative;
-    width: 79px;
-    height: 18px;
     color: #000000;
-    font-family: Inter, var(--default-font-family);
-    font-size: 16px;
-    line-height: 18px;
-    text-align: left;
+    font-family: JosefinSans, var(--default-font-family);
+    font-size: calc(0.7vw + 0.7vh);
+    /* Adjust as needed */
+
     white-space: nowrap;
     z-index: 51;
+}
+
+.dropdown-button-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    position: relative;
+    top: 30%;
+    cursor: pointer;
+    background: #b7cdc2;
+    border: 1px solid #000000;
+    z-index: 50;
+}
+
+.header {
+    display: flex;
+    /* Enable flexbox */
+    justify-content: left;
+    /* Center children horizontally */
+    align-items: center;
+    /* Center children vertically */
+    width: 80%;
+    height: inherit;
+    position: absolute;
+    top: 2.5%;
+    left: 16%;
 }
 
 /* Individual rectangle styles */
@@ -109,52 +195,45 @@ button {
 .todayButton {
     display: inline-block;
     box-sizing: border-box;
-    width: 95px;
-    height: 40px;
-    padding: 5px;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    font-size: 20px;
-    flex-shrink: 0;
+    width: 6%;
+    height: 10%;
+    font-size: calc(0.9vw + 0.9vh);
     border: 1px solid #000;
-    background: var(--White, #fff);
-    vertical-align: text-bottom;
+    background: var(--White, #ffffff);
     text-align: center;
+    cursor: pointer;
+    align-self: center
 }
 
 .todayButton:hover {
     background: #dfdfdb;
-    cursor: pointer;
 }
 
 .today {
-    background: #789f90;
+    background: #789F90;
     border-radius: 50%;
 }
 
-.days-frame {
-    display: flex;
-    flex-direction: row;
-    justify-content: center; /* Center the items horizontally */
-    align-items: center; /* Align items vertically */
-    padding: 0px;
-    position: absolute;
-    gap: 100px;
-    width: 1220px;
-    height: 45px;
-    left: 270px;
-    top: 120px;
+.navIcon {
+    display: inline-block;
+    width: 3.5%;
+    height: 3.5%;
+    fill: var(--Stadium-Gold, #F8E08E);
+    stroke-width: 1px;
+    stroke: #000;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.50));
 }
 
-/* SUN, MON, TUE, WED, THU, FRI, SAT */
-.days-header {
-    font-size: 36px;
-    line-height: 36px;
-    text-align: center; /* Center the text horizontally */
-    color: #154734;
-    flex: none;
-    flex-grow: 0;
+.navIcon:hover {
+    fill: #DFDFDB;
+    cursor: pointer;
+}
+
+.currentMonth {
+    color: var(--Poly-Green, #154734);
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: calc(2.5vw + 2.5vh); /* Adjust as needed */
 }
 
 .change-view-frame {
@@ -162,13 +241,11 @@ button {
     align-items: center;
     justify-content: center;
     flex-wrap: nowrap;
-    gap: 10px;
     position: absolute;
-    width: 135px;
-    height: 25px;
-    top: 50px;
-    left: 1325px;
-    padding: 10px 10px 10px 10px;
+    width: 7%;
+    height: 2.61%;
+    top: 8%;
+    left: 88%;
     cursor: pointer;
     background: #ffffff;
     border: 1px solid #000000;
@@ -180,42 +257,65 @@ button {
     align-items: center;
     justify-content: center;
     flex-wrap: nowrap;
-    gap: 10px;
     position: absolute;
-    width: 135px;
-    height: 25px;
-    top: 80px;
-    left: 1325px;
-    padding: 10px 10px 10px 10px;
+    width: 7%;
+    height: 2.61%;
+    top: 12%;
+    left: 88%;
     cursor: pointer;
     background: #ffffff;
     border: 1px solid #000000;
     z-index: 12;
 }
 
-.monthly-view-frame:hover,
+.change-view {
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    color: #000000;
+    font-family: JosefinSans, var(--default-font-family);
+    font-size: calc(0.7vw + 0.7vh);
+    /* Adjust as needed */
+    text-align: left;
+    white-space: nowrap;
+    z-index: 13;
+}
+
+.the-clock {
+    position: absolute;
+    left: 86%;
+    top: 1.5%;
+    font-size: calc(1.8vw + 1.8vh);
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
+
+.change-view-frame:hover,
 .todo-view-frame:hover,
-.settings-frame:hover {
-    background: #dfdfdb;
+.settings-frame:hover,
+.todayButton:hover,
+.logout:hover
+{
+    background: #DFDFDB;
 }
 
 .download-frame:hover {
     background: #f8f8f821;
 }
 
-.change-view {
-    flex-shrink: 0;
-    flex-basis: auto;
-    position: relative;
-    height: 22px;
-    color: #000000;
-    font-family: Inter, var(--default-font-family);
-    font-size: 18px;
-    line-height: 22px;
-    text-align: left;
-    white-space: nowrap;
-    z-index: 13;
+.dropdown-arrow {
+    width: calc(.5vw + .5vh);
+    /* Default width */
+    height: calc(.5vw + .5vh);
+    /* Default height */
+    background: url(../assets/Dropdown_arrow.png) no-repeat center;
+    background-size: cover;
+    fill: #000;
+    /* Change the color of the arrow */
 }
+
 
 .settings-frame {
     position: absolute;
@@ -223,9 +323,9 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    top: 0%;
+    width: calc(1.4vw + 1.4vh);
+    height: calc(1.4vw + 1.4vh);
+    top: 1.5%;
     left: 97%;
     border-radius: 50%;
     background-color: #ffffff;
@@ -235,8 +335,8 @@ button {
 
 .gear {
     position: absolute;
-    width: 40px;
-    height: 40px;
+    width: 120%;
+    height: 120%;
     background: url(../assets/Gear.png) no-repeat center;
     background-size: cover;
     z-index: 71;
@@ -246,14 +346,15 @@ button {
 .download-frame {
     cursor: pointer;
     display: flex;
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    justify-content: center;
+    /* Center horizontally */
     position: absolute;
-    width: 40px;
-    height: 40px;
-    top: 5%;
+    width: calc(1.4vw + 1.4vh);
+    height: calc(1.4vw + 1.4vh);
+    top: 7%;
     left: 97%;
-    padding: 3px 6px;
     background: #ffffff00;
     border: 0px solid #000000;
     border-radius: 5%;
@@ -261,26 +362,33 @@ button {
 }
 
 .download-icon {
-    width: 28px;
-    height: 28px;
+    width: 100%;
+    height: 100%;
     background: url(../assets/download_icon.png) no-repeat center;
     background-size: cover;
     z-index: 45;
 }
 
-.the-clock {
-    position: absolute;
-    width: 150px;
-    height: 0px;
-    left: 1315px;
-    top: 20px;
-    font-size: 40px;
-    line-height: 100px;
-    /* identical to box height */
+.inactiveDay {
+    color: #9e9e9e;
+}
+
+.selectedDay {
+    color: white;
+    background: #3366ff;
+    border-radius: 50%;
+}
+
+.selected-day-frame {
+    margin-top: 3%;
+    margin-left: 3%;
+    width: 1.3vw;
+    height: 1.3vw;
     display: flex;
+    justify-content: center;
     align-items: center;
-    text-align: center;
-    color: #000000;
+    border-radius: 50%;
+    font-size: 1vw;
 }
 
 /* NEW */
