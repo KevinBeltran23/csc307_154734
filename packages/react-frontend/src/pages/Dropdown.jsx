@@ -1,17 +1,5 @@
 import React, { useState } from "react";
 import Popup from "./Popup";
-import {
-    format,
-    startOfWeek,
-    addDays,
-    startOfMonth,
-    endOfMonth,
-    endOfWeek,
-    isSameMonth,
-    isSameDay,
-    subMonths,
-    addMonths
-} from "date-fns";
 
 function Dropdown(props, opt = []) {
     const [selectedValue, setSelectedValue] = useState();
@@ -57,7 +45,7 @@ function Dropdown(props, opt = []) {
         if (val === "Event" || val === "Calendar" || val === "To Do Item" || val === "Class") {
             setPopup(true);
         } else {
-            console.log("hi!");
+            // pass
         }
     };
 

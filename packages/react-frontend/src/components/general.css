@@ -381,7 +381,7 @@ button {
 }
 
 .calendar-todo-dropdown #dropdown {
-    display: flex;
+    /*display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: nowrap;
@@ -395,23 +395,43 @@ button {
     cursor: pointer;
     background: #b7cdc2;
     border: 1px solid #000000;
-    z-index: 50;
+    z-index: 50; */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    position: absolute;
+    width: 90%;
+    height: 8%;
+    top: 5%;
+    left: 5.28%;
+    cursor: pointer;
+    background: #ffffff;
+    border: 1px solid #000000;
+    z-index: 12;
+
+    font-family: JosefinSans, var(--default-font-family);
+    font-size: calc(0.7vw + 0.7vh);
 }
 
 .create-dropdown #dropdown {
     display: flex;
-    text-align: center;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
+    flex-wrap: nowrap;
     position: absolute;
-    width: 100px;
-    height: 25px;
-    top: 50px;
-    left: 1220px;
+    width: 7%;
+    height: 2.61%;
+    top: 8%;
+    left: 80%;
     cursor: pointer;
     background: #ffffff;
     border: 1px solid #000000;
-    z-index: 16;
+    z-index: 12;
+    
+    font-family: JosefinSans, var(--default-font-family);
+    font-size: calc(0.7vw + 0.7vh);
 }
 
 #popup {
