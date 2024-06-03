@@ -37,19 +37,19 @@ function Monthly(props) {
     { value: "Class", label: "Class" },
     { value: "Calendar", label: "Calendar" },
     { value: "To Do Item", label: "To Do Item" }
-];
+  ];
 
-var cal_lst = [
+  var cal_lst = [
     { value: "Create", label: "Calendars" },
     { value: "Option 2", label: "Option 2" },
     { value: "Option 3", label: "Option 3" }
-];
+  ];
 
-var todo_lst = [
+  var todo_lst = [
     { value: "Create", label: "To Do" },
     { value: "Option 2", label: "Option 2" },
     { value: "Option 3", label: "Option 3" }
-];
+  ];
 
 
   const getHeader = () => {
@@ -166,15 +166,19 @@ var todo_lst = [
 
       <div className='calendar-dropdown-container'>
         <div className='dropdown-rectangle'>
-          <div className="calendar-todo-dropdown">
-            {Dropdown(props, cal_lst)}
+          <div className="dropdown-button-frame">
+            <div className="calendar-todo-dropdown">
+              {Dropdown(props, cal_lst)}
+            </div>
           </div>
         </div>
       </div>
       <div className='todo-dropdown-container'>
         <div className='dropdown-rectangle'>
-          <div className="calendar-todo-dropdown">
-            {Dropdown(props, todo_lst)}
+          <div className="dropdown-button-frame">
+            <div className="calendar-todo-dropdown">
+              {Dropdown(props, todo_lst)}
+            </div>
           </div>
         </div>
       </div>
