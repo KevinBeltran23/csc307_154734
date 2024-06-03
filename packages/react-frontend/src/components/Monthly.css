@@ -14,7 +14,7 @@
     overflow: hidden;
     box-sizing: border-box;
 }
-  
+
 .monthly-currentMonth {
     color: var(--Poly-Green, #154734);
     box-sizing: border-box;
@@ -27,10 +27,10 @@
     display: inline-block;
     width: 43.301px;
     height: 37.5px;
-    fill: var(--Stadium-Gold, #F8E08E);
+    fill: var(--Stadium-Gold, #f8e08e);
     stroke-width: 1px;
     stroke: #000;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.50));
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
 }
 
 .monthly-dayContainer {
@@ -43,9 +43,19 @@
     left: 273px;
     border-radius: 24px;
     border: 1px solid var(--Poly-Green, #154734);
-    background: var(--gray, #DFDFDB);
+    background: var(--gray, #dfdfdb);
 }
-  
+
+.monthly-eventContainer {
+    display: grid;
+    width: 1218px;
+    height: 754px;
+    grid-template-columns: repeat(7, 1fr);
+    position: absolute;
+    top: 164px;
+    left: 273px;
+}
+
 .monthly-day {
     margin: 12px;
     height: 30px;
@@ -55,7 +65,7 @@
     align-items: center;
     border-radius: 50%;
 }
-  
+
 .monthly-inactiveDay {
     color: #9e9e9e;
 }
@@ -72,13 +82,13 @@
     font-size: 20px;
     flex-shrink: 0;
     border: 1px solid #000;
-    background: var(--White, #FFF);
+    background: var(--White, #fff);
     vertical-align: text-bottom;
     text-align: center;
 }
-  
+
 .monthly-todayButton:hover {
-    background: #DFDFDB;
+    background: #dfdfdb;
     cursor: pointer;
 }
 
@@ -86,20 +96,19 @@
     background: #efefee;
     border-radius: 50%;
 }
-  
+
 .monthly-selectedDay {
     color: white;
     background: #3366ff;
     border-radius: 50%;
 }
-  
+
 .monthly-navIcon:hover {
-    fill: #DFDFDB;
+    fill: #dfdfdb;
     cursor: pointer;
 }
 
-
-.monthly-divider-lines {
+/*.monthly-divider-lines {
     display: flex;
     gap: 173px;
     position: absolute;
@@ -109,28 +118,11 @@
     left: 446px;
 }
 
-.monthly-horiz-divider-lines {
-    display: flex;
-    gap: 150px;
-    position: absolute;
-    width: 871px;
-    height: 754px;
-    top: 373px;
-    left: 679px;
-    rotate:calc(90deg);
-}
-
 .monthly-line {
     width: 1px;
     height: 754px;
-    background-color: #154734; /* This creates a solid black line */
-}
-
-.monthly-horiz-line {
-    width: 1px;
-    height: 1218px;
-    background-color: #154734; /* This creates a solid black line */
-}
+    background-color: #154734;
+} */
 
 .monthly-days-frame {
     display: flex;
@@ -155,7 +147,6 @@
     flex: none;
     flex-grow: 0;
 }
-
 
 /* Dropdowns */
 .monthly-calendar-dropdown-container {
@@ -189,7 +180,7 @@
     box-sizing: border-box;
     width: 152px;
     height: 400px;
-    background: #DFDFDB;
+    background: #dfdfdb;
     border: 4px solid #154734;
     border-radius: 24px;
     flex: none;
@@ -197,7 +188,7 @@
     margin: 12px 0 0 12px;
 }
 
-.monthly-button-frame {
+.monthly-calendar-todo-dropdown #dropdown {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -251,17 +242,6 @@
     z-index: 51;
 }
 
-.monthly-dropdown-arrow {
-    width: 13px;
-    height: 11px;
-    background: url(../assets/Dropdown_arrow.png) no-repeat center;
-    background-size: cover;
-    /* Add additional styles for the arrow */
-    fill: #000;
-    /* Change the color of the arrow */
-}
-
-
 .monthly-weekly-view-frame {
     display: flex;
     align-items: center;
@@ -300,13 +280,12 @@
 
 .monthly-weekly-view-frame:hover,
 .monthly-todo-view-frame:hover,
-.monthly-settings-frame:hover
-{
-    background: #DFDFDB;
+.monthly-settings-frame:hover {
+    background: #dfdfdb;
 }
 
-.monthly-download-frame:hover{
-    background:  #f8f8f821;
+.monthly-download-frame:hover {
+    background: #f8f8f821;
 }
 
 .monthly-change-view {
@@ -369,30 +348,28 @@
 .monthly-download-icon {
     width: 28px;
     height: 28px;
-    background: url(../assets/dowload_icon.png) no-repeat center;
+    background: url(../assets/download_icon.png) no-repeat center;
     background-size: cover;
     z-index: 45;
 }
 
-
-.monthly-create-frame {
+.monthly-create #dropdown {
     display: flex;
+    text-align: center;
     align-items: center;
-    flex-wrap: nowrap;
     gap: 6px;
     position: absolute;
     width: 100px;
     height: 25px;
     top: 50px;
     left: 1220px;
-    padding: 4px 12px 4px 12px;
     cursor: pointer;
     background: #ffffff;
     border: 1px solid #000000;
     z-index: 16;
 }
 
-.monthly-create {
+/*.monthly-create {
     flex-shrink: 0;
     flex-basis: auto;
     position: relative;
@@ -404,19 +381,38 @@
     text-align: center;
     white-space: nowrap;
     z-index: 17;
-}
+} */
 
 .monthly-clock {
     position: absolute;
-    width: 150px;
+    width: 200px;
     height: 0px;
     left: 1315px;
     top: 20px;
     font-size: 40px;
     line-height: 100px;
-    /* identical to box height */
     display: flex;
     align-items: center;
     text-align: center;
     color: #000000;
+}
+
+/* the order of these is important so that 
+    there is no overlap on the rounded corners */
+
+.monthly-day-box {
+    border-width: 0px 1px 1px 0px;
+    border-style: solid;
+}
+
+.monthly-day-box:nth-last-child(n + 2):nth-last-child(-n + 7) {
+    border-width: 0px 1px 0px 0px;
+}
+
+.monthly-day-box:nth-last-child(7n + 1) {
+    border-width: 0px 0px 1px 0px;
+}
+
+.monthly-day-box:nth-last-child(1) {
+    border-width: 0px 0px 0px 0px;
 }

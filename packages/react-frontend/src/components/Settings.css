@@ -37,7 +37,7 @@
     box-sizing: border-box;
     width: 1000px;
     height: 30px;
-    background: #BD8B13;
+    background: #bd8b13;
     border-width: 1px;
     border-style: solid;
     border-color: #154734;
@@ -74,7 +74,7 @@
 .settings-button {
     width: 186px;
     height: 42px;
-    background: #CAC7A7;
+    background: #cac7a7;
     border: 2px solid #000000;
     border-radius: 2px;
     margin-bottom: 9px;
@@ -103,7 +103,7 @@
     border-style: solid;
     border-radius: 2px;
     border-width: 2px;
-    background: #CAC7A7;
+    background: #cac7a7;
     padding: 10px;
     overflow-y: auto;
     /* Add scroll if content overflows */

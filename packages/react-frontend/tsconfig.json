@@ -1,5 +1,6 @@
 {
-    "compilerOptions": {
+"./src/**/*.js",
+    "./src/**/*.jsx",    "compilerOptions": {
         "target": "ES2020",
         "experimentalDecorators": true,
         "useDefineForClassFields": false,
@@ -20,5 +21,6 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true
     },
-    "include": ["src"]
+    "include": [""./src/**/*.js",
+    "./src/**/*.jsx","./eslint.config.mjs""]
 }

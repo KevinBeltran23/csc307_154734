@@ -9,7 +9,7 @@ mongoose.set("debug", true);
 
 mongoose
     .connect(
-        "mongodb+srv://Karen:karen@154754.qdl82np.mongodb.net/?retryWrites=true&w=majority&appName=154754",
+        "mongodb+srv://Karen:karen@154754.qdl82np.mongodb.net/?retryWrites=true&w=majority&appName=154754"
         /*{
             useNewUrlParser: true,
             useUnifiedTopology: true
@@ -17,17 +17,17 @@ mongoose
     )
     .catch((error) => console.log(error));
 
-
 // user-services
-
-function getAllUsers() {
-    return userModel.find();
-}
 
 function getUsers(username, password) {
     let query = {};
     if (username && password) {
-        query = { name: username, password: password };
+        query = { username: username, password: password };
+        return userModel.findOne({ username: username, password: password });
+    } else if (username) {
+        query = { username: username };
+    } else if (password) {
+        query = { password: password };
     }
     return userModel.find(query);
 }
@@ -50,12 +50,7 @@ function deleteUserById(id) {
     return userModel.findByIdAndDelete(id);
 }
 
-
 // event-services
-
-function getAllEvents() {
-    return eventModel.find();
-}
 
 function getEvents(title, date) {
     let query = {};
@@ -79,12 +74,7 @@ function deleteEventById(id) {
     return eventModel.findByIdAndDelete(id);
 }
 
-
 // calendar-services
-
-function getAllCalendars() {
-    return calendarModel.find();
-}
 
 function getCalendars(color, name) {
     let query = {};
@@ -108,12 +98,7 @@ function deleteCalendarById(id) {
     return calendarModel.findByIdAndDelete(id);
 }
 
-
 // class-services
-
-function getAllClasses() {
-    return classModel.find();
-}
 
 function getClasses(title, date) {
     let query = {};
@@ -137,17 +122,16 @@ function deleteClassById(id) {
     return classModel.findByIdAndDelete(id);
 }
 
-
 // todo-services
 
-function getAllTodoItems() {
-    return todoModel.find();
-}
-
-function getTodoItems(due, user) {
+function getTodoItems(duedate, userId) {
     let query = {};
-    if (due && user) {
-        query = { duedate: due, user: user };
+    if (duedate && userId) {
+        query = { duedate: duedate, user: userId };
+    } else if (duedate) {
+        query = { duedate: duedate };
+    } else if (userId) {
+        query = { user: userId };
     }
     return todoModel.find(query);
 }
@@ -155,6 +139,17 @@ function getTodoItems(due, user) {
 function addTodoItem(item) {
     const itemToAdd = new todoModel(item);
     const promise = itemToAdd.save();
+    return promise;
+}
+
+function editTodoItem(itemId, updatedItem) {
+    const promise = todoModel
+        .findByIdAndUpdate(
+            itemId, // The ID of the item to update
+            updatedItem, // The updated item data
+            { new: true } // Return the updated document
+        )
+        .exec();
     return promise;
 }
 
@@ -167,34 +162,30 @@ function deleteTodoItemById(id) {
 }
 
 export default {
-  getUsers,
-  getAllUsers,
-  getUserByNameAndPassword,
-  addUser,
-  findUserById,
-  deleteUserById,
+    getUsers,
+    getUserByNameAndPassword,
+    addUser,
+    findUserById,
+    deleteUserById,
 
-  getEvents,
-  getAllEvents,
-  addEvent,
-  findEventById,
-  deleteEventById,
+    getEvents,
+    addEvent,
+    findEventById,
+    deleteEventById,
 
-  getCalendars,
-  getAllCalendars,
-  addCalendar,
-  deleteCalendarById,
-  findCalendarById,
+    getCalendars,
+    addCalendar,
+    deleteCalendarById,
+    findCalendarById,
 
-  getClasses,
-  getAllClasses,
-  addClass,
-  deleteClassById,
-  findClassById,
+    getClasses,
+    addClass,
+    deleteClassById,
+    findClassById,
 
-  getTodoItems,
-  getAllTodoItems,
-  addTodoItem,
-  deleteTodoItemById,
-  findTodoItemById
+    getTodoItems,
+    addTodoItem,
+    deleteTodoItemById,
+    findTodoItemById,
+    editTodoItem
 };
