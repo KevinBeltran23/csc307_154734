@@ -3,7 +3,9 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from './user.js';
 
-`window.process = ${JSON.stringify({})}`;
+var process = {
+  env: {}
+};
 
 function generateAccessToken(username) {
     return new Promise((resolve, reject) => {
