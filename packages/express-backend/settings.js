@@ -8,12 +8,12 @@ const SettingsSchema = new mongoose.Schema(
             trim: true
         },
         bold: {
-            type: Date,
+            type: Boolean,
             required: true,
             trim: true
         },
         large: {
-            type: Date,
+            type: Boolean,
             required: true,
             trim: true
         },
@@ -22,7 +22,7 @@ const SettingsSchema = new mongoose.Schema(
             trim: true
         },
         polytime: {
-            type: String,
+            type: Boolean,
             ref: "Calendar"
         },
         secret_setting1: {
