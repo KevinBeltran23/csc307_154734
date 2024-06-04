@@ -147,16 +147,6 @@
     z-index: 51;
 }
 
-.todo-dropdown-arrow {
-    width: 13px;
-    height: 11px;
-    background: url(../assets/empty.jpg) no-repeat center;
-    background-size: cover;
-    /* Add additional styles for the arrow */
-    fill: #000;
-    /* Change the color of the arrow */
-}
-
 .todo-header-name {
     position: relative;
     margin: auto;
