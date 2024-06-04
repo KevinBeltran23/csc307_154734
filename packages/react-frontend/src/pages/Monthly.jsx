@@ -173,7 +173,7 @@ function Monthly(props) {
       <button className='download-frame'>
         <span className='download-icon' ></span>
       </button>
-      
+
       <div className='days-frame'>
         <span className='days-header'>SUN</span>
         <span className='days-header'>MON</span>

@@ -217,7 +217,8 @@ button {
     color: var(--Poly-Green, #154734);
     box-sizing: border-box;
     display: inline-block;
-    font-size: calc(2.5vw + 2.5vh); /* Adjust as needed */
+    font-size: calc(2.5vw + 2.5vh);
+    /* Adjust as needed */
 }
 
 .change-view-frame {
@@ -282,8 +283,7 @@ button {
 .todo-view-frame:hover,
 .settings-frame:hover,
 .todayButton:hover,
-.logout:hover
-{
+.logout:hover {
     background: #DFDFDB;
 }
 
@@ -369,13 +369,10 @@ button {
     margin-top: 3%;
     margin-left: 3%;
     width: 1.3vw;
-    /* Adjust width as needed */
     height: 1.3vw;
-    /* Set height to 100% */
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
     font-size: 1vw;
-    /* Adjust font size as needed */
 }
