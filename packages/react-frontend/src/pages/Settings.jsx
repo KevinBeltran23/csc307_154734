@@ -17,9 +17,9 @@ const languageOptions = {
 
 /* Settings Component */
 const Settings = () => {
-  const [selectedOption, setSelectedOption] = useState("Language");
+  const [selectedOption, setSelectedOption] = useState("Language & Region");
   const [settings, setSettings] = useState({
-    "Language": {
+    "Language & Region": {
       "Mandarin Chinese": false,
       "Spanish": false,
       "English": true, // Default to English
@@ -78,7 +78,7 @@ const Settings = () => {
         updatedSettings[option][key] = key === selectedValue;
       });
 
-      if (option === "Language") {
+      if (option === "Language & Region") {
         const languageCode = languageOptions[selectedValue];
         const googleTranslateElement = document.querySelector(".goog-te-combo");
         if (googleTranslateElement) {
@@ -99,14 +99,14 @@ const Settings = () => {
 
   /* Renders options based on settings selection */
   const renderOptionContent = () => {
-    if (selectedOption === "Language") {
+    if (selectedOption === "Language & Region") {
       return (
         <div>
           <label className="settings-label">
             Select Language:
             <select
-              value={Object.keys(settings["Language"]).find(key => settings["Language"][key]) || "English"}
-              onChange={(event) => handleDropdownChange("Language", event)}
+              value={Object.keys(settings["Language & Region"]).find(key => settings["Language & Region"][key]) || "English"}
+              onChange={(event) => handleDropdownChange("Language & Region", event)}
             >
               {Object.keys(languageOptions).map((language) => (
                 <option key={language} value={language}>
@@ -193,4 +193,3 @@ const Settings = () => {
 };
 
 export default Settings;
-
