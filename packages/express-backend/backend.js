@@ -202,7 +202,7 @@ app.get("/event", authenticateUser, (req, res) => {
         req.query;
     Service.getEvents(start, calendar, user)
         .then((result) => {
-            res.send({ event_list: result });
+            res.send({ events_list: result });
         })
         .catch((error) => {
             console.log(error);
@@ -210,7 +210,7 @@ app.get("/event", authenticateUser, (req, res) => {
         });
 });
 
-app.get("/event/:id", (req, res) => {
+app.get("/event/:id", authenticateUser, (req, res) => {
     // get one events information
     const id = req.params["id"];
     Service.findEventById(id)
@@ -279,7 +279,7 @@ app.get("/class", authenticateUser, (req, res) => {
         req.query;
     Service.getClasses(start, calendar, user)
         .then((result) => {
-            res.send({ class_list: result });
+            res.send({ classes_list: result });
         })
         .catch((error) => {
             console.log(error);
@@ -287,7 +287,7 @@ app.get("/class", authenticateUser, (req, res) => {
         });
 });
 
-app.get("/class/:id", (req, res) => {
+app.get("/class/:id", authenticateUser, (req, res) => {
     // get one classes information
     const id = req.params["id"];
     Service.findClassById(id)
@@ -341,7 +341,7 @@ app.get("/calendar", authenticateUser, (req, res) => {
     const { color, name, user } = req.query;
     Service.getClasses(user)
         .then((result) => {
-            res.send({ calendar_list: result });
+            res.send({ calendars_list: result });
         })
         .catch((error) => {
             console.log(error);
@@ -428,7 +428,7 @@ app.delete("/user/:id", authenticateUser, (req, res) => {
         });
 });
 
-app.get("/users/:id", (req, res) => {
+app.get("/users/:id", authenticateUser, (req, res) => {
     // get users by id
     const id = req.params["id"];
     Service.findUserById(id)
