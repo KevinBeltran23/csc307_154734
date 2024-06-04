@@ -18,9 +18,6 @@ function ToDo(props) {
 
     function handleChange(event) {
         var { name, value } = event.target;
-        if (name === "date") {
-            value = new Date(value);
-        }
         setItem((prevItem) => ({
             ...prevItem,
             [name]: value
@@ -37,13 +34,8 @@ function ToDo(props) {
         navigate("/monthly");
     }
 
-    function updateItems(event) {
+    function updateItems(event, newItem) {
         event.preventDefault(); // Prevent form submission from causing a page reload
-
-        const newItem = {
-            ...item,
-            user: props.userId // Set the user ID from props
-        };
 
         props.postItem(newItem)
             .then((newItemResponseJson) => {
@@ -143,7 +135,7 @@ function ToDo(props) {
 
             <div className="ToDo">
                 <div className="entry">
-                    <form onSubmit={updateItems}>
+                    <form onSubmit={(event) => updateItems(event, item)}>
                         <div className="textEntry">
                             <input
                                 type="text"

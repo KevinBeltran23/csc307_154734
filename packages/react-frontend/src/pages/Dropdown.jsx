@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Popup from "./Popup";
 
 function Dropdown(props, opt = []) {
@@ -79,20 +79,21 @@ function Dropdown(props, opt = []) {
         event.preventDefault();
 
         if (selectedValue === "Event") {
-            props.postEvent(eventItem);
+            props.updateEvents(eventItem);
             console.log("Submitting Event:", eventItem);
         } else if (selectedValue === "Calendar") {
-            props.postCalendar(calendarItem);
+            props.updateCalendars(calendarItem);
             console.log("Submitting Calendar:", calendarItem);
         } else if (selectedValue === "To Do Item") {
-            props.postItem(todoItem);
+            props.updateItems(todoItem);
             console.log("Submitting To Do Item:", todoItem);
         } else if (selectedValue === "Class") {
-            props.postClass(classItem);
+            props.updateClasses(classItem);
             console.log("Submitting Class:", classItem);
         }
         setPopup(false);
     };
+
 
     function create(val) {
         if (val === "Event") {
