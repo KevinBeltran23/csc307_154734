@@ -54,7 +54,7 @@ jobs:
           name: release-artifact
 
       - name: Unzip artifact for deployment
-        run: unzip ./packages/react-frontend/release.zip
+        run: unzip packages/express-backend/release.zip
       
       - name: Login to Azure
         uses: azure/login@v2
