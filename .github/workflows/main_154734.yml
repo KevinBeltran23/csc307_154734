@@ -21,8 +21,8 @@ jobs:
         with:
           node-version: '20.x'
 
-      - name: Install apt-utils
-        run: sudo apt-get update && sudo apt-get install -y apt-utils
+      - name: Clear Node modules cache
+        run: npm cache clean --force
 
       - name: npm install, and build
         run: |
