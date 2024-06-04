@@ -580,7 +580,6 @@ function MyApp() {
         postClass(newClass)
             .then((newClassResponseJson) => {
                 setClasses((prevClasses) => [...prevClasses, newClassResponseJson]);
-                console.log(calendars);
             })
             .catch((error) => {
                 console.log(error);
