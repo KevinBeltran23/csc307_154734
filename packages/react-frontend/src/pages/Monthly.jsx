@@ -25,7 +25,7 @@ import Clock from "./Clock";
 import Dropdown from "./Dropdown";
 
 function Monthly(props) {
-    // main variables 
+    // main variables
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [activeDate, setActiveDate] = useState(new Date());
 
@@ -56,7 +56,6 @@ function Monthly(props) {
         }));
     }
 
-
     // misc variables
 
     var create_lst = [
@@ -78,7 +77,6 @@ function Monthly(props) {
         { value: "Option 2", label: "Option 2" },
         { value: "Option 3", label: "Option 3" }
     ];
-
 
     // primary stuff
     const getHeader = () => {

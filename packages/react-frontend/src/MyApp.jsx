@@ -63,64 +63,47 @@ function MyApp() {
     // fetch calls
 
     function fetchSettings() {
-        const promise = fetch(
-            `http://localhost:8000/settings?user=${userId}`,
-            {
-                method: "GET",
-                headers: addAuthHeader()
-            }
-        );
+        const promise = fetch(`http://localhost:8000/settings?user=${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
         return promise;
     }
 
     function fetchItems() {
-        const promise = fetch(
-            `http://localhost:8000/todo?user=${userId}`,
-            {
-                method: "GET",
-                headers: addAuthHeader()
-            }
-        );
+        const promise = fetch(`http://localhost:8000/todo?user=${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
         return promise;
     }
 
     function fetchEvents() {
-        const promise = fetch(
-            `http://localhost:8000/event?user=${userId}`,
-            {
-                method: "GET",
-                headers: addAuthHeader()
-            }
-        );
+        const promise = fetch(`http://localhost:8000/event?user=${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
         return promise;
     }
 
-        
     function fetchClasses() {
-        const promise = fetch(
-            `http://localhost:8000/class?user=${userId}`,
-            {
-                method: "GET",
-                headers: addAuthHeader()
-            }
-        );
+        const promise = fetch(`http://localhost:8000/class?user=${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
         return promise;
     }
 
     function fetchCalendars() {
-        const promise = fetch(
-            `http://localhost:8000/calendar?user=${userId}`,
-            {
-                method: "GET",
-                headers: addAuthHeader()
-            }
-        );
+        const promise = fetch(`http://localhost:8000/calendar?user=${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
         return promise;
     }
 
     // settings api calls
 
-      
     function postSetting(setting) {
         const promise = fetch("http://localhost:8000/settings", {
             method: "POST",
@@ -276,7 +259,6 @@ function MyApp() {
 
     // api calls for todolist items
 
-    
     function postItem(item) {
         const promise = fetch("http://localhost:8000/todo", {
             method: "POST",
@@ -567,7 +549,9 @@ function MyApp() {
             .then((response) => {
                 if (response.status === 204) {
                     // Filter out the calendar with the specified _id and update the items list
-                    const updated = calendars.filter((calendar) => calendar._id !== _id);
+                    const updated = calendars.filter(
+                        (calendar) => calendar._id !== _id
+                    );
                     setItems(updated);
                 } else if (response.status === 404) {
                     console.log("Resource not found.");
@@ -649,28 +633,24 @@ function MyApp() {
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
                                 userId={userId}
-
                                 items={items}
                                 setItems={setItems}
                                 postItem={postItem}
                                 putItem={putItem}
                                 deleteItem={deleteItem}
                                 fetchItems={fetchItems}
-
                                 events={events}
                                 setEvents={setEvents}
                                 postEvent={postEvent}
                                 putEvent={putEvent}
                                 deleteEvent={deleteEvent}
                                 fetchEvents={fetchEvents}
-
                                 calendars={calendars}
                                 setCalendars={setCalendars}
                                 postCalendar={postCalendar}
                                 putCalendar={putCalendar}
                                 deleteCalendar={deleteCalendar}
                                 fetchCalendars={fetchCalendars}
-
                                 classes={classes}
                                 setClasses={setClasses}
                                 postClass={postClass}
@@ -725,7 +705,6 @@ function MyApp() {
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
                                 userId={userId}
-
                                 settings={settings}
                                 setSettings={setSettings}
                                 postSetting={postSetting}
