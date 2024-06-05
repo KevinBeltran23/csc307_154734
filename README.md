@@ -1,9 +1,12 @@
 Run "npm start" from root
 
 Contributing
-Prettier Standards:
+Prettier Standards: 
+- trailingComma: none
+- tabWidth: 4
+- semi: true
+- singleQuote: false
 
--   trailingComma: none
--   tabWidth: 4
--   semi: true
--   singleQuote: false
+npm installs:
+npm install date-fn
+npm install react-icons
