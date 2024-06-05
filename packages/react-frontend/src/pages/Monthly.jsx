@@ -22,11 +22,35 @@ import {
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import "../components/Monthly.css";
 import Clock from "./Clock";
+import Dropdown from "./Dropdown";
 
 
 function Monthly(props) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [activeDate, setActiveDate] = useState(new Date());
+
+  // misc variables
+
+  var create_lst = [
+    { value: "Create", label: "Create" },
+    { value: "Event", label: "Event" },
+    { value: "Class", label: "Class" },
+    { value: "Calendar", label: "Calendar" },
+    { value: "To Do Item", label: "To Do Item" }
+  ];
+
+  var cal_lst = [
+    { value: "Create", label: "Calendars" },
+    { value: "Option 2", label: "Option 2" },
+    { value: "Option 3", label: "Option 3" }
+  ];
+
+  var todo_lst = [
+    { value: "Create", label: "To Do" },
+    { value: "Option 2", label: "Option 2" },
+    { value: "Option 3", label: "Option 3" }
+  ];
+
 
   const getHeader = () => {
     return (
@@ -142,24 +166,27 @@ function Monthly(props) {
 
       <div className='calendar-dropdown-container'>
         <div className='dropdown-rectangle'>
-          <button className='dropdown-button-frame' onClick={handleCalendarsDropdown}>
-            <span className='calendars-text'>Calendars</span>
-            <div className='dropdown-arrow' />
-          </button>
+          <div className="dropdown-button-frame">
+            <div className="calendar-todo-dropdown">
+              {Dropdown(props, cal_lst)}
+            </div>
+          </div>
         </div>
       </div>
       <div className='todo-dropdown-container'>
         <div className='dropdown-rectangle'>
-          <button className='dropdown-button-frame' onClick={handleToDoDropdown}>
-            <span className='todo-text'>Todo</span>
-            <div className='dropdown-arrow' />
-          </button>
+          <div className="dropdown-button-frame">
+            <div className="calendar-todo-dropdown">
+              {Dropdown(props, todo_lst)}
+            </div>
+          </div>
         </div>
       </div>
       {getHeader()}
       <div className='the-clock'>
         <Clock />
       </div>
+      <div className="create-dropdown">{Dropdown(props, create_lst)}</div>
       <button className='change-view-frame' onClick={handleWeekly}>
         <span className='change-view'>Weekly View</span>
       </button>
