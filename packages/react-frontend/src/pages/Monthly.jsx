@@ -28,9 +28,31 @@ function Monthly(props) {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [activeDate, setActiveDate] = useState(new Date());
 
+    // misc variables
+
+    var create_lst = [
+        { value: "Create", label: "Create" },
+        { value: "Event", label: "Event" },
+        { value: "Class", label: "Class" },
+        { value: "Calendar", label: "Calendar" },
+        { value: "To Do Item", label: "To Do Item" }
+    ];
+
+    var cal_lst = [
+        { value: "Create", label: "Calendars" },
+        { value: "Option 2", label: "Option 2" },
+        { value: "Option 3", label: "Option 3" }
+    ];
+
+    var todo_lst = [
+        { value: "Create", label: "To Do" },
+        { value: "Option 2", label: "Option 2" },
+        { value: "Option 3", label: "Option 3" }
+    ];
+
     const getHeader = () => {
         return (
-            <div className="monthly-header">
+            <div className="header">
                 <div
                     className="todayButton"
                     onClick={() => {
@@ -41,14 +63,14 @@ function Monthly(props) {
                     Today
                 </div>
                 <AiOutlineLeft
-                    className="monthly-navIcon"
+                    className="navIcon"
                     onClick={() => setActiveDate(subMonths(activeDate, 1))}
                 />
                 <AiOutlineRight
-                    className="monthly-navIcon"
+                    className="navIcon"
                     onClick={() => setActiveDate(addMonths(activeDate, 1))}
                 />
-                <div className="monthly-currentMonth">
+                <div className="currentMonth">
                     {format(activeDate, "MMMM yyyy")}
                 </div>
             </div>
@@ -63,11 +85,11 @@ function Monthly(props) {
             week.push(
                 <div className="monthly-day-box">
                     <div
-                        className={`monthly-day ${
+                        className={`selected-day-frame ${
                             isSameMonth(currentDate, activeDate)
                                 ? ""
-                                : "monthly-inactiveDay"
-                        } ${isSameDay(currentDate, selectedDate) ? "monthly-selectedDay" : ""}
+                                : "inactiveDay"
+                        } ${isSameDay(currentDate, selectedDate) ? "selectedDay" : ""}
               ${isSameDay(currentDate, new Date()) ? "today" : ""}`}
                     >
                         {format(currentDate, "d")}
@@ -100,8 +122,17 @@ function Monthly(props) {
             currentDate = addDays(currentDate, 7);
         }
 
-        return <div className="monthly-dayContainer">{allWeeks}</div>;
+        return <div className="calendar-container">{allWeeks}</div>;
     };
+    const addEvents = () => {
+        var testDate;
+        var desc;
+        var startTime;
+        var endTime;
+    };
+    /*const getEvents = () => {
+
+  } */
 
     const navigate = useNavigate();
 
@@ -117,48 +148,45 @@ function Monthly(props) {
         // go to todo page
         navigate("/todo");
     }
+    function handleCreate() {
+        // create an event
+        // there will be a POST request here to /event
+    }
+    function handleCalendarsDropdown() {
+        // open calendars drop down
+        // there will be a GET request here to /calendars
+    }
+    function handleToDoDropdown() {
+        // open todo dropdown
+        // there will be a GET request here to /todo
+    }
     function handleClickingOnEvent() {
         // implement functionality
         // there will be a GET request here to /event/:id
     }
 
-    var create_lst = [
-        { value: "Create", label: "Create" },
-        { value: "Event", label: "Event" },
-        { value: "Calendar", label: "Calendar" },
-        { value: "To Do Item", label: "To Do Item" }
-    ];
-
-    var cal_lst = [
-        { value: "Create", label: "Calendars" },
-        { value: "Option 2", label: "Option 2" },
-        { value: "Option 3", label: "Option 3" }
-    ];
-
-    var todo_lst = [
-        { value: "Create", label: "To Do" },
-        { value: "Option 2", label: "Option 2" },
-        { value: "Option 3", label: "Option 3" }
-    ];
-
     return (
         <>
             <button className="logout" onClick={props.logout}>
                 {" "}
-                Log Out Temporary Button{" "}
+                Log Out{" "}
             </button>
 
             <div className="calendar-dropdown-container">
                 <div className="dropdown-rectangle">
-                    <div className="calendar-todo-dropdown">
-                        {Dropdown(cal_lst)}
+                    <div className="dropdown-button-frame">
+                        <div className="calendar-todo-dropdown">
+                            {Dropdown(props, cal_lst)}
+                        </div>
                     </div>
                 </div>
             </div>
             <div className="todo-dropdown-container">
                 <div className="dropdown-rectangle">
-                    <div className="calendar-todo-dropdown">
-                        {Dropdown(todo_lst)}
+                    <div className="dropdown-button-frame">
+                        <div className="calendar-todo-dropdown">
+                            {Dropdown(props, todo_lst)}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -166,7 +194,7 @@ function Monthly(props) {
             <div className="the-clock">
                 <Clock />
             </div>
-            <div className="create-dropdown">{Dropdown(create_lst)}</div>
+            <div className="create-dropdown">{Dropdown(props, create_lst)}</div>
             <button className="change-view-frame" onClick={handleWeekly}>
                 <span className="change-view">Weekly View</span>
             </button>

@@ -19,9 +19,28 @@ function Weekly(props) {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [activeDate, setActiveDate] = useState(new Date());
 
+    var create_lst = [
+        { value: "Create", label: "Create" },
+        { value: "Event", label: "Event" },
+        { value: "Calendar", label: "Calendar" },
+        { value: "To Do Item", label: "To Do Item" }
+    ];
+
+    var cal_lst = [
+        { value: "Create", label: "Calendars" },
+        { value: "Option 2", label: "Option 2" },
+        { value: "Option 3", label: "Option 3" }
+    ];
+
+    var todo_lst = [
+        { value: "Create", label: "To Do" },
+        { value: "Option 2", label: "Option 2" },
+        { value: "Option 3", label: "Option 3" }
+    ];
+
     const getHeader = () => {
         return (
-            <div className="weekly-header">
+            <div className="header">
                 <div
                     className="todayButton"
                     onClick={() => {
@@ -32,14 +51,14 @@ function Weekly(props) {
                     Today
                 </div>
                 <AiOutlineLeft
-                    className="weekly-navIcon"
+                    className="navIcon"
                     onClick={() => setActiveDate(subWeeks(activeDate, 1))}
                 />
                 <AiOutlineRight
-                    className="weekly-navIcon"
+                    className="navIcon"
                     onClick={() => setActiveDate(addWeeks(activeDate, 1))}
                 />
-                <div className="weekly-currentWeek">
+                <div className="currentMonth">
                     {format(activeDate, "MMMM yyyy")}
                 </div>
             </div>
@@ -54,11 +73,11 @@ function Weekly(props) {
             week.push(
                 <div className="weekly-day-box">
                     <div
-                        className={`weekly-day ${
+                        className={`selected-day-frame ${
                             isSameMonth(currentDate, activeDate)
                                 ? ""
-                                : "weekly-inactiveDay"
-                        } ${isSameDay(currentDate, selectedDate) ? "weekly-selectedDay" : ""}
+                                : "inactiveDay"
+                        } ${isSameDay(currentDate, selectedDate) ? "selectedDay" : ""}
               ${isSameDay(currentDate, new Date()) ? "today" : ""}`}
                     >
                         {format(currentDate, "d")}
@@ -89,8 +108,12 @@ function Weekly(props) {
             currentDate = addDays(currentDate, 7);
         }
 
-        return <div className="weekly-dayContainer">{allWeeks}</div>;
+        return <div className="calendar-container">{allWeeks}</div>;
     };
+
+    /*const getEvents = () => {
+ 
+  } */
 
     const navigate = useNavigate();
 
@@ -106,46 +129,36 @@ function Weekly(props) {
         // go to todo page
         navigate("/todo");
     }
+    function handleCreate() {
+        // create an event
+    }
+    function handleCalendarsDropdown() {
+        // open calendars drop down
+    }
+    function handleToDoDropdown() {
+        // open todo dropdown
+    }
     function handleClickingOnEvent() {
         // implement functionality
     }
-
-    var create_lst = [
-        { value: "Create", label: "Create" },
-        { value: "Event", label: "Event" },
-        { value: "Calendar", label: "Calendar" },
-        { value: "To Do Item", label: "To Do Item" }
-    ];
-
-    var cal_lst = [
-        { value: "Create", label: "Calendars" },
-        { value: "Option 2", label: "Option 2" },
-        { value: "Option 3", label: "Option 3" }
-    ];
-
-    var todo_lst = [
-        { value: "Create", label: "To Do" },
-        { value: "Option 2", label: "Option 2" },
-        { value: "Option 3", label: "Option 3" }
-    ];
 
     return (
         <>
             <button className="logout" onClick={props.logout}>
                 {" "}
-                Log Out Temporary Button{" "}
+                Log Out{" "}
             </button>
             <div className="calendar-dropdown-container">
                 <div className="dropdown-rectangle">
                     <div className="calendar-todo-dropdown">
-                        {Dropdown(cal_lst)}
+                        {Dropdown(props, cal_lst)}
                     </div>
                 </div>
             </div>
             <div className="todo-dropdown-container">
                 <div className="dropdown-rectangle">
                     <div className="calendar-todo-dropdown">
-                        {Dropdown(cal_lst)}
+                        {Dropdown(props, todo_lst)}
                     </div>
                 </div>
             </div>
@@ -153,7 +166,7 @@ function Weekly(props) {
             <div className="the-clock">
                 <Clock />
             </div>
-            <div className="create-dropdown">{Dropdown(create_lst)}</div>
+            <div className="create-dropdown">{Dropdown(props, create_lst)}</div>
             <button className="change-view-frame" onClick={handleMonthly}>
                 <span className="change-view">Monthly View</span>
             </button>
