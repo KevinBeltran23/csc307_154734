@@ -95,7 +95,6 @@ function MyApp() {
         return promise;
     }
 
-        
     function fetchClasses() {
         const promise = fetch(
             `http://154734.azurewebsites.net/class?user=${userId}`,
@@ -118,7 +117,6 @@ function MyApp() {
         return promise;
     }
 
-    
     // login and signup api calls
 
     function loginUser(creds) {
@@ -208,7 +206,10 @@ function MyApp() {
     function updateSettings(newSetting) {
         postSetting(newSetting)
             .then((newSettingJson) => {
-                setSettings((prevSettings) => [...prevSettings, newSettingJson]);
+                setSettings((prevSettings) => [
+                    ...prevSettings,
+                    newSettingJson
+                ]);
             })
             .catch((error) => {
                 console.log(error);
@@ -226,7 +227,9 @@ function MyApp() {
             .then((updatedItemResponseJson) => {
                 setSettings(
                     settings.map((setting) =>
-                        setting._id === settingId ? updatedItemResponseJson : setting
+                        setting._id === settingId
+                            ? updatedItemResponseJson
+                            : setting
                     )
                 );
                 //setTodoEditing(null);
@@ -237,7 +240,7 @@ function MyApp() {
                 console.log(error);
             });
     }
-      
+
     function postSetting(setting) {
         const promise = fetch("http://154734.azurewebsites.net/settings", {
             method: "POST",
@@ -267,12 +270,15 @@ function MyApp() {
     }
 
     function deleteSetting(_id) {
-        const promise = fetch(`http://154734.azurewebsites.net/settings/${_id}`, {
-            method: "DELETE",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            })
-        })
+        const promise = fetch(
+            `http://154734.azurewebsites.net/settings/${_id}`,
+            {
+                method: "DELETE",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                })
+            }
+        )
             .then((response) => {
                 if (response.status === 204) {
                     // Filter out the item with the specified _id and update the items list
@@ -293,13 +299,16 @@ function MyApp() {
     }
 
     function putSetting(settingId, updatedSetting) {
-        const promise = fetch(`http://154734.azurewebsites.net/settings/${settingId}`, {
-            method: "PUT",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(updatedSetting)
-        })
+        const promise = fetch(
+            `http://154734.azurewebsites.net/settings/${settingId}`,
+            {
+                method: "PUT",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(updatedSetting)
+            }
+        )
             .then((response) => {
                 if (response.status === 200) {
                     setMessage("Setting updated successfully");
@@ -347,7 +356,7 @@ function MyApp() {
                 console.log(error);
             });
     }
-    
+
     function postItem(item) {
         const promise = fetch("http://154734.azurewebsites.net/todo", {
             method: "POST",
@@ -403,13 +412,16 @@ function MyApp() {
     }
 
     function putItem(itemId, updatedItem) {
-        const promise = fetch(`http://154734.azurewebsites.net/todo/${itemId}`, {
-            method: "PUT",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(updatedItem)
-        })
+        const promise = fetch(
+            `http://154734.azurewebsites.net/todo/${itemId}`,
+            {
+                method: "PUT",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(updatedItem)
+            }
+        )
             .then((response) => {
                 if (response.status === 200) {
                     setMessage("Item updated successfully");
@@ -448,7 +460,10 @@ function MyApp() {
     function updateEvents(newEvent) {
         postEvent(newEvent)
             .then((newEventResponseJson) => {
-                setEvents((prevEvents) => [...prevEvents, newEventResponseJson]);
+                setEvents((prevEvents) => [
+                    ...prevEvents,
+                    newEventResponseJson
+                ]);
                 console.log(events);
             })
             .catch((error) => {
@@ -523,7 +538,8 @@ function MyApp() {
                     console.log("Resource not found.");
                 } else {
                     throw new Error(
-                        "Failed to delete event. Status code: " + response.status
+                        "Failed to delete event. Status code: " +
+                            response.status
                     );
                 }
             })
@@ -534,13 +550,16 @@ function MyApp() {
     }
 
     function putEvent(eventId, updatedEvent) {
-        const promise = fetch(`http://154734.azurewebsites.net/event/${eventId}`, {
-            method: "PUT",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(updatedEvent)
-        })
+        const promise = fetch(
+            `http://154734.azurewebsites.net/event/${eventId}`,
+            {
+                method: "PUT",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(updatedEvent)
+            }
+        )
             .then((response) => {
                 if (response.status === 200) {
                     setMessage("Event updated successfully");
@@ -579,7 +598,10 @@ function MyApp() {
     function updateClasses(newClass) {
         postClass(newClass)
             .then((newClassResponseJson) => {
-                setClasses((prevClasses) => [...prevClasses, newClassResponseJson]);
+                setClasses((prevClasses) => [
+                    ...prevClasses,
+                    newClassResponseJson
+                ]);
             })
             .catch((error) => {
                 console.log(error);
@@ -647,7 +669,9 @@ function MyApp() {
             .then((response) => {
                 if (response.status === 204) {
                     // Filter out the class with the specified _id and update the classes list
-                    const updated = calendars.filter((clas) => clas._id !== _id);
+                    const updated = calendars.filter(
+                        (clas) => clas._id !== _id
+                    );
                     setClasses(updated);
                 } else if (response.status === 404) {
                     console.log("Resource not found.");
@@ -664,13 +688,16 @@ function MyApp() {
     }
 
     function putClass(classId, updatedClass) {
-        const promise = fetch(`http://154734.azurewebsites.net/class/${classId}`, {
-            method: "PUT",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(updatedClass)
-        })
+        const promise = fetch(
+            `http://154734.azurewebsites.net/class/${classId}`,
+            {
+                method: "PUT",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(updatedClass)
+            }
+        )
             .then((response) => {
                 if (response.status === 200) {
                     setMessage("Class updated successfully");
@@ -709,7 +736,10 @@ function MyApp() {
     function updateCalendars(newCalendar) {
         postCalendar(newCalendar)
             .then((newCalendarJson) => {
-                setCalendars((prevCalendars) => [...prevCalendars, newCalendarJson]);
+                setCalendars((prevCalendars) => [
+                    ...prevCalendars,
+                    newCalendarJson
+                ]);
                 console.log(calendars);
             })
             .catch((error) => {
@@ -728,7 +758,9 @@ function MyApp() {
             .then((updatedCalendarResponseJson) => {
                 setCalendars(
                     calendars.map((calendar) =>
-                        calendar._id === calendarId ? updatedCalendarResponseJson : calendar
+                        calendar._id === calendarId
+                            ? updatedCalendarResponseJson
+                            : calendar
                     )
                 );
                 //setTodoEditing(null);
@@ -769,16 +801,21 @@ function MyApp() {
     }
 
     function deleteCalendar(_id) {
-        const promise = fetch(`http://154734.azurewebsites.net/calendar/${_id}`, {
-            method: "DELETE",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            })
-        })
+        const promise = fetch(
+            `http://154734.azurewebsites.net/calendar/${_id}`,
+            {
+                method: "DELETE",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                })
+            }
+        )
             .then((response) => {
                 if (response.status === 204) {
                     // Filter out the calendar with the specified _id and update the items list
-                    const updated = calendars.filter((calendar) => calendar._id !== _id);
+                    const updated = calendars.filter(
+                        (calendar) => calendar._id !== _id
+                    );
                     setCalendars(updated);
                 } else if (response.status === 404) {
                     console.log("Resource not found.");
@@ -795,13 +832,16 @@ function MyApp() {
     }
 
     function putCalendar(calendarId, updatedCalendar) {
-        const promise = fetch(`http://154734.azurewebsites.net/calendar/${calendarId}`, {
-            method: "PUT",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(updatedCalendar)
-        })
+        const promise = fetch(
+            `http://154734.azurewebsites.net/calendar/${calendarId}`,
+            {
+                method: "PUT",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(updatedCalendar)
+            }
+        )
             .then((response) => {
                 if (response.status === 200) {
                     setMessage("Calendar updated successfully");
@@ -858,7 +898,6 @@ function MyApp() {
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
                                 userId={userId}
-
                                 items={items}
                                 setItems={setItems}
                                 postItem={postItem}
@@ -866,7 +905,6 @@ function MyApp() {
                                 deleteItem={deleteItem}
                                 fetchItems={fetchItems}
                                 updateItems={updateItems}
-
                                 events={events}
                                 setEvents={setEvents}
                                 postEvent={postEvent}
@@ -875,7 +913,6 @@ function MyApp() {
                                 fetchEvents={fetchEvents}
                                 updateEvents={updateEvents}
                                 editEvent={editEvent}
-
                                 calendars={calendars}
                                 setCalendars={setCalendars}
                                 postCalendar={postCalendar}
@@ -884,7 +921,6 @@ function MyApp() {
                                 fetchCalendars={fetchCalendars}
                                 updateCalendars={updateCalendars}
                                 editCalendar={editCalendar}
-
                                 classes={calendars}
                                 setClasses={setClasses}
                                 postClass={postClass}
@@ -941,7 +977,6 @@ function MyApp() {
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
                                 userId={userId}
-
                                 settings={events}
                                 setSettings={setSettings}
                                 postSetting={postSetting}

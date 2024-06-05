@@ -1,19 +1,19 @@
-  /* the order of these is important so that 
+/* the order of these is important so that 
     there is no overlap on the rounded corners */
 
-    .monthly-day-box {
-        border-width: 0px 1px 1px 0px;
-        border-style: solid;  
-    }
-    
-    .monthly-day-box:nth-last-child(n+2):nth-last-child(-n+7) {
-        border-width: 0px 1px 0px 0px;
-    }
-    
-    .monthly-day-box:nth-last-child(7n+1){
-        border-width: 0px 0px 1px 0px;
-    }
-    
-    .monthly-day-box:nth-last-child(1){
-        border-width: 0px 0px 0px 0px;
-    }
+.monthly-day-box {
+    border-width: 0px 1px 1px 0px;
+    border-style: solid;
+}
+
+.monthly-day-box:nth-last-child(n + 2):nth-last-child(-n + 7) {
+    border-width: 0px 1px 0px 0px;
+}
+
+.monthly-day-box:nth-last-child(7n + 1) {
+    border-width: 0px 0px 1px 0px;
+}
+
+.monthly-day-box:nth-last-child(1) {
+    border-width: 0px 0px 0px 0px;
+}
