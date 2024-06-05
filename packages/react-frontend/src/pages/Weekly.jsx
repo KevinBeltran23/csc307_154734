@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -12,12 +11,32 @@ import {
   addWeeks
 } from "date-fns";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
-import '../components/Weekly.css';
+import "../components/Weekly.css";
 import Clock from "./Clock";
+import Dropdown from "./Dropdown";
 
 function Weekly(props) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [activeDate, setActiveDate] = useState(new Date());
+
+  var create_lst = [
+    { value: "Create", label: "Create" },
+    { value: "Event", label: "Event" },
+    { value: "Calendar", label: "Calendar" },
+    { value: "To Do Item", label: "To Do Item" }
+  ];
+
+  var cal_lst = [
+    { value: "Create", label: "Calendars" },
+    { value: "Option 2", label: "Option 2" },
+    { value: "Option 3", label: "Option 3" }
+  ];
+
+  var todo_lst = [
+    { value: "Create", label: "To Do" },
+    { value: "Option 2", label: "Option 2" },
+    { value: "Option 3", label: "Option 3" }
+  ];
 
   const getHeader = () => {
     return (
@@ -123,24 +142,23 @@ function Weekly(props) {
     <><button className="logout" onClick={props.logout}> Log Out </button>
       <div className='calendar-dropdown-container'>
         <div className='dropdown-rectangle'>
-          <button className='dropdown-button-frame' onClick={handleCalendarsDropdown}>
-            <span className='calendars-text'>Calendars</span>
-            <div className='dropdown-arrow' />
-          </button>
+          <div className="calendar-todo-dropdown">
+            {Dropdown(props, cal_lst)}
+          </div>
         </div>
       </div>
       <div className='todo-dropdown-container'>
         <div className='dropdown-rectangle'>
-          <button className='dropdown-button-frame' onClick={handleToDoDropdown}>
-            <span className='todo-text'>Todo</span>
-            <div className='dropdown-arrow' />
-          </button>
+          <div className="calendar-todo-dropdown">
+            {Dropdown(props, todo_lst)}
+          </div>
         </div>
       </div>
       {getHeader()}
       <div className='the-clock'>
         <Clock />
       </div>
+      <div className="create-dropdown">{Dropdown(props, create_lst)}</div>
       <button className='change-view-frame' onClick={handleMonthly}>
         <span className='change-view'>Monthly View</span>
       </button>
@@ -186,4 +204,3 @@ function Weekly(props) {
   );
 }
 export default Weekly;
-
