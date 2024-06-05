@@ -152,19 +152,6 @@ button {
     z-index: 51;
 }
 
-.dropdown-button-frame {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;
-    position: relative;
-    top: 30%;
-    cursor: pointer;
-    background: #b7cdc2;
-    border: 1px solid #000000;
-    z-index: 50;
-}
-
 .header {
     display: flex;
     /* Enable flexbox */
@@ -217,8 +204,7 @@ button {
     color: var(--Poly-Green, #154734);
     box-sizing: border-box;
     display: inline-block;
-    font-size: calc(2.5vw + 2.5vh);
-    /* Adjust as needed */
+    font-size: calc(2.5vw + 2.5vh); /* Adjust as needed */
 }
 
 .change-view-frame {
@@ -283,7 +269,8 @@ button {
 .todo-view-frame:hover,
 .settings-frame:hover,
 .todayButton:hover,
-.logout:hover {
+.logout:hover
+{
     background: #DFDFDB;
 }
 
@@ -361,7 +348,7 @@ button {
 
 .selectedDay {
     color: white;
-    background: #3366ff;
+    background: #98c9b0;
     border-radius: 50%;
 }
 
@@ -369,10 +356,62 @@ button {
     margin-top: 3%;
     margin-left: 3%;
     width: 1.3vw;
+    /* Adjust width as needed */
     height: 1.3vw;
+    /* Set height to 100% */
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
     font-size: 1vw;
+    /* Adjust font size as needed */
+}
+
+.calendar-todo-dropdown #dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    position: absolute;
+    width: 90%;
+    height: 8%;
+    top: 5%;
+    left: 5.28%;
+    cursor: pointer;
+    background: #b7cdc2;
+    border: 1px solid #000000;
+    z-index: 12;
+
+    font-family: JosefinSans, var(--default-font-family);
+    font-size: calc(0.7vw + 0.7vh);
+}
+
+.create-dropdown #dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    position: absolute;
+    width: 7%;
+    height: 2.61%;
+    top: 8%;
+    left: 80%;
+    cursor: pointer;
+    background: #ffffff;
+    border: 1px solid #000000;
+    z-index: 12;
+    
+    font-family: JosefinSans, var(--default-font-family);
+    font-size: calc(0.7vw + 0.7vh);
+}
+
+#popup {
+    width: 200px;
+    z-index: 100;
+    position: relative;
+    left: 325px;
+}
+
+#inputs {
+    width: 110px;
 }
