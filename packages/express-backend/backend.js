@@ -97,7 +97,6 @@ app.get("/settings", authenticateUser, (req, res) => {
         });
 });
 
-
 app.post("/settings", authenticateUser, (req, res) => {
     // add an item to the todo list
     const settingToChange = req.body;
