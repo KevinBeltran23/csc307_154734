@@ -204,8 +204,7 @@ app.delete("/todo/:id", authenticateUser, (req, res) => {
 
 app.get("/event", authenticateUser, (req, res) => {
     // get events for a user
-    const { start, calendar, user } =
-        req.query;
+    const { start, calendar, user } = req.query;
     Service.getEvents(start, calendar, user)
         .then((result) => {
             res.send({ events_list: result });
@@ -281,8 +280,7 @@ app.delete("/event/:id", authenticateUser, (req, res) => {
 
 app.get("/class", authenticateUser, (req, res) => {
     // get classes for a user
-    const { start, calendar, user } =
-        req.query;
+    const { start, calendar, user } = req.query;
     Service.getClasses(start, calendar, user)
         .then((result) => {
             res.send({ classes_list: result });
