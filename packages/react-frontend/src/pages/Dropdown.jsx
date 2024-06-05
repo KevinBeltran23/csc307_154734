@@ -42,7 +42,12 @@ function Dropdown(props, opt = []) {
     const handleDropdownChange = (event) => {
         var val = event.target.value;
         setSelectedValue(val);
-        if (val === "Event" || val === "Calendar" || val === "To Do Item" || val === "Class") {
+        if (
+            val === "Event" ||
+            val === "Calendar" ||
+            val === "To Do Item" ||
+            val === "Class"
+        ) {
             setPopup(true);
         } else {
             // pass
@@ -51,26 +56,26 @@ function Dropdown(props, opt = []) {
 
     const handleInputChange = (event) => {
         var { name, value } = event.target;
-    
+
         if (selectedValue === "Event") {
             setEventItem((prevItem) => ({
                 ...prevItem,
-                [name]: value,
+                [name]: value
             }));
         } else if (selectedValue === "Class") {
             setClassItem((prevItem) => ({
                 ...prevItem,
-                [name]: value,
+                [name]: value
             }));
         } else if (selectedValue === "Calendar") {
             setCalendarItem((prevItem) => ({
                 ...prevItem,
-                [name]: value,
+                [name]: value
             }));
         } else if (selectedValue === "To Do Item") {
             setTodoItem((prevItem) => ({
                 ...prevItem,
-                [name]: value,
+                [name]: value
             }));
         }
     };
@@ -94,29 +99,64 @@ function Dropdown(props, opt = []) {
         setPopup(false);
     };
 
-
     function create(val) {
         if (val === "Event") {
             return (
                 <div>
                     <p>Create Event</p>
                     <p>
-                        Title: <input id="inputs" type="text" name="title" onChange={handleInputChange}></input>
+                        Title:{" "}
+                        <input
+                            id="inputs"
+                            type="text"
+                            name="title"
+                            onChange={handleInputChange}
+                        ></input>
                     </p>
                     <p>
-                        Start Date: <input id="inputs" type="date" name="start" onChange={handleInputChange}></input>
+                        Start Date:{" "}
+                        <input
+                            id="inputs"
+                            type="date"
+                            name="start"
+                            onChange={handleInputChange}
+                        ></input>
                     </p>
                     <p>
-                        End Date: <input id="inputs" type="date" name="end" onChange={handleInputChange}></input>
+                        End Date:{" "}
+                        <input
+                            id="inputs"
+                            type="date"
+                            name="end"
+                            onChange={handleInputChange}
+                        ></input>
                     </p>
                     <p>
-                        Description: <input id="inputs" type="text" name="description" onChange={handleInputChange}></input>
+                        Description:{" "}
+                        <input
+                            id="inputs"
+                            type="text"
+                            name="description"
+                            onChange={handleInputChange}
+                        ></input>
                     </p>
                     <p>
-                        Location: <input id="inputs" type="text" name="location" onChange={handleInputChange}></input>
+                        Location:{" "}
+                        <input
+                            id="inputs"
+                            type="text"
+                            name="location"
+                            onChange={handleInputChange}
+                        ></input>
                     </p>
                     <p>
-                        Calendar: <input id="inputs" type="objectId" name="calendar" onChange={handleInputChange}></input>
+                        Calendar:{" "}
+                        <input
+                            id="inputs"
+                            type="objectId"
+                            name="calendar"
+                            onChange={handleInputChange}
+                        ></input>
                     </p>
                 </div>
             );
@@ -125,10 +165,22 @@ function Dropdown(props, opt = []) {
                 <div>
                     <p>Create Calendar</p>
                     <p>
-                        Name: <input type="text" placeholder="Enter Calendar Name" name="name" onChange={handleInputChange}></input>
+                        Name:{" "}
+                        <input
+                            type="text"
+                            placeholder="Enter Calendar Name"
+                            name="name"
+                            onChange={handleInputChange}
+                        ></input>
                     </p>
                     <p>
-                        Color: <input type="text" placeholder="Enter Color Hex Code" name="color" onChange={handleInputChange}></input>
+                        Color:{" "}
+                        <input
+                            type="text"
+                            placeholder="Enter Color Hex Code"
+                            name="color"
+                            onChange={handleInputChange}
+                        ></input>
                     </p>
                 </div>
             );
@@ -137,10 +189,24 @@ function Dropdown(props, opt = []) {
                 <div>
                     <p>Create To Do Item</p>
                     <p>
-                        Due Date: <input id="inputs" type="date" name="duedate" value={todoItem.duedate} onChange={handleInputChange}></input>
+                        Due Date:{" "}
+                        <input
+                            id="inputs"
+                            type="date"
+                            name="duedate"
+                            value={todoItem.duedate}
+                            onChange={handleInputChange}
+                        ></input>
                     </p>
                     <p>
-                        Contents: <input id="inputs" type="text" name="contents" value={todoItem.contents} onChange={handleInputChange}></input>
+                        Contents:{" "}
+                        <input
+                            id="inputs"
+                            type="text"
+                            name="contents"
+                            value={todoItem.contents}
+                            onChange={handleInputChange}
+                        ></input>
                     </p>
                 </div>
             );
@@ -149,22 +215,58 @@ function Dropdown(props, opt = []) {
                 <div>
                     <p>Create Class</p>
                     <p>
-                        Title: <input id="inputs" type="text" name="title" onChange={handleInputChange}></input>
+                        Title:{" "}
+                        <input
+                            id="inputs"
+                            type="text"
+                            name="title"
+                            onChange={handleInputChange}
+                        ></input>
                     </p>
                     <p>
-                        Start Date: <input id="inputs" type="date" name="start" onChange={handleInputChange}></input>
+                        Start Date:{" "}
+                        <input
+                            id="inputs"
+                            type="date"
+                            name="start"
+                            onChange={handleInputChange}
+                        ></input>
                     </p>
                     <p>
-                        End Date: <input id="inputs" type="date" name="end" onChange={handleInputChange}></input>
+                        End Date:{" "}
+                        <input
+                            id="inputs"
+                            type="date"
+                            name="end"
+                            onChange={handleInputChange}
+                        ></input>
                     </p>
                     <p>
-                        Description: <input id="inputs" type="text" name="description" onChange={handleInputChange}></input>
+                        Description:{" "}
+                        <input
+                            id="inputs"
+                            type="text"
+                            name="description"
+                            onChange={handleInputChange}
+                        ></input>
                     </p>
                     <p>
-                        Professor: <input id="inputs" type="text" name="professor" onChange={handleInputChange}></input>
+                        Professor:{" "}
+                        <input
+                            id="inputs"
+                            type="text"
+                            name="professor"
+                            onChange={handleInputChange}
+                        ></input>
                     </p>
                     <p>
-                        Calendar: <input id="inputs" type="objectId" name="calendar" onChange={handleInputChange}></input>
+                        Calendar:{" "}
+                        <input
+                            id="inputs"
+                            type="objectId"
+                            name="calendar"
+                            onChange={handleInputChange}
+                        ></input>
                     </p>
                 </div>
             );
@@ -175,7 +277,11 @@ function Dropdown(props, opt = []) {
 
     return (
         <div>
-            <select id="dropdown" value={selectedValue} onChange={handleDropdownChange}>
+            <select
+                id="dropdown"
+                value={selectedValue}
+                onChange={handleDropdownChange}
+            >
                 {options.map((option) => (
                     <option key={option.value} value={option.value}>
                         {option.label}

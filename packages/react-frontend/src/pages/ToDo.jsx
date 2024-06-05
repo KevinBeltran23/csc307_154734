@@ -37,9 +37,13 @@ function ToDo(props) {
     function updateItems(event, newItem) {
         event.preventDefault(); // Prevent form submission from causing a page reload
 
-        props.postItem(newItem)
+        props
+            .postItem(newItem)
             .then((newItemResponseJson) => {
-                props.setItems((prevItems) => [...prevItems, newItemResponseJson]);
+                props.setItems((prevItems) => [
+                    ...prevItems,
+                    newItemResponseJson
+                ]);
                 setItem({
                     duedate: "",
                     contents: "",
@@ -59,7 +63,8 @@ function ToDo(props) {
             user: props.userId // Ensure the user ID is included
         };
 
-        props.putItem(itemId, updatedItem) // Pass itemId and updatedItem separately
+        props
+            .putItem(itemId, updatedItem) // Pass itemId and updatedItem separately
             .then((updatedItemResponseJson) => {
                 props.setItems(
                     props.items.map((item) =>
@@ -102,7 +107,8 @@ function ToDo(props) {
     }
 
     useEffect(() => {
-        props.fetchItems()
+        props
+            .fetchItems()
             .then((res) => res.json())
             .then((json) => {
                 const sortedItems = json.todo_list.sort(
