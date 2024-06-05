@@ -1,34 +1,37 @@
 import mongoose from "mongoose";
 
-// automatically generates a unique _id field
-const ClassSchema = new mongoose.Schema(
+const SettingsSchema = new mongoose.Schema(
     {
-        title: {
+        language: {
             type: String,
             required: true,
             trim: true
         },
-        start: {
+        bold: {
             type: Date,
             required: true,
             trim: true
         },
-        end: {
+        large: {
             type: Date,
             required: true,
             trim: true
         },
-        description: {
+        default_view: {
             type: String,
             trim: true
         },
-        professor: {
+        polytime: {
             type: String,
-            trim: true
-        },
-        calendar: {
-            type: mongoose.Schema.Types.ObjectId,
             ref: "Calendar"
+        },
+        secret_setting1: {
+            type: String,
+            trim: true
+        },
+        secret_setting2: {
+            type: String,
+            trim: true
         },
         user: {
             type: mongoose.Schema.Types.ObjectId,
@@ -36,9 +39,9 @@ const ClassSchema = new mongoose.Schema(
             required: true
         }
     },
-    { collection: "classes" }
+    { collection: "settings_list" }
 );
 
-const Class = mongoose.model("Class", ClassSchema);
+const Settings = mongoose.model("Settings", SettingsSchema);
 
-export default Class;
+export default Settings;
