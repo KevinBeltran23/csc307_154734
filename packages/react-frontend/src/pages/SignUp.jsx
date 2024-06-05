@@ -11,6 +11,24 @@ function SignUp(props) {
 
     const navigate = useNavigate();
 
+    function handleReturn() {
+        navigate("/");
+    }
+
+    function submitForm() {
+        if (creds.pwd !== creds.confirmPwd) {
+            props.setMessage("Signup Error: Passwords do not match");
+            return;
+        }
+
+        props.handleSubmit(creds).then((response) => {
+            if (response === true) {
+                navigate("/monthly");
+            }
+        });
+        setCreds({ username: "", pwd: "", confirmPwd: "" });
+    }
+
     return (
         <div className="signup-position-relative">
             {/* Main Box */}
@@ -85,24 +103,6 @@ function SignUp(props) {
                 setCreds({ ...creds, confirmPwd: value });
                 break;
         }
-    }
-
-    function handleReturn() {
-        navigate("/");
-    }
-
-    function submitForm() {
-        if (creds.pwd !== creds.confirmPwd) {
-            props.setMessage("Signup Error: Passwords do not match");
-            return;
-        }
-
-        props.handleSubmit(creds).then((response) => {
-            if (response === 1) {
-                navigate("/monthly");
-            }
-        });
-        setCreds({ username: "", pwd: "", confirmPwd: "" });
     }
 }
 
