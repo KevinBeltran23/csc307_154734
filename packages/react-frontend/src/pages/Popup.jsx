@@ -12,7 +12,7 @@ function Popup({ openPopup, closePopup, children }) {
     }, [openPopup]);
 
     return (
-        <dialog ref={ref} onCancel={closePopup}>
+        <dialog id="popup" ref={ref} onCancel={closePopup}>
             {children}
             <button onClick={closePopup}>Close</button>
         </dialog>
