@@ -14,7 +14,12 @@ var process = {
     env: {}
 };
 
-app.use(cors());
+const corsOptions = {
+    origin: "https://green-sand-07ee7761e.5.azurestaticapps.net",
+    optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // can listen at azure port or at localhost 8000
