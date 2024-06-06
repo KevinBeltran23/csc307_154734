@@ -4,7 +4,7 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import Service from "./services.js";
-import auth, { registerUser, loginUser, authenticateUser } from "./auth.js";
+import { registerUser, loginUser, authenticateUser } from "./auth.js";
 
 const app = express();
 const port = 8000;
@@ -78,59 +78,76 @@ app.get("/weekly", authenticateUser, (req, res) => {
 
 // settings page - gonna need a lot of work
 
+// Get settings for a specific user
 app.get("/settings", authenticateUser, (req, res) => {
-    // get todo items for a user
-    Service.getSettings(req.query)
-        .then((result) => {
-            res.send({ settings_list: result });
+    const userId = req.user._id; // Assuming req.user is set by authenticateUser middleware
+
+    Settings.findOne({ user: userId })
+        .then((settings) => {
+            if (settings) {
+                res.json(settings);
+            } else {
+                res.status(404).send("Settings not found");
+            }
         })
         .catch((error) => {
-            console.log(error);
+            console.error(error);
             res.status(500).send("Internal Server Error");
         });
 });
 
-
+// Update or create settings for a specific user
 app.post("/settings", authenticateUser, (req, res) => {
-    // add an item to the todo list
-    const settingToChange = req.body;
-    Service.addTodoItem(settingToChange)
+    const userId = req.user._id; // Assuming req.user is set by authenticateUser middleware
+    const newSettings = { ...req.body, user: userId };
+
+    Settings.findOneAndUpdate(
+        { user: userId },
+        newSettings,
+        { new: true, upsert: true, runValidators: true }
+    )
         .then((changedSetting) => {
             res.status(201).json(changedSetting);
         })
         .catch((error) => {
-            console.log(error);
+            console.error(error);
             res.status(500).send("Internal Server Error");
         });
 });
 
-app.put("/setting/:id", authenticateUser, (req, res) => {
+// Update specific setting by ID
+app.put("/settings/:id", authenticateUser, (req, res) => {
     const settingId = req.params.id; // Get the ID from the URL parameters
     const updatedSetting = req.body; // Get the updated item data from the request body
 
-    Service.editSetting(settingId, updatedSetting)
+    Settings.findByIdAndUpdate(settingId, updatedSetting, { new: true, runValidators: true })
         .then((editedSetting) => {
-            res.status(200).json(editedSetting);
+            if (editedSetting) {
+                res.status(200).json(editedSetting);
+            } else {
+                res.status(404).send("Setting not found");
+            }
         })
         .catch((error) => {
-            console.log(error);
+            console.error(error);
             res.status(500).send("Internal Server Error");
         });
 });
 
-app.delete("/setting/:id", authenticateUser, (req, res) => {
-    // delete an item from the todo list
-    const id = req.params["id"];
-    Service.deleteSettingById(id)
+// Delete specific setting by ID
+app.delete("/settings/:id", authenticateUser, (req, res) => {
+    const settingId = req.params.id; // Get the ID from the URL parameters
+
+    Settings.findByIdAndDelete(settingId)
         .then((result) => {
             if (result) {
                 res.status(204).send();
             } else {
-                res.status(404).send("User not found.");
+                res.status(404).send("Setting not found");
             }
         })
         .catch((error) => {
-            console.log(error);
+            console.error(error);
             res.status(500).send("Internal Server Error");
         });
 });
