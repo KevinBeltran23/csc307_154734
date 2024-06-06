@@ -76,41 +76,48 @@ app.get("/weekly", authenticateUser, (req, res) => {
     // get all the information for the weekly calendar for a user
 });
 
-// settings page - gonna need a lot of work
 
-// Get settings for a specific user
+// translate
+
+app.get('/translate', async (req, res) => {
+    try {
+      // Make a request to the Google Translate API
+      const response = await fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=hello');
+      const translationData = await response.json();
+  
+      // Send the translated data back to the client
+      res.json(translationData);
+    } catch (error) {
+      console.error('Error translating text:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// settings
+
 app.get("/settings", authenticateUser, (req, res) => {
-    const userId = req.user._id; // Assuming req.user is set by authenticateUser middleware
+    const { language, bold, large, default_view, polytime, user } = req.query;
 
-    Settings.findOne({ user: userId })
-        .then((settings) => {
-            if (settings) {
-                res.json(settings);
-            } else {
-                res.status(404).send("Settings not found");
-            }
+    Service.getSettings(user)
+        .then((result) => {
+            res.send({ settings_list: result });
         })
         .catch((error) => {
-            console.error(error);
+            console.log(error);
             res.status(500).send("Internal Server Error");
         });
 });
-
+ 
 // Update or create settings for a specific user
 app.post("/settings", authenticateUser, (req, res) => {
-    const userId = req.user._id; // Assuming req.user is set by authenticateUser middleware
-    const newSettings = { ...req.body, user: userId };
+    const settingToAdd = req.body;
 
-    Settings.findOneAndUpdate(
-        { user: userId },
-        newSettings,
-        { new: true, upsert: true, runValidators: true }
-    )
-        .then((changedSetting) => {
-            res.status(201).json(changedSetting);
+    Service.addTodoItem(settingToAdd)
+        .then((addedSetting) => {
+            res.status(201).json(addedSetting);
         })
         .catch((error) => {
-            console.error(error);
+            console.log(error);
             res.status(500).send("Internal Server Error");
         });
 });
@@ -120,34 +127,29 @@ app.put("/settings/:id", authenticateUser, (req, res) => {
     const settingId = req.params.id; // Get the ID from the URL parameters
     const updatedSetting = req.body; // Get the updated item data from the request body
 
-    Settings.findByIdAndUpdate(settingId, updatedSetting, { new: true, runValidators: true })
+    Service.editSetting(settingId, updatedSetting)
         .then((editedSetting) => {
-            if (editedSetting) {
-                res.status(200).json(editedSetting);
-            } else {
-                res.status(404).send("Setting not found");
-            }
+            res.status(200).json(editedSetting);
         })
         .catch((error) => {
-            console.error(error);
+            console.log(error);
             res.status(500).send("Internal Server Error");
         });
 });
 
 // Delete specific setting by ID
 app.delete("/settings/:id", authenticateUser, (req, res) => {
-    const settingId = req.params.id; // Get the ID from the URL parameters
-
-    Settings.findByIdAndDelete(settingId)
+    const id = req.params.id; // Get the ID from the URL parameters
+    Service.deleteSettingById(id)
         .then((result) => {
             if (result) {
                 res.status(204).send();
             } else {
-                res.status(404).send("Setting not found");
+                res.status(404).send("User not found.");
             }
         })
         .catch((error) => {
-            console.error(error);
+            console.log(error);
             res.status(500).send("Internal Server Error");
         });
 });
@@ -356,7 +358,7 @@ app.delete("/class/:id", authenticateUser, (req, res) => {
 app.get("/calendar", authenticateUser, (req, res) => {
     // get calendars for a user
     const { color, name, user } = req.query;
-    Service.getClasses(user)
+    Service.getCalendars(user)
         .then((result) => {
             res.send({ calendars_list: result });
         })

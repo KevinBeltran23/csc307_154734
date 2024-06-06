@@ -192,19 +192,6 @@ function MyApp() {
 
     // settings api calls
 
-    useEffect(() => {
-        fetchSettings()
-            .then((res) => res.json())
-            .then((json) => {
-                const settings = json.settings_list;
-                setSettings(settings);
-            })
-            .catch((error) => {
-                console.log(error);
-                setMessage(`Fetch Error: ${error.message}`);
-            });
-    }, []);
-
     function updateSettings(newSetting) {
         postSetting(newSetting)
             .then((newSettingJson) => {
@@ -322,21 +309,6 @@ function MyApp() {
 
     // api calls for todolist items
 
-    useEffect(() => {
-        fetchItems()
-            .then((res) => res.json())
-            .then((json) => {
-                const sortedItems = json.todo_list.sort(
-                    (a, b) => new Date(a.duedate) - new Date(b.duedate)
-                );
-                setItems(sortedItems);
-            })
-            .catch((error) => {
-                console.log(error);
-                setMessage(`Fetch Error: ${error.message}`);
-            });
-    }, []);
-
     function updateItems(newItem) {
         postItem(newItem)
             .then((newItemResponseJson) => {
@@ -431,19 +403,6 @@ function MyApp() {
     }
 
     // api calls for events
-
-    useEffect(() => {
-        fetchEvents()
-            .then((res) => res.json())
-            .then((json) => {
-                const events = json.events_list;
-                setEvents(events);
-            })
-            .catch((error) => {
-                console.log(error);
-                setMessage(`Fetch Error: ${error.message}`);
-            });
-    }, []);
 
     function updateEvents(newEvent) {
         postEvent(newEvent)
@@ -563,19 +522,6 @@ function MyApp() {
 
     // api calls for classes
 
-    useEffect(() => {
-        fetchClasses()
-            .then((res) => res.json())
-            .then((json) => {
-                const classes = json.classes_list;
-                setClasses(classes);
-            })
-            .catch((error) => {
-                console.log(error);
-                setMessage(`Fetch Error: ${error.message}`);
-            });
-    }, []);
-
     function updateClasses(newClass) {
         postClass(newClass)
             .then((newClassResponseJson) => {
@@ -692,19 +638,6 @@ function MyApp() {
     }
 
     // api calls for calendars
-
-    useEffect(() => {
-        fetchCalendars()
-            .then((res) => res.json())
-            .then((json) => {
-                const calendars = json.calendars_list;
-                setSettings(calendars);
-            })
-            .catch((error) => {
-                console.log(error);
-                setMessage(`Fetch Error: ${error.message}`);
-            });
-    }, []);
 
     function updateCalendars(newCalendar) {
         postCalendar(newCalendar)
@@ -858,6 +791,9 @@ function MyApp() {
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
                                 userId={userId}
+                                fetchSettings={fetchSettings}
+                                settings={settings}
+                                setSettings={setSettings}
 
                                 items={items}
                                 setItems={setItems}
@@ -885,7 +821,7 @@ function MyApp() {
                                 updateCalendars={updateCalendars}
                                 editCalendar={editCalendar}
 
-                                classes={calendars}
+                                classes={classes}
                                 setClasses={setClasses}
                                 postClass={postClass}
                                 putClass={putClass}
@@ -927,6 +863,44 @@ function MyApp() {
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
                                 userId={userId}
+                                fetchSettings={fetchSettings}
+                                settings={settings}
+                                setSettings={setSettings}
+                                
+                                items={items}
+                                setItems={setItems}
+                                postItem={postItem}
+                                putItem={putItem}
+                                deleteItem={deleteItem}
+                                fetchItems={fetchItems}
+                                updateItems={updateItems}
+
+                                events={events}
+                                setEvents={setEvents}
+                                postEvent={postEvent}
+                                putEvent={putEvent}
+                                deleteEvent={deleteEvent}
+                                fetchEvents={fetchEvents}
+                                updateEvents={updateEvents}
+                                editEvent={editEvent}
+
+                                calendars={calendars}
+                                setCalendars={setCalendars}
+                                postCalendar={postCalendar}
+                                putCalendar={putCalendar}
+                                deleteCalendar={deleteCalendar}
+                                fetchCalendars={fetchCalendars}
+                                updateCalendars={updateCalendars}
+                                editCalendar={editCalendar}
+
+                                classes={classes}
+                                setClasses={setClasses}
+                                postClass={postClass}
+                                putClass={putClass}
+                                deleteClass={deleteClass}
+                                fetchClasses={fetchClasses}
+                                updateClasses={updateClasses}
+                                editClass={editClass}
                             />
                         }
                     />
@@ -942,7 +916,7 @@ function MyApp() {
                                 addAuthHeader={addAuthHeader}
                                 userId={userId}
 
-                                settings={events}
+                                settings={settings}
                                 setSettings={setSettings}
                                 postSetting={postSetting}
                                 putSetting={putSetting}

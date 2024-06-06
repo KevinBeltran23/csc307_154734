@@ -39,7 +39,7 @@ const SettingsSchema = new mongoose.Schema(
             required: true
         }
     },
-    { collection: "settings_list" }
+    { collection: "settings" }
 );
 
 const Settings = mongoose.model("Settings", SettingsSchema);

@@ -16,7 +16,7 @@ const languageOptions = {
 };
 
 /* Settings Component */
-const Settings = () => {
+function Settings (props) {
   const [selectedOption, setSelectedOption] = useState("Language & Region");
   const [settings, setSettings] = useState({
     "Language & Region": {
@@ -49,6 +49,19 @@ const Settings = () => {
       "Secret Setting 2": false,
     }
   });
+
+  useEffect(() => {
+    props.fetchSettings()
+        .then((res) => res.json())
+        .then((json) => {
+            const settings = json.settings_list;
+            props.setSettings(settings);
+        })
+        .catch((error) => {
+            console.log(error);
+            props.setMessage(`Fetch Error: ${error.message}`);
+        });
+    }, []);
 
   /* Reload the page when the component is first mounted */
   useEffect(() => {

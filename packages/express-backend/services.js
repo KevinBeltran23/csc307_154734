@@ -53,13 +53,22 @@ function deleteUserById(id) {
 
 // setting-services
 
-function getSettings(start, calendar, userId) {
+function getSettings(language, bold, large, default_view, polytime, userId) {
     let query = {};
-    if (start) {
-        query.start = start;
+    if (language) {
+        query.language = language;
     }
-    if (calendar) {
-        query.calendar = calendar;
+    if (bold) {
+        query.bold = bold;
+    }
+    if (large) {
+        query.large = large;
+    }
+    if (default_view) {
+        query.default_view = default_view;
+    }
+    if (polytime) {
+        query.polytime = polytime;
     }
     if (userId) {
         query.user = userId;
