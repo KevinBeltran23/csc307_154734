@@ -74,6 +74,7 @@ function Monthly(props) {
         const week = [];
         for (let day = 0; day < 7; day++) {
             const cloneDate = currentDate;
+            //console.log(format(cloneDate, "MM/dd/yyyy"));
             week.push(
                 <div className="monthly-day-box">
                     <div
@@ -113,18 +114,59 @@ function Monthly(props) {
             );
             currentDate = addDays(currentDate, 7);
         }
-
         return <div className="calendar-container">{allWeeks}</div>;
     };
-    const addEvents = () => {
-        var testDate;
-        var desc;
-        var startTime;
-        var endTime;
-    };
-    /*const getEvents = () => {
+    
+    const generateEventsForCurrentWeek = (date, selectedDate, activeDate) => {
+      let currentDate = date;
+      const event_lst = [];
 
-  } */
+      var events = props.events;
+      var d;
+      var lst = [];
+      var events = props.events;
+      for (var i = 0; i < events.length; i++) {
+        d = new Date(events[i].start);
+        lst.push(format(d, "MM/dd/yyyy"));
+      }
+
+      for (let day = 0; day < 7; day++) {
+          const cloneDate = currentDate;
+          week.push(
+              <div className="monthly-day-box">
+                  <div>
+                      
+                  </div>
+              </div>
+          );
+          currentDate = addDays(currentDate, 1);
+      }
+      return <>{week}</>;
+  };
+
+  const getEvents = () => {
+      const startOfTheSelectedMonth = startOfMonth(activeDate);
+      const endOfTheSelectedMonth = endOfMonth(activeDate);
+      const startDate = startOfWeek(startOfTheSelectedMonth);
+      const endDate = endOfWeek(endOfTheSelectedMonth);
+
+      let currentDate = startDate;
+
+      const allWeeks = [];
+
+      while (currentDate <= endDate) {
+          allWeeks.push(
+              generateDatesForCurrentWeek(
+                  currentDate,
+                  selectedDate,
+                  activeDate
+              )
+          );
+          currentDate = addDays(currentDate, 7);
+      }
+
+      return <div className="calendar-container">{allWeeks}</div>;
+  };
 
     const navigate = useNavigate();
 
@@ -140,19 +182,7 @@ function Monthly(props) {
         // go to todo page
         navigate("/todo");
     }
-    function handleCreate() {
-        // create an event
-        // there will be a POST request here to /event
-    }
 
-    function handleCalendarsDropdown(lst) {
-        //
-    }
-
-    function handleToDoDropdown() {
-        // open todo dropdown
-        // there will be a GET request here to /todo
-    }
     function handleClickingOnEvent() {
         // implement functionality
         // there will be a GET request here to /event/:id
@@ -167,6 +197,25 @@ function Monthly(props) {
     for (var i = 0; i < todos.length; i++) {
         todo_lst.push({ value: todos[i].contents, label: todos[i].contents });
     }
+
+    var events = props.events;
+    for (var i = 0; i < events.length; i++) {
+      console.log(events[i].title);
+    }
+
+    var lst = [];
+    function makeEvent() {
+      var events = props.events;
+      for (var i = 0; i < events.length; i++) {
+        var d = new Date(events[i].start);
+        d = format(d, "MM/dd/yyyy")
+        lst.push(d);
+      }
+    }
+
+    console.log(lst);
+
+    makeEvent()
 
     return (
         <>
