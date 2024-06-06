@@ -69,4 +69,5 @@ jobs:
               with:
                   app-name: "154734"
                   slot-name: "Production"
-                  package: ./packages/express-backend/backend.js
+                  package: release.zip
+
