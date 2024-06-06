@@ -79,7 +79,7 @@ app.get("/weekly", authenticateUser, (req, res) => {
 // settings
 
 app.get("/settings", authenticateUser, (req, res) => {
-    const { language, bold, large, default_view, polytime, user } = req.query;
+    const { language, bold, default_view, polytime, user } = req.query;
 
     Service.getSettings(user)
         .then((result) => {

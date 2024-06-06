@@ -41,7 +41,6 @@ function Settings(props) {
     },
     "Text": {
       "Bold Text": false,
-      "Large Text": false,
     },
     "Secret Settings": {
       "Secret Setting 1": false,
@@ -179,7 +178,6 @@ function Settings(props) {
       user: userId,
       language: Object.keys(nestedSettings["Language & Region"]).find(key => nestedSettings["Language & Region"][key]),
       bold: nestedSettings.Text["Bold Text"],
-      large: nestedSettings.Text["Large Text"],
       default_view: nestedSettings["Calendar Settings"]["Default View"],
       polytime: nestedSettings["Event Settings"]["Poly Time"],
       secret_setting1: nestedSettings["Secret Settings"]["Secret Setting 1"],

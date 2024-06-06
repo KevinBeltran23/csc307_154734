@@ -12,11 +12,6 @@ const SettingsSchema = new mongoose.Schema(
             required: true,
             trim: true
         },
-        large: {
-            type: Boolean,
-            required: true,
-            trim: true
-        },
         default_view: {
             type: String,
             trim: true
