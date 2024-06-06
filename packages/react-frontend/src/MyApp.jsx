@@ -177,6 +177,7 @@ function MyApp() {
                     );
                     return false; // Indicate failure
                 } else {
+                    console.log(creds);
                     setMessage(
                         `Signup Error ${response.status}: ${response.statusText}`
                     );

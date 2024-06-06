@@ -19,6 +19,36 @@ const UserSchema = new mongoose.Schema(
                         "Invalid password, must be at least 4 characters."
                     );
             }
+        },
+        language: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        bold: {
+            type: Boolean,
+            required: true,
+            trim: true
+        },
+        default_view: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        polytime: {
+            type: Boolean,
+            required: true,
+            ref: "Calendar"
+        },
+        secret_setting1: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        secret_setting2: {
+            type: String,
+            required: true,
+            trim: true
         }
     },
     { collection: "users" }

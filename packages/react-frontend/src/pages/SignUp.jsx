@@ -6,7 +6,12 @@ function SignUp(props) {
     const [creds, setCreds] = useState({
         username: "",
         pwd: "",
-        confirmPwd: ""
+        language: "en",
+        bold: false,
+        default_view: "Monthly",
+        polytime: true,
+        secret_setting1: false,
+        secret_setting2: false
     });
 
     const navigate = useNavigate();
