@@ -15,6 +15,41 @@ const languageOptions = {
   "Vietnamese": "vi"
 };
 
+/* Settings Component 
+function Settings (props) {
+  const [selectedOption, setSelectedOption] = useState("Language & Region");
+  const [settings, setSettings] = useState({
+    "Language & Region": {
+      "Mandarin Chinese": false,
+      "Spanish": false,
+      "English": true, // Default to English
+      "Hindi": false,
+      "Bengali": false,
+      "Portuguese": false,
+      "Russian": false,
+      "Japanese": false,
+      "Vietnamese": false,
+    },
+    "Event Settings": {
+      "Poly Time": true,
+    },
+    "Calendar Settings": {
+      "Default View": "Monthly", // Default to Monthly
+    },
+    "Colors": {
+      "Default": false,
+      "Random": false,
+    },
+    "Text": {
+      "Bold Text": false,
+      "Large Text": false,
+    },
+    "Secret Settings": {
+      "Secret Setting 1": false,
+      "Secret Setting 2": false,
+    }
+  });
+}*/
 
 function Settings(props) {
     const [selectedOption, setSelectedOption] = useState("Language & Region");
@@ -82,6 +117,26 @@ function Settings(props) {
           document.body.classList.remove("bold-text");
         }
     }, [settings.bold]);
+
+  /* Reload the page when the component is first mounted 
+  useEffect(() => {
+    if (!sessionStorage.getItem("reloaded")) {
+      sessionStorage.setItem("reloaded", "true");
+      window.location.reload();
+    } else {
+      sessionStorage.removeItem("reloaded");
+    }
+  }, []);*/
+
+  /* Activates or deactivates bold text 
+  useEffect(() => {
+    if (settings.Text["Bold Text"]) {
+      document.body.classList.add("bold-text");
+    } else {
+      document.body.classList.remove("bold-text");
+    }
+  }, [settings.Text["Bold Text"]]);
+*/
 
     const handleDropdownChange = (option, event) => {
         const selectedValue = event.target.value;
@@ -170,5 +225,35 @@ function Settings(props) {
         </div>
     );
 }
+
+  /* Component Layout 
+  return (
+    <div className="page-container">
+      <div className="settings-box">
+\        <div className="settings-bar"></div>
+
+\        <div className="settings-header">Settings</div>
+        <div className="settings-buttons-options">
+\          <div className="settings-buttons">
+            {Object.keys(settings).map((option) => (
+              <button
+                key={option}
+                className={`settings-button ${selectedOption === option ? "active" : ""}`}
+                onClick={() => setSelectedOption(option)}
+              >
+                <div className="settings-text">{option}</div>
+              </button>
+            ))}
+          </div>
+
+\          <div className="settings-options">
+            <div className="settings-option">{renderOptionContent()}</div>
+          </div>
+        </div>
+      </div>
+      <Translate /> \
+    </div>
+  );
+};*/
 
 export default Settings;
