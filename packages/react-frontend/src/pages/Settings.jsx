@@ -41,6 +41,7 @@ function Settings(props) {
     },
     "Text": {
       "Bold Text": false,
+      "Large Text": false,
     },
     "Secret Settings": {
       "Secret Setting 1": false,
@@ -61,7 +62,67 @@ function Settings(props) {
       });
   }, []);
 
-  function toggleCheck(option, settingKey) {
+  useEffect(() => {
+    if (settings.Text["Bold Text"]) {
+      document.body.classList.add("bold-text");
+    } else {
+      document.body.classList.remove("bold-text");
+    }
+  }, [settings.Text["Bold Text"]]);
+
+  const handleDropdownChange = (option, event) => {
+    const selectedValue = event.target.value;
+    setSettings((prevSettings) => {
+      const updatedSettings = { ...prevSettings };
+      Object.keys(updatedSettings[option]).forEach((key) => {
+        updatedSettings[option][key] = key === selectedValue;
+      });
+
+      if (option === "Language & Region") {
+        const languageCode = languageOptions[selectedValue];
+        const googleTranslateElement = document.querySelector(".goog-te-combo");
+        if (googleTranslateElement) {
+          googleTranslateElement.value = languageCode;
+          setTimeout(() => {
+            googleTranslateElement.dispatchEvent(new Event("change"));
+          }, 0); // Trigger change event after setting the value
+        }
+      }
+
+      if (option === "Calendar Settings") {
+        updatedSettings[option]["Default View"] = selectedValue;
+      }
+
+      return updatedSettings;
+    });
+
+    const flatSettings = flattenSettings(settings, props.userId);
+    const settingToUpdate = props.settings.find((setting) => setting._id === selectedValue);
+    if (!settingToUpdate) {
+      props.postSetting(flatSettings)
+        .then((newItemResponseJson) => {
+          props.setSettings((prevSettings) => [...prevSettings, newItemResponseJson]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      props.putSetting(selectedValue, flatSettings)
+        .then((updatedSettingResponse) => {
+          props.setSettings(
+            props.settings.map((setting) =>
+              setting._id === selectedValue ? updatedSettingResponse : setting
+            )
+          );
+        })
+        .catch((error) => {
+          props.setMessage(`Update Error: ${error.message}`);
+          console.log(error);
+        });
+    }
+  };
+
+  const toggleCheck = (option, settingKey) => {
     const updatedSettings = {
       ...settings,
       [option]: {
@@ -69,7 +130,7 @@ function Settings(props) {
         [settingKey]: !settings[option][settingKey]
       }
     };
-    
+
     setSettings(updatedSettings);
 
     const flatSettings = flattenSettings(updatedSettings, props.userId);
@@ -96,28 +157,6 @@ function Settings(props) {
           console.log(error);
         });
     }
-  }
-
-  useEffect(() => {
-    if (settings.Text["Bold Text"]) {
-      document.body.classList.add("bold-text");
-    } else {
-      document.body.classList.remove("bold-text");
-    }
-  }, [settings.Text["Bold Text"]]);
-
-  const handleDropdownChange = (option, event) => {
-    const selectedValue = event.target.value;
-    setSettings((prevSettings) => {
-      const newSettings = Object.keys(prevSettings[option]).reduce((acc, key) => {
-        acc[key] = key === selectedValue;
-        return acc;
-      }, {});
-      return {
-        ...prevSettings,
-        [option]: newSettings,
-      };
-    });
   };
 
   const renderOptionContent = () => {
