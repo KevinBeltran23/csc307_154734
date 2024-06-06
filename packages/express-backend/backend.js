@@ -8,7 +8,7 @@ import Service from "./services.js";
 import { registerUser, loginUser, authenticateUser } from "./auth.js";
 
 const app = express();
-// const port = 8000;
+const port = 8000;
 
 var process = {
     env: {}
@@ -37,7 +37,7 @@ app.use((req, res, next) => {
 });
 
 // can listen at azure port or at localhost 8000
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || port, () => {
     console.log(`REST API is listening.`);
 });
 
