@@ -16,6 +16,7 @@ var process = {
 
 const corsOptions = {
     origin: "https://green-sand-07ee7761e.5.azurestaticapps.net",
+    credentials: true,
     optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
