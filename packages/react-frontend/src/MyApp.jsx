@@ -16,20 +16,20 @@ import PrivateRoute from "./PrivateRoute";
 function MyApp() {
     // important variables
     const INVALID_TOKEN = "INVALID_TOKEN";
-    const [token, setToken] = useState(
+    var [token, setToken] = useState(
         localStorage.getItem("token") || INVALID_TOKEN
     );
-    const [userId, setUserId] = useState(localStorage.getItem("userId") || 0);
-    const [message, setMessage] = useState("");
-    const [isAuthenticated, setIsAuthenticated] = useState(
+    var [userId, setUserId] = useState(localStorage.getItem("userId") || 0);
+    var [message, setMessage] = useState("");
+    var [isAuthenticated, setIsAuthenticated] = useState(
         localStorage.getItem("isAuthenticated") === "true"
     );
 
-    const [items, setItems] = useState([]);
-    const [events, setEvents] = useState([]);
-    const [calendars, setCalendars] = useState([]);
-    const [classes, setClasses] = useState([]);
-    const [settings, setSettings] = useState([]);
+    var [items, setItems] = useState([]);
+    var [events, setEvents] = useState([]);
+    var [calendars, setCalendars] = useState([]);
+    var [classes, setClasses] = useState([]);
+    var [settings, setSettings] = useState([]);
 
     // other stuff
 
@@ -64,7 +64,7 @@ function MyApp() {
 
     function fetchSettings() {
         const promise = fetch(
-            `http://localhost:8000/settings?user=${userId}`,
+            `http://localhost:8000/user/:${userId}`,
             {
                 method: "GET",
                 headers: addAuthHeader()
@@ -135,6 +135,7 @@ function MyApp() {
                         setToken(payload.token);
                         setIsAuthenticated(true);
                         setUserId(payload.userId);
+                        setSettings(creds);
                         setMessage(`Login successful; auth token saved`);
                         return true; // Indicate success
                     });
@@ -166,6 +167,7 @@ function MyApp() {
                         setToken(payload.token);
                         setIsAuthenticated(true);
                         setUserId(payload.userId);
+                        setSettings(creds);
                         setMessage(
                             `Signup successful for user: ${creds.username}; auth token saved`
                         );
@@ -850,6 +852,7 @@ function MyApp() {
                                 putItem={putItem}
                                 deleteItem={deleteItem}
                                 fetchItems={fetchItems}
+                                settings={settings}
                             />
                         }
                     />

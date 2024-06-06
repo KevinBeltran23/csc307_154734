@@ -17,62 +17,36 @@ const languageOptions = {
 
 function Settings(props) {
   const [selectedOption, setSelectedOption] = useState("Language & Region");
-  const [settings, setSettings] = useState({
-    "Language & Region": {
-      "Mandarin Chinese": false,
-      "Spanish": false,
-      "English": true, // Default to English
-      "Hindi": false,
-      "Bengali": false,
-      "Portuguese": false,
-      "Russian": false,
-      "Japanese": false,
-      "Vietnamese": false,
-    },
-    "Event Settings": {
-      "Poly Time": true,
-    },
-    "Calendar Settings": {
-      "Default View": "Monthly", // Default to Monthly
-    },
-    "Colors": {
-      "Default": false,
-      "Random": false,
-    },
-    "Text": {
-      "Bold Text": false,
-      "Large Text": false,
-    },
-    "Secret Settings": {
-      "Secret Setting 1": false,
-      "Secret Setting 2": false,
-    }
-  });
 
   useEffect(() => {
+    console.log(props.settings);
+  }, []);
+
+  useEffect(() => {
+    console.log(props.settings);
     props.fetchSettings()
       .then((res) => res.json())
       .then((json) => {
-        const settings = json.settings_list;
+        const settings = json.result;
         props.setSettings(settings);
       })
       .catch((error) => {
         console.log(error);
         props.setMessage(`Fetch Error: ${error.message}`);
       });
-  }, []);
+  }, [props.settings]);
 
   useEffect(() => {
-    if (settings.Text["Bold Text"]) {
+    if (props.settings.bold) {
       document.body.classList.add("bold-text");
     } else {
       document.body.classList.remove("bold-text");
     }
-  }, [settings.Text["Bold Text"]]);
+  }, [props.settings.bold]);
 
   const handleDropdownChange = (option, event) => {
     const selectedValue = event.target.value;
-    setSettings((prevSettings) => {
+    props.setSettings((prevSettings) => {
       const updatedSettings = { ...prevSettings };
       Object.keys(updatedSettings[option]).forEach((key) => {
         updatedSettings[option][key] = key === selectedValue;
@@ -96,7 +70,7 @@ function Settings(props) {
       return updatedSettings;
     });
 
-    const flatSettings = flattenSettings(settings, props.userId);
+    const flatSettings = flattenSettings(props.settings, props.userId);
     const settingToUpdate = props.settings.find((setting) => setting._id === selectedValue);
     if (!settingToUpdate) {
       props.postSetting(flatSettings)
@@ -124,14 +98,14 @@ function Settings(props) {
 
   const toggleCheck = (option, settingKey) => {
     const updatedSettings = {
-      ...settings,
+      ...props.settings,
       [option]: {
-        ...settings[option],
-        [settingKey]: !settings[option][settingKey]
+        ...props.settings[option],
+        [settingKey]: !props.settings[option][settingKey]
       }
     };
 
-    setSettings(updatedSettings);
+    props.setSettings(updatedSettings);
 
     const flatSettings = flattenSettings(updatedSettings, props.userId);
     const settingToUpdate = props.settings.find((setting) => setting._id === settingKey);
@@ -159,57 +133,67 @@ function Settings(props) {
     }
   };
 
-  const renderOptionContent = () => {
-    switch (selectedOption) {
-      case "Language & Region":
-        return (
-          <div>
-            <label className="settings-label">
-              Select Language:
-              <select
-                value={Object.keys(settings["Language & Region"]).find(key => settings["Language & Region"][key]) || "English"}
-                onChange={(event) => handleDropdownChange("Language & Region", event)}
-              >
-                {Object.keys(languageOptions).map((language) => (
-                  <option key={language} value={language}>
-                    {language}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-        );
-      case "Calendar Settings":
-        return (
-          <div>
-            <label className="settings-label">
-              Default View:
-              <select
-                value={settings["Calendar Settings"]["Default View"]}
-                onChange={(event) => handleDropdownChange("Calendar Settings", event)}
-              >
-                <option value="Monthly">Monthly</option>
-                <option value="Weekly">Weekly</option>
-              </select>
-            </label>
-          </div>
-        );
-      default:
-        return (
-          <div>
-            {Object.keys(settings[selectedOption]).map((setting) => (
-              <label key={setting} className="settings-label">
-                <input
-                  type="checkbox"
-                  checked={settings[selectedOption][setting]}
-                  onChange={() => toggleCheck(selectedOption, setting)}
-                />
-                {setting}
+  const renderOptionContent = ({ selectedOption, props, handleDropdownChange, toggleCheck }) => {
+    const [content, setContent] = useState(null);
+  
+    useEffect(() => {
+      // Render the content once props.settings has been updated
+      switch (selectedOption) {
+        case "Language & Region":
+          setContent(
+            <div>
+              <label className="settings-label">
+                Select Language:
+                <select
+                  value={Object.keys(props.settings["Language & Region"]).find(key => props.settings["Language & Region"][key]) || "English"}
+                  onChange={(event) => handleDropdownChange("Language & Region", event)}
+                >
+                  {Object.keys(languageOptions).map((language) => (
+                    <option key={language} value={language}>
+                      {language}
+                    </option>
+                  ))}
+                </select>
               </label>
-            ))}
-          </div>
-        );
-    }
+            </div>
+          );
+          break;
+        case "Calendar Settings":
+          setContent(
+            <div>
+              <label className="settings-label">
+                Default View:
+                <select
+                  value={props.settings["Calendar Settings"]["Default View"]}
+                  onChange={(event) => handleDropdownChange("Calendar Settings", event)}
+                >
+                  <option value="Monthly">Monthly</option>
+                  <option value="Weekly">Weekly</option>
+                </select>
+              </label>
+            </div>
+          );
+          break;
+        default:
+          setContent(
+            <div>
+              {Object.keys(props.settings[selectedOption]).map((setting) => (
+                <label key={setting} className="settings-label">
+                  <input
+                    type="checkbox"
+                    checked={props.settings[selectedOption][setting]}
+                    onChange={() => toggleCheck(selectedOption, setting)}
+                  />
+                  {setting}
+                </label>
+              ))}
+            </div>
+          );
+          break;
+      }
+    }, [selectedOption, props.settings]);
+  
+    return content;
   };
 
   const flattenSettings = (nestedSettings, userId) => {
@@ -231,7 +215,7 @@ function Settings(props) {
         <div className="settings-header">Settings</div>
         <div className="settings-buttons-options">
           <div className="settings-buttons">
-            {Object.keys(settings).map((option) => (
+            {Object.keys(props.settings).map((option) => (
               <button
                 key={option}
                 className={`settings-button ${selectedOption === option ? "active" : ""}`}

@@ -438,7 +438,7 @@ app.get("/users/:id", authenticateUser, (req, res) => {
             if (!result) {
                 res.status(404).send("Resource not found.");
             } else {
-                res.send(result);
+                res.send({ result: result });
             }
         })
         .catch((error) => {
