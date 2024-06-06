@@ -23,6 +23,19 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
+app.use((req, res, next) => {
+    res.setHeader(
+        "Access-Control-Allow-Origin",
+        "https://green-sand-07ee7761e.5.azurestaticapps.net"
+    );
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader(
+        "Access-Control-Allow-Headers",
+        "Content-Type, Authorization"
+    );
+    next();
+});
+
 // can listen at azure port or at localhost 8000
 app.listen(process.env.PORT || port, () => {
     console.log(`REST API is listening.`);
