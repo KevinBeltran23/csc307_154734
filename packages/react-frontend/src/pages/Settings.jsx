@@ -63,6 +63,7 @@ function Settings(props) {
       polytime: true,
       secret_setting1: "",
       secret_setting2: "",
+      user: props.userId
     });
 
   useEffect(() => {
@@ -77,42 +78,42 @@ function Settings(props) {
             props.setMessage(`Fetch Error: ${error.message}`);
         });
     }, []);
-
-    function editSetting(settingId) {
-        const updatedSetting = {
-            ...settings.find((setting) => setting._id === settingId),
-            ...updatedFields,
-            user: props.userId,
-          };
-
-        props.putSetting(settingId, updatedSetting) // Pass itemId and updatedItem separately
-            .then((updatedItemResponseJson) => {
-                props.setSettings(
-                    settings.map((setting) =>
-                        setting._id === settingId ? updatedItemResponseJson : setting
-                    )
-                );
-            })
-            .catch((error) => {
-                setMessage(`Update Error: ${error.message}`);
-                console.log(error);
+ 
+    function toggleCheck(settingId) {
+        const settingToUpdate = props.settings.find((setting) => setting._id === settingId);
+        if (!settingToUpdate){
+            const updatedSetting = {
+                language: "en",
+                bold: false,
+                large: false,
+                default_view: "Monthly",
+                polytime: true,
+                secret_setting1: "",
+                secret_setting2: "",
+                user: props.userId
+            }
+            props.postSetting(updatedSetting)
+                .then((newItemResponseJson) => {
+                    props.setSettings((prevSetting) => [...prevSetting, newItemResponseJson]);
+                    setSettings(updatedSetting);
+                })
+                .catch((error) => {
+                    console.log(error);
             });
-    }
 
-    function toggleCheck(itemId) {
-        const itemToUpdate = props.items.find((item) => item._id === itemId);
-        const updatedItem = {
-            ...itemToUpdate,
-            checked: !itemToUpdate.checked,
-            user: props.userId // Ensure the user ID is included
-        };
-
-        putItem(itemId, updatedItem) // Pass itemId and updatedItem separately
-            .then((updatedItemResponseJson) => {
-                props.setItems(
-                    props.items
-                        .map((item) =>
-                            item._id === itemId ? updatedItemResponseJson : item
+        } else {
+            const updatedSetting = {
+                ...settingToUpdate,
+                checked: !settingToUpdate.checked,
+                user: props.userId // Ensure the user ID is included
+            };
+            
+            props.putSetting(settingId, updatedSetting) // Pass itemId and updatedItem separately
+            .then((updatedSettingResponse) => {
+                props.setSettings(
+                    props.settings
+                        .map((setting) =>
+                            setting._id === settingId ? updatedSettingResponse : setting
                         )
                         .sort(
                             (a, b) => new Date(a.duedate) - new Date(b.duedate)
@@ -123,12 +124,12 @@ function Settings(props) {
                 setMessage(`Update Error: ${error.message}`);
                 console.log(error);
             });
+        }
     }
 
     useEffect(() => {
         if (settings.bold) {
           document.body.classList.add("bold-text");
-          //editSetting()
         } else {
           document.body.classList.remove("bold-text");
         }
@@ -192,7 +193,7 @@ function Settings(props) {
                     <input
                       type="checkbox"
                       checked={settings[setting]}
-                      onChange={() => handleCheckboxChange(setting)}
+                      onChange={() => toggleCheck(setting)}
                     />
                     {setting}
                   </label>

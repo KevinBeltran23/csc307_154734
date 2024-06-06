@@ -76,23 +76,6 @@ app.get("/weekly", authenticateUser, (req, res) => {
     // get all the information for the weekly calendar for a user
 });
 
-
-// translate
-
-app.get('/translate', async (req, res) => {
-    try {
-      // Make a request to the Google Translate API
-      const response = await fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=hello');
-      const translationData = await response.json();
-  
-      // Send the translated data back to the client
-      res.json(translationData);
-    } catch (error) {
-      console.error('Error translating text:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
-});
-
 // settings
 
 app.get("/settings", authenticateUser, (req, res) => {
@@ -112,7 +95,7 @@ app.get("/settings", authenticateUser, (req, res) => {
 app.post("/settings", authenticateUser, (req, res) => {
     const settingToAdd = req.body;
 
-    Service.addTodoItem(settingToAdd)
+    Service.addSetting(settingToAdd)
         .then((addedSetting) => {
             res.status(201).json(addedSetting);
         })
