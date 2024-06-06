@@ -63,62 +63,45 @@ function MyApp() {
     // fetch calls
 
     function fetchSettings() {
-        const promise = fetch(
-            `http://localhost:8000/settings?user=${userId}`,
-            {
-                method: "GET",
-                headers: addAuthHeader()
-            }
-        );
+        const promise = fetch(`http://localhost:8000/settings?user=${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
         return promise;
     }
 
     function fetchItems() {
-        const promise = fetch(
-            `http://localhost:8000/todo?user=${userId}`,
-            {
-                method: "GET",
-                headers: addAuthHeader()
-            }
-        );
+        const promise = fetch(`http://localhost:8000/todo?user=${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
         return promise;
     }
 
     function fetchEvents() {
-        const promise = fetch(
-            `http://localhost:8000/event?user=${userId}`,
-            {
-                method: "GET",
-                headers: addAuthHeader()
-            }
-        );
+        const promise = fetch(`http://localhost:8000/event?user=${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
         return promise;
     }
 
-        
     function fetchClasses() {
-        const promise = fetch(
-            `http://localhost:8000/class?user=${userId}`,
-            {
-                method: "GET",
-                headers: addAuthHeader()
-            }
-        );
+        const promise = fetch(`http://localhost:8000/class?user=${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
         return promise;
     }
 
     function fetchCalendars() {
-        const promise = fetch(
-            `http://localhost:8000/calendar?user=${userId}`,
-            {
-                method: "GET",
-                headers: addAuthHeader()
-            }
-        );
+        const promise = fetch(`http://localhost:8000/calendar?user=${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
         return promise;
     }
 
-    
     // login and signup api calls
 
     function loginUser(creds) {
@@ -195,7 +178,10 @@ function MyApp() {
     function updateSettings(newSetting) {
         postSetting(newSetting)
             .then((newSettingJson) => {
-                setSettings((prevSettings) => [...prevSettings, newSettingJson]);
+                setSettings((prevSettings) => [
+                    ...prevSettings,
+                    newSettingJson
+                ]);
             })
             .catch((error) => {
                 console.log(error);
@@ -213,7 +199,9 @@ function MyApp() {
             .then((updatedItemResponseJson) => {
                 setSettings(
                     settings.map((setting) =>
-                        setting._id === settingId ? updatedItemResponseJson : setting
+                        setting._id === settingId
+                            ? updatedItemResponseJson
+                            : setting
                     )
                 );
                 //setTodoEditing(null);
@@ -224,7 +212,7 @@ function MyApp() {
                 console.log(error);
             });
     }
-      
+
     function postSetting(setting) {
         const promise = fetch("http://localhost:8000/settings", {
             method: "POST",
@@ -319,7 +307,7 @@ function MyApp() {
                 console.log(error);
             });
     }
-    
+
     function postItem(item) {
         const promise = fetch("http://localhost:8000/todo", {
             method: "POST",
@@ -407,7 +395,10 @@ function MyApp() {
     function updateEvents(newEvent) {
         postEvent(newEvent)
             .then((newEventResponseJson) => {
-                setEvents((prevEvents) => [...prevEvents, newEventResponseJson]);
+                setEvents((prevEvents) => [
+                    ...prevEvents,
+                    newEventResponseJson
+                ]);
                 console.log(events);
             })
             .catch((error) => {
@@ -482,7 +473,8 @@ function MyApp() {
                     console.log("Resource not found.");
                 } else {
                     throw new Error(
-                        "Failed to delete event. Status code: " + response.status
+                        "Failed to delete event. Status code: " +
+                            response.status
                     );
                 }
             })
@@ -525,7 +517,10 @@ function MyApp() {
     function updateClasses(newClass) {
         postClass(newClass)
             .then((newClassResponseJson) => {
-                setClasses((prevClasses) => [...prevClasses, newClassResponseJson]);
+                setClasses((prevClasses) => [
+                    ...prevClasses,
+                    newClassResponseJson
+                ]);
             })
             .catch((error) => {
                 console.log(error);
@@ -593,7 +588,9 @@ function MyApp() {
             .then((response) => {
                 if (response.status === 204) {
                     // Filter out the class with the specified _id and update the classes list
-                    const updated = calendars.filter((clas) => clas._id !== _id);
+                    const updated = calendars.filter(
+                        (clas) => clas._id !== _id
+                    );
                     setClasses(updated);
                 } else if (response.status === 404) {
                     console.log("Resource not found.");
@@ -642,7 +639,10 @@ function MyApp() {
     function updateCalendars(newCalendar) {
         postCalendar(newCalendar)
             .then((newCalendarJson) => {
-                setCalendars((prevCalendars) => [...prevCalendars, newCalendarJson]);
+                setCalendars((prevCalendars) => [
+                    ...prevCalendars,
+                    newCalendarJson
+                ]);
                 console.log(calendars);
             })
             .catch((error) => {
@@ -661,7 +661,9 @@ function MyApp() {
             .then((updatedCalendarResponseJson) => {
                 setCalendars(
                     calendars.map((calendar) =>
-                        calendar._id === calendarId ? updatedCalendarResponseJson : calendar
+                        calendar._id === calendarId
+                            ? updatedCalendarResponseJson
+                            : calendar
                     )
                 );
                 //setTodoEditing(null);
@@ -711,7 +713,9 @@ function MyApp() {
             .then((response) => {
                 if (response.status === 204) {
                     // Filter out the calendar with the specified _id and update the items list
-                    const updated = calendars.filter((calendar) => calendar._id !== _id);
+                    const updated = calendars.filter(
+                        (calendar) => calendar._id !== _id
+                    );
                     setCalendars(updated);
                 } else if (response.status === 404) {
                     console.log("Resource not found.");
@@ -794,7 +798,6 @@ function MyApp() {
                                 fetchSettings={fetchSettings}
                                 settings={settings}
                                 setSettings={setSettings}
-
                                 items={items}
                                 setItems={setItems}
                                 postItem={postItem}
@@ -802,7 +805,6 @@ function MyApp() {
                                 deleteItem={deleteItem}
                                 fetchItems={fetchItems}
                                 updateItems={updateItems}
-
                                 events={events}
                                 setEvents={setEvents}
                                 postEvent={postEvent}
@@ -811,7 +813,6 @@ function MyApp() {
                                 fetchEvents={fetchEvents}
                                 updateEvents={updateEvents}
                                 editEvent={editEvent}
-
                                 calendars={calendars}
                                 setCalendars={setCalendars}
                                 postCalendar={postCalendar}
@@ -820,7 +821,6 @@ function MyApp() {
                                 fetchCalendars={fetchCalendars}
                                 updateCalendars={updateCalendars}
                                 editCalendar={editCalendar}
-
                                 classes={classes}
                                 setClasses={setClasses}
                                 postClass={postClass}
@@ -866,7 +866,6 @@ function MyApp() {
                                 fetchSettings={fetchSettings}
                                 settings={settings}
                                 setSettings={setSettings}
-                                
                                 items={items}
                                 setItems={setItems}
                                 postItem={postItem}
@@ -874,7 +873,6 @@ function MyApp() {
                                 deleteItem={deleteItem}
                                 fetchItems={fetchItems}
                                 updateItems={updateItems}
-
                                 events={events}
                                 setEvents={setEvents}
                                 postEvent={postEvent}
@@ -883,7 +881,6 @@ function MyApp() {
                                 fetchEvents={fetchEvents}
                                 updateEvents={updateEvents}
                                 editEvent={editEvent}
-
                                 calendars={calendars}
                                 setCalendars={setCalendars}
                                 postCalendar={postCalendar}
@@ -892,7 +889,6 @@ function MyApp() {
                                 fetchCalendars={fetchCalendars}
                                 updateCalendars={updateCalendars}
                                 editCalendar={editCalendar}
-
                                 classes={classes}
                                 setClasses={setClasses}
                                 postClass={postClass}
@@ -915,7 +911,6 @@ function MyApp() {
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
                                 userId={userId}
-
                                 settings={settings}
                                 setSettings={setSettings}
                                 postSetting={postSetting}
