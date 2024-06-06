@@ -3,8 +3,15 @@ import { useNavigate } from "react-router-dom";
 import "../components/ToDo.css";
 import Clock from "./Clock";
 import Dropdown from "./Dropdown";
+import {
+    format,
+} from "date-fns";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 function ToDo(props) {
+    const [activeDate, setActiveDate] = useState(new Date());
+
+
     const [item, setItem] = useState({
         duedate: "",
         contents: "",
@@ -30,8 +37,8 @@ function ToDo(props) {
     const todoButtons = [];
     const spacing = 75 / (totalBoxes + 1); // Calculate spacing based on total number of boxes
     for (let i = 1; i <= totalBoxes; i++) {
-        const topValueBoxes = 16 + (spacing * i) + "%"; // Calculate the top value dynamically
-        const topValueButtons = 16.5 + (spacing * i) + "%"; // Calculate the top value dynamically
+        const topValueBoxes = 20 + (spacing * i) + "%"; // Calculate the top value dynamically
+        const topValueButtons = 20.75 + (spacing * i) + "%"; // Calculate the top value dynamically
         todoBoxes.push(<div key={i} className={`todo-box todo-box-${i}`} style={{ top: topValueBoxes }}></div>);
         todoButtons.push(<div key={i} className={`todo-button todo-button-${i}`} style={{ top: topValueButtons }}></div>);
     }
@@ -185,6 +192,35 @@ function ToDo(props) {
                 {" "}
                 Log Out{" "}
             </button>
+
+            <div className="calendar-dropdown-container">
+                <div className="dropdown-rectangle">
+                    <div className="dropdown-button-frame">
+                        <div className="calendar-todo-dropdown">
+                            {Dropdown(props, cal_lst)}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="todo-dropdown-container">
+                <div className="dropdown-rectangle">
+                    <div className="dropdown-button-frame">
+                        <div className="calendar-todo-dropdown">
+                            {Dropdown(props, todo_lst)}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="currentDay">
+                {format(activeDate, "MMMM dd yyyy")}
+            </div>
+
+            <AiOutlineLeft className="TodoNavIcon TodoNavIcon-left" />
+            <AiOutlineRight className="TodoNavIcon TodoNavIcon-right" />
+
+
+
             <div className="the-clock">
                 <Clock />
             </div>
@@ -204,32 +240,29 @@ function ToDo(props) {
             </button>
 
             <div className="main-rect"></div>
-
-            <div className="add-task">Add a task</div>
             {todoBoxes}
             {todoButtons}
 
 
-            <div className="entry">
+            <div className="todo-entry">
                 <form onSubmit={(event) => updateItems(event, item)}>
-                    <div className="textEntry">
-                        <input
-                            type="text"
-                            name="contents"
-                            onChange={handleChange}
-                            value={item.contents}
-                            style={{ fontSize: "18px" }}
-                            placeholder="Contents"
-                        />
-                        <input
-                            type="date"
-                            name="duedate"
-                            onChange={handleChange}
-                            value={item.duedate}
-                            placeholder="Due date"
-                        />
-                        <button type="submit">Add Todo</button>
-                    </div>
+                    <input
+                        type="text"
+                        name="contents"
+                        onChange={handleChange}
+                        value={item.contents}
+                        className="contents-input"
+                        placeholder="Contents"
+                    />
+                    <input
+                        type="date"
+                        name="duedate"
+                        onChange={handleChange}
+                        value={item.duedate}
+                        className="duedate-input"
+                        placeholder="Due date"
+                    />
+                    <button type="submit" className="add-todo-button">Add Todo</button>
                 </form>
             </div>
 
