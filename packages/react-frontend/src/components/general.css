@@ -318,9 +318,6 @@ button {
     /* Change the color of the arrow */
 }
 
-
-
-
 .settings-frame {
     position: absolute;
     cursor: pointer;
@@ -336,7 +333,6 @@ button {
     /* Set background color to white */
     border: 1px solid #000000;
 }
-
 
 .gear {
     position: absolute;
@@ -430,6 +426,7 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: start;
     flex-wrap: nowrap;
     position: absolute;
     width: 7%;
@@ -440,8 +437,6 @@ button {
     background: #ffffff;
     border: 1px solid #000000;
     z-index: 12;
-
-
     font-family: JosefinSans, var(--default-font-family);
     font-size: calc(0.7vw + 0.7vh);
 }

@@ -194,7 +194,9 @@ function Monthly(props) {
             <div className="the-clock">
                 <Clock />
             </div>
+
             <div className="create-dropdown">{Dropdown(props, create_lst)}</div>
+
             <button className="change-view-frame" onClick={handleWeekly}>
                 <span className="change-view">Weekly View</span>
             </button>
