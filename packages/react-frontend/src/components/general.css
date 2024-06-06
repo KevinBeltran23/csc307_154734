@@ -3,10 +3,12 @@
     src: url(Josefin-Sans-regular.woff);
 }
 
+
 body {
     background-color: #98c9b0;
     font-family: JosefinSans;
 }
+
 
 h1 {
     color: var(--Poly-Green, #154734);
@@ -16,12 +18,14 @@ h1 {
     line-height: normal;
 }
 
+
 :root {
     --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
         "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
         "Source Han Sans CN", sans-serif;
 }
+
 
 input,
 select,
@@ -30,6 +34,7 @@ button {
     outline: 0;
 }
 
+
 /* CalendarSquare */
 .calendar-container {
     display: grid;
@@ -37,12 +42,13 @@ button {
     height: 80%;
     grid-template-columns: repeat(7, 1fr);
     position: absolute;
-    background: #dfdfdb;
+    background: #DFDFDB;
     border: 1px solid #154734;
     border-radius: 20px;
     top: 17%;
     left: 20%;
 }
+
 
 .logout {
     display: inline-block;
@@ -52,9 +58,10 @@ button {
     background: var(--White, #ffffff);
     text-align: center;
     cursor: pointer;
-    align-self: center;
-    /* Adjust vertical position as needed */
+    align-self: center
+        /* Adjust vertical position as needed */
 }
+
 
 .days-frame {
     display: flex;
@@ -71,6 +78,7 @@ button {
     z-index: 90;
 }
 
+
 .days-header {
     font-size: calc(1.4vw + 1.4vh);
     /* Adjust as needed */
@@ -84,6 +92,7 @@ button {
     /* Allow the items to grow and take up equal space */
 }
 
+
 /* Dropdowns */
 .calendar-dropdown-container {
     display: flex;
@@ -96,10 +105,13 @@ button {
     box-sizing: border-box;
     width: 8%;
     height: 38%;
-    background: #dfdfdb;
+    background: #DFDFDB;
     border: 2px solid #154734;
     border-radius: 24px;
+
+
 }
+
 
 .todo-dropdown-container {
     display: flex;
@@ -112,12 +124,13 @@ button {
     box-sizing: border-box;
     width: 8%;
     height: 38%;
-    background: #dfdfdb;
+    background: #DFDFDB;
     border: 2px solid #154734;
     border-radius: 24px;
     flex: none;
     flex-grow: 0;
 }
+
 
 .calendars-text {
     display: flex;
@@ -131,9 +144,11 @@ button {
     font-size: calc(0.7vw + 0.7vh);
     /* Adjust as needed */
 
+
     white-space: nowrap;
     z-index: 51;
 }
+
 
 .todo-text {
     display: flex;
@@ -147,9 +162,11 @@ button {
     font-size: calc(0.7vw + 0.7vh);
     /* Adjust as needed */
 
+
     white-space: nowrap;
     z-index: 51;
 }
+
 
 .header {
     display: flex;
@@ -165,6 +182,7 @@ button {
     left: 16%;
 }
 
+
 .todayButton {
     display: inline-block;
     box-sizing: border-box;
@@ -175,36 +193,42 @@ button {
     background: var(--White, #ffffff);
     text-align: center;
     cursor: pointer;
-    align-self: center;
-    /* Adjust vertical position as needed */
+    align-self: center
+        /* Adjust vertical position as needed */
 }
 
+
 .today {
-    background: #789f90;
+    background: #789F90;
     border-radius: 50%;
 }
+
 
 .navIcon {
     display: inline-block;
     width: 3.5%;
     height: 3.5%;
-    fill: var(--Stadium-Gold, #f8e08e);
+    fill: var(--Stadium-Gold, #F8E08E);
     stroke-width: 1px;
     stroke: #000;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.50));
 }
 
+
 .navIcon:hover {
-    fill: #dfdfdb;
+    fill: #DFDFDB;
     cursor: pointer;
 }
+
 
 .currentMonth {
     color: var(--Poly-Green, #154734);
     box-sizing: border-box;
     display: inline-block;
-    font-size: calc(2.5vw + 2.5vh); /* Adjust as needed */
+    font-size: calc(2.5vw + 2.5vh);
+    /* Adjust as needed */
 }
+
 
 .change-view-frame {
     display: flex;
@@ -222,6 +246,7 @@ button {
     z-index: 12;
 }
 
+
 .todo-view-frame {
     display: flex;
     align-items: center;
@@ -238,6 +263,7 @@ button {
     z-index: 12;
 }
 
+
 .change-view {
     flex-shrink: 0;
     flex-basis: auto;
@@ -251,11 +277,13 @@ button {
     z-index: 13;
 }
 
+
 .the-clock {
     position: absolute;
     left: 86%;
     top: 1.5%;
     font-size: calc(1.8vw + 1.8vh);
+
 
     /* identical to box height */
     display: flex;
@@ -264,28 +292,34 @@ button {
     color: #000000;
 }
 
+
 .change-view-frame:hover,
 .todo-view-frame:hover,
 .settings-frame:hover,
 .todayButton:hover,
 .logout:hover {
-    background: #dfdfdb;
+    background: #DFDFDB;
 }
+
 
 .download-frame:hover {
     background: #f8f8f821;
 }
 
+
 .dropdown-arrow {
-    width: calc(0.5vw + 0.5vh);
+    width: calc(.5vw + .5vh);
     /* Default width */
-    height: calc(0.5vw + 0.5vh);
+    height: calc(.5vw + .5vh);
     /* Default height */
     background: url(../assets/Dropdown_arrow.png) no-repeat center;
     background-size: cover;
     fill: #000;
     /* Change the color of the arrow */
 }
+
+
+
 
 .settings-frame {
     position: absolute;
@@ -303,6 +337,7 @@ button {
     border: 1px solid #000000;
 }
 
+
 .gear {
     position: absolute;
     width: 120%;
@@ -312,6 +347,7 @@ button {
     z-index: 71;
     /* Higher z-index */
 }
+
 
 .download-frame {
     cursor: pointer;
@@ -331,6 +367,7 @@ button {
     z-index: 44;
 }
 
+
 .download-icon {
     width: 100%;
     height: 100%;
@@ -339,15 +376,18 @@ button {
     z-index: 45;
 }
 
+
 .inactiveDay {
     color: #9e9e9e;
 }
+
 
 .selectedDay {
     color: white;
     background: #98c9b0;
     border-radius: 50%;
 }
+
 
 .selected-day-frame {
     margin-top: 3%;
@@ -364,6 +404,7 @@ button {
     /* Adjust font size as needed */
 }
 
+
 .calendar-todo-dropdown #dropdown {
     display: flex;
     align-items: center;
@@ -379,9 +420,11 @@ button {
     border: 1px solid #000000;
     z-index: 12;
 
+
     font-family: JosefinSans, var(--default-font-family);
     font-size: calc(0.7vw + 0.7vh);
 }
+
 
 .create-dropdown #dropdown {
     display: flex;
@@ -398,17 +441,25 @@ button {
     border: 1px solid #000000;
     z-index: 12;
 
+
     font-family: JosefinSans, var(--default-font-family);
     font-size: calc(0.7vw + 0.7vh);
 }
 
+
 #popup {
-    width: 200px;
+    width: 12%;
     z-index: 100;
-    position: relative;
-    left: 325px;
+    position: absolute;
+    left: 84.2%;
+    top: 17%;
+    font-size: calc(0.7vw + 0.7vh);
 }
 
+
 #inputs {
-    width: 110px;
+    width: 6vw;
+    height: 1.5vh;
+
+
 }

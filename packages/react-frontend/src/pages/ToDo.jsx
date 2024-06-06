@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../components/ToDo.css";
-import Clock from "./Clock.jsx";
+import Clock from "./Clock";
+import Dropdown from "./Dropdown";
 
 function ToDo(props) {
     const [item, setItem] = useState({
@@ -24,15 +25,71 @@ function ToDo(props) {
         }));
     }
 
+    const todoBoxes = [];
+    const totalBoxes = 11;
+    const todoButtons = [];
+    const spacing = 75 / (totalBoxes + 1); // Calculate spacing based on total number of boxes
+    for (let i = 1; i <= totalBoxes; i++) {
+        const topValueBoxes = 16 + (spacing * i) + "%"; // Calculate the top value dynamically
+        const topValueButtons = 16.5 + (spacing * i) + "%"; // Calculate the top value dynamically
+        todoBoxes.push(<div key={i} className={`todo-box todo-box-${i}`} style={{ top: topValueBoxes }}></div>);
+        todoButtons.push(<div key={i} className={`todo-button todo-button-${i}`} style={{ top: topValueButtons }}></div>);
+    }
+
+    var create_lst = [
+        { value: "Create", label: "Create" },
+        { value: "Event", label: "Event" },
+        { value: "Class", label: "Class" },
+        { value: "Calendar", label: "Calendar" },
+        { value: "To Do Item", label: "To Do Item" }
+    ];
+
+    var cal_lst = [
+        { value: "Create", label: "Calendars" },
+        { value: "Option 2", label: "Option 2" },
+        { value: "Option 3", label: "Option 3" }
+    ];
+
+    var todo_lst = [
+        { value: "Create", label: "To Do" },
+        { value: "Option 2", label: "Option 2" },
+        { value: "Option 3", label: "Option 3" }
+    ];
+
+    function handleSettings() {
+        // go to settings page
+        navigate("/settings");
+    }
     function handleWeekly() {
         // go to weekly page
         navigate("/weekly");
     }
-
     function handleMonthly() {
         // go to weekly page
         navigate("/monthly");
     }
+    function handleToDo() {
+        // go to todo page
+        navigate("/todo");
+    }
+    function handleCreate() {
+        // create an event
+        // there will be a POST request here to /event
+    }
+    function handleCalendarsDropdown() {
+        // open calendars drop down
+        // there will be a GET request here to /calendars
+    }
+    function handleToDoDropdown() {
+        // open todo dropdown
+        // there will be a GET request here to /todo
+    }
+    function handleClickingOnEvent() {
+        // implement functionality
+        // there will be a GET request here to /event/:id
+    }
+
+
 
     function updateItems(event, newItem) {
         event.preventDefault(); // Prevent form submission from causing a page reload
@@ -126,95 +183,108 @@ function ToDo(props) {
         <>
             <button className="logout" onClick={props.logout}>
                 {" "}
-                Log Out Temporary Button{" "}
+                Log Out{" "}
             </button>
-            <div className="todo-clock">
+            <div className="the-clock">
                 <Clock />
             </div>
-            <div className="todo-header-name"> To Dos </div>
-            <button className="todo-weekly-view-frame" onClick={handleWeekly}>
-                <span className="todo-change-view">Weekly View</span>
+            <div className="create-dropdown">{Dropdown(props, create_lst)}</div>
+            <button className="change-view-frame" onClick={handleWeekly}>
+                <span className="change-view">Weekly View</span>
             </button>
-            <button className="todo-monthly-view-frame" onClick={handleMonthly}>
-                <span className="todo-change-view">Monthly View</span>
+            <button className="todo-view-frame" onClick={handleMonthly}>
+                <span className="change-view">Monthly View</span>
+            </button>
+            <button className="settings-frame" onClick={handleSettings}>
+                {/* <div className='weekly-gear' /> */}
+                <span className="gear"></span>
+            </button>
+            <button className="download-frame">
+                <span className="download-icon"></span>
             </button>
 
-            <div className="ToDo">
-                <div className="entry">
-                    <form onSubmit={(event) => updateItems(event, item)}>
-                        <div className="textEntry">
-                            <input
-                                type="text"
-                                name="contents"
-                                onChange={handleChange}
-                                value={item.contents}
-                                style={{ fontSize: "18px" }}
-                                placeholder="Contents"
-                            />
-                            <input
-                                type="date"
-                                name="duedate"
-                                onChange={handleChange}
-                                value={item.duedate}
-                                placeholder="Due date"
-                            />
-                            <button type="submit">Add Todo</button>
-                        </div>
-                    </form>
-                </div>
+            <div className="main-rect"></div>
 
-                {props.items && props.items.length > 0 ? (
-                    props.items.map((todo) => (
-                        <div key={todo._id}>
-                            {todoEditing === todo._id ? (
-                                <>
-                                    <input
-                                        type="text"
-                                        onChange={(e) =>
-                                            setEditingText(e.target.value)
-                                        }
-                                        value={editingText}
-                                    />
-                                    <button onClick={() => editItem(todo._id)}>
-                                        Submit Edits
-                                    </button>
-                                    <button
-                                        onClick={() => setTodoEditing(null)}
-                                    >
-                                        Cancel
-                                    </button>
-                                </>
-                            ) : (
-                                <>
-                                    {/* this displays the contents and the date to the screen*/}
-                                    <div>{todo.contents}</div>
-                                    <div>{todo.duedate}</div>
+            <div className="add-task">Add a task</div>
+            {todoBoxes}
+            {todoButtons}
 
-                                    <button
-                                        onClick={() => {
-                                            setTodoEditing(todo._id);
-                                            setEditingText(todo.contents);
-                                        }}
-                                    >
-                                        Edit Todo
-                                    </button>
-                                </>
-                            )}
-                            <button onClick={() => props.deleteItem(todo._id)}>
-                                Delete
-                            </button>
 
-                            <input
-                                type="checkbox"
-                                onChange={() => toggleCheck(todo._id)}
-                                checked={todo.checked}
-                            />
-                        </div>
-                    ))
-                ) : (
-                    <p>No items available</p>
-                )}
+            <div className="entry">
+                <form onSubmit={(event) => updateItems(event, item)}>
+                    <div className="textEntry">
+                        <input
+                            type="text"
+                            name="contents"
+                            onChange={handleChange}
+                            value={item.contents}
+                            style={{ fontSize: "18px" }}
+                            placeholder="Contents"
+                        />
+                        <input
+                            type="date"
+                            name="duedate"
+                            onChange={handleChange}
+                            value={item.duedate}
+                            placeholder="Due date"
+                        />
+                        <button type="submit">Add Todo</button>
+                    </div>
+                </form>
             </div>
+
+            {props.items && props.items.length > 0 ? (
+                props.items.map((todo) => (
+                    <div key={todo._id}>
+                        {todoEditing === todo._id ? (
+                            <>
+                                <input
+                                    type="text"
+                                    onChange={(e) =>
+                                        setEditingText(e.target.value)
+                                    }
+                                    value={editingText}
+                                />
+                                <button onClick={() => editItem(todo._id)}>
+                                    Submit Edits
+                                </button>
+                                <button
+                                    onClick={() => setTodoEditing(null)}
+                                >
+                                    Cancel
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                {/* this displays the contents and the date to the screen*/}
+                                <div>{todo.contents}</div>
+                                <div>{todo.duedate}</div>
+
+                                <button
+                                    onClick={() => {
+                                        setTodoEditing(todo._id);
+                                        setEditingText(todo.contents);
+                                    }}
+                                >
+                                    Edit Todo
+                                </button>
+                            </>
+                        )}
+                        <button onClick={() => props.deleteItem(todo._id)}>
+                            Delete
+                        </button>
+
+                        <input
+                            type="checkbox"
+                            onChange={() => toggleCheck(todo._id)}
+                            checked={todo.checked}
+                        />
+                    </div>
+                ))
+            ) : (
+                <p>No items available</p>
+            )}
+
             {message && <p>{message}</p>}
         </>
     );
