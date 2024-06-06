@@ -64,7 +64,7 @@ function MyApp() {
 
     function fetchSettings() {
         const promise = fetch(
-            `http://154734.azurewebsites.net/settings?user=${userId}`,
+            `https://154734.azurewebsites.net/settings?user=${userId}`,
             {
                 method: "GET",
                 headers: addAuthHeader()
@@ -75,7 +75,7 @@ function MyApp() {
 
     function fetchItems() {
         const promise = fetch(
-            `http://154734.azurewebsites.net/todo?user=${userId}`,
+            `https://154734.azurewebsites.net/todo?user=${userId}`,
             {
                 method: "GET",
                 headers: addAuthHeader()
@@ -86,7 +86,7 @@ function MyApp() {
 
     function fetchEvents() {
         const promise = fetch(
-            `http://154734.azurewebsites.net/event?user=${userId}`,
+            `https://154734.azurewebsites.net/event?user=${userId}`,
             {
                 method: "GET",
                 headers: addAuthHeader()
@@ -97,7 +97,7 @@ function MyApp() {
 
     function fetchClasses() {
         const promise = fetch(
-            `http://154734.azurewebsites.net/class?user=${userId}`,
+            `https://154734.azurewebsites.net/class?user=${userId}`,
             {
                 method: "GET",
                 headers: addAuthHeader()
@@ -108,7 +108,7 @@ function MyApp() {
 
     function fetchCalendars() {
         const promise = fetch(
-            `http://154734.azurewebsites.net/calendar?user=${userId}`,
+            `https://154734.azurewebsites.net/calendar?user=${userId}`,
             {
                 method: "GET",
                 headers: addAuthHeader()
@@ -120,7 +120,7 @@ function MyApp() {
     // login and signup api calls
 
     function loginUser(creds) {
-        const promise = fetch("http://154734.azurewebsites.net/login", {
+        const promise = fetch("https://154734.azurewebsites.net/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -151,7 +151,7 @@ function MyApp() {
     }
 
     function signupUser(creds) {
-        const promise = fetch("http://154734.azurewebsites.net/signup", {
+        const promise = fetch("https://154734.azurewebsites.net/signup", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -242,7 +242,7 @@ function MyApp() {
     }
 
     function postSetting(setting) {
-        const promise = fetch("http://154734.azurewebsites.net/settings", {
+        const promise = fetch("https://154734.azurewebsites.net/settings", {
             method: "POST",
             headers: addAuthHeader({
                 "Content-Type": "application/json"
@@ -271,7 +271,7 @@ function MyApp() {
 
     function deleteSetting(_id) {
         const promise = fetch(
-            `http://154734.azurewebsites.net/settings/${_id}`,
+            `https://154734.azurewebsites.net/settings/${_id}`,
             {
                 method: "DELETE",
                 headers: addAuthHeader({
@@ -300,7 +300,7 @@ function MyApp() {
 
     function putSetting(settingId, updatedSetting) {
         const promise = fetch(
-            `http://154734.azurewebsites.net/settings/${settingId}`,
+            `https://154734.azurewebsites.net/settings/${settingId}`,
             {
                 method: "PUT",
                 headers: addAuthHeader({
@@ -358,7 +358,7 @@ function MyApp() {
     }
 
     function postItem(item) {
-        const promise = fetch("http://154734.azurewebsites.net/todo", {
+        const promise = fetch("https://154734.azurewebsites.net/todo", {
             method: "POST",
             headers: addAuthHeader({
                 "Content-Type": "application/json"
@@ -386,7 +386,7 @@ function MyApp() {
     }
 
     function deleteItem(_id) {
-        const promise = fetch(`http://154734.azurewebsites.net/todo/${_id}`, {
+        const promise = fetch(`https://154734.azurewebsites.net/todo/${_id}`, {
             method: "DELETE",
             headers: addAuthHeader({
                 "Content-Type": "application/json"
@@ -413,7 +413,7 @@ function MyApp() {
 
     function putItem(itemId, updatedItem) {
         const promise = fetch(
-            `http://154734.azurewebsites.net/todo/${itemId}`,
+            `https://154734.azurewebsites.net/todo/${itemId}`,
             {
                 method: "PUT",
                 headers: addAuthHeader({
@@ -495,7 +495,7 @@ function MyApp() {
     }
 
     function postEvent(event) {
-        const promise = fetch("http://154734.azurewebsites.net/event", {
+        const promise = fetch("https://154734.azurewebsites.net/event", {
             method: "POST",
             headers: addAuthHeader({
                 "Content-Type": "application/json"
@@ -523,7 +523,7 @@ function MyApp() {
     }
 
     function deleteEvent(_id) {
-        const promise = fetch(`http://154734.azurewebsites.net/event/${_id}`, {
+        const promise = fetch(`https://154734.azurewebsites.net/event/${_id}`, {
             method: "DELETE",
             headers: addAuthHeader({
                 "Content-Type": "application/json"
@@ -551,7 +551,7 @@ function MyApp() {
 
     function putEvent(eventId, updatedEvent) {
         const promise = fetch(
-            `http://154734.azurewebsites.net/event/${eventId}`,
+            `https://154734.azurewebsites.net/event/${eventId}`,
             {
                 method: "PUT",
                 headers: addAuthHeader({
@@ -632,7 +632,7 @@ function MyApp() {
     }
 
     function postClass(clas) {
-        const promise = fetch("http://154734.azurewebsites.net/class", {
+        const promise = fetch("https://154734.azurewebsites.net/class", {
             method: "POST",
             headers: addAuthHeader({
                 "Content-Type": "application/json"
@@ -660,7 +660,7 @@ function MyApp() {
     }
 
     function deleteClass(_id) {
-        const promise = fetch(`http://154734.azurewebsites.net/class/${_id}`, {
+        const promise = fetch(`https://154734.azurewebsites.net/class/${_id}`, {
             method: "DELETE",
             headers: addAuthHeader({
                 "Content-Type": "application/json"
@@ -689,7 +689,7 @@ function MyApp() {
 
     function putClass(classId, updatedClass) {
         const promise = fetch(
-            `http://154734.azurewebsites.net/class/${classId}`,
+            `https://154734.azurewebsites.net/class/${classId}`,
             {
                 method: "PUT",
                 headers: addAuthHeader({
@@ -773,7 +773,7 @@ function MyApp() {
     }
 
     function postCalendar(calendar) {
-        const promise = fetch("http://154734.azurewebsites.net/calendar", {
+        const promise = fetch("https://154734.azurewebsites.net/calendar", {
             method: "POST",
             headers: addAuthHeader({
                 "Content-Type": "application/json"
@@ -802,7 +802,7 @@ function MyApp() {
 
     function deleteCalendar(_id) {
         const promise = fetch(
-            `http://154734.azurewebsites.net/calendar/${_id}`,
+            `https://154734.azurewebsites.net/calendar/${_id}`,
             {
                 method: "DELETE",
                 headers: addAuthHeader({
@@ -833,7 +833,7 @@ function MyApp() {
 
     function putCalendar(calendarId, updatedCalendar) {
         const promise = fetch(
-            `http://154734.azurewebsites.net/calendar/${calendarId}`,
+            `https://154734.azurewebsites.net/calendar/${calendarId}`,
             {
                 method: "PUT",
                 headers: addAuthHeader({
