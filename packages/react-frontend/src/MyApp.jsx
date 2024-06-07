@@ -674,21 +674,52 @@ function MyApp() {
                         path="/todo"
                         element={
                             <PrivateRoute
-                                element={ToDo}
-                                isAuthenticated={isAuthenticated}
-                                message={message}
-                                setMessage={setMessage}
-                                logout={logoutUser}
-                                addAuthHeader={addAuthHeader}
-                                userId={userId}
-                                items={items}
-                                setItems={setItems}
-                                postItem={postItem}
-                                putItem={putItem}
-                                deleteItem={deleteItem}
-                                fetchItems={fetchItems}
+                            element={ToDo}
+                            isAuthenticated={isAuthenticated}
+                            message={message}
+                            setMessage={setMessage}
+                            logout={logoutUser}
+                            addAuthHeader={addAuthHeader}
+                            
+                            putUser={putUser}
+                            fetchUser={fetchUser}
+                            user={user}
+                            userId={userId}
+                            setUser={setUser}
 
-                                putUser={putUser}
+                            items={items}
+                            setItems={setItems}
+                            postItem={postItem}
+                            putItem={putItem}
+                            deleteItem={deleteItem}
+                            fetchItems={fetchItems}
+                            updateItems={updateItems}
+                            events={events}
+                            setEvents={setEvents}
+                            postEvent={postEvent}
+                            putEvent={putEvent}
+                            deleteEvent={deleteEvent}
+                            fetchEvents={fetchEvents}
+                            updateEvents={updateEvents}
+                            editEvent={editEvent}
+                            calendars={calendars}
+                            setCalendars={setCalendars}
+                            postCalendar={postCalendar}
+                            putCalendar={putCalendar}
+                            deleteCalendar={deleteCalendar}
+                            fetchCalendars={fetchCalendars}
+                            updateCalendars={updateCalendars}
+                            editCalendar={editCalendar}
+                            classes={classes}
+                            setClasses={setClasses}
+                            postClass={postClass}
+                            putClass={putClass}
+                            deleteClass={deleteClass}
+                            fetchClasses={fetchClasses}
+                            updateClasses={updateClasses}
+                            editClass={editClass}
+
+
                             />
                         }
                     />
@@ -753,12 +784,45 @@ function MyApp() {
                                 setMessage={setMessage}
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
-
+                                
                                 putUser={putUser}
                                 fetchUser={fetchUser}
                                 user={user}
                                 userId={userId}
                                 setUser={setUser}
+
+                                items={items}
+                                setItems={setItems}
+                                postItem={postItem}
+                                putItem={putItem}
+                                deleteItem={deleteItem}
+                                fetchItems={fetchItems}
+                                updateItems={updateItems}
+                                events={events}
+                                setEvents={setEvents}
+                                postEvent={postEvent}
+                                putEvent={putEvent}
+                                deleteEvent={deleteEvent}
+                                fetchEvents={fetchEvents}
+                                updateEvents={updateEvents}
+                                editEvent={editEvent}
+                                calendars={calendars}
+                                setCalendars={setCalendars}
+                                postCalendar={postCalendar}
+                                putCalendar={putCalendar}
+                                deleteCalendar={deleteCalendar}
+                                fetchCalendars={fetchCalendars}
+                                updateCalendars={updateCalendars}
+                                editCalendar={editCalendar}
+                                classes={classes}
+                                setClasses={setClasses}
+                                postClass={postClass}
+                                putClass={putClass}
+                                deleteClass={deleteClass}
+                                fetchClasses={fetchClasses}
+                                updateClasses={updateClasses}
+                                editClass={editClass}
+
                             />
                         }
                     />
