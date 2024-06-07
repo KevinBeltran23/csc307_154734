@@ -72,16 +72,34 @@ function Monthly(props) {
     const generateDatesForCurrentWeek = (date, selectedDate, activeDate) => {
         let currentDate = date;
         const week = [];
+
+        /*  const event_lst = [];
+  
+        var events = props.events;
+        var d;
+        var lst = [];
+        var events = props.events;
+        for (var i = 0; i < events.length; i++) {
+          d = new Date(events[i].start);
+          lst.push(format(d, "MM/dd/yyyy"));
+        } */
         for (let day = 0; day < 7; day++) {
-            const cloneDate = currentDate;
+            //const cloneDate = currentDate;
+            //console.log(format(cloneDate, "MM/dd/yyyy"));
+            //const cloneDate = format(currentDate, "MM/dd/yyyy");
+            /*if (lst.includes(cloneDate)) {
+              console.log(events[])
+            }
+            else {
+                console.log("grr")
+            } */
             week.push(
                 <div className="monthly-day-box">
                     <div
-                        className={`selected-day-frame ${
-                            isSameMonth(currentDate, activeDate)
-                                ? ""
-                                : "inactiveDay"
-                        } ${isSameDay(currentDate, selectedDate) ? "selectedDay" : ""}
+                        className={`selected-day-frame ${isSameMonth(currentDate, activeDate)
+                            ? ""
+                            : "inactiveDay"
+                            } ${isSameDay(currentDate, selectedDate) ? "selectedDay" : ""}
               ${isSameDay(currentDate, new Date()) ? "today" : ""}`}
                     >
                         {format(currentDate, "d")}
@@ -113,18 +131,77 @@ function Monthly(props) {
             );
             currentDate = addDays(currentDate, 7);
         }
-
         return <div className="calendar-container">{allWeeks}</div>;
     };
-    const addEvents = () => {
-        var testDate;
-        var desc;
-        var startTime;
-        var endTime;
-    };
-    /*const getEvents = () => {
 
-  } */
+    const generateEventsForCurrentWeek = (date, selectedDate, activeDate) => {
+        let currentDate = date;
+        var week = [];
+
+        var events = props.events;
+        var d;
+        var events = props.events;
+
+        for (let day = 0; day < 7; day++) {
+            const cloneDate = format(currentDate, "MM/dd/yyyy");
+            var t = [];
+            for (var i = 0; i < events.length; i++) {
+                d = new Date(events[i].start);
+                var timeZoneFromDB = 7.00;
+                var tzDifference = timeZoneFromDB * 60 + d.getTimezoneOffset();
+                var offsetTime = new Date(d.getTime() + tzDifference * 60 * 1000);
+                var df = format(offsetTime, "MM/dd/yyyy");
+                if (cloneDate === df) {
+                    t.push(events[i].title);
+                }
+            }
+            console.log(t);
+            week.push(
+                <div className="box">
+                    {makeEvents(t)}
+                </div>
+            );
+            currentDate = addDays(currentDate, 1);
+        }
+        return <>{week}</>;
+    };
+
+    function makeEvents(lst) {
+        var l2 = []
+        for (var i = 0; i < lst.length; i++) {
+            if (l2[i] != "") {
+                l2.push(
+                    <div className="event-box">
+                        {lst[i]}
+                    </div>)
+            }
+        }
+        return l2;
+    }
+
+    const getEvents = () => {
+        const startOfTheSelectedMonth = startOfMonth(activeDate);
+        const endOfTheSelectedMonth = endOfMonth(activeDate);
+        const startDate = startOfWeek(startOfTheSelectedMonth);
+        const endDate = endOfWeek(endOfTheSelectedMonth);
+
+        let currentDate = startDate;
+
+        const allWeeks = [];
+
+        while (currentDate <= endDate) {
+            allWeeks.push(
+                generateEventsForCurrentWeek(
+                    currentDate,
+                    selectedDate,
+                    activeDate
+                )
+            );
+            currentDate = addDays(currentDate, 7);
+        }
+
+        return <div className="events">{allWeeks}</div>;
+    };
 
     const navigate = useNavigate();
 
@@ -140,23 +217,6 @@ function Monthly(props) {
         // go to todo page
         navigate("/todo");
     }
-    function handleCreate() {
-        // create an event
-        // there will be a POST request here to /event
-    }
-
-    function handleCalendarsDropdown(lst) {
-        //
-    }
-
-    function handleToDoDropdown() {
-        // open todo dropdown
-        // there will be a GET request here to /todo
-    }
-    function handleClickingOnEvent() {
-        // implement functionality
-        // there will be a GET request here to /event/:id
-    }
 
     var names = props.calendars;
     for (var i = 0; i < names.length; i++) {
@@ -166,6 +226,11 @@ function Monthly(props) {
     var todos = props.items;
     for (var i = 0; i < todos.length; i++) {
         todo_lst.push({ value: todos[i].contents, label: todos[i].contents });
+    }
+
+    var events = props.events;
+    for (var i = 0; i < events.length; i++) {
+        console.log(events[i].title);
     }
 
     return (
@@ -222,6 +287,7 @@ function Monthly(props) {
                 <span className="days-header">SAT</span>
             </div>
             {getDates()}
+            {getEvents()}
         </>
     );
 }
