@@ -98,11 +98,11 @@ function Settings(props) {
             <div>
                 {(settingsSections[selectedSection] || []).map((setting) => (
                     <div key={setting} className="settings-item">
-                        {typeof props.user[setting] === "boolean" ? (
+                        {["bold", "polytime", "secret_setting1", "secret_setting2"].includes(setting) ? (
                             <label className="settings-label">
                                 <input
                                     type="checkbox"
-                                    checked={props.user[setting]}
+                                    checked={!!props.user[setting]}
                                     onChange={() => toggleCheck(setting)}
                                 />
                                 {setting}

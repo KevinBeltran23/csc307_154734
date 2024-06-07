@@ -41,12 +41,12 @@ const UserSchema = new mongoose.Schema(
             ref: "Calendar"
         },
         secret_setting1: {
-            type: String,
+            type: Boolean,
             required: true,
             trim: true
         },
         secret_setting2: {
-            type: String,
+            type: Boolean,
             required: true,
             trim: true
         }
