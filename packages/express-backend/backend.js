@@ -119,7 +119,10 @@ app.put("/setting/:id", authenticateUser, async (req, res) => {
     const settingId = req.params.id; // Get the ID from the URL parameters
     const updatedSetting = req.body; // Get the updated item data from the request body
     try {
-        const editedSetting = await Service.editSetting(settingId, updatedSetting);
+        const editedSetting = await Service.editSetting(
+            settingId,
+            updatedSetting
+        );
         res.status(200).json(editedSetting);
     } catch (error) {
         console.log(error);

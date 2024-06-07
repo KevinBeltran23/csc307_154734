@@ -75,7 +75,7 @@ function MyApp() {
             throw new Error("Internal Server Error");
         }
     }
-    
+
     async function fetchItems() {
         try {
             const response = await fetch(
@@ -91,7 +91,7 @@ function MyApp() {
             throw new Error("Internal Server Error");
         }
     }
-    
+
     async function fetchEvents() {
         try {
             const response = await fetch(
@@ -107,7 +107,7 @@ function MyApp() {
             throw new Error("Internal Server Error");
         }
     }
-    
+
     async function fetchClasses() {
         try {
             const response = await fetch(
@@ -123,7 +123,7 @@ function MyApp() {
             throw new Error("Internal Server Error");
         }
     }
-    
+
     async function fetchCalendars() {
         try {
             const response = await fetch(
@@ -139,19 +139,22 @@ function MyApp() {
             throw new Error("Internal Server Error");
         }
     }
-    
+
     // login and signup api calls
-    
+
     async function loginUser(creds) {
         try {
-            const response = await fetch("https://154734.azurewebsites.net/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(creds)
-            });
-            
+            const response = await fetch(
+                "https://154734.azurewebsites.net/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(creds)
+                }
+            );
+
             if (response.status === 200) {
                 const payload = await response.json();
                 setToken(payload.token);
@@ -160,7 +163,9 @@ function MyApp() {
                 setMessage(`Login successful; auth token saved`);
                 return true; // Indicate success
             } else {
-                setMessage(`Login Error ${response.status}: ${response.statusText}`);
+                setMessage(
+                    `Login Error ${response.status}: ${response.statusText}`
+                );
                 return false; // Indicate failure
             }
         } catch (error) {
@@ -169,29 +174,38 @@ function MyApp() {
             return false; // Indicate failure
         }
     }
-    
+
     async function signupUser(creds) {
         try {
-            const response = await fetch("https://154734.azurewebsites.net/signup", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(creds)
-            });
-    
+            const response = await fetch(
+                "https://154734.azurewebsites.net/signup",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(creds)
+                }
+            );
+
             if (response.status === 201) {
                 const payload = await response.json();
                 setToken(payload.token);
                 setIsAuthenticated(true);
                 setUserId(payload.userId);
-                setMessage(`Signup successful for user: ${creds.username}; auth token saved`);
+                setMessage(
+                    `Signup successful for user: ${creds.username}; auth token saved`
+                );
                 return true; // Indicate success
             } else if (response.status === 409) {
-                setMessage(`Signup failed for user: ${creds.username}; Username already taken`);
+                setMessage(
+                    `Signup failed for user: ${creds.username}; Username already taken`
+                );
                 return false; // Indicate failure
             } else {
-                setMessage(`Signup Error ${response.status}: ${response.statusText}`);
+                setMessage(
+                    `Signup Error ${response.status}: ${response.statusText}`
+                );
                 return false; // Indicate failure
             }
         } catch (error) {
@@ -216,42 +230,52 @@ function MyApp() {
             throw new Error("Internal Server Error");
         }
     }
-    
+
     async function updateSettings(newSetting) {
         try {
             const newSettingJson = await postSetting(newSetting);
-            setSettings(prevSettings => [...prevSettings, newSettingJson]);
+            setSettings((prevSettings) => [...prevSettings, newSettingJson]);
         } catch (error) {
             console.log(error);
         }
     }
-    
+
     async function editSetting(settingId) {
         try {
             const updatedSetting = {
-                ...settings.find(setting => setting._id === settingId),
+                ...settings.find((setting) => setting._id === settingId),
                 // whatever fields are to be edited here
                 user: userId // Ensure the user ID is included
             };
-            const updatedItemResponseJson = await putSetting(settingId, updatedSetting);
-            setSettings(settings.map(setting =>
-                setting._id === settingId ? updatedItemResponseJson : setting
-            ));
+            const updatedItemResponseJson = await putSetting(
+                settingId,
+                updatedSetting
+            );
+            setSettings(
+                settings.map((setting) =>
+                    setting._id === settingId
+                        ? updatedItemResponseJson
+                        : setting
+                )
+            );
         } catch (error) {
             setMessage(`Update Error: ${error.message}`);
             console.log(error);
         }
     }
-    
+
     async function postSetting(setting) {
         try {
-            const response = await fetch("https://154734.azurewebsites.net/settings", {
-                method: "POST",
-                headers: addAuthHeader({
-                    "Content-Type": "application/json"
-                }),
-                body: JSON.stringify(setting)
-            });
+            const response = await fetch(
+                "https://154734.azurewebsites.net/settings",
+                {
+                    method: "POST",
+                    headers: addAuthHeader({
+                        "Content-Type": "application/json"
+                    }),
+                    body: JSON.stringify(setting)
+                }
+            );
             if (response.status === 200 || response.status === 201) {
                 setMessage("Item created successfully");
                 return await response.json();
@@ -268,7 +292,7 @@ function MyApp() {
             throw error;
         }
     }
-    
+
     async function deleteSetting(_id) {
         try {
             const response = await fetch(
@@ -282,7 +306,7 @@ function MyApp() {
             );
             if (response.status === 204) {
                 // Filter out the item with the specified _id and update the items list
-                const updated = settings.filter(item => item._id !== _id);
+                const updated = settings.filter((item) => item._id !== _id);
                 setSettings(updated);
             } else if (response.status === 404) {
                 console.log("Resource not found.");
@@ -295,7 +319,7 @@ function MyApp() {
             console.error(error);
         }
     }
-    
+
     async function putSetting(settingId, updatedSetting) {
         try {
             const response = await fetch(
@@ -340,26 +364,29 @@ function MyApp() {
         }
         fetchData();
     }, []);
-    
+
     async function updateItems(newItem) {
         try {
             const newItemResponseJson = await postItem(newItem);
-            setItems(prevItems => [...prevItems, newItemResponseJson]);
+            setItems((prevItems) => [...prevItems, newItemResponseJson]);
             console.log(items);
         } catch (error) {
             console.log(error);
         }
     }
-    
+
     async function postItem(item) {
         try {
-            const response = await fetch("https://154734.azurewebsites.net/todo", {
-                method: "POST",
-                headers: addAuthHeader({
-                    "Content-Type": "application/json"
-                }),
-                body: JSON.stringify(item)
-            });
+            const response = await fetch(
+                "https://154734.azurewebsites.net/todo",
+                {
+                    method: "POST",
+                    headers: addAuthHeader({
+                        "Content-Type": "application/json"
+                    }),
+                    body: JSON.stringify(item)
+                }
+            );
             if (response.status === 200 || response.status === 201) {
                 setMessage("Item created successfully");
                 return await response.json(); // Return the JSON response for chaining
@@ -376,18 +403,21 @@ function MyApp() {
             throw error;
         }
     }
-    
+
     async function deleteItem(_id) {
         try {
-            const response = await fetch(`https://154734.azurewebsites.net/todo/${_id}`, {
-                method: "DELETE",
-                headers: addAuthHeader({
-                    "Content-Type": "application/json"
-                })
-            });
+            const response = await fetch(
+                `https://154734.azurewebsites.net/todo/${_id}`,
+                {
+                    method: "DELETE",
+                    headers: addAuthHeader({
+                        "Content-Type": "application/json"
+                    })
+                }
+            );
             if (response.status === 204) {
                 // Filter out the item with the specified _id and update the items list
-                const updated = items.filter(item => item._id !== _id);
+                const updated = items.filter((item) => item._id !== _id);
                 setItems(updated);
             } else if (response.status === 404) {
                 console.log("Resource not found.");
@@ -400,7 +430,7 @@ function MyApp() {
             console.error(error);
         }
     }
-    
+
     async function putItem(itemId, updatedItem) {
         try {
             const response = await fetch(
@@ -444,43 +474,51 @@ function MyApp() {
         }
         fetchData();
     }, []);
-    
+
     async function updateEvents(newEvent) {
         try {
             const newEventResponseJson = await postEvent(newEvent);
-            setEvents(prevEvents => [...prevEvents, newEventResponseJson]);
+            setEvents((prevEvents) => [...prevEvents, newEventResponseJson]);
             console.log(events);
         } catch (error) {
             console.log(error);
         }
     }
-    
+
     async function editEvent(eventId) {
         try {
             const updatedEvent = {
-                ...events.find(event => event._id === eventId),
+                ...events.find((event) => event._id === eventId),
                 // whatever fields are to be edited here
                 user: userId // Ensure the user ID is included
             };
-            const updatedEventResponseJson = await putEvent(eventId, updatedEvent);
-            setEvents(events.map(event =>
-                event._id === eventId ? updatedEventResponseJson : event
-            ));
+            const updatedEventResponseJson = await putEvent(
+                eventId,
+                updatedEvent
+            );
+            setEvents(
+                events.map((event) =>
+                    event._id === eventId ? updatedEventResponseJson : event
+                )
+            );
         } catch (error) {
             setMessage(`Update Error: ${error.message}`);
             console.log(error);
         }
     }
-    
+
     async function postEvent(event) {
         try {
-            const response = await fetch("https://154734.azurewebsites.net/event", {
-                method: "POST",
-                headers: addAuthHeader({
-                    "Content-Type": "application/json"
-                }),
-                body: JSON.stringify(event)
-            });
+            const response = await fetch(
+                "https://154734.azurewebsites.net/event",
+                {
+                    method: "POST",
+                    headers: addAuthHeader({
+                        "Content-Type": "application/json"
+                    }),
+                    body: JSON.stringify(event)
+                }
+            );
             if (response.status === 200 || response.status === 201) {
                 setMessage("Event created successfully");
                 return await response.json(); // Return the JSON response for chaining
@@ -497,18 +535,21 @@ function MyApp() {
             throw error;
         }
     }
-    
+
     async function deleteEvent(_id) {
         try {
-            const response = await fetch(`https://154734.azurewebsites.net/event/${_id}`, {
-                method: "DELETE",
-                headers: addAuthHeader({
-                    "Content-Type": "application/json"
-                })
-            });
+            const response = await fetch(
+                `https://154734.azurewebsites.net/event/${_id}`,
+                {
+                    method: "DELETE",
+                    headers: addAuthHeader({
+                        "Content-Type": "application/json"
+                    })
+                }
+            );
             if (response.status === 204) {
                 // Filter out the event with the specified _id and update the events list
-                const updated = events.filter(event => event._id !== _id);
+                const updated = events.filter((event) => event._id !== _id);
                 setEvents(updated);
             } else if (response.status === 404) {
                 console.log("Resource not found.");
@@ -521,7 +562,7 @@ function MyApp() {
             console.error(error);
         }
     }
-    
+
     async function putEvent(eventId, updatedEvent) {
         try {
             const response = await fetch(
@@ -565,42 +606,50 @@ function MyApp() {
         }
         fetchData();
     }, []);
-    
+
     async function updateClasses(newClass) {
         try {
             const newClassResponseJson = await postClass(newClass);
-            setClasses(prevClasses => [...prevClasses, newClassResponseJson]);
+            setClasses((prevClasses) => [...prevClasses, newClassResponseJson]);
         } catch (error) {
             console.log(error);
         }
     }
-    
+
     async function editClass(classId) {
         try {
             const updatedClass = {
-                ...classes.find(clas => clas._id === classId),
+                ...classes.find((clas) => clas._id === classId),
                 // whatever fields are to be edited here
                 user: userId // Ensure the user ID is included
             };
-            const updatedClassResponseJson = await putClass(classId, updatedClass);
-            setClasses(classes.map(clas =>
-                clas._id === classId ? updatedClassResponseJson : clas
-            ));
+            const updatedClassResponseJson = await putClass(
+                classId,
+                updatedClass
+            );
+            setClasses(
+                classes.map((clas) =>
+                    clas._id === classId ? updatedClassResponseJson : clas
+                )
+            );
         } catch (error) {
             setMessage(`Update Error: ${error.message}`);
             console.log(error);
         }
     }
-    
+
     async function postClass(clas) {
         try {
-            const response = await fetch("https://154734.azurewebsites.net/class", {
-                method: "POST",
-                headers: addAuthHeader({
-                    "Content-Type": "application/json"
-                }),
-                body: JSON.stringify(clas)
-            });
+            const response = await fetch(
+                "https://154734.azurewebsites.net/class",
+                {
+                    method: "POST",
+                    headers: addAuthHeader({
+                        "Content-Type": "application/json"
+                    }),
+                    body: JSON.stringify(clas)
+                }
+            );
             if (response.status === 200 || response.status === 201) {
                 setMessage("Class created successfully");
                 return await response.json(); // Return the JSON response for chaining
@@ -617,18 +666,21 @@ function MyApp() {
             throw error;
         }
     }
-    
+
     async function deleteClass(_id) {
         try {
-            const response = await fetch(`https://154734.azurewebsites.net/class/${_id}`, {
-                method: "DELETE",
-                headers: addAuthHeader({
-                    "Content-Type": "application/json"
-                })
-            });
+            const response = await fetch(
+                `https://154734.azurewebsites.net/class/${_id}`,
+                {
+                    method: "DELETE",
+                    headers: addAuthHeader({
+                        "Content-Type": "application/json"
+                    })
+                }
+            );
             if (response.status === 204) {
                 // Filter out the class with the specified _id and update the classes list
-                const updated = classes.filter(clas => clas._id !== _id);
+                const updated = classes.filter((clas) => clas._id !== _id);
                 setClasses(updated);
             } else if (response.status === 404) {
                 console.log("Resource not found.");
@@ -641,7 +693,7 @@ function MyApp() {
             console.error(error);
         }
     }
-    
+
     async function putClass(classId, updatedClass) {
         try {
             const response = await fetch(
@@ -687,43 +739,56 @@ function MyApp() {
         }
         fetchData();
     }, []);
-    
+
     async function updateCalendars(newCalendar) {
         try {
             const newCalendarJson = await postCalendar(newCalendar);
-            setCalendars(prevCalendars => [...prevCalendars, newCalendarJson]);
+            setCalendars((prevCalendars) => [
+                ...prevCalendars,
+                newCalendarJson
+            ]);
             console.log(calendars);
         } catch (error) {
             console.log(error);
         }
     }
-    
+
     async function editCalendar(calendarId) {
         try {
             const updatedCalendar = {
-                ...calendars.find(calendar => calendar._id === calendarId),
+                ...calendars.find((calendar) => calendar._id === calendarId),
                 // whatever fields are to be edited here
                 user: userId // Ensure the user ID is included
             };
-            const updatedCalendarResponseJson = await putCalendar(calendarId, updatedCalendar);
-            setCalendars(calendars.map(calendar =>
-                calendar._id === calendarId ? updatedCalendarResponseJson : calendar
-            ));
+            const updatedCalendarResponseJson = await putCalendar(
+                calendarId,
+                updatedCalendar
+            );
+            setCalendars(
+                calendars.map((calendar) =>
+                    calendar._id === calendarId
+                        ? updatedCalendarResponseJson
+                        : calendar
+                )
+            );
         } catch (error) {
             setMessage(`Update Error: ${error.message}`);
             console.log(error);
         }
     }
-    
+
     async function postCalendar(calendar) {
         try {
-            const response = await fetch("https://154734.azurewebsites.net/calendar", {
-                method: "POST",
-                headers: addAuthHeader({
-                    "Content-Type": "application/json"
-                }),
-                body: JSON.stringify(calendar)
-            });
+            const response = await fetch(
+                "https://154734.azurewebsites.net/calendar",
+                {
+                    method: "POST",
+                    headers: addAuthHeader({
+                        "Content-Type": "application/json"
+                    }),
+                    body: JSON.stringify(calendar)
+                }
+            );
             if (response.status === 200 || response.status === 201) {
                 setMessage("Calendar created successfully");
                 return await response.json(); // Return the JSON response for chaining
@@ -740,18 +805,23 @@ function MyApp() {
             throw error;
         }
     }
-    
+
     async function deleteCalendar(_id) {
         try {
-            const response = await fetch(`https://154734.azurewebsites.net/calendar/${_id}`, {
-                method: "DELETE",
-                headers: addAuthHeader({
-                    "Content-Type": "application/json"
-                })
-            });
+            const response = await fetch(
+                `https://154734.azurewebsites.net/calendar/${_id}`,
+                {
+                    method: "DELETE",
+                    headers: addAuthHeader({
+                        "Content-Type": "application/json"
+                    })
+                }
+            );
             if (response.status === 204) {
                 // Filter out the calendar with the specified _id and update the items list
-                const updated = calendars.filter(calendar => calendar._id !== _id);
+                const updated = calendars.filter(
+                    (calendar) => calendar._id !== _id
+                );
                 setCalendars(updated);
             } else if (response.status === 404) {
                 console.log("Resource not found.");
@@ -764,7 +834,7 @@ function MyApp() {
             console.error(error);
         }
     }
-    
+
     async function putCalendar(calendarId, updatedCalendar) {
         try {
             const response = await fetch(

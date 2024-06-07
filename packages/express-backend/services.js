@@ -24,7 +24,10 @@ async function getUsers(username, password) {
     let query = {};
     if (username && password) {
         query = { username: username, password: password };
-        return await userModel.findOne({ username: username, password: password });
+        return await userModel.findOne({
+            username: username,
+            password: password
+        });
     } else if (username) {
         query = { username: username };
     } else if (password) {
@@ -72,11 +75,13 @@ async function addSetting(setting) {
 }
 
 async function editSetting(settingId, updatedSetting) {
-    return await settingModel.findByIdAndUpdate(
-        settingId, // The ID of the item to update
-        updatedSetting, // The updated item data
-        { new: true } // Return the updated document
-    ).exec();
+    return await settingModel
+        .findByIdAndUpdate(
+            settingId, // The ID of the item to update
+            updatedSetting, // The updated item data
+            { new: true } // Return the updated document
+        )
+        .exec();
 }
 
 async function findSettingById(id) {
@@ -109,11 +114,13 @@ async function addEvent(event) {
 }
 
 async function editEvent(eventId, updatedEvent) {
-    return await eventModel.findByIdAndUpdate(
-        eventId, // The ID of the item to update
-        updatedEvent, // The updated item data
-        { new: true } // Return the updated document
-    ).exec();
+    return await eventModel
+        .findByIdAndUpdate(
+            eventId, // The ID of the item to update
+            updatedEvent, // The updated item data
+            { new: true } // Return the updated document
+        )
+        .exec();
 }
 
 async function findEventById(id) {
@@ -140,11 +147,13 @@ async function addCalendar(calendar) {
 }
 
 async function editCalendar(calendarId, updatedCalendar) {
-    return await classModel.findByIdAndUpdate(
-        calendarId, // The ID of the item to update
-        updatedCalendar, // The updated item data
-        { new: true } // Return the updated document
-    ).exec();
+    return await classModel
+        .findByIdAndUpdate(
+            calendarId, // The ID of the item to update
+            updatedCalendar, // The updated item data
+            { new: true } // Return the updated document
+        )
+        .exec();
 }
 
 async function findCalendarById(id) {
@@ -177,11 +186,13 @@ async function addClass(event) {
 }
 
 async function editClass(classId, updatedClass) {
-    return await classModel.findByIdAndUpdate(
-        classId, // The ID of the item to update
-        updatedClass, // The updated item data
-        { new: true } // Return the updated document
-    ).exec();
+    return await classModel
+        .findByIdAndUpdate(
+            classId, // The ID of the item to update
+            updatedClass, // The updated item data
+            { new: true } // Return the updated document
+        )
+        .exec();
 }
 
 async function findClassById(id) {
@@ -211,11 +222,13 @@ async function addTodoItem(item) {
 }
 
 async function editTodoItem(itemId, updatedItem) {
-    return await todoModel.findByIdAndUpdate(
-        itemId, // The ID of the item to update
-        updatedItem, // The updated item data
-        { new: true } // Return the updated document
-    ).exec();
+    return await todoModel
+        .findByIdAndUpdate(
+            itemId, // The ID of the item to update
+            updatedItem, // The updated item data
+            { new: true } // Return the updated document
+        )
+        .exec();
 }
 
 async function findTodoItemById(id) {
