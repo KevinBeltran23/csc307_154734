@@ -59,7 +59,7 @@ app.post("/registration", (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -74,7 +74,7 @@ app.post("/monthly", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -94,7 +94,7 @@ app.post("/weekly", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -112,7 +112,7 @@ app.get("/settings", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -125,7 +125,7 @@ app.post("/settings", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -139,7 +139,7 @@ app.put("/setting/:id", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -156,7 +156,7 @@ app.delete("/setting/:id", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -171,7 +171,7 @@ app.get("/todo", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -184,7 +184,7 @@ app.post("/todo", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -198,7 +198,7 @@ app.put("/todo/:id", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -215,7 +215,7 @@ app.delete("/todo/:id", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -230,7 +230,7 @@ app.get("/event", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -247,7 +247,7 @@ app.get("/event/:id", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -260,7 +260,7 @@ app.post("/event", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -274,7 +274,7 @@ app.put("/event/:id", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -291,7 +291,7 @@ app.delete("/event/:id", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -306,7 +306,7 @@ app.get("/class", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -323,7 +323,7 @@ app.get("/class/:id", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -336,7 +336,7 @@ app.post("/class", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -353,7 +353,7 @@ app.delete("/class/:id", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -368,7 +368,7 @@ app.get("/calendar", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -385,7 +385,7 @@ app.get("/calendar/:id", (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -398,7 +398,7 @@ app.post("/calendar", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -415,7 +415,7 @@ app.delete("/calendar/:id", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -430,7 +430,7 @@ app.get("/users", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -447,7 +447,7 @@ app.delete("/user/:id", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
 
@@ -464,6 +464,6 @@ app.get("/users/:id", authenticateUser, (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(404).send("Internal Server Error");
         });
 });
