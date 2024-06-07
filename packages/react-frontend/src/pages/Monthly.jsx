@@ -73,7 +73,7 @@ function Monthly(props) {
         let currentDate = date;
         const week = [];
 
-        const event_lst = [];
+      /*  const event_lst = [];
 
       var events = props.events;
       var d;
@@ -82,11 +82,11 @@ function Monthly(props) {
       for (var i = 0; i < events.length; i++) {
         d = new Date(events[i].start);
         lst.push(format(d, "MM/dd/yyyy"));
-      }
+      } */
         for (let day = 0; day < 7; day++) {
             //const cloneDate = currentDate;
             //console.log(format(cloneDate, "MM/dd/yyyy"));
-                const cloneDate = format(currentDate, "MM/dd/yyyy");
+                //const cloneDate = format(currentDate, "MM/dd/yyyy");
                 /*if (lst.includes(cloneDate)) {
                   console.log(events[])
                 }
@@ -138,25 +138,39 @@ function Monthly(props) {
     const generateEventsForCurrentWeek = (date, selectedDate, activeDate) => {
       let currentDate = date;
       const event_lst = [];
+      var week = [];
 
       var events = props.events;
       var d;
-      var lst = [];
+      var lst = [{key: "", value: ""}];
       var events = props.events;
-      for (var i = 0; i < events.length; i++) {
+      /*for (var i = 0; i < events.length; i++) {
         d = new Date(events[i].start);
         lst.push({key: events[i].title, value: format(d, "MM/dd/yyyy")});
-      }
+      } */
 
       for (let day = 0; day < 7; day++) {
           const cloneDate = format(currentDate, "MM/dd/yyyy");
-          if (d.find(cloneDate)) {
-            console.log(d)
+          for (var i = 0; i < events.length; i++) {
+            d = new Date(events[i].start);
+            var df = format(d, "MM/dd/yyyy");
+            var t = [];
+            if (cloneDate === df) {
+                //lst.push({key: events[i].title, value: d});
+                //console.log(lst);
+                t.push(events[i].title)
+                console.log(df);
+            }
+            /*else {
+                lst.push({key: "", value: ""});
+            } */
           }
+          //var t = lst[i].key;
+          console.log("this is t: " + t);
           week.push(
               <div className="monthly-day-box">
                   <div>
-                      
+                      {t}
                   </div>
               </div>
           );
@@ -177,7 +191,7 @@ function Monthly(props) {
 
       while (currentDate <= endDate) {
           allWeeks.push(
-              generateDatesForCurrentWeek(
+              generateEventsForCurrentWeek(
                   currentDate,
                   selectedDate,
                   activeDate
@@ -223,20 +237,6 @@ function Monthly(props) {
     for (var i = 0; i < events.length; i++) {
       console.log(events[i].title);
     }
-
-    var lst = [];
-    function makeEvent() {
-      var events = props.events;
-      for (var i = 0; i < events.length; i++) {
-        var d = new Date(events[i].start);
-        d = format(d, "MM/dd/yyyy")
-        lst.push(d);
-      }
-    }
-
-    console.log(lst);
-
-    makeEvent()
 
     return (
         <>
@@ -292,6 +292,7 @@ function Monthly(props) {
                 <span className="days-header">SAT</span>
             </div>
             {getDates()}
+            {getEvents()}
         </>
     );
 }
