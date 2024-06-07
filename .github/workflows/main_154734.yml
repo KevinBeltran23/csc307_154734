@@ -70,4 +70,3 @@ jobs:
                   app-name: "154734"
                   slot-name: "Production"
                   package: release.zip
-
