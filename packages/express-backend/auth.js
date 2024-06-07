@@ -21,7 +21,16 @@ function generateAccessToken(username) {
 }
 
 export function registerUser(req, res) {
-    const { username, pwd, language, bold, default_view, polytime, secret_setting1, secret_setting2 } = req.body; // from form
+    const {
+        username,
+        pwd,
+        language,
+        bold,
+        default_view,
+        polytime,
+        secret_setting1,
+        secret_setting2
+    } = req.body; // from form
 
     if (!username || !pwd) {
         res.status(400).send("Bad request: Invalid input data.");
@@ -35,7 +44,16 @@ export function registerUser(req, res) {
                         .genSalt(10)
                         .then((salt) => bcrypt.hash(pwd, salt))
                         .then((password) => {
-                            const userToAdd = new User({ username, password, language, bold, default_view, polytime, secret_setting1, secret_setting2 });
+                            const userToAdd = new User({
+                                username,
+                                password,
+                                language,
+                                bold,
+                                default_view,
+                                polytime,
+                                secret_setting1,
+                                secret_setting2
+                            });
                             return userToAdd.save();
                         })
                         .then((savedUser) => {

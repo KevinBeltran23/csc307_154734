@@ -83,10 +83,7 @@ function Login(props) {
             </button>
 
             {/* Register Button */}
-            <button
-                className="login-register-button"
-                onClick={handleRegister}
-            >
+            <button className="login-register-button" onClick={handleRegister}>
                 <p className="login-register-text">Create Account</p>
             </button>
         </div>

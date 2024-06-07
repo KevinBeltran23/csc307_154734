@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route
-} 
-from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Monthly from "./pages/Monthly";
 import ToDo from "./pages/ToDo";
@@ -15,7 +10,7 @@ import PrivateRoute from "./PrivateRoute";
 
 function MyApp() {
     // important variables
-    const URL = "http://localhost:8000/"
+    const URL = "http://localhost:8000/";
     const INVALID_TOKEN = "INVALID_TOKEN";
     var [token, setToken] = useState(
         localStorage.getItem("token") || INVALID_TOKEN
@@ -60,14 +55,13 @@ function MyApp() {
         setToken(INVALID_TOKEN);
         setIsAuthenticated(false);
         setUserId(0);
-        setUser(null)
+        setUser(null);
         setMessage(`Logged out successfully`);
-    
+
         // Remove the body class that sets the background image
         document.body.classList.remove("body-with-image");
         document.body.classList.remove("bold-text");
     }
-    
 
     // Fetch calls
     async function fetchUser() {
@@ -130,7 +124,9 @@ function MyApp() {
                 setMessage(`Login successful; auth token saved`);
                 return true; // Indicate success
             } else {
-                setMessage(`Login Error ${response.status}: ${response.statusText}`);
+                setMessage(
+                    `Login Error ${response.status}: ${response.statusText}`
+                );
                 return false; // Indicate failure
             }
         } catch (error) {
@@ -155,13 +151,19 @@ function MyApp() {
                 setIsAuthenticated(true);
                 setUserId(payload.userId);
                 setUser(creds);
-                setMessage(`Signup successful for user: ${creds.username}; auth token saved`);
+                setMessage(
+                    `Signup successful for user: ${creds.username}; auth token saved`
+                );
                 return true; // Indicate success
             } else if (response.status === 409) {
-                setMessage(`Signup failed for user: ${creds.username}; Username already taken`);
+                setMessage(
+                    `Signup failed for user: ${creds.username}; Username already taken`
+                );
                 return false; // Indicate failure
             } else {
-                setMessage(`Signup Error ${response.status}: ${response.statusText}`);
+                setMessage(
+                    `Signup Error ${response.status}: ${response.statusText}`
+                );
                 return false; // Indicate failure
             }
         } catch (error) {
@@ -190,8 +192,12 @@ function MyApp() {
                     return updatedUser; // Return the updated user data if response is empty
                 }
             } else {
-                setMessage(`PUT Error ${response.status}: ${response.statusText}`);
-                throw new Error(`PUT Error ${response.status}: ${response.statusText}`);
+                setMessage(
+                    `PUT Error ${response.status}: ${response.statusText}`
+                );
+                throw new Error(
+                    `PUT Error ${response.status}: ${response.statusText}`
+                );
             }
         } catch (error) {
             setMessage(`PUT Error: ${error.message}`);
@@ -225,8 +231,12 @@ function MyApp() {
                 setMessage("Item created successfully");
                 return await response.json(); // Return the JSON response for chaining
             } else {
-                setMessage(`Post Error ${response.status}: ${response.statusText}`);
-                throw new Error(`Post Error ${response.status}: ${response.statusText}`);
+                setMessage(
+                    `Post Error ${response.status}: ${response.statusText}`
+                );
+                throw new Error(
+                    `Post Error ${response.status}: ${response.statusText}`
+                );
             }
         } catch (error) {
             setMessage(`Post Error: ${error.message}`);
@@ -251,7 +261,9 @@ function MyApp() {
             } else if (response.status === 404) {
                 console.log("Resource not found.");
             } else {
-                throw new Error("Failed to delete item. Status code: " + response.status);
+                throw new Error(
+                    "Failed to delete item. Status code: " + response.status
+                );
             }
         } catch (error) {
             console.error(error);
@@ -273,8 +285,12 @@ function MyApp() {
                 setMessage("Item updated successfully");
                 return await response.json(); // Return the JSON response for chaining
             } else {
-                setMessage(`PUT Error ${response.status}: ${response.statusText}`);
-                throw new Error(`PUT Error ${response.status}: ${response.statusText}`);
+                setMessage(
+                    `PUT Error ${response.status}: ${response.statusText}`
+                );
+                throw new Error(
+                    `PUT Error ${response.status}: ${response.statusText}`
+                );
             }
         } catch (error) {
             setMessage(`PUT Error: ${error.message}`);
@@ -302,7 +318,10 @@ function MyApp() {
         };
 
         try {
-            const updatedEventResponseJson = await putEvent(eventId, updatedEvent);
+            const updatedEventResponseJson = await putEvent(
+                eventId,
+                updatedEvent
+            );
             setEvents(
                 events.map((event) =>
                     event._id === eventId ? updatedEventResponseJson : event
@@ -331,8 +350,12 @@ function MyApp() {
                 setMessage("Event created successfully");
                 return await response.json(); // Return the JSON response for chaining
             } else {
-                setMessage(`Post Error ${response.status}: ${response.statusText}`);
-                throw new Error(`Post Error ${response.status}: ${response.statusText}`);
+                setMessage(
+                    `Post Error ${response.status}: ${response.statusText}`
+                );
+                throw new Error(
+                    `Post Error ${response.status}: ${response.statusText}`
+                );
             }
         } catch (error) {
             setMessage(`Post Error: ${error.message}`);
@@ -357,7 +380,9 @@ function MyApp() {
             } else if (response.status === 404) {
                 console.log("Resource not found.");
             } else {
-                throw new Error("Failed to delete event. Status code: " + response.status);
+                throw new Error(
+                    "Failed to delete event. Status code: " + response.status
+                );
             }
         } catch (error) {
             console.error(error);
@@ -379,8 +404,12 @@ function MyApp() {
                 setMessage("Event updated successfully");
                 return await response.json(); // Return the JSON response for chaining
             } else {
-                setMessage(`PUT Error ${response.status}: ${response.statusText}`);
-                throw new Error(`PUT Error ${response.status}: ${response.statusText}`);
+                setMessage(
+                    `PUT Error ${response.status}: ${response.statusText}`
+                );
+                throw new Error(
+                    `PUT Error ${response.status}: ${response.statusText}`
+                );
             }
         } catch (error) {
             setMessage(`PUT Error: ${error.message}`);
@@ -407,7 +436,10 @@ function MyApp() {
         };
 
         try {
-            const updatedClassResponseJson = await putClass(classId, updatedClass);
+            const updatedClassResponseJson = await putClass(
+                classId,
+                updatedClass
+            );
             setClasses(
                 classes.map((clas) =>
                     clas._id === classId ? updatedClassResponseJson : clas
@@ -436,8 +468,12 @@ function MyApp() {
                 setMessage("Class created successfully");
                 return await response.json(); // Return the JSON response for chaining
             } else {
-                setMessage(`Post Error ${response.status}: ${response.statusText}`);
-                throw new Error(`Post Error ${response.status}: ${response.statusText}`);
+                setMessage(
+                    `Post Error ${response.status}: ${response.statusText}`
+                );
+                throw new Error(
+                    `Post Error ${response.status}: ${response.statusText}`
+                );
             }
         } catch (error) {
             setMessage(`Post Error: ${error.message}`);
@@ -462,7 +498,9 @@ function MyApp() {
             } else if (response.status === 404) {
                 console.log("Resource not found.");
             } else {
-                throw new Error("Failed to delete item. Status code: " + response.status);
+                throw new Error(
+                    "Failed to delete item. Status code: " + response.status
+                );
             }
         } catch (error) {
             console.error(error);
@@ -484,8 +522,12 @@ function MyApp() {
                 setMessage("Class updated successfully");
                 return await response.json(); // Return the JSON response for chaining
             } else {
-                setMessage(`PUT Error ${response.status}: ${response.statusText}`);
-                throw new Error(`PUT Error ${response.status}: ${response.statusText}`);
+                setMessage(
+                    `PUT Error ${response.status}: ${response.statusText}`
+                );
+                throw new Error(
+                    `PUT Error ${response.status}: ${response.statusText}`
+                );
             }
         } catch (error) {
             setMessage(`PUT Error: ${error.message}`);
@@ -497,7 +539,10 @@ function MyApp() {
     async function updateCalendars(newCalendar) {
         try {
             const newCalendarJson = await postCalendar(newCalendar);
-            setCalendars((prevCalendars) => [...prevCalendars, newCalendarJson]);
+            setCalendars((prevCalendars) => [
+                ...prevCalendars,
+                newCalendarJson
+            ]);
             console.log(calendars);
         } catch (error) {
             console.log(error);
@@ -513,10 +558,15 @@ function MyApp() {
         };
 
         try {
-            const updatedCalendarResponseJson = await putCalendar(calendarId, updatedCalendar);
+            const updatedCalendarResponseJson = await putCalendar(
+                calendarId,
+                updatedCalendar
+            );
             setCalendars(
                 calendars.map((calendar) =>
-                    calendar._id === calendarId ? updatedCalendarResponseJson : calendar
+                    calendar._id === calendarId
+                        ? updatedCalendarResponseJson
+                        : calendar
                 )
             );
             //setTodoEditing(null);
@@ -542,8 +592,12 @@ function MyApp() {
                 setMessage("Calendar created successfully");
                 return await response.json(); // Return the JSON response for chaining
             } else {
-                setMessage(`Post Error ${response.status}: ${response.statusText}`);
-                throw new Error(`Post Error ${response.status}: ${response.statusText}`);
+                setMessage(
+                    `Post Error ${response.status}: ${response.statusText}`
+                );
+                throw new Error(
+                    `Post Error ${response.status}: ${response.statusText}`
+                );
             }
         } catch (error) {
             setMessage(`Post Error: ${error.message}`);
@@ -563,12 +617,16 @@ function MyApp() {
 
             if (response.status === 204) {
                 // Filter out the calendar with the specified _id and update the items list
-                const updated = calendars.filter((calendar) => calendar._id !== _id);
+                const updated = calendars.filter(
+                    (calendar) => calendar._id !== _id
+                );
                 setCalendars(updated);
             } else if (response.status === 404) {
                 console.log("Resource not found.");
             } else {
-                throw new Error("Failed to delete item. Status code: " + response.status);
+                throw new Error(
+                    "Failed to delete item. Status code: " + response.status
+                );
             }
         } catch (error) {
             console.error(error);
@@ -590,8 +648,12 @@ function MyApp() {
                 setMessage("Calendar updated successfully");
                 return await response.json(); // Return the JSON response for chaining
             } else {
-                setMessage(`PUT Error ${response.status}: ${response.statusText}`);
-                throw new Error(`PUT Error ${response.status}: ${response.statusText}`);
+                setMessage(
+                    `PUT Error ${response.status}: ${response.statusText}`
+                );
+                throw new Error(
+                    `PUT Error ${response.status}: ${response.statusText}`
+                );
             }
         } catch (error) {
             setMessage(`PUT Error: ${error.message}`);
@@ -634,13 +696,11 @@ function MyApp() {
                                 setMessage={setMessage}
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
-                                
                                 putUser={putUser}
                                 fetchUser={fetchUser}
                                 user={user}
                                 userId={userId}
                                 setUser={setUser}
-
                                 items={items}
                                 setItems={setItems}
                                 postItem={postItem}
@@ -679,52 +739,48 @@ function MyApp() {
                         path="/todo"
                         element={
                             <PrivateRoute
-                            element={ToDo}
-                            isAuthenticated={isAuthenticated}
-                            message={message}
-                            setMessage={setMessage}
-                            logout={logoutUser}
-                            addAuthHeader={addAuthHeader}
-                            
-                            putUser={putUser}
-                            fetchUser={fetchUser}
-                            user={user}
-                            userId={userId}
-                            setUser={setUser}
-
-                            items={items}
-                            setItems={setItems}
-                            postItem={postItem}
-                            putItem={putItem}
-                            deleteItem={deleteItem}
-                            fetchItems={fetchItems}
-                            updateItems={updateItems}
-                            events={events}
-                            setEvents={setEvents}
-                            postEvent={postEvent}
-                            putEvent={putEvent}
-                            deleteEvent={deleteEvent}
-                            fetchEvents={fetchEvents}
-                            updateEvents={updateEvents}
-                            editEvent={editEvent}
-                            calendars={calendars}
-                            setCalendars={setCalendars}
-                            postCalendar={postCalendar}
-                            putCalendar={putCalendar}
-                            deleteCalendar={deleteCalendar}
-                            fetchCalendars={fetchCalendars}
-                            updateCalendars={updateCalendars}
-                            editCalendar={editCalendar}
-                            classes={classes}
-                            setClasses={setClasses}
-                            postClass={postClass}
-                            putClass={putClass}
-                            deleteClass={deleteClass}
-                            fetchClasses={fetchClasses}
-                            updateClasses={updateClasses}
-                            editClass={editClass}
-
-
+                                element={ToDo}
+                                isAuthenticated={isAuthenticated}
+                                message={message}
+                                setMessage={setMessage}
+                                logout={logoutUser}
+                                addAuthHeader={addAuthHeader}
+                                putUser={putUser}
+                                fetchUser={fetchUser}
+                                user={user}
+                                userId={userId}
+                                setUser={setUser}
+                                items={items}
+                                setItems={setItems}
+                                postItem={postItem}
+                                putItem={putItem}
+                                deleteItem={deleteItem}
+                                fetchItems={fetchItems}
+                                updateItems={updateItems}
+                                events={events}
+                                setEvents={setEvents}
+                                postEvent={postEvent}
+                                putEvent={putEvent}
+                                deleteEvent={deleteEvent}
+                                fetchEvents={fetchEvents}
+                                updateEvents={updateEvents}
+                                editEvent={editEvent}
+                                calendars={calendars}
+                                setCalendars={setCalendars}
+                                postCalendar={postCalendar}
+                                putCalendar={putCalendar}
+                                deleteCalendar={deleteCalendar}
+                                fetchCalendars={fetchCalendars}
+                                updateCalendars={updateCalendars}
+                                editCalendar={editCalendar}
+                                classes={classes}
+                                setClasses={setClasses}
+                                postClass={postClass}
+                                putClass={putClass}
+                                deleteClass={deleteClass}
+                                fetchClasses={fetchClasses}
+                                updateClasses={updateClasses}
+                                editClass={editClass}
                             />
                         }
                     />
@@ -738,13 +794,11 @@ function MyApp() {
                                 setMessage={setMessage}
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
-
                                 putUser={putUser}
                                 fetchUser={fetchUser}
                                 user={user}
                                 userId={userId}
                                 setUser={setUser}
-
                                 items={items}
                                 setItems={setItems}
                                 postItem={postItem}
@@ -789,13 +843,11 @@ function MyApp() {
                                 setMessage={setMessage}
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
-                                
                                 putUser={putUser}
                                 fetchUser={fetchUser}
                                 user={user}
                                 userId={userId}
                                 setUser={setUser}
-
                                 items={items}
                                 setItems={setItems}
                                 postItem={postItem}
@@ -827,7 +879,6 @@ function MyApp() {
                                 fetchClasses={fetchClasses}
                                 updateClasses={updateClasses}
                                 editClass={editClass}
-
                             />
                         }
                     />

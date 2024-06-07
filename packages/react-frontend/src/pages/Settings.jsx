@@ -18,7 +18,9 @@ const languageOptions = {
 
 function Settings(props) {
     const [selectedSection, setSelectedSection] = useState("Visual");
-    const [selectedLanguage, setSelectedLanguage] = useState(languageOptions["English"]); // Default language
+    const [selectedLanguage, setSelectedLanguage] = useState(
+        languageOptions["English"]
+    ); // Default language
     const [selectedDefaultView, setSelectedDefaultView] = useState("Monthly");
     const [newUsername, setNewUsername] = useState(""); // State to hold the new username
 
@@ -32,7 +34,8 @@ function Settings(props) {
 
     // Initial fetch to view the current settings
     useEffect(() => {
-        props.fetchUser(props.userId)
+        props
+            .fetchUser(props.userId)
             .then((res) => res.json())
             .then((json) => {
                 props.setUser(json.result);
@@ -68,16 +71,22 @@ function Settings(props) {
             [settingKey]: !props.user[settingKey]
         };
 
-        props.putUser(props.userId, updatedUser)
+        props
+            .putUser(props.userId, updatedUser)
             .then((result) => {
                 if (result) {
                     props.setUser(result);
-                    console.log("The put request is successful and the following is the updated User");
+                    console.log(
+                        "The put request is successful and the following is the updated User"
+                    );
                     console.log(result);
 
                     // Check if secret_setting2 was toggled and update body class accordingly
                     if (settingKey === "secret_setting2") {
-                        document.body.classList.toggle("body-with-image", result[settingKey]);
+                        document.body.classList.toggle(
+                            "body-with-image",
+                            result[settingKey]
+                        );
                     }
                 } else {
                     console.log("No data returned from PUT request");
@@ -99,11 +108,14 @@ function Settings(props) {
             ...props.user,
             language: languageCode
         };
-        props.putUser(props.userId, updatedUser)
+        props
+            .putUser(props.userId, updatedUser)
             .then((result) => {
                 if (result) {
                     props.setUser(result);
-                    console.log("The put request is successful and the following is the updated User");
+                    console.log(
+                        "The put request is successful and the following is the updated User"
+                    );
                     console.log(result);
                 } else {
                     console.log("No data returned from PUT request");
@@ -125,11 +137,14 @@ function Settings(props) {
             ...props.user,
             default_view: updatedDefaultView
         };
-        props.putUser(props.userId, updatedUser)
+        props
+            .putUser(props.userId, updatedUser)
             .then((result) => {
                 if (result) {
                     props.setUser(result);
-                    console.log("The put request is successful and the following is the updated User");
+                    console.log(
+                        "The put request is successful and the following is the updated User"
+                    );
                     console.log(result);
                 } else {
                     console.log("No data returned from PUT request");
@@ -148,7 +163,8 @@ function Settings(props) {
             ...props.user,
             username: newUsername
         };
-        props.putUser(props.userId, updatedUser)
+        props
+            .putUser(props.userId, updatedUser)
             .then((result) => {
                 if (result) {
                     props.setUser(result);
@@ -174,27 +190,37 @@ function Settings(props) {
 
     // Function to update body background based on secret_setting2 value
     const updateBodyBackground = (isSecretSetting2Enabled) => {
-      const body = document.querySelector("body");
-      if (isSecretSetting2Enabled) {
-          body.classList.add("image-background");
-      } else {
-          body.classList.remove("image-background");
-      }
-  };
+        const body = document.querySelector("body");
+        if (isSecretSetting2Enabled) {
+            body.classList.add("image-background");
+        } else {
+            body.classList.remove("image-background");
+        }
+    };
 
     const renderOptionContent = () => {
         return (
             <div>
                 {(settingsSections[selectedSection] || []).map((setting) => (
                     <div key={setting} className="settings-item">
-                        {["bold", "polytime", "secret_setting1", "secret_setting2"].includes(setting) ? (
+                        {[
+                            "bold",
+                            "polytime",
+                            "secret_setting1",
+                            "secret_setting2"
+                        ].includes(setting) ? (
                             <>
-                                {setting === "secret_setting2" && !props.user.secret_setting1 ? null : ( // Conditionally render secret_setting2 based on secret_setting1
+                                {setting === "secret_setting2" &&
+                                !props.user.secret_setting1 ? null : ( // Conditionally render secret_setting2 based on secret_setting1
                                     <label className="settings-label">
                                         <input
                                             type="checkbox"
-                                            checked={props.user[setting] || false}
-                                            onChange={() => toggleCheck(setting)}
+                                            checked={
+                                                props.user[setting] || false
+                                            }
+                                            onChange={() =>
+                                                toggleCheck(setting)
+                                            }
                                         />
                                         {setting}
                                     </label>
@@ -207,13 +233,26 @@ function Settings(props) {
                                         {setting}:
                                         <select
                                             value={selectedLanguage}
-                                            onChange={(event) => handleLanguageChange(event.target.value)}
+                                            onChange={(event) =>
+                                                handleLanguageChange(
+                                                    event.target.value
+                                                )
+                                            }
                                         >
-                                            {Object.keys(languageOptions).map((language) => (
-                                                <option key={language} value={languageOptions[language]}>
-                                                    {language}
-                                                </option>
-                                            ))}
+                                            {Object.keys(languageOptions).map(
+                                                (language) => (
+                                                    <option
+                                                        key={language}
+                                                        value={
+                                                            languageOptions[
+                                                                language
+                                                            ]
+                                                        }
+                                                    >
+                                                        {language}
+                                                    </option>
+                                                )
+                                            )}
                                         </select>
                                     </label>
                                 ) : (
@@ -223,15 +262,23 @@ function Settings(props) {
                                                 {setting}:
                                                 <select
                                                     value={selectedDefaultView}
-                                                    onChange={(event) => handleDefaultViewChange(event)}
+                                                    onChange={(event) =>
+                                                        handleDefaultViewChange(
+                                                            event
+                                                        )
+                                                    }
                                                 >
-                                                    {["Monthly", "Weekly"].map((option) => (
-                                                        <option key={option} value={option}>
-                                                            {option}
-                                                        </option>
-                                                    ))}
-                                               
-                                               </select>
+                                                    {["Monthly", "Weekly"].map(
+                                                        (option) => (
+                                                            <option
+                                                                key={option}
+                                                                value={option}
+                                                            >
+                                                                {option}
+                                                            </option>
+                                                        )
+                                                    )}
+                                                </select>
                                             </label>
                                         )}
                                     </>
@@ -250,7 +297,10 @@ function Settings(props) {
                             onChange={(e) => setNewUsername(e.target.value)}
                             className="username-input"
                         />
-                        <button onClick={handleChangeUsername} className="change-username-button">
+                        <button
+                            onClick={handleChangeUsername}
+                            className="change-username-button"
+                        >
                             Change Username
                         </button>
                     </div>
@@ -266,18 +316,24 @@ function Settings(props) {
                 <div className="settings-header">Settings</div>
                 <div className="settings-buttons-options">
                     <div className="settings-buttons">
-                        {["Visual", "Account", "Language & Region", "Misc"].map((section) => (
-                            <button
-                                key={section}
-                                className={`settings-button ${selectedSection === section ? "active" : ""}`}
-                                onClick={() => setSelectedSection(section)}
-                            >
-                                <div className="settings-text">{section}</div>
-                            </button>
-                        ))}
+                        {["Visual", "Account", "Language & Region", "Misc"].map(
+                            (section) => (
+                                <button
+                                    key={section}
+                                    className={`settings-button ${selectedSection === section ? "active" : ""}`}
+                                    onClick={() => setSelectedSection(section)}
+                                >
+                                    <div className="settings-text">
+                                        {section}
+                                    </div>
+                                </button>
+                            )
+                        )}
                     </div>
                     <div className="settings-options">
-                        <div className="settings-option">{renderOptionContent()}</div>
+                        <div className="settings-option">
+                            {renderOptionContent()}
+                        </div>
                     </div>
                 </div>
             </div>

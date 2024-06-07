@@ -136,7 +136,8 @@ app.delete("/todo/:id", authenticateUser, async (req, res) => {
 app.get("/event", authenticateUser, async (req, res) => {
     try {
         // get events for a user
-        const { title, start, end, description, location, calendar, user } = req.query;
+        const { title, start, end, description, location, calendar, user } =
+            req.query;
         const result = await Service.getEvents(start, calendar, user);
         res.send({ events_list: result });
     } catch (error) {
@@ -206,7 +207,8 @@ app.delete("/event/:id", authenticateUser, async (req, res) => {
 app.get("/class", authenticateUser, async (req, res) => {
     try {
         // get classes for a user
-        const { title, start, end, description, professor, calendar, user } = req.query;
+        const { title, start, end, description, professor, calendar, user } =
+            req.query;
         const result = await Service.getClasses(start, calendar, user);
         res.send({ classes_list: result });
     } catch (error) {

@@ -96,10 +96,11 @@ function Monthly(props) {
             week.push(
                 <div className="monthly-day-box">
                     <div
-                        className={`selected-day-frame ${isSameMonth(currentDate, activeDate)
-                            ? ""
-                            : "inactiveDay"
-                            } ${isSameDay(currentDate, selectedDate) ? "selectedDay" : ""}
+                        className={`selected-day-frame ${
+                            isSameMonth(currentDate, activeDate)
+                                ? ""
+                                : "inactiveDay"
+                        } ${isSameDay(currentDate, selectedDate) ? "selectedDay" : ""}
               ${isSameDay(currentDate, new Date()) ? "today" : ""}`}
                     >
                         {format(currentDate, "d")}
@@ -147,33 +148,28 @@ function Monthly(props) {
             var t = [];
             for (var i = 0; i < events.length; i++) {
                 d = new Date(events[i].start);
-                var timeZoneFromDB = 7.00;
+                var timeZoneFromDB = 7.0;
                 var tzDifference = timeZoneFromDB * 60 + d.getTimezoneOffset();
-                var offsetTime = new Date(d.getTime() + tzDifference * 60 * 1000);
+                var offsetTime = new Date(
+                    d.getTime() + tzDifference * 60 * 1000
+                );
                 var df = format(offsetTime, "MM/dd/yyyy");
                 if (cloneDate === df) {
                     t.push(events[i].title);
                 }
             }
             console.log(t);
-            week.push(
-                <div className="box">
-                    {makeEvents(t)}
-                </div>
-            );
+            week.push(<div className="box">{makeEvents(t)}</div>);
             currentDate = addDays(currentDate, 1);
         }
         return <>{week}</>;
     };
 
     function makeEvents(lst) {
-        var l2 = []
+        var l2 = [];
         for (var i = 0; i < lst.length; i++) {
             if (l2[i] != "") {
-                l2.push(
-                    <div className="event-box">
-                        {lst[i]}
-                    </div>)
+                l2.push(<div className="event-box">{lst[i]}</div>);
             }
         }
         return l2;

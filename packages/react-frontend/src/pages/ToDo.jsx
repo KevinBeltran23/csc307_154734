@@ -40,7 +40,9 @@ function ToDo(props) {
             .putItem(itemId, updatedItem)
             .then((updatedItemResponseJson) => {
                 props.setItems(
-                    props.items.map((item) => (item._id === itemId ? updatedItemResponseJson : item))
+                    props.items.map((item) =>
+                        item._id === itemId ? updatedItemResponseJson : item
+                    )
                 );
                 setTodoEditing(null);
                 setEditingText("");
@@ -64,8 +66,12 @@ function ToDo(props) {
             .then((updatedItemResponseJson) => {
                 props.setItems(
                     props.items
-                        .map((item) => (item._id === itemId ? updatedItemResponseJson : item))
-                        .sort((a, b) => new Date(a.duedate) - new Date(b.duedate))
+                        .map((item) =>
+                            item._id === itemId ? updatedItemResponseJson : item
+                        )
+                        .sort(
+                            (a, b) => new Date(a.duedate) - new Date(b.duedate)
+                        )
                 );
             })
             .catch((error) => {
@@ -80,7 +86,10 @@ function ToDo(props) {
         props
             .postItem(newItem)
             .then((newItemResponseJson) => {
-                props.setItems((prevItems) => [...prevItems, newItemResponseJson]);
+                props.setItems((prevItems) => [
+                    ...prevItems,
+                    newItemResponseJson
+                ]);
                 setItem({
                     duedate: "",
                     contents: "",
@@ -98,7 +107,9 @@ function ToDo(props) {
             .fetchItems()
             .then((res) => res.json())
             .then((json) => {
-                const sortedItems = json.todo_list.sort((a, b) => new Date(a.duedate) - new Date(b.duedate));
+                const sortedItems = json.todo_list.sort(
+                    (a, b) => new Date(a.duedate) - new Date(b.duedate)
+                );
                 props.setItems(sortedItems);
             })
             .catch((error) => {
@@ -161,19 +172,25 @@ function ToDo(props) {
             <div className="calendar-dropdown-container">
                 <div className="dropdown-rectangle">
                     <div className="dropdown-button-frame">
-                        <div className="calendar-todo-dropdown">{Dropdown(props, cal_lst)}</div>
+                        <div className="calendar-todo-dropdown">
+                            {Dropdown(props, cal_lst)}
+                        </div>
                     </div>
                 </div>
             </div>
             <div className="todo-dropdown-container">
                 <div className="dropdown-rectangle">
                     <div className="dropdown-button-frame">
-                        <div className="calendar-todo-dropdown">{Dropdown(props, todo_lst)}</div>
+                        <div className="calendar-todo-dropdown">
+                            {Dropdown(props, todo_lst)}
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div className="currentDay">{format(activeDate, "MMMM dd yyyy")}</div>
+            <div className="currentDay">
+                {format(activeDate, "MMMM dd yyyy")}
+            </div>
 
             <AiOutlineLeft className="TodoNavIcon TodoNavIcon-left" />
             <AiOutlineRight className="TodoNavIcon TodoNavIcon-right" />
@@ -196,66 +213,76 @@ function ToDo(props) {
             </button>
 
             <div className="main-rect">
-            <div className="todo-entry">
-                <form onSubmit={(event) => updateItems(event, item)}>
-                    <input
-                        type="text"
-                        name="contents"
-                        onChange={handleChange}
-                        value={item.contents}
-                        className="contents-input"
-                        placeholder="Contents"
-                    />
-                    <input
-                        type="date"
-                        name="duedate"
-                        onChange={handleChange}
-                        value={item.duedate}
-                        className="duedate-input"
-                        placeholder="Due date"
-                    />
-                    <button type="submit" className="add-todo-button">
-                        Add Todo
-                    </button>
-                </form>
-            </div>
-
-            {props.items.map((todo) => (
-                <div key={todo._id} className="todo-box">
-                    <div className="todo-item">
-                        {todoEditing === todo._id ? (
-                            <>
-                                <input
-                                    type="text"
-                                    onChange={(e) => setEditingText(e.target.value)}
-                                    value={editingText}
-                                />
-                                <button onClick={() => editItem(todo._id)}>Submit Edits</button>
-                                <button onClick={() => setTodoEditing(null)}>Cancel</button>
-                            </>
-                        ) : (
-                            <>
-                                <div>{todo.contents}</div>
-                                <div>{todo.duedate}</div>
-                                <button
-                                    onClick={() => {
-                                        setTodoEditing(todo._id);
-                                        setEditingText(todo.contents);
-                                    }}
-                                >
-                                    Edit Todo
-                                </button>
-                            </>
-                        )}
-                        <button onClick={() => props.deleteItem(todo._id)}>Delete</button>
+                <div className="todo-entry">
+                    <form onSubmit={(event) => updateItems(event, item)}>
                         <input
-                            type="checkbox"
-                            onChange={() => toggleCheck(todo._id)}
-                            checked={todo.checked}
+                            type="text"
+                            name="contents"
+                            onChange={handleChange}
+                            value={item.contents}
+                            className="contents-input"
+                            placeholder="Contents"
                         />
-                    </div>
+                        <input
+                            type="date"
+                            name="duedate"
+                            onChange={handleChange}
+                            value={item.duedate}
+                            className="duedate-input"
+                            placeholder="Due date"
+                        />
+                        <button type="submit" className="add-todo-button">
+                            Add Todo
+                        </button>
+                    </form>
                 </div>
-            ))}
+
+                {props.items.map((todo) => (
+                    <div key={todo._id} className="todo-box">
+                        <div className="todo-item">
+                            {todoEditing === todo._id ? (
+                                <>
+                                    <input
+                                        type="text"
+                                        onChange={(e) =>
+                                            setEditingText(e.target.value)
+                                        }
+                                        value={editingText}
+                                    />
+                                    <button onClick={() => editItem(todo._id)}>
+                                        Submit Edits
+                                    </button>
+                                    <button
+                                        onClick={() => setTodoEditing(null)}
+                                    >
+                                        Cancel
+                                    </button>
+                                </>
+                            ) : (
+                                <>
+                                    <div>{todo.contents}</div>
+                                    <div>{todo.duedate}</div>
+                                    <button
+                                        onClick={() => {
+                                            setTodoEditing(todo._id);
+                                            setEditingText(todo.contents);
+                                        }}
+                                    >
+                                        Edit Todo
+                                    </button>
+                                </>
+                            )}
+                            <button onClick={() => props.deleteItem(todo._id)}>
+                                Delete
+                            </button>
+                            <input
+                                type="checkbox"
+                                onChange={() => toggleCheck(todo._id)}
+                                checked={todo.checked}
+                            />
+                        </div>
+                    </div>
+                ))}
             </div>
 
             {message && <p>{message}</p>}
