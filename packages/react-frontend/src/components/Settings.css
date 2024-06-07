@@ -1,12 +1,11 @@
-.bold-text {
+.bold-text,
+.bold-text * {
     font-weight: bold;
 }
 
 /* Common font style */
 .settings-font {
-    font-family: Arial, sans-serif; /* Example font family */
-    font-style: normal;
-    /* font-weight: 400; */
+    font-family: Arial, sans-serif;
 }
 
 /* Active button style */
@@ -48,7 +47,6 @@
     width: 175px;
     height: 48px;
     padding: 40px;
-    /* font-weight: 400; */
     font-size: 48px;
     line-height: 48px;
     margin: auto;
@@ -72,7 +70,7 @@
     vertical-align: top;
 }
 
-#settings-button {
+.settings-button {
     width: 186px;
     height: 42px;
     background: #cac7a7;
@@ -106,7 +104,8 @@
     border-width: 2px;
     background: #cac7a7;
     padding: 10px;
-    overflow-y: auto; /* Add scroll if content overflows */
+    overflow-y: auto;
+    /* Add scroll if content overflows */
 }
 
 .settings-option {
@@ -120,7 +119,6 @@
     margin-bottom: 5px;
     font-size: 18px;
     padding: 5px;
-    /* background: #E4E3D3; */
     border-radius: 4px;
 }
 
@@ -132,5 +130,4 @@
 .settings-font {
     font-family: Arial, sans-serif;
     font-style: normal;
-    /* font-weight: 400; */
 }

@@ -2,8 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../components/ToDo.css";
 import Clock from "./Clock.jsx";
+import Dropdown from "./Dropdown";
+import { format } from "date-fns";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 function ToDo(props) {
+    const [activeDate, setActiveDate] = useState(new Date());
+
     const [item, setItem] = useState({
         duedate: "",
         contents: "",
@@ -24,18 +29,59 @@ function ToDo(props) {
         }));
     }
 
-    function handleWeekly() {
-        // go to weekly page
-        navigate("/weekly");
+    function editItem(itemId) {
+        const updatedItem = {
+            ...props.items.find((item) => item._id === itemId),
+            contents: editingText,
+            user: props.userId
+        };
+
+        props
+            .putItem(itemId, updatedItem)
+            .then((updatedItemResponseJson) => {
+                props.setItems(
+                    props.items.map((item) =>
+                        item._id === itemId ? updatedItemResponseJson : item
+                    )
+                );
+                setTodoEditing(null);
+                setEditingText("");
+            })
+            .catch((error) => {
+                setMessage(`Update Error: ${error.message}`);
+                console.log(error);
+            });
     }
 
-    function handleMonthly() {
-        // go to weekly page
-        navigate("/monthly");
+    function toggleCheck(itemId) {
+        const itemToUpdate = props.items.find((item) => item._id === itemId);
+        const updatedItem = {
+            ...itemToUpdate,
+            checked: !itemToUpdate.checked,
+            user: props.userId
+        };
+
+        props
+            .putItem(itemId, updatedItem)
+            .then((updatedItemResponseJson) => {
+                props.setItems(
+                    props.items
+                        .map((item) =>
+                            item._id === itemId ? updatedItemResponseJson : item
+                        )
+                        .sort(
+                            (a, b) => new Date(a.duedate) - new Date(b.duedate)
+                        )
+                );
+            })
+            .catch((error) => {
+                setMessage(`Update Error: ${error.message}`);
+                console.log(error);
+            });
     }
 
     function updateItems(event, newItem) {
-        event.preventDefault(); // Prevent form submission from causing a page reload
+        event.preventDefault();
 
         props
             .postItem(newItem)
@@ -52,30 +98,6 @@ function ToDo(props) {
                 });
             })
             .catch((error) => {
-                console.log(error);
-            });
-    }
-
-    function editItem(itemId) {
-        const updatedItem = {
-            ...props.items.find((item) => item._id === itemId),
-            contents: editingText,
-            user: props.userId // Ensure the user ID is included
-        };
-
-        props
-            .putItem(itemId, updatedItem) // Pass itemId and updatedItem separately
-            .then((updatedItemResponseJson) => {
-                props.setItems(
-                    props.items.map((item) =>
-                        item._id === itemId ? updatedItemResponseJson : item
-                    )
-                );
-                setTodoEditing(null);
-                setEditingText("");
-            })
-            .catch((error) => {
-                setMessage(`Update Error: ${error.message}`);
                 console.log(error);
             });
     }
@@ -122,50 +144,128 @@ function ToDo(props) {
             });
     }, []);
 
+    var create_lst = [
+        { value: "Create", label: "Create" },
+        { value: "Event", label: "Event" },
+        { value: "Class", label: "Class" },
+        { value: "Calendar", label: "Calendar" },
+        { value: "To Do Item", label: "To Do Item" }
+    ];
+
+    var cal_lst = [
+        { value: "Create", label: "Calendars" },
+        { value: "Option 2", label: "Option 2" },
+        { value: "Option 3", label: "Option 3" }
+    ];
+
+    var todo_lst = [
+        { value: "Create", label: "To Do" },
+        { value: "Option 2", label: "Option 2" },
+        { value: "Option 3", label: "Option 3" }
+    ];
+
+    function handleSettings() {
+        navigate("/settings");
+    }
+    function handleWeekly() {
+        navigate("/weekly");
+    }
+    function handleMonthly() {
+        navigate("/monthly");
+    }
+    function handleToDo() {
+        navigate("/todo");
+    }
+    function handleCreate() {
+        // create an event
+    }
+    function handleCalendarsDropdown() {
+        // open calendars drop down
+    }
+    function handleToDoDropdown() {
+        // open todo dropdown
+    }
+    function handleClickingOnEvent() {
+        // implement functionality
+    }
+
     return (
         <>
             <button className="logout" onClick={props.logout}>
                 {" "}
-                Log Out Temporary Button{" "}
+                Log Out{" "}
             </button>
-            <div className="todo-clock">
+            <div className="calendar-dropdown-container">
+                <div className="dropdown-rectangle">
+                    <div className="dropdown-button-frame">
+                        <div className="calendar-todo-dropdown">
+                            {Dropdown(props, cal_lst)}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="todo-dropdown-container">
+                <div className="dropdown-rectangle">
+                    <div className="dropdown-button-frame">
+                        <div className="calendar-todo-dropdown">
+                            {Dropdown(props, todo_lst)}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="currentDay">
+                {format(activeDate, "MMMM dd yyyy")}
+            </div>
+
+            <AiOutlineLeft className="TodoNavIcon TodoNavIcon-left" />
+            <AiOutlineRight className="TodoNavIcon TodoNavIcon-right" />
+
+            <div className="the-clock">
                 <Clock />
             </div>
-            <div className="todo-header-name"> To Dos </div>
-            <button className="todo-weekly-view-frame" onClick={handleWeekly}>
-                <span className="todo-change-view">Weekly View</span>
+            <div className="create-dropdown">{Dropdown(props, create_lst)}</div>
+            <button className="change-view-frame" onClick={handleWeekly}>
+                <span className="change-view">Weekly View</span>
             </button>
-            <button className="todo-monthly-view-frame" onClick={handleMonthly}>
-                <span className="todo-change-view">Monthly View</span>
+            <button className="todo-view-frame" onClick={handleMonthly}>
+                <span className="change-view">Monthly View</span>
+            </button>
+            <button className="settings-frame" onClick={handleSettings}>
+                <span className="gear"></span>
+            </button>
+            <button className="download-frame">
+                <span className="download-icon"></span>
             </button>
 
-            <div className="ToDo">
-                <div className="entry">
+            <div className="main-rect">
+                <div className="todo-entry">
                     <form onSubmit={(event) => updateItems(event, item)}>
-                        <div className="textEntry">
-                            <input
-                                type="text"
-                                name="contents"
-                                onChange={handleChange}
-                                value={item.contents}
-                                style={{ fontSize: "18px" }}
-                                placeholder="Contents"
-                            />
-                            <input
-                                type="date"
-                                name="duedate"
-                                onChange={handleChange}
-                                value={item.duedate}
-                                placeholder="Due date"
-                            />
-                            <button type="submit">Add Todo</button>
-                        </div>
+                        <input
+                            type="text"
+                            name="contents"
+                            onChange={handleChange}
+                            value={item.contents}
+                            className="contents-input"
+                            placeholder="Contents"
+                        />
+                        <input
+                            type="date"
+                            name="duedate"
+                            onChange={handleChange}
+                            value={item.duedate}
+                            className="duedate-input"
+                            placeholder="Due date"
+                        />
+                        <button type="submit" className="add-todo-button">
+                            Add Todo
+                        </button>
                     </form>
                 </div>
 
-                {props.items && props.items.length > 0 ? (
-                    props.items.map((todo) => (
-                        <div key={todo._id}>
+                {props.items.map((todo) => (
+                    <div key={todo._id} className="todo-box">
+                        <div className="todo-item">
                             {todoEditing === todo._id ? (
                                 <>
                                     <input
@@ -186,10 +286,8 @@ function ToDo(props) {
                                 </>
                             ) : (
                                 <>
-                                    {/* this displays the contents and the date to the screen*/}
                                     <div>{todo.contents}</div>
                                     <div>{todo.duedate}</div>
-
                                     <button
                                         onClick={() => {
                                             setTodoEditing(todo._id);
@@ -203,17 +301,14 @@ function ToDo(props) {
                             <button onClick={() => props.deleteItem(todo._id)}>
                                 Delete
                             </button>
-
                             <input
                                 type="checkbox"
                                 onChange={() => toggleCheck(todo._id)}
                                 checked={todo.checked}
                             />
                         </div>
-                    ))
-                ) : (
-                    <p>No items available</p>
-                )}
+                    </div>
+                ))}
             </div>
             {message && <p>{message}</p>}
         </>

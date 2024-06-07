@@ -16,6 +16,11 @@ h1 {
     line-height: normal;
 }
 
+.body-with-image {
+    background-image: url("cal-poly.png"); /* Adjust the path to match the location of my-image.png */
+    background-size: cover;
+}
+
 :root {
     --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
@@ -97,7 +102,7 @@ button {
     width: 8%;
     height: 38%;
     background: #dfdfdb;
-    border: 2px solid #154734;
+    border: 1px solid #154734;
     border-radius: 24px;
 }
 
@@ -113,7 +118,7 @@ button {
     width: 8%;
     height: 38%;
     background: #dfdfdb;
-    border: 2px solid #154734;
+    border: 1px solid #154734;
     border-radius: 24px;
     flex: none;
     flex-grow: 0;
@@ -203,7 +208,8 @@ button {
     color: var(--Poly-Green, #154734);
     box-sizing: border-box;
     display: inline-block;
-    font-size: calc(2.5vw + 2.5vh); /* Adjust as needed */
+    font-size: calc(2.5vw + 2.5vh);
+    /* Adjust as needed */
 }
 
 .change-view-frame {
@@ -343,6 +349,18 @@ button {
     color: #9e9e9e;
 }
 
+.events {
+    display: grid;
+    width: 64.1%;
+    height: 80%;
+    grid-template-columns: repeat(7, 1fr);
+    position: absolute;
+    border: 1px solid #154734;
+    border-radius: 20px;
+    top: 17%;
+    left: 20%;
+}
+
 .selectedDay {
     color: white;
     background: #98c9b0;
@@ -387,6 +405,7 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: start;
     flex-wrap: nowrap;
     position: absolute;
     width: 7%;
@@ -397,18 +416,20 @@ button {
     background: #ffffff;
     border: 1px solid #000000;
     z-index: 12;
-
     font-family: JosefinSans, var(--default-font-family);
     font-size: calc(0.7vw + 0.7vh);
 }
 
 #popup {
-    width: 200px;
+    width: 12%;
     z-index: 100;
-    position: relative;
-    left: 325px;
+    position: absolute;
+    left: 84.2%;
+    top: 17%;
+    font-size: calc(0.7vw + 0.7vh);
 }
 
 #inputs {
-    width: 110px;
+    width: 6vw;
+    height: 1.5vh;
 }

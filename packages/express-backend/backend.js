@@ -51,143 +51,99 @@ app.post("/login", loginUser);
 
 app.post("/signup", registerUser);
 
+// registration page
 app.post("/registration", async (req, res) => {
-    const userToAdd = req.body;
     try {
+        const userToAdd = req.body;
         const addedUser = await Service.addUser(userToAdd);
         res.status(201).json(addedUser);
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
-// monthly page - Idk what would need to be done here
-
-app.post("/monthly", async (req, res) => {
-    // idk what this will do
-    const eventToAdd = req.body;
+// monthly page
+app.post("/monthly", authenticateUser, async (req, res) => {
     try {
+        const eventToAdd = req.body;
         const addedEvent = await Service.addEvent(eventToAdd);
         res.status(201).json(addedEvent);
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
-// weekly page - Idk what would need to be done here
+app.get("/monthly", authenticateUser, async (req, res) => {
+    try {
+        // get all the information for the monthly calendar for a user
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
+// weekly page
 app.post("/weekly", authenticateUser, async (req, res) => {
-    // idk what this will do
-    const eventToAdd = req.body;
     try {
+        const eventToAdd = req.body;
         const addedEvent = await Service.addEvent(eventToAdd);
         res.status(201).json(addedEvent);
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
-// settings page - gonna need a lot of work
-
-app.get("/settings", authenticateUser, async (req, res) => {
-    // get todo items for a user
+app.get("/weekly", authenticateUser, async (req, res) => {
     try {
-        const result = await Service.getSettings(req.query);
-        res.send({ settings_list: result });
+        // get all the information for the weekly calendar for a user
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
-app.post("/settings", authenticateUser, async (req, res) => {
-    // add an item to the todo list
-    const settingToChange = req.body;
+// todo page
+app.get("/todo", authenticateUser, async (req, res) => {
     try {
-        const changedSetting = await Service.addSetting(settingToChange);
-        res.status(201).json(changedSetting);
-    } catch (error) {
-        console.log(error);
-        res.status(404).send("Internal Server Error");
-    }
-});
-
-app.put("/setting/:id", authenticateUser, async (req, res) => {
-    const settingId = req.params.id; // Get the ID from the URL parameters
-    const updatedSetting = req.body; // Get the updated item data from the request body
-    try {
-        const editedSetting = await Service.editSetting(
-            settingId,
-            updatedSetting
-        );
-        res.status(200).json(editedSetting);
-    } catch (error) {
-        console.log(error);
-        res.status(404).send("Internal Server Error");
-    }
-});
-
-app.delete("/setting/:id", authenticateUser, async (req, res) => {
-    // delete an item from the todo list
-    const id = req.params["id"];
-    try {
-        const result = await Service.deleteSettingById(id);
-        if (result) {
-            res.status(204).send();
-        } else {
-            res.status(404).send("User not found.");
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(404).send("Internal Server Error");
-    }
-});
-
-// todo page - I think this is done
-
-app.get("/todo", async (req, res) => {
-    // get todo items for a user
-    const { duedate, user } = req.query;
-    try {
+        const { duedate, contents, user } = req.query;
         const result = await Service.getTodoItems(duedate, user);
         res.send({ todo_list: result });
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
-app.post("/todo", async (req, res) => {
-    // add an item to the todo list
-    const todoItemToAdd = req.body;
+app.post("/todo", authenticateUser, async (req, res) => {
     try {
+        const todoItemToAdd = req.body;
         const addedItem = await Service.addTodoItem(todoItemToAdd);
         res.status(201).json(addedItem);
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
 app.put("/todo/:id", authenticateUser, async (req, res) => {
-    const itemId = req.params.id; // Get the ID from the URL parameters
-    const updatedItem = req.body; // Get the updated item data from the request body
     try {
+        const itemId = req.params.id; // Get the ID from the URL parameters
+        const updatedItem = req.body; // Get the updated item data from the request body
         const editedItem = await Service.editTodoItem(itemId, updatedItem);
         res.status(200).json(editedItem);
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
 app.delete("/todo/:id", authenticateUser, async (req, res) => {
-    // delete an item from the todo list
-    const id = req.params["id"];
     try {
+        // delete an item from the todo list
+        const id = req.params["id"];
         const result = await Service.deleteTodoItemById(id);
         if (result) {
             res.status(204).send();
@@ -196,28 +152,28 @@ app.delete("/todo/:id", authenticateUser, async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
-// events - I think this is done now
-
+// events
 app.get("/event", authenticateUser, async (req, res) => {
-    // get events for a user
-    const { start, calendar, user } = req.query;
     try {
+        // get events for a user
+        const { title, start, end, description, location, calendar, user } =
+            req.query;
         const result = await Service.getEvents(start, calendar, user);
         res.send({ events_list: result });
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
 app.get("/event/:id", authenticateUser, async (req, res) => {
-    // get one event's information
-    const id = req.params["id"];
     try {
+        // get one event's information
+        const id = req.params["id"];
         const result = await Service.findEventById(id);
         if (!result) {
             res.status(404).send("Resource not found.");
@@ -226,38 +182,39 @@ app.get("/event/:id", authenticateUser, async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
 app.post("/event", authenticateUser, async (req, res) => {
-    // add an event for the user
-    const eventToAdd = req.body;
     try {
+        // add an event for the user
+        const eventToAdd = req.body;
         const addedEvent = await Service.addEvent(eventToAdd);
         res.status(201).json(addedEvent);
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
 app.put("/event/:id", authenticateUser, async (req, res) => {
-    const eventId = req.params.id; // Get the ID from the URL parameters
-    const updatedEvent = req.body; // Get the updated item data from the request body
     try {
+        const eventId = req.params.id; // Get the ID from the URL parameters
+        const updatedEvent = req.body; // Get the updated item data from the request body
+
         const editedEvent = await Service.editEvent(eventId, updatedEvent);
         res.status(200).json(editedEvent);
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
 app.delete("/event/:id", authenticateUser, async (req, res) => {
-    // delete an event by id
-    const id = req.params["id"];
     try {
+        // delete an event by id
+        const id = req.params["id"];
         const result = await Service.deleteEventById(id);
         if (result) {
             res.status(204).send();
@@ -266,28 +223,28 @@ app.delete("/event/:id", authenticateUser, async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
-// class - I think this is done now
-
+// Class
 app.get("/class", authenticateUser, async (req, res) => {
-    // get classes for a user
-    const { start, calendar, user } = req.query;
     try {
+        // get classes for a user
+        const { title, start, end, description, professor, calendar, user } =
+            req.query;
         const result = await Service.getClasses(start, calendar, user);
         res.send({ classes_list: result });
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
 app.get("/class/:id", authenticateUser, async (req, res) => {
-    // get one class's information
-    const id = req.params["id"];
     try {
+        // get one class's information
+        const id = req.params["id"];
         const result = await Service.findClassById(id);
         if (!result) {
             res.status(404).send("Resource not found.");
@@ -296,26 +253,26 @@ app.get("/class/:id", authenticateUser, async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
 app.post("/class", authenticateUser, async (req, res) => {
-    // add a class for the user
-    const classToAdd = req.body;
     try {
+        // add a class for the user
+        const classToAdd = req.body;
         const addedClass = await Service.addClass(classToAdd);
         res.status(201).json(addedClass);
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
 app.delete("/class/:id", authenticateUser, async (req, res) => {
-    // delete a class by id
-    const id = req.params["id"];
     try {
+        // delete a class by id
+        const id = req.params["id"];
         const result = await Service.deleteClassById(id);
         if (result) {
             res.status(204).send();
@@ -324,28 +281,27 @@ app.delete("/class/:id", authenticateUser, async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
-// calendar - I think this is done
-
+// Calendar
 app.get("/calendar", authenticateUser, async (req, res) => {
-    // get calendars for a user
-    const { user } = req.query;
     try {
-        const result = await Service.getClasses(user);
+        // get calendars for a user
+        const { color, name, user } = req.query;
+        const result = await Service.getCalendars(user);
         res.send({ calendars_list: result });
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
 app.get("/calendar/:id", async (req, res) => {
-    // get one calendar's information
-    const id = req.params["id"];
     try {
+        // get one calendar's information
+        const id = req.params["id"];
         const result = await Service.findCalendarById(id);
         if (!result) {
             res.status(404).send("Resource not found.");
@@ -354,26 +310,26 @@ app.get("/calendar/:id", async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
 app.post("/calendar", authenticateUser, async (req, res) => {
-    // add a calendar for the user
-    const calendarToAdd = req.body;
     try {
+        // add a calendar for the user
+        const calendarToAdd = req.body;
         const addedCalendar = await Service.addCalendar(calendarToAdd);
         res.status(201).json(addedCalendar);
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
 app.delete("/calendar/:id", authenticateUser, async (req, res) => {
-    // delete a calendar by event id
-    const id = req.params["id"];
     try {
+        // delete a calendar by event id
+        const id = req.params["id"];
         const result = await Service.deleteCalendarById(id);
         if (result) {
             res.status(204).send();
@@ -382,28 +338,49 @@ app.delete("/calendar/:id", authenticateUser, async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
-// users - this is done
-
+// Users
 app.get("/users", authenticateUser, async (req, res) => {
-    // get users by username, password, both, or none
-    const { username, password } = req.query; // Use req.query to get query parameters
     try {
+        // get users by username, password, both, or none
+        const { username, password } = req.query;
         const result = await Service.getUsers(username, password);
         res.send({ result: result });
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
-app.delete("/user/:id", authenticateUser, async (req, res) => {
-    // delete a user's account by id
-    const id = req.params["id"];
+app.get("/users/:id", authenticateUser, async (req, res) => {
     try {
+        const id = req.params.id;
+        const result = await Service.findUserById(id);
+        res.send({ result: result });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+app.put("/users/:id", authenticateUser, async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const updatedUser = req.body;
+        const editedUser = await Service.editUser(userId, updatedUser);
+        res.status(200).json(editedUser);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+app.delete("/users/:id", authenticateUser, async (req, res) => {
+    try {
+        const id = req.params.id;
         const result = await Service.deleteUserById(id);
         if (result) {
             res.status(204).send();
@@ -412,22 +389,6 @@ app.delete("/user/:id", authenticateUser, async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
-    }
-});
-
-app.get("/users/:id", async (req, res) => {
-    // get users by id
-    const id = req.params["id"];
-    try {
-        const result = await Service.findUserById(id);
-        if (!result) {
-            res.status(404).send("Resource not found.");
-        } else {
-            res.send(result);
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });

@@ -1,166 +1,127 @@
-.todo-main-container {
-    position: relative;
-    width: 1512px;
-    height: 982px;
-    /*font-family: Inter, var(--default-font-family); */
-    margin: 0 auto;
-    overflow: hidden;
-    box-sizing: border-box;
-    /*border-style: solid;*/
-}
 
-.ToDo {
-    width: 99%;
-    margin: auto;
-    height: 754px;
-    position: absolute;
-    top: 164px;
-    /*left: 273px; */
-    border-radius: 24px;
-    border: 1px solid var(--Poly-Green, #154734);
-    background: var(--gray, #dfdfdb);
-}
-
-.todo-weekly-view-frame {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;
-    gap: 10px;
-    position: absolute;
-    width: 135px;
-    height: 25px;
-    top: 40px;
-    left: 1325px;
-    padding: 10px 10px 10px 10px;
-    cursor: pointer;
-    background: #ffffff;
-    border: 1px solid #000000;
+.todo-entry {
+    top: 17%;
+    left: 20%;
     z-index: 12;
 }
 
-.todo-monthly-view-frame {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;
-    gap: 10px;
+.contents-input {
     position: absolute;
-    width: 135px;
-    height: 25px;
-    top: 70px;
-    left: 1325px;
-    padding: 10px 10px 10px 10px;
-    cursor: pointer;
+    width: 25%;
+    height: 4%;
     background: #ffffff;
-    border: 1px solid #000000;
-    z-index: 12;
+    border-radius: 5px;
+    left: 2%;
+    top: 5%;
+    z-index: 5;
+    border: none;
+    font-size: calc(1vw + 1vh);
 }
 
-.todo-clock {
+.duedate-input {
     position: absolute;
-    width: 250px;
-    height: 0px;
-    left: 1315px;
-    top: 20px;
-    font-size: 40px;
-    line-height: 100px;
-    /* identical to box height */
-    display: flex;
-    align-items: center;
+    width: 7%;
+    height: 4%;
+    left: 27.5%;
+    top: 5%;
+    border-radius: 5px;
     text-align: center;
-    color: #000000;
+    border: none;
+    z-index: 15;
+    font-size: calc(0.6vw + 0.6vh);
 }
 
-.todo-change-view {
-    flex-shrink: 0;
-    flex-basis: auto;
-    position: relative;
-    height: 22px;
-    color: #000000;
-    /*font-family: Inter, var(--default-font-family);*/
-    font-size: 18px;
-    line-height: 22px;
-    text-align: left;
-    white-space: nowrap;
-    z-index: 13;
-}
-
-/*.todo-rectangle {
-    box-sizing: border-box;
-    width: 152px;
-    height: 456px;
-    background: #DFDFDB;
-    border: 4px solid #154734;
-    border-radius: 24px;
-    flex: none;
-    flex-grow: 0;
-    margin: 12px 0 0 12px;
-}
-
-.todo-button-frame {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;
-    gap: 10px;
-    position: relative;
-    width: 126px;
-    height: 26px;
-    margin: 12px 0 0 12px;
-    padding: 4px 12px 4px 12px;
-    left: -3px;
-    cursor: pointer;
-    background: #b7cdc2;
-    border: 1px solid #000000;
-    z-index: 50;
-}
-
-.todo-calendars {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-shrink: 0;
-    flex-basis: auto;
-    position: relative;
-    width: 79px;
-    height: 18px;
-    color: #000000;
-    font-size: 16px;
-    line-height: 18px;
-    text-align: left;
-    white-space: nowrap;
-    z-index: 51;
-} */
-
-.todo-header-name {
-    width: 1216px;
-    height: inherit;
+.add-todo-button {
     position: absolute;
-    top: 22px;
-    left: 274px;
+    width: 10%;
+    height: 4%;
+    left: 35%;
+    top: 5%;
+    background-color: var(--Stadium-Gold, #f8e08e);
+    border: none;
+    border-radius: 5px;
+    z-index: 15;
+    font-size: calc(0.6vw + 0.6vh);
+    cursor: pointer;
+}
+
+.add-todo-button:hover {
+    background: #f8e39e;
+}
+
+.currentDay {
+    position: absolute;
     color: var(--Poly-Green, #154734);
     box-sizing: border-box;
     display: inline-block;
-    font-size: 64px;
-    padding: 8px;
+    font-size: calc(2.5vw + 2.5vh);
+    top: 2.5%;
+    left: 26.4%;
 }
 
-.todo-entry {
-    width: 1215px;
-    button {
-        width: 80px;
-        height: 50px;
-        background-color: var(--Stadium-Gold, #f8e08e);
-        border: none;
-    }
-    .textEntry {
-        input {
-            width: 1117px;
-            height: 62px;
-            border-radius: 24px;
-            border: none;
-            margin: 5px;
-        }
-    }
+.TodoNavIcon {
+    display: inline-block;
+    width: 5.5%;
+    height: 5.5%;
+    position: absolute;
+    fill: var(--Stadium-Gold, #f8e08e);
+    stroke-width: 1px;
+    stroke: #000;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
+    z-index: 16;
+    top: 4.3%;
+}
+
+.TodoNavIcon-right {
+    left: 22.25%;
+}
+.TodoNavIcon-left {
+    left: 19.4%;
+}
+
+.TodoNavIcon:hover {
+    fill: #dfdfdb;
+    cursor: pointer;
+}
+
+.main-rect {
+    width: 64.1%;
+    height: 80%;
+    position: absolute;
+    background: #dfdfdb;
+    border: 1px solid #154734;
+    border-radius: 20px;
+    top: 17%;
+    left: 20%;
+}
+
+.todo-box {
+    position: relative;
+    width: 95%;
+    left: 0%;
+    top: 10%;
+    height: 15%;
+    margin: 10px auto;
+    background: #ffffff;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.todo-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.todo-item div {
+    margin-bottom: 5px;
+}
+
+.todo-item button {
+    margin-right: 5px;
+}
+
+.todo-item input[type="checkbox"] {
+    margin-top: 10px;
 }

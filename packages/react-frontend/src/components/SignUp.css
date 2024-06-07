@@ -2,63 +2,97 @@
 .signup-main-box {
     box-sizing: border-box;
     position: absolute;
-    width: 800px;
-    height: 720px;
-    left: 50%; /* Center horizontally */
-    top: calc(50% - 600px / 2); /* Center vertically */
-    margin-left: -400px; /* Half of the width to offset the left position */
-    margin-top: -60px; /* Half of the width to offset the left position */
-
+    width: 45%;
+    height: 74%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     background: #e4e3d3;
-    border: 10px solid #154734;
+    border: calc(0.4vw + 0.4vh) solid #154734;
 }
 
 /* Username Box */
 .signup-username-box {
     box-sizing: border-box;
-    position: absolute;
-    width: 600px;
-    height: 60px;
-    left: 50%; /* Center horizontally */
-    top: calc(50% - 60px / 2 - 60px); /* Center vertically */
-    margin-left: -300px; /* Half of the width to offset the left position */
-    margin-top: -60px; /* Half of the width to offset the left position */
-
+    position: relative;
+    width: 70%;
+    height: 8%;
     background: #ffffff;
     border: 1px solid #154734;
+    left: 50%;
+    top: 28%;
+    transform: translateX(-50%);
 }
 
 /* Password Box */
 .signup-password-box {
     box-sizing: border-box;
     position: absolute;
-    width: 600px;
-    height: 60px;
-    left: 50%; /* Center horizontally */
-    top: calc(50% - 60px / 2 + 60px); /* Center vertically */
-    margin-left: -300px; /* Half of the width to offset the left position */
-    margin-top: -60px; /* Half of the width to offset the left position */
-
+    width: 70%;
+    height: 8%;
     background: #ffffff;
     border: 1px solid #154734;
+    left: 50%;
+    top: 48%;
+    transform: translateX(-50%);
 }
 
-/* signup Box */
-.signup-login-box {
+/* Password Box */
+.signup-confirm-password-box {
     box-sizing: border-box;
     position: absolute;
-    width: 600px;
-    height: 60px;
-    left: 50%; /* Center horizontally */
-    top: calc(50% - 60px / 2 + 180px); /* Center vertically */
-    margin-left: -300px; /* Half of the width to offset the left position */
-    margin-top: 60px; /* Half of the width to offset the left position */
-
-    background: #154734;
+    width: 70%;
+    height: 8%;
+    background: #ffffff;
     border: 1px solid #154734;
-    border-radius: 10px;
-    cursor: pointer; /* Change cursor to pointer */
-    transition: background-color 0.3s; /* Smooth transition for background color change */
+    left: 50%;
+    top: 64%;
+    transform: translateX(-50%);
+}
+
+/* Username */
+.signup-username {
+    position: absolute;
+    left: 15%;
+    top: 27%;
+    font-family: "Josefin Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: calc(0.9vw + 0.9vh);
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #154734;
+}
+
+/* Password */
+.signup-password {
+    position: absolute;
+    left: 15%;
+    top: 44%;
+    font-family: "Josefin Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: calc(0.9vw + 0.9vh);
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #154734;
+}
+
+/* Password */
+.signup-confirm-password {
+    position: absolute;
+    left: 15%;
+    top: 60%;
+    font-family: "Josefin Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: calc(0.9vw + 0.9vh);
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #154734;
 }
 
 /* Change background color when hovered over */
@@ -70,154 +104,82 @@
 .signup-gold-box {
     box-sizing: border-box;
     position: relative;
-    width: 800px;
-    height: 30px;
-    left: 50%; /* Center horizontally */
-    top: calc(50% - 30px / 2 - 285px); /* Center vertically */
-    margin-left: -400px; /* Half of the width to offset the left position */
-    margin-top: -60px; /* Half of the width to offset the left position */
+    width: 100.2%;
+    height: 3%;
+    left: 50%;
+    top: 0%;
+    transform: translateX(-50%);
     background: #bd8b13;
-    border-width: 10px 10px 1px 10px;
-    border-style: solid;
-    border-color: #154734;
 }
 
 /* Poly Planner */
 .signup-poly-planner {
     position: absolute;
-    width: 400px;
-    height: 100px;
-    left: 50%; /* Center horizontally */
-    top: calc(50% - 100px / 2 - 180px); /* Center vertically */
-    margin-left: -150px; /* Half of the width to offset the left position */
-    margin-top: -60px; /* Half of the width to offset the left position */
+    left: 50%;
+    top: 16%;
+    transform: translate(-50%, -50%);
     font-family: "Josefin Sans";
     font-style: normal;
     font-weight: 400;
-    font-size: 64px;
-    line-height: 64px;
-    display: flex;
-    align-items: center;
-    text-align: center;
+    font-size: calc(2.2vw + 2.2vh);
     color: #154734;
+    white-space: nowrap; /* Prevent text from wrapping */
 }
 
-/* Username */
-.signup-username {
+/* signup Box */
+.signup-login-box {
+    box-sizing: border-box;
     position: absolute;
-    width: 150px;
-    height: 50px;
-    left: 50%; /* Center horizontally */
-    top: calc(50% - 50px / 2 - 105px); /* Center vertically */
-    margin-left: -300px; /* Half of the width to offset the left position */
-    margin-top: -60px; /* Half of the width to offset the left position */
-
-    font-family: "Josefin Sans";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 24px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    color: #154734;
-}
-
-/* Password */
-.signup-password {
-    position: absolute;
-    width: 150px;
-    height: 50px;
-    left: 50%; /* Center horizontally */
-    top: calc(50% - 50px / 2 + 15px); /* Center vertically */
-    margin-left: -300px; /* Half of the width to offset the left position */
-    margin-top: -60px; /* Half of the width to offset the left position */
-
-    font-family: "Josefin Sans";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 24px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    color: #154734;
+    width: 70%;
+    height: 8%;
+    left: 50%;
+    top: 80%;
+    transform: translateX(-50%);
+    background: #154734;
+    border: 1px solid #154734;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex; /* Add flex display */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
 }
 
 /* signup */
 .signup-login {
-    position: absolute;
-    width: 400px;
-    height: 0px;
-    left: 50%; /* Center horizontally */
-    top: calc(50% - 100px / 2 + 180px); /* Center vertically */
-    margin-left: -65px; /* Half of the width to offset the left position */
-    margin-top: -130px; /* Half of the width to offset the left position */
     font-family: "Josefin Sans";
     font-style: normal;
     font-weight: 400;
-    font-size: 40px;
-    line-height: 40px;
-    display: flex;
-    align-items: center;
-    text-align: center;
+    font-size: calc(1.4vw + 1.4vh);
     color: #ffffff;
-}
-
-/* Password */
-.signup-confirm-password {
-    position: absolute;
-    width: 300px;
-    height: 50px;
-    left: 50%; /* Center horizontally */
-    top: calc(50% - 50px / 2 + 135px); /* Center vertically */
-    margin-left: -300px; /* Half of the width to offset the left position */
-    margin-top: -60px; /* Half of the width to offset the left position */
-
-    font-family: "Josefin Sans";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 24px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    color: #154734;
-}
-
-/* Confirm Password */
-.signup-confirm-password-box {
-    box-sizing: border-box;
-    position: absolute;
-    width: 600px;
-    height: 60px;
-    left: 50%; /* Center horizontally */
-    top: calc(50% - 60px / 2 + 180px); /* Center vertically */
-    margin-left: -300px; /* Half of the width to offset the left position */
-    margin-top: -60px; /* Half of the width to offset the left position */
-
-    background: #ffffff;
-    border: 1px solid #154734;
+    white-space: nowrap;
 }
 
 /* Error Message */
 .signup-error-message {
     position: absolute;
-    bottom: 20px; /* Adjust as needed */
+    top: 92%; /* Adjust as needed */
     left: 50%;
-    margin-top: 120px; /* Half of the width to offset the left position */
-
     transform: translateX(-50%);
     background-color: #ffc0cb; /* Light pink */
-    padding: 5px;
+    z-index: 90;
+    font-size: calc(0.6vw + 0.6vh);
+    width: 25%;
+    height: 5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+    white-space: nowrap;
 }
 
 .signup-return-button {
-    width: 209px;
-    height: 29px;
-    padding: 10px;
-    margin-left: 90px; /* Half of the width to offset the left position */
-    margin-top: 550px; /* Half of the width to offset the left position */
+    width: 25%;
+    height: 4%;
+    left: 15%;
+    top: 73%;
     position: absolute;
     background-color: #bd8b13;
     display: flex;
@@ -227,9 +189,10 @@
     box-sizing: border-box;
     cursor: pointer;
     text-align: center;
-    font-size: 24px;
+    font-size: calc(0.8vw + 0.8vh);
     color: #fff;
     font-family: "Josefin Sans";
+    border: none;
 }
 
 /* Change background color when hovered over */

@@ -39,6 +39,78 @@ function Dropdown(props, opt = []) {
         user: props.userId
     });
 
+    useEffect(() => {
+        props
+            .fetchCalendars()
+            .then((res) => res.json())
+            .then((json) => {
+                const calendars = json.calendars_list;
+                props.setCalendars(calendars);
+            })
+            .catch((error) => {
+                console.log(error);
+                props.setMessage(`Fetch Error: ${error.message}`);
+            });
+    }, []);
+
+    useEffect(() => {
+        props
+            .fetchClasses()
+            .then((res) => res.json())
+            .then((json) => {
+                const classes = json.classes_list;
+                props.setClasses(classes);
+            })
+            .catch((error) => {
+                console.log(error);
+                props.setMessage(`Fetch Error: ${error.message}`);
+            });
+    }, []);
+
+    useEffect(() => {
+        props
+            .fetchEvents()
+            .then((res) => res.json())
+            .then((json) => {
+                const events = json.events_list;
+                props.setEvents(events);
+            })
+            .catch((error) => {
+                console.log(error);
+                props.setMessage(`Fetch Error: ${error.message}`);
+            });
+    }, []);
+
+    useEffect(() => {
+        props
+            .fetchItems()
+            .then((res) => res.json())
+            .then((json) => {
+                const sortedItems = json.todo_list.sort(
+                    (a, b) => new Date(a.duedate) - new Date(b.duedate)
+                );
+                props.setItems(sortedItems);
+            })
+            .catch((error) => {
+                console.log(error);
+                props.setMessage(`Fetch Error: ${error.message}`);
+            });
+    }, []);
+
+    useEffect(() => {
+        props
+            .fetchUser()
+            .then((res) => res.json())
+            .then((json) => {
+                const user = json.result;
+                props.setUser(user);
+            })
+            .catch((error) => {
+                console.log(error);
+                props.setMessage(`Fetch Error: ${error.message}`);
+            });
+    }, []);
+
     const handleDropdownChange = (event) => {
         var val = event.target.value;
         setSelectedValue(val);
@@ -78,6 +150,7 @@ function Dropdown(props, opt = []) {
                 [name]: value
             }));
         }
+        setPopup(false);
     };
 
     const handleSubmit = (event) => {
