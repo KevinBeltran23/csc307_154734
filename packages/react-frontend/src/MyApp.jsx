@@ -63,7 +63,7 @@ function MyApp() {
     async function fetchSettings() {
         try {
             const response = await fetch(
-                `http://154734.azurewebsites.net/settings?user=${userId}`,
+                `https://154734.azurewebsites.net/settings?user=${userId}`,
                 {
                     method: "GET",
                     headers: addAuthHeader()
@@ -79,7 +79,7 @@ function MyApp() {
     async function fetchItems() {
         try {
             const response = await fetch(
-                `http://154734.azurewebsites.net/todo?user=${userId}`,
+                `https://154734.azurewebsites.net/todo?user=${userId}`,
                 {
                     method: "GET",
                     headers: addAuthHeader()
@@ -95,7 +95,7 @@ function MyApp() {
     async function fetchEvents() {
         try {
             const response = await fetch(
-                `http://154734.azurewebsites.net/event?user=${userId}`,
+                `https://154734.azurewebsites.net/event?user=${userId}`,
                 {
                     method: "GET",
                     headers: addAuthHeader()
@@ -111,7 +111,7 @@ function MyApp() {
     async function fetchClasses() {
         try {
             const response = await fetch(
-                `http://154734.azurewebsites.net/class?user=${userId}`,
+                `https://154734.azurewebsites.net/class?user=${userId}`,
                 {
                     method: "GET",
                     headers: addAuthHeader()
@@ -127,7 +127,7 @@ function MyApp() {
     async function fetchCalendars() {
         try {
             const response = await fetch(
-                `http://154734.azurewebsites.net/calendar?user=${userId}`,
+                `https://154734.azurewebsites.net/calendar?user=${userId}`,
                 {
                     method: "GET",
                     headers: addAuthHeader()
@@ -145,7 +145,7 @@ function MyApp() {
     async function loginUser(creds) {
         try {
             const response = await fetch(
-                "http://154734.azurewebsites.net/login",
+                "https://154734.azurewebsites.net/login",
                 {
                     method: "POST",
                     headers: {
@@ -178,7 +178,7 @@ function MyApp() {
     async function signupUser(creds) {
         try {
             const response = await fetch(
-                "http://154734.azurewebsites.net/signup",
+                "https://154734.azurewebsites.net/signup",
                 {
                     method: "POST",
                     headers: {
@@ -218,7 +218,7 @@ function MyApp() {
     async function fetchSettings() {
         try {
             const response = await fetch(
-                `http://154734.azurewebsites.net/settings?user=${userId}`,
+                `https://154734.azurewebsites.net/settings?user=${userId}`,
                 {
                     method: "GET",
                     headers: addAuthHeader()
@@ -267,7 +267,7 @@ function MyApp() {
     async function postSetting(setting) {
         try {
             const response = await fetch(
-                "http://154734.azurewebsites.net/settings",
+                "https://154734.azurewebsites.net/settings",
                 {
                     method: "POST",
                     headers: addAuthHeader({
@@ -296,7 +296,7 @@ function MyApp() {
     async function deleteSetting(_id) {
         try {
             const response = await fetch(
-                `http://154734.azurewebsites.net/settings/${_id}`,
+                `https://154734.azurewebsites.net/settings/${_id}`,
                 {
                     method: "DELETE",
                     headers: addAuthHeader({
@@ -323,7 +323,7 @@ function MyApp() {
     async function putSetting(settingId, updatedSetting) {
         try {
             const response = await fetch(
-                `http://154734.azurewebsites.net/settings/${settingId}`,
+                `https://154734.azurewebsites.net/settings/${settingId}`,
                 {
                     method: "PUT",
                     headers: addAuthHeader({
@@ -378,7 +378,7 @@ function MyApp() {
     async function postItem(item) {
         try {
             const response = await fetch(
-                "http://154734.azurewebsites.net/todo",
+                "https://154734.azurewebsites.net/todo",
                 {
                     method: "POST",
                     headers: addAuthHeader({
@@ -407,7 +407,7 @@ function MyApp() {
     async function deleteItem(_id) {
         try {
             const response = await fetch(
-                `http://154734.azurewebsites.net/todo/${_id}`,
+                `https://154734.azurewebsites.net/todo/${_id}`,
                 {
                     method: "DELETE",
                     headers: addAuthHeader({
@@ -434,7 +434,7 @@ function MyApp() {
     async function putItem(itemId, updatedItem) {
         try {
             const response = await fetch(
-                `http://154734.azurewebsites.net/todo/${itemId}`,
+                `https://154734.azurewebsites.net/todo/${itemId}`,
                 {
                     method: "PUT",
                     headers: addAuthHeader({
@@ -510,7 +510,7 @@ function MyApp() {
     async function postEvent(event) {
         try {
             const response = await fetch(
-                "http://154734.azurewebsites.net/event",
+                "https://154734.azurewebsites.net/event",
                 {
                     method: "POST",
                     headers: addAuthHeader({
@@ -539,7 +539,7 @@ function MyApp() {
     async function deleteEvent(_id) {
         try {
             const response = await fetch(
-                `http://154734.azurewebsites.net/event/${_id}`,
+                `https://154734.azurewebsites.net/event/${_id}`,
                 {
                     method: "DELETE",
                     headers: addAuthHeader({
@@ -566,7 +566,7 @@ function MyApp() {
     async function putEvent(eventId, updatedEvent) {
         try {
             const response = await fetch(
-                `http://154734.azurewebsites.net/event/${eventId}`,
+                `https://154734.azurewebsites.net/event/${eventId}`,
                 {
                     method: "PUT",
                     headers: addAuthHeader({
@@ -641,7 +641,7 @@ function MyApp() {
     async function postClass(clas) {
         try {
             const response = await fetch(
-                "http://154734.azurewebsites.net/class",
+                "https://154734.azurewebsites.net/class",
                 {
                     method: "POST",
                     headers: addAuthHeader({
@@ -670,7 +670,7 @@ function MyApp() {
     async function deleteClass(_id) {
         try {
             const response = await fetch(
-                `http://154734.azurewebsites.net/class/${_id}`,
+                `https://154734.azurewebsites.net/class/${_id}`,
                 {
                     method: "DELETE",
                     headers: addAuthHeader({
@@ -697,7 +697,7 @@ function MyApp() {
     async function putClass(classId, updatedClass) {
         try {
             const response = await fetch(
-                `http://154734.azurewebsites.net/class/${classId}`,
+                `https://154734.azurewebsites.net/class/${classId}`,
                 {
                     method: "PUT",
                     headers: addAuthHeader({
@@ -780,7 +780,7 @@ function MyApp() {
     async function postCalendar(calendar) {
         try {
             const response = await fetch(
-                "http://154734.azurewebsites.net/calendar",
+                "https://154734.azurewebsites.net/calendar",
                 {
                     method: "POST",
                     headers: addAuthHeader({
@@ -809,7 +809,7 @@ function MyApp() {
     async function deleteCalendar(_id) {
         try {
             const response = await fetch(
-                `http://154734.azurewebsites.net/calendar/${_id}`,
+                `https://154734.azurewebsites.net/calendar/${_id}`,
                 {
                     method: "DELETE",
                     headers: addAuthHeader({
@@ -838,7 +838,7 @@ function MyApp() {
     async function putCalendar(calendarId, updatedCalendar) {
         try {
             const response = await fetch(
-                `http://154734.azurewebsites.net/calendar/${calendarId}`,
+                `https://154734.azurewebsites.net/calendar/${calendarId}`,
                 {
                     method: "PUT",
                     headers: addAuthHeader({
