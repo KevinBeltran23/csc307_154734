@@ -65,6 +65,7 @@ function MyApp() {
     
         // Remove the body class that sets the background image
         document.body.classList.remove("body-with-image");
+        document.body.classList.remove("bold-text");
     }
     
 
