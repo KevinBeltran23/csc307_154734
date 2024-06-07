@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import {
     BrowserRouter as Router,
     Routes,
-    Route,
-    useNavigate
-} from "react-router-dom";
+    Route
+} 
+from "react-router-dom";
 import Login from "./pages/Login";
 import Monthly from "./pages/Monthly";
 import ToDo from "./pages/ToDo";
@@ -15,6 +15,7 @@ import PrivateRoute from "./PrivateRoute";
 
 function MyApp() {
     // important variables
+    const URL = "http://localhost:8000/"
     const INVALID_TOKEN = "INVALID_TOKEN";
     var [token, setToken] = useState(
         localStorage.getItem("token") || INVALID_TOKEN
@@ -29,7 +30,7 @@ function MyApp() {
     var [events, setEvents] = useState([]);
     var [calendars, setCalendars] = useState([]);
     var [classes, setClasses] = useState([]);
-    var [settings, setSettings] = useState([]);
+    var [user, setUser] = useState([]);
 
     // other stuff
 
@@ -37,7 +38,8 @@ function MyApp() {
         localStorage.setItem("token", token);
         localStorage.setItem("userId", userId);
         localStorage.setItem("isAuthenticated", isAuthenticated.toString());
-    }, [token, userId, isAuthenticated]);
+        localStorage.setItem("user", user);
+    }, [token, userId, isAuthenticated, user]);
 
     function addAuthHeader(otherHeaders = {}) {
         if (token === INVALID_TOKEN) {
@@ -54,708 +56,542 @@ function MyApp() {
         localStorage.removeItem("token");
         localStorage.removeItem("isAuthenticated");
         localStorage.removeItem("userId");
+        localStorage.removeItem("user", user);
         setToken(INVALID_TOKEN);
         setIsAuthenticated(false);
         setUserId(0);
+        setUser(null)
         setMessage(`Logged out successfully`);
     }
 
-    // fetch calls
-
-    function fetchSettings() {
-        const promise = fetch(
-            `http://localhost:8000/user/:${userId}`,
-            {
-                method: "GET",
-                headers: addAuthHeader()
-            }
-        );
-        return promise;
+    // Fetch calls
+    async function fetchUser() {
+        const response = await fetch(`${URL}users/${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
+        return response;
     }
 
-    function fetchItems() {
-        const promise = fetch(
-            `http://localhost:8000/todo?user=${userId}`,
-            {
-                method: "GET",
-                headers: addAuthHeader()
-            }
-        );
-        return promise;
+    async function fetchItems() {
+        const response = await fetch(`${URL}todo?user=${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
+        return response;
     }
 
-    function fetchEvents() {
-        const promise = fetch(
-            `http://localhost:8000/event?user=${userId}`,
-            {
-                method: "GET",
-                headers: addAuthHeader()
-            }
-        );
-        return promise;
+    async function fetchEvents() {
+        const response = await fetch(`${URL}event?user=${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
+        return response;
     }
 
-        
-    function fetchClasses() {
-        const promise = fetch(
-            `http://localhost:8000/class?user=${userId}`,
-            {
-                method: "GET",
-                headers: addAuthHeader()
-            }
-        );
-        return promise;
+    async function fetchClasses() {
+        const response = await fetch(`${URL}class?user=${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
+        return response;
     }
 
-    function fetchCalendars() {
-        const promise = fetch(
-            `http://localhost:8000/calendar?user=${userId}`,
-            {
-                method: "GET",
-                headers: addAuthHeader()
-            }
-        );
-        return promise;
+    async function fetchCalendars() {
+        const response = await fetch(`${URL}calendar?user=${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
+        return response;
     }
 
-    
-    // login and signup api calls
+    // Login and signup API calls
+    async function loginUser(creds) {
+        try {
+            const response = await fetch(`${URL}login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(creds)
+            });
 
-    function loginUser(creds) {
-        const promise = fetch("http://localhost:8000/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(creds)
-        })
-            .then((response) => {
-                if (response.status === 200) {
-                    return response.json().then((payload) => {
-                        setToken(payload.token);
-                        setIsAuthenticated(true);
-                        setUserId(payload.userId);
-                        setSettings(creds);
-                        setMessage(`Login successful; auth token saved`);
-                        return true; // Indicate success
-                    });
-                } else {
-                    setMessage(
-                        `Login Error ${response.status}: ${response.statusText}`
-                    );
-                    return false; // Indicate failure
-                }
-            })
-            .catch((error) => {
-                setMessage(`Login Error: ${error}`);
+            if (response.status === 200) {
+                const payload = await response.json();
+                setToken(payload.token);
+                setIsAuthenticated(true);
+                setUserId(payload.userId);
+                setUser(creds);
+                setMessage(`Login successful; auth token saved`);
+                return true; // Indicate success
+            } else {
+                setMessage(`Login Error ${response.status}: ${response.statusText}`);
                 return false; // Indicate failure
-            });
-        return promise;
+            }
+        } catch (error) {
+            setMessage(`Login Error: ${error}`);
+            return false; // Indicate failure
+        }
     }
 
-    function signupUser(creds) {
-        const promise = fetch("http://localhost:8000/signup", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(creds)
-        })
-            .then((response) => {
-                if (response.status === 201) {
-                    return response.json().then((payload) => {
-                        setToken(payload.token);
-                        setIsAuthenticated(true);
-                        setUserId(payload.userId);
-                        setSettings(creds);
-                        setMessage(
-                            `Signup successful for user: ${creds.username}; auth token saved`
-                        );
-                        return true; // Indicate success
-                    });
-                } else if (response.status === 409) {
-                    setMessage(
-                        `Signup failed for user: ${creds.username}; Username already taken`
-                    );
-                    return false; // Indicate failure
-                } else {
-                    console.log(creds);
-                    setMessage(
-                        `Signup Error ${response.status}: ${response.statusText}`
-                    );
-                    return false; // Indicate failure
-                }
-            })
-            .catch((error) => {
-                setMessage(`Signup Error: ${error}`);
+    async function signupUser(creds) {
+        try {
+            const response = await fetch(`${URL}signup`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(creds)
+            });
+
+            if (response.status === 201) {
+                const payload = await response.json();
+                setToken(payload.token);
+                setIsAuthenticated(true);
+                setUserId(payload.userId);
+                setUser(creds);
+                setMessage(`Signup successful for user: ${creds.username}; auth token saved`);
+                return true; // Indicate success
+            } else if (response.status === 409) {
+                setMessage(`Signup failed for user: ${creds.username}; Username already taken`);
                 return false; // Indicate failure
-            });
-        return promise;
+            } else {
+                setMessage(`Signup Error ${response.status}: ${response.statusText}`);
+                return false; // Indicate failure
+            }
+        } catch (error) {
+            setMessage(`Signup Error: ${error}`);
+            return false; // Indicate failure
+        }
     }
 
-    // settings api calls
-
-    function updateSettings(newSetting) {
-        postSetting(newSetting)
-            .then((newSettingJson) => {
-                setSettings((prevSettings) => [...prevSettings, newSettingJson]);
-            })
-            .catch((error) => {
-                console.log(error);
+    async function putUser(userId, updatedUser) {
+        try {
+            const response = await fetch(`${URL}users/${userId}`, {
+                method: "PUT",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(updatedUser)
             });
-    }
 
-    function editSetting(settingId) {
-        const updatedSetting = {
-            ...settings.find((setting) => setting._id === settingId),
-            // whatever fields are to be editted here
-            user: userId // Ensure the user ID is included
-        };
-
-        putSetting(settingId, updatedSetting) // Pass itemId and updatedItem separately
-            .then((updatedItemResponseJson) => {
-                setSettings(
-                    settings.map((setting) =>
-                        setting._id === settingId ? updatedItemResponseJson : setting
-                    )
-                );
-                //setTodoEditing(null);
-                //setEditingText("");
-            })
-            .catch((error) => {
-                setMessage(`Update Error: ${error.message}`);
-                console.log(error);
-            });
-    }
-      
-    function postSetting(setting) {
-        const promise = fetch("http://localhost:8000/settings", {
-            method: "POST",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(setting)
-        })
-            .then((response) => {
-                if (response.status === 200 || response.status === 201) {
-                    setMessage("Item created successfully");
-                    return response.json(); // Return the JSON response for chaining
+            if (response.status === 200) {
+                setMessage("Setting updated successfully");
+                const json = await response.json();
+                if (json) {
+                    return json;
                 } else {
-                    setMessage(
-                        `Post Error ${response.status}: ${response.statusText}`
-                    );
-                    throw new Error(
-                        `Post Error ${response.status}: ${response.statusText}`
-                    );
+                    console.log("No JSON data in response");
+                    return updatedUser; // Return the updated user data if response is empty
                 }
-            })
-            .catch((error) => {
-                setMessage(`Post Error: ${error.message}`);
-                throw error;
-            });
-        return promise;
+            } else {
+                setMessage(`PUT Error ${response.status}: ${response.statusText}`);
+                throw new Error(`PUT Error ${response.status}: ${response.statusText}`);
+            }
+        } catch (error) {
+            setMessage(`PUT Error: ${error.message}`);
+            throw error;
+        }
     }
 
-    function deleteSetting(_id) {
-        const promise = fetch(`http://localhost:8000/settings/${_id}`, {
-            method: "DELETE",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            })
-        })
-            .then((response) => {
-                if (response.status === 204) {
-                    // Filter out the item with the specified _id and update the items list
-                    const updated = settings.filter((item) => item._id !== _id);
-                    setItems(updated);
-                } else if (response.status === 404) {
-                    console.log("Resource not found.");
-                } else {
-                    throw new Error(
-                        "Failed to delete item. Status code: " + response.status
-                    );
-                }
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-        return promise;
+    // Function to update items
+    async function updateItems(newItem) {
+        try {
+            const newItemResponseJson = await postItem(newItem);
+            setItems((prevItems) => [...prevItems, newItemResponseJson]);
+            console.log(items);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    function putSetting(settingId, updatedSetting) {
-        const promise = fetch(`http://localhost:8000/settings/${settingId}`, {
-            method: "PUT",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(updatedSetting)
-        })
-            .then((response) => {
-                if (response.status === 200) {
-                    setMessage("Setting updated successfully");
-                    return response.json(); // Return the JSON response for chaining
-                } else {
-                    setMessage(
-                        `PUT Error ${response.status}: ${response.statusText}`
-                    );
-                    throw new Error(
-                        `PUT Error ${response.status}: ${response.statusText}`
-                    );
-                }
-            })
-            .catch((error) => {
-                setMessage(`PUT Error: ${error.message}`);
-                throw error;
+    // Function to post an item
+    async function postItem(item) {
+        try {
+            const response = await fetch(`${URL}todo`, {
+                method: "POST",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(item)
             });
-        return promise;
+
+            if (response.status === 200 || response.status === 201) {
+                setMessage("Item created successfully");
+                return await response.json(); // Return the JSON response for chaining
+            } else {
+                setMessage(`Post Error ${response.status}: ${response.statusText}`);
+                throw new Error(`Post Error ${response.status}: ${response.statusText}`);
+            }
+        } catch (error) {
+            setMessage(`Post Error: ${error.message}`);
+            throw error;
+        }
     }
 
-    // api calls for todolist items
+    // Function to delete an item
+    async function deleteItem(_id) {
+        try {
+            const response = await fetch(`${URL}todo/${_id}`, {
+                method: "DELETE",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                })
+            });
 
-    function updateItems(newItem) {
-        postItem(newItem)
-            .then((newItemResponseJson) => {
-                setItems((prevItems) => [...prevItems, newItemResponseJson]);
-                console.log(items);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
-    
-    function postItem(item) {
-        const promise = fetch("http://localhost:8000/todo", {
-            method: "POST",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(item)
-        })
-            .then((response) => {
-                if (response.status === 200 || response.status === 201) {
-                    setMessage("Item created successfully");
-                    return response.json(); // Return the JSON response for chaining
-                } else {
-                    setMessage(
-                        `Post Error ${response.status}: ${response.statusText}`
-                    );
-                    throw new Error(
-                        `Post Error ${response.status}: ${response.statusText}`
-                    );
-                }
-            })
-            .catch((error) => {
-                setMessage(`Post Error: ${error.message}`);
-                throw error;
-            });
-        return promise;
+            if (response.status === 204) {
+                // Filter out the item with the specified _id and update the items list
+                const updated = items.filter((item) => item._id !== _id);
+                setItems(updated);
+            } else if (response.status === 404) {
+                console.log("Resource not found.");
+            } else {
+                throw new Error("Failed to delete item. Status code: " + response.status);
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
 
-    function deleteItem(_id) {
-        const promise = fetch(`http://localhost:8000/todo/${_id}`, {
-            method: "DELETE",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            })
-        })
-            .then((response) => {
-                if (response.status === 204) {
-                    // Filter out the item with the specified _id and update the items list
-                    const updated = items.filter((item) => item._id !== _id);
-                    setItems(updated);
-                } else if (response.status === 404) {
-                    console.log("Resource not found.");
-                } else {
-                    throw new Error(
-                        "Failed to delete item. Status code: " + response.status
-                    );
-                }
-            })
-            .catch((error) => {
-                console.error(error);
+    // Function to update an item
+    async function putItem(itemId, updatedItem) {
+        try {
+            const response = await fetch(`${URL}todo/${itemId}`, {
+                method: "PUT",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(updatedItem)
             });
-        return promise;
+
+            if (response.status === 200) {
+                setMessage("Item updated successfully");
+                return await response.json(); // Return the JSON response for chaining
+            } else {
+                setMessage(`PUT Error ${response.status}: ${response.statusText}`);
+                throw new Error(`PUT Error ${response.status}: ${response.statusText}`);
+            }
+        } catch (error) {
+            setMessage(`PUT Error: ${error.message}`);
+            throw error;
+        }
     }
 
-    function putItem(itemId, updatedItem) {
-        const promise = fetch(`http://localhost:8000/todo/${itemId}`, {
-            method: "PUT",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(updatedItem)
-        })
-            .then((response) => {
-                if (response.status === 200) {
-                    setMessage("Item updated successfully");
-                    return response.json(); // Return the JSON response for chaining
-                } else {
-                    setMessage(
-                        `PUT Error ${response.status}: ${response.statusText}`
-                    );
-                    throw new Error(
-                        `PUT Error ${response.status}: ${response.statusText}`
-                    );
-                }
-            })
-            .catch((error) => {
-                setMessage(`PUT Error: ${error.message}`);
-                throw error;
-            });
-        return promise;
+    // Function to update events
+    async function updateEvents(newEvent) {
+        try {
+            const newEventResponseJson = await postEvent(newEvent);
+            setEvents((prevEvents) => [...prevEvents, newEventResponseJson]);
+            console.log(events);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    // api calls for events
-
-    function updateEvents(newEvent) {
-        postEvent(newEvent)
-            .then((newEventResponseJson) => {
-                setEvents((prevEvents) => [...prevEvents, newEventResponseJson]);
-                console.log(events);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
-
-    function editEvent(eventId) {
+    // Function to edit an event
+    async function editEvent(eventId) {
         const updatedEvent = {
             ...events.find((event) => event._id === eventId),
             // whatever fields are to be editted here
             user: userId // Ensure the user ID is included
         };
 
-        putEvent(eventId, updatedEvent) // Pass itemId and updatedItem separately
-            .then((updatedEventResponseJson) => {
-                setEvents(
-                    events.map((event) =>
-                        event._id === eventId ? updatedEventResponseJson : event
-                    )
-                );
-                //setTodoEditing(null);
-                //setEditingText("");
-            })
-            .catch((error) => {
-                setMessage(`Update Error: ${error.message}`);
-                console.log(error);
-            });
+        try {
+            const updatedEventResponseJson = await putEvent(eventId, updatedEvent);
+            setEvents(
+                events.map((event) =>
+                    event._id === eventId ? updatedEventResponseJson : event
+                )
+            );
+            //setTodoEditing(null);
+            //setEditingText("");
+        } catch (error) {
+            setMessage(`Update Error: ${error.message}`);
+            console.log(error);
+        }
     }
 
-    function postEvent(event) {
-        const promise = fetch("http://localhost:8000/event", {
-            method: "POST",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(event)
-        })
-            .then((response) => {
-                if (response.status === 200 || response.status === 201) {
-                    setMessage("Event created successfully");
-                    return response.json(); // Return the JSON response for chaining
-                } else {
-                    setMessage(
-                        `Post Error ${response.status}: ${response.statusText}`
-                    );
-                    throw new Error(
-                        `Post Error ${response.status}: ${response.statusText}`
-                    );
-                }
-            })
-            .catch((error) => {
-                setMessage(`Post Error: ${error.message}`);
-                throw error;
+    // Function to post an event
+    async function postEvent(event) {
+        try {
+            const response = await fetch(`${URL}event`, {
+                method: "POST",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(event)
             });
-        return promise;
+
+            if (response.status === 200 || response.status === 201) {
+                setMessage("Event created successfully");
+                return await response.json(); // Return the JSON response for chaining
+            } else {
+                setMessage(`Post Error ${response.status}: ${response.statusText}`);
+                throw new Error(`Post Error ${response.status}: ${response.statusText}`);
+            }
+        } catch (error) {
+            setMessage(`Post Error: ${error.message}`);
+            throw error;
+        }
     }
 
-    function deleteEvent(_id) {
-        const promise = fetch(`http://localhost:8000/event/${_id}`, {
-            method: "DELETE",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            })
-        })
-            .then((response) => {
-                if (response.status === 204) {
-                    // Filter out the event with the specified _id and update the events list
-                    const updated = events.filter((event) => event._id !== _id);
-                    setEvents(updated);
-                } else if (response.status === 404) {
-                    console.log("Resource not found.");
-                } else {
-                    throw new Error(
-                        "Failed to delete event. Status code: " + response.status
-                    );
-                }
-            })
-            .catch((error) => {
-                console.error(error);
+    // Function to delete an event
+    async function deleteEvent(_id) {
+        try {
+            const response = await fetch(`${URL}event/${_id}`, {
+                method: "DELETE",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                })
             });
-        return promise;
+
+            if (response.status === 204) {
+                // Filter out the event with the specified _id and update the events list
+                const updated = events.filter((event) => event._id !== _id);
+                setEvents(updated);
+            } else if (response.status === 404) {
+                console.log("Resource not found.");
+            } else {
+                throw new Error("Failed to delete event. Status code: " + response.status);
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
 
-    function putEvent(eventId, updatedEvent) {
-        const promise = fetch(`http://localhost:8000/event/${eventId}`, {
-            method: "PUT",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(updatedEvent)
-        })
-            .then((response) => {
-                if (response.status === 200) {
-                    setMessage("Event updated successfully");
-                    return response.json(); // Return the JSON response for chaining
-                } else {
-                    setMessage(
-                        `PUT Error ${response.status}: ${response.statusText}`
-                    );
-                    throw new Error(
-                        `PUT Error ${response.status}: ${response.statusText}`
-                    );
-                }
-            })
-            .catch((error) => {
-                setMessage(`PUT Error: ${error.message}`);
-                throw error;
+    // Function to update an event
+    async function putEvent(eventId, updatedEvent) {
+        try {
+            const response = await fetch(`${URL}event/${eventId}`, {
+                method: "PUT",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(updatedEvent)
             });
-        return promise;
+
+            if (response.status === 200) {
+                setMessage("Event updated successfully");
+                return await response.json(); // Return the JSON response for chaining
+            } else {
+                setMessage(`PUT Error ${response.status}: ${response.statusText}`);
+                throw new Error(`PUT Error ${response.status}: ${response.statusText}`);
+            }
+        } catch (error) {
+            setMessage(`PUT Error: ${error.message}`);
+            throw error;
+        }
     }
 
-    // api calls for classes
-
-    function updateClasses(newClass) {
-        postClass(newClass)
-            .then((newClassResponseJson) => {
-                setClasses((prevClasses) => [...prevClasses, newClassResponseJson]);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    // Function to update classes
+    async function updateClasses(newClass) {
+        try {
+            const newClassResponseJson = await postClass(newClass);
+            setClasses((prevClasses) => [...prevClasses, newClassResponseJson]);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    function editClass(classId) {
+    // Function to edit a class
+    async function editClass(classId) {
         const updatedClass = {
             ...classes.find((clas) => clas._id === classId),
             // whatever fields are to be editted here
             user: userId // Ensure the user ID is included
         };
 
-        putClass(classId, updatedClass) // Pass itemId and updatedItem separately
-            .then((updatedClassResponseJson) => {
-                setClasses(
-                    classes.map((clas) =>
-                        clas._id === classId ? updatedClassResponseJson : clas
-                    )
-                );
-                //setTodoEditing(null);
-                //setEditingText("");
-            })
-            .catch((error) => {
-                setMessage(`Update Error: ${error.message}`);
-                console.log(error);
-            });
+        try {
+            const updatedClassResponseJson = await putClass(classId, updatedClass);
+            setClasses(
+                classes.map((clas) =>
+                    clas._id === classId ? updatedClassResponseJson : clas
+                )
+            );
+            //setTodoEditing(null);
+            //setEditingText("");
+        } catch (error) {
+            setMessage(`Update Error: ${error.message}`);
+            console.log(error);
+        }
     }
 
-    function postClass(clas) {
-        const promise = fetch("http://localhost:8000/class", {
-            method: "POST",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(clas)
-        })
-            .then((response) => {
-                if (response.status === 200 || response.status === 201) {
-                    setMessage("Class created successfully");
-                    return response.json(); // Return the JSON response for chaining
-                } else {
-                    setMessage(
-                        `Post Error ${response.status}: ${response.statusText}`
-                    );
-                    throw new Error(
-                        `Post Error ${response.status}: ${response.statusText}`
-                    );
-                }
-            })
-            .catch((error) => {
-                setMessage(`Post Error: ${error.message}`);
-                throw error;
+    // Function to post a class
+    async function postClass(clas) {
+        try {
+            const response = await fetch(`${URL}class`, {
+                method: "POST",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(clas)
             });
-        return promise;
+
+            if (response.status === 200 || response.status === 201) {
+                setMessage("Class created successfully");
+                return await response.json(); // Return the JSON response for chaining
+            } else {
+                setMessage(`Post Error ${response.status}: ${response.statusText}`);
+                throw new Error(`Post Error ${response.status}: ${response.statusText}`);
+            }
+        } catch (error) {
+            setMessage(`Post Error: ${error.message}`);
+            throw error;
+        }
     }
 
-    function deleteClass(_id) {
-        const promise = fetch(`http://localhost:8000/class/${_id}`, {
-            method: "DELETE",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            })
-        })
-            .then((response) => {
-                if (response.status === 204) {
-                    // Filter out the class with the specified _id and update the classes list
-                    const updated = calendars.filter((clas) => clas._id !== _id);
-                    setClasses(updated);
-                } else if (response.status === 404) {
-                    console.log("Resource not found.");
-                } else {
-                    throw new Error(
-                        "Failed to delete item. Status code: " + response.status
-                    );
-                }
-            })
-            .catch((error) => {
-                console.error(error);
+    // Function to delete a class
+    async function deleteClass(_id) {
+        try {
+            const response = await fetch(`${URL}class/${_id}`, {
+                method: "DELETE",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                })
             });
-        return promise;
+
+            if (response.status === 204) {
+                // Filter out the class with the specified _id and update the classes list
+                const updated = classes.filter((clas) => clas._id !== _id);
+                setClasses(updated);
+            } else if (response.status === 404) {
+                console.log("Resource not found.");
+            } else {
+                throw new Error("Failed to delete item. Status code: " + response.status);
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
 
-    function putClass(classId, updatedClass) {
-        const promise = fetch(`http://localhost:8000/class/${classId}`, {
-            method: "PUT",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(updatedClass)
-        })
-            .then((response) => {
-                if (response.status === 200) {
-                    setMessage("Class updated successfully");
-                    return response.json(); // Return the JSON response for chaining
-                } else {
-                    setMessage(
-                        `PUT Error ${response.status}: ${response.statusText}`
-                    );
-                    throw new Error(
-                        `PUT Error ${response.status}: ${response.statusText}`
-                    );
-                }
-            })
-            .catch((error) => {
-                setMessage(`PUT Error: ${error.message}`);
-                throw error;
+    // Function to update a class
+    async function putClass(classId, updatedClass) {
+        try {
+            const response = await fetch(`${URL}class/${classId}`, {
+                method: "PUT",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(updatedClass)
             });
-        return promise;
+
+            if (response.status === 200) {
+                setMessage("Class updated successfully");
+                return await response.json(); // Return the JSON response for chaining
+            } else {
+                setMessage(`PUT Error ${response.status}: ${response.statusText}`);
+                throw new Error(`PUT Error ${response.status}: ${response.statusText}`);
+            }
+        } catch (error) {
+            setMessage(`PUT Error: ${error.message}`);
+            throw error;
+        }
     }
 
-    // api calls for calendars
-
-    function updateCalendars(newCalendar) {
-        postCalendar(newCalendar)
-            .then((newCalendarJson) => {
-                setCalendars((prevCalendars) => [...prevCalendars, newCalendarJson]);
-                console.log(calendars);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    // Function to update calendars
+    async function updateCalendars(newCalendar) {
+        try {
+            const newCalendarJson = await postCalendar(newCalendar);
+            setCalendars((prevCalendars) => [...prevCalendars, newCalendarJson]);
+            console.log(calendars);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    function editCalendar(calendarId) {
+    // Function to edit a calendar
+    async function editCalendar(calendarId) {
         const updatedCalendar = {
             ...calendars.find((clas) => clas._id === calendarId),
             // whatever fields are to be editted here
             user: userId // Ensure the user ID is included
         };
 
-        putCalendar(calendarId, updatedCalendar) // Pass itemId and updatedItem separately
-            .then((updatedCalendarResponseJson) => {
-                setCalendars(
-                    calendars.map((calendar) =>
-                        calendar._id === calendarId ? updatedCalendarResponseJson : calendar
-                    )
-                );
-                //setTodoEditing(null);
-                //setEditingText("");
-            })
-            .catch((error) => {
-                setMessage(`Update Error: ${error.message}`);
-                console.log(error);
-            });
+        try {
+            const updatedCalendarResponseJson = await putCalendar(calendarId, updatedCalendar);
+            setCalendars(
+                calendars.map((calendar) =>
+                    calendar._id === calendarId ? updatedCalendarResponseJson : calendar
+                )
+            );
+            //setTodoEditing(null);
+            //setEditingText("");
+        } catch (error) {
+            setMessage(`Update Error: ${error.message}`);
+            console.log(error);
+        }
     }
 
-    function postCalendar(calendar) {
-        const promise = fetch("http://localhost:8000/calendar", {
-            method: "POST",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(calendar)
-        })
-            .then((response) => {
-                if (response.status === 200 || response.status === 201) {
-                    setMessage("Calendar created successfully");
-                    return response.json(); // Return the JSON response for chaining
-                } else {
-                    setMessage(
-                        `Post Error ${response.status}: ${response.statusText}`
-                    );
-                    throw new Error(
-                        `Post Error ${response.status}: ${response.statusText}`
-                    );
-                }
-            })
-            .catch((error) => {
-                setMessage(`Post Error: ${error.message}`);
-                throw error;
+    // Function to post a calendar
+    async function postCalendar(calendar) {
+        try {
+            const response = await fetch(`${URL}calendar`, {
+                method: "POST",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(calendar)
             });
-        return promise;
+
+            if (response.status === 200 || response.status === 201) {
+                setMessage("Calendar created successfully");
+                return await response.json(); // Return the JSON response for chaining
+            } else {
+                setMessage(`Post Error ${response.status}: ${response.statusText}`);
+                throw new Error(`Post Error ${response.status}: ${response.statusText}`);
+            }
+        } catch (error) {
+            setMessage(`Post Error: ${error.message}`);
+            throw error;
+        }
     }
 
-    function deleteCalendar(_id) {
-        const promise = fetch(`http://localhost:8000/calendar/${_id}`, {
-            method: "DELETE",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            })
-        })
-            .then((response) => {
-                if (response.status === 204) {
-                    // Filter out the calendar with the specified _id and update the items list
-                    const updated = calendars.filter((calendar) => calendar._id !== _id);
-                    setCalendars(updated);
-                } else if (response.status === 404) {
-                    console.log("Resource not found.");
-                } else {
-                    throw new Error(
-                        "Failed to delete item. Status code: " + response.status
-                    );
-                }
-            })
-            .catch((error) => {
-                console.error(error);
+    // Function to delete a calendar
+    async function deleteCalendar(_id) {
+        try {
+            const response = await fetch(`${URL}calendar/${_id}`, {
+                method: "DELETE",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                })
             });
-        return promise;
+
+            if (response.status === 204) {
+                // Filter out the calendar with the specified _id and update the items list
+                const updated = calendars.filter((calendar) => calendar._id !== _id);
+                setCalendars(updated);
+            } else if (response.status === 404) {
+                console.log("Resource not found.");
+            } else {
+                throw new Error("Failed to delete item. Status code: " + response.status);
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
 
-    function putCalendar(calendarId, updatedCalendar) {
-        const promise = fetch(`http://localhost:8000/calendar/${calendarId}`, {
-            method: "PUT",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(updatedCalendar)
-        })
-            .then((response) => {
-                if (response.status === 200) {
-                    setMessage("Calendar updated successfully");
-                    return response.json(); // Return the JSON response for chaining
-                } else {
-                    setMessage(
-                        `PUT Error ${response.status}: ${response.statusText}`
-                    );
-                    throw new Error(
-                        `PUT Error ${response.status}: ${response.statusText}`
-                    );
-                }
-            })
-            .catch((error) => {
-                setMessage(`PUT Error: ${error.message}`);
-                throw error;
+    // Function to update a calendar
+    async function putCalendar(calendarId, updatedCalendar) {
+        try {
+            const response = await fetch(`${URL}calendar/${calendarId}`, {
+                method: "PUT",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(updatedCalendar)
             });
-        return promise;
+
+            if (response.status === 200) {
+                setMessage("Calendar updated successfully");
+                return await response.json(); // Return the JSON response for chaining
+            } else {
+                setMessage(`PUT Error ${response.status}: ${response.statusText}`);
+                throw new Error(`PUT Error ${response.status}: ${response.statusText}`);
+            }
+        } catch (error) {
+            setMessage(`PUT Error: ${error.message}`);
+            throw error;
+        }
     }
 
     return (
@@ -793,10 +629,12 @@ function MyApp() {
                                 setMessage={setMessage}
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
+                                
+                                putUser={putUser}
+                                fetchUser={fetchUser}
+                                user={user}
                                 userId={userId}
-                                fetchSettings={fetchSettings}
-                                settings={settings}
-                                setSettings={setSettings}
+                                setUser={setUser}
 
                                 items={items}
                                 setItems={setItems}
@@ -805,7 +643,6 @@ function MyApp() {
                                 deleteItem={deleteItem}
                                 fetchItems={fetchItems}
                                 updateItems={updateItems}
-
                                 events={events}
                                 setEvents={setEvents}
                                 postEvent={postEvent}
@@ -814,7 +651,6 @@ function MyApp() {
                                 fetchEvents={fetchEvents}
                                 updateEvents={updateEvents}
                                 editEvent={editEvent}
-
                                 calendars={calendars}
                                 setCalendars={setCalendars}
                                 postCalendar={postCalendar}
@@ -823,7 +659,6 @@ function MyApp() {
                                 fetchCalendars={fetchCalendars}
                                 updateCalendars={updateCalendars}
                                 editCalendar={editCalendar}
-
                                 classes={classes}
                                 setClasses={setClasses}
                                 postClass={postClass}
@@ -852,7 +687,8 @@ function MyApp() {
                                 putItem={putItem}
                                 deleteItem={deleteItem}
                                 fetchItems={fetchItems}
-                                settings={settings}
+
+                                putUser={putUser}
                             />
                         }
                     />
@@ -866,11 +702,13 @@ function MyApp() {
                                 setMessage={setMessage}
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
+
+                                putUser={putUser}
+                                fetchUser={fetchUser}
+                                user={user}
                                 userId={userId}
-                                fetchSettings={fetchSettings}
-                                settings={settings}
-                                setSettings={setSettings}
-                                
+                                setUser={setUser}
+
                                 items={items}
                                 setItems={setItems}
                                 postItem={postItem}
@@ -878,7 +716,6 @@ function MyApp() {
                                 deleteItem={deleteItem}
                                 fetchItems={fetchItems}
                                 updateItems={updateItems}
-
                                 events={events}
                                 setEvents={setEvents}
                                 postEvent={postEvent}
@@ -887,7 +724,6 @@ function MyApp() {
                                 fetchEvents={fetchEvents}
                                 updateEvents={updateEvents}
                                 editEvent={editEvent}
-
                                 calendars={calendars}
                                 setCalendars={setCalendars}
                                 postCalendar={postCalendar}
@@ -896,7 +732,6 @@ function MyApp() {
                                 fetchCalendars={fetchCalendars}
                                 updateCalendars={updateCalendars}
                                 editCalendar={editCalendar}
-
                                 classes={classes}
                                 setClasses={setClasses}
                                 postClass={postClass}
@@ -918,16 +753,12 @@ function MyApp() {
                                 setMessage={setMessage}
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
-                                userId={userId}
 
-                                settings={settings}
-                                setSettings={setSettings}
-                                postSetting={postSetting}
-                                putSetting={putSetting}
-                                deleteSetting={deleteSetting}
-                                fetchSettings={fetchSettings}
-                                updateSettings={updateSettings}
-                                editSetting={editSetting}
+                                putUser={putUser}
+                                fetchUser={fetchUser}
+                                user={user}
+                                userId={userId}
+                                setUser={setUser}
                             />
                         }
                     />

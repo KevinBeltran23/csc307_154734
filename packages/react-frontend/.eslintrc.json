@@ -1,24 +1,23 @@
 {
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
-  "env": {
-    "browser": true,
-    "es2023": true,
-    "node": true
-  },
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "env": {
+        "browser": true,
+        "es2023": true,
+        "node": true
     },
-    "sourceType": "module"
-  },
-  "rules": {
-    "react/prop-types": 0
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
-  "ignorePatterns": ["**/*.test.js", "**/build/*"]
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "rules": {
+        "react/prop-types": 0
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "ignorePatterns": ["**/*.test.js", "**/build/*"]
 }
-

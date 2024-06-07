@@ -16,7 +16,9 @@
 .weekly-time-slot {
     width: auto;
     font-family: JosefinSans, var(--default-font-family);
-    font-size: calc(.7vw + .7vh); /* Adjust as needed */ /* Combine rem and vw for scaling */
+    font-size: calc(
+        0.7vw + 0.7vh
+    ); /* Adjust as needed */ /* Combine rem and vw for scaling */
     color: #000000;
     flex: none;
     flex-grow: 0;
@@ -25,9 +27,9 @@
 /* divider lines */
 .weekly-day-box {
     border-width: 0px 1px 0px 0px;
-    border-style: solid;  
+    border-style: solid;
 }
 
-.weekly-day-box:nth-last-child(1){
+.weekly-day-box:nth-last-child(1) {
     border-width: 0px 0px 0px 0px;
 }
