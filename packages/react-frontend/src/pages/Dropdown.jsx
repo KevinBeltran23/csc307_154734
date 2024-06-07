@@ -51,7 +51,7 @@ function Dropdown(props, opt = []) {
                 console.log(error);
                 props.setMessage(`Fetch Error: ${error.message}`);
             });
-    }, []);
+    }, [props.calendars]);
 
     useEffect(() => {
         props
@@ -65,7 +65,7 @@ function Dropdown(props, opt = []) {
                 console.log(error);
                 props.setMessage(`Fetch Error: ${error.message}`);
             });
-    }, []);
+    }, [props.classes]);
 
     useEffect(() => {
         props
@@ -79,7 +79,7 @@ function Dropdown(props, opt = []) {
                 console.log(error);
                 props.setMessage(`Fetch Error: ${error.message}`);
             });
-    }, []);
+    }, [props.events]);
 
     useEffect(() => {
         props
@@ -95,7 +95,7 @@ function Dropdown(props, opt = []) {
                 console.log(error);
                 props.setMessage(`Fetch Error: ${error.message}`);
             });
-    }, []);
+    }, [props.items]);
 
     useEffect(() => {
         props
@@ -109,7 +109,7 @@ function Dropdown(props, opt = []) {
                 console.log(error);
                 props.setMessage(`Fetch Error: ${error.message}`);
             });
-    }, []);
+    }, [props.user]);
 
     const handleDropdownChange = (event) => {
         var val = event.target.value;

@@ -120,7 +120,7 @@ function ToDo(props) {
                 console.log(error);
                 setMessage(`Fetch Error: ${error.message}`);
             });
-    }, []);
+    }, [props.items]);
 
     return (
         <>
