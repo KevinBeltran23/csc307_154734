@@ -1,7 +1,7 @@
 .todo-entry {
     top: 17%;
     left: 20%;
-    z-index: 12
+    z-index: 12;
 }
 
 .contents-input {
@@ -9,9 +9,9 @@
     width: 25%;
     height: 4%;
     background: #FFFFFF;
-    border-radius: 24px;
-    left: 23%;
-    top: 20%;
+    border-radius: 5px;
+    left: 2%;
+    top: 5%;
     z-index: 5;
     border: none;
     font-size: calc(1vw + 1vh);
@@ -21,9 +21,9 @@
     position: absolute;
     width: 7%;
     height: 4%;
-    left: 48.5%;
-    top: 20%;
-    border-radius: 24px;
+    left: 27.5%;
+    top: 5%;
+    border-radius: 5px;
     text-align: center;
     border: none;
     z-index: 15;
@@ -32,10 +32,10 @@
 
 .add-todo-button {
     position: absolute;
-    width: 5%;
+    width: 10%;
     height: 4%;
-    left: 56%;
-    top: 20%;
+    left: 35%;
+    top: 5%;
     background-color: var(--Stadium-Gold, #f8e08e);
     border: none;
     border-radius: 5px;
@@ -44,7 +44,7 @@
     cursor: pointer;
 }
 
-.add-todo-button:hover{
+.add-todo-button:hover {
     background: #f8e39e;
 }
 
@@ -56,7 +56,6 @@
     font-size: calc(2.5vw + 2.5vh);
     top: 2.5%;
     left: 26.4%;
-    /* Adjust as needed */
 }
 
 .TodoNavIcon {
@@ -73,10 +72,10 @@
 }
 
 .TodoNavIcon-right {
-    left: 22.25%
+    left: 22.25%;
 }
 .TodoNavIcon-left {
-    left: 19.4%
+    left: 19.4%;
 }
 
 .TodoNavIcon:hover {
@@ -84,7 +83,6 @@
     cursor: pointer;
 }
 
-/* Rectangle 2 */
 .main-rect {
     width: 64.1%;
     height: 80%;
@@ -96,39 +94,23 @@
     left: 20%;
 }
 
-/* Rectangles 71 to 81 */
 .todo-box {
-    position: absolute;
-    width: 60%;
-    height: 5%;
+    position: relative;
+    width: 95%;
+    left: 0%;
+    top: 10%;
+    height: 15%;
+    margin: 10px auto;
     background: #FFFFFF;
-    border-radius: 24px;
-    left: 23%;
-    z-index: 5;
-}
-
-.todo-button {
-    position: absolute;
-    width: calc(1.2vw + 1.2vh);
-    height: calc(1.2vw + 1.2vh);
-    border-radius: 50%;
-    left: 23.5%;
-    z-index: 15;
-    background: #DFDFDB;
-    cursor: pointer;
-}
-
-.todo-button:hover{
-    background: #ecece7;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .todo-item {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 10px;
-    box-sizing: border-box;
-    height: 100%;
 }
 
 .todo-item div {

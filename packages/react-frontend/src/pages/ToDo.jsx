@@ -29,58 +29,83 @@ function ToDo(props) {
         }));
     }
 
-    const todoBoxes = [];
-    const totalBoxes = 11;
-    const spacing = 75 / (totalBoxes + 1); // Calculate spacing based on total number of boxes
+    function editItem(itemId) {
+        const updatedItem = {
+            ...props.items.find((item) => item._id === itemId),
+            contents: editingText,
+            user: props.userId
+        };
 
-    for (let i = 1; i <= totalBoxes; i++) {
-        const topValueBoxes = 20 + spacing * i + "%"; // Calculate the top value dynamically
-        const topValueButtons = 20.75 + spacing * i + "%"; // Calculate the top value dynamically
-        const todo = props.items[i - 1]; // Get the corresponding todo item for the box
-
-        todoBoxes.push(
-            <div key={i} className={`todo-box todo-box-${i}`} style={{ top: topValueBoxes }}>
-                {todo && (
-                    <div className="todo-item">
-                        {todoEditing === todo._id ? (
-                            <>
-                                <input
-                                    type="text"
-                                    onChange={(e) => setEditingText(e.target.value)}
-                                    value={editingText}
-                                />
-                                <button onClick={() => editItem(todo._id)}>Submit Edits</button>
-                                <button onClick={() => setTodoEditing(null)}>Cancel</button>
-                            </>
-                        ) : (
-                            <>
-                                <div>{todo.contents}</div>
-                                <div>{todo.duedate}</div>
-                                <button
-                                    onClick={() => {
-                                        setTodoEditing(todo._id);
-                                        setEditingText(todo.contents);
-                                    }}
-                                >
-                                    Edit Todo
-                                </button>
-                            </>
-                        )}
-                        <button onClick={() => props.deleteItem(todo._id)}>Delete</button>
-                        <input
-                            type="checkbox"
-                            onChange={() => toggleCheck(todo._id)}
-                            checked={todo.checked}
-                        />
-                    </div>
-                )}
-            </div>
-        );
-
-        todoBoxes.push(
-            <div key={`button-${i}`} className={`todo-button todo-button-${i}`} style={{ top: topValueButtons }}></div>
-        );
+        props
+            .putItem(itemId, updatedItem)
+            .then((updatedItemResponseJson) => {
+                props.setItems(
+                    props.items.map((item) => (item._id === itemId ? updatedItemResponseJson : item))
+                );
+                setTodoEditing(null);
+                setEditingText("");
+            })
+            .catch((error) => {
+                setMessage(`Update Error: ${error.message}`);
+                console.log(error);
+            });
     }
+
+    function toggleCheck(itemId) {
+        const itemToUpdate = props.items.find((item) => item._id === itemId);
+        const updatedItem = {
+            ...itemToUpdate,
+            checked: !itemToUpdate.checked,
+            user: props.userId
+        };
+
+        props
+            .putItem(itemId, updatedItem)
+            .then((updatedItemResponseJson) => {
+                props.setItems(
+                    props.items
+                        .map((item) => (item._id === itemId ? updatedItemResponseJson : item))
+                        .sort((a, b) => new Date(a.duedate) - new Date(b.duedate))
+                );
+            })
+            .catch((error) => {
+                setMessage(`Update Error: ${error.message}`);
+                console.log(error);
+            });
+    }
+
+    function updateItems(event, newItem) {
+        event.preventDefault();
+
+        props
+            .postItem(newItem)
+            .then((newItemResponseJson) => {
+                props.setItems((prevItems) => [...prevItems, newItemResponseJson]);
+                setItem({
+                    duedate: "",
+                    contents: "",
+                    checked: false,
+                    user: props.userId
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    useEffect(() => {
+        props
+            .fetchItems()
+            .then((res) => res.json())
+            .then((json) => {
+                const sortedItems = json.todo_list.sort((a, b) => new Date(a.duedate) - new Date(b.duedate));
+                props.setItems(sortedItems);
+            })
+            .catch((error) => {
+                console.log(error);
+                setMessage(`Fetch Error: ${error.message}`);
+            });
+    }, []);
 
     var create_lst = [
         { value: "Create", label: "Create" },
@@ -127,84 +152,6 @@ function ToDo(props) {
         // implement functionality
     }
 
-    function updateItems(event, newItem) {
-        event.preventDefault();
-
-        props
-            .postItem(newItem)
-            .then((newItemResponseJson) => {
-                props.setItems((prevItems) => [...prevItems, newItemResponseJson]);
-                setItem({
-                    duedate: "",
-                    contents: "",
-                    checked: false,
-                    user: props.userId
-                });
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
-
-    function editItem(itemId) {
-        const updatedItem = {
-            ...props.items.find((item) => item._id === itemId),
-            contents: editingText,
-            user: props.userId
-        };
-
-        props
-            .putItem(itemId, updatedItem)
-            .then((updatedItemResponseJson) => {
-                props.setItems(
-                    props.items.map((item) => (item._id === itemId ? updatedItemResponseJson : item))
-                );
-                setTodoEditing(null);
-                setEditingText("");
-            })
-            .catch((error) => {
-                setMessage(`Update Error: ${error.message}`);
-                console.log(error);
-            });
-    }
-
-    function toggleCheck(itemId) {
-        const itemToUpdate = props.items.find((item) => item._id === itemId);
-        const updatedItem = {
-            ...itemToUpdate,
-            checked: !itemToUpdate.checked,
-            user: props.userId
-        };
-
-        props
-            .putItem(itemId, updatedItem)
-            .then((updatedItemResponseJson) => {
-                props.setItems(
-                    props.items
-                        .map((item) => (item._id === itemId ? updatedItemResponseJson : item))
-                        .sort((a, b) => new Date(a.duedate) - new Date(b.duedate))
-                );
-            })
-            .catch((error) => {
-                setMessage(`Update Error: ${error.message}`);
-                console.log(error);
-            });
-    }
-
-    useEffect(() => {
-        props
-            .fetchItems()
-            .then((res) => res.json())
-            .then((json) => {
-                const sortedItems = json.todo_list.sort((a, b) => new Date(a.duedate) - new Date(b.duedate));
-                props.setItems(sortedItems);
-            })
-            .catch((error) => {
-                console.log(error);
-                setMessage(`Fetch Error: ${error.message}`);
-            });
-    }, []);
-
     return (
         <>
             <button className="logout" onClick={props.logout}>
@@ -248,9 +195,7 @@ function ToDo(props) {
                 <span className="download-icon"></span>
             </button>
 
-            <div className="main-rect"></div>
-            {todoBoxes}
-
+            <div className="main-rect">
             <div className="todo-entry">
                 <form onSubmit={(event) => updateItems(event, item)}>
                     <input
@@ -273,6 +218,44 @@ function ToDo(props) {
                         Add Todo
                     </button>
                 </form>
+            </div>
+
+            {props.items.map((todo) => (
+                <div key={todo._id} className="todo-box">
+                    <div className="todo-item">
+                        {todoEditing === todo._id ? (
+                            <>
+                                <input
+                                    type="text"
+                                    onChange={(e) => setEditingText(e.target.value)}
+                                    value={editingText}
+                                />
+                                <button onClick={() => editItem(todo._id)}>Submit Edits</button>
+                                <button onClick={() => setTodoEditing(null)}>Cancel</button>
+                            </>
+                        ) : (
+                            <>
+                                <div>{todo.contents}</div>
+                                <div>{todo.duedate}</div>
+                                <button
+                                    onClick={() => {
+                                        setTodoEditing(todo._id);
+                                        setEditingText(todo.contents);
+                                    }}
+                                >
+                                    Edit Todo
+                                </button>
+                            </>
+                        )}
+                        <button onClick={() => props.deleteItem(todo._id)}>Delete</button>
+                        <input
+                            type="checkbox"
+                            onChange={() => toggleCheck(todo._id)}
+                            checked={todo.checked}
+                        />
+                    </div>
+                </div>
+            ))}
             </div>
 
             {message && <p>{message}</p>}
