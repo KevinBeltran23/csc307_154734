@@ -22,16 +22,15 @@ function Settings(props) {
   const [selectedOption, setSelectedOption] = useState("Language & Region");
 
   useEffect(() => {
-    console.log(props.settings);
-    console.log(localStorage.getItem("settings"));
-  }, [props.settings]);
+    console.log("User has been updated. Here they are");
+    console.log(props.user);
+  }, [props.user]);
 
   useEffect(() => {
-    console.log(props.userId);
-    props.fetchSettings(props.userId)
+    props.fetchUser(props.userId)
       .then((res) => res.json())
       .then((json) => {
-        props.setSettings(json.result);
+        props.setUser(json.result);
       })
       .catch((error) => {
         console.log(error);
@@ -39,22 +38,22 @@ function Settings(props) {
   }, [props.userId]);
 
   useEffect(() => {
-    if (props.settings?.bold) {
+    if (props.user?.bold) {
       document.body.classList.add("bold-text");
     } else {
       document.body.classList.remove("bold-text");
     }
-  }, [props.settings?.bold]);
+  }, [props.user?.bold]);
 
   const handleDropdownChange = (option, event) => {
     const selectedValue = event.target.value;
-    props.setSettings((prevSettings) => ({
-      ...prevSettings,
+    props.setUser((prevUser) => ({
+      ...prevUser,
       [option]: selectedValue
     }));
 
-    const flatSettings = flattenSettings({ ...props.settings, [option]: selectedValue }, props.userId);
-    props.putSetting(props.userId, flatSettings)
+    const flatSettings = flattenSettings({ ...props.user, [option]: selectedValue }, props.userId);
+    props.putUser(props.userId, flatSettings)
       .catch((error) => {
         props.setMessage(`Update Error: ${error.message}`);
         console.log(error);
@@ -63,8 +62,8 @@ function Settings(props) {
 /*
   const toggleCheck = (settingKey) => {
     const updatedSettings = {
-      ...props.settings,
-      [settingKey]: !props.settings[settingKey]
+      ...props.user,
+      [settingKey]: !props.user[settingKey]
     };
 
     props.setSettings(updatedSettings);
@@ -78,22 +77,22 @@ function Settings(props) {
   };*/
 
   const toggleCheck = (settingKey) => {
-    const updatedSettings = {
-      ...props.settings,
-      [settingKey]: !props.settings[settingKey]
+    const updatedUser = {
+      ...props.user,
+      [settingKey]: !props.user[settingKey]
     };
-    props.setSettings(updatedSettings);
+    props.setUser(updatedUser);
 
-    const flatSettings = flattenSettings(updatedSettings, props.userId);
+    const flatSettings = flattenSettings(updatedUser, props.userId);
     props.putUser(props.userId, flatSettings)
         .then((result) => {
           if (result) {
-            props.setSettings(result);
+            props.setUser(result);
           } else {
             console.log("No data returned from PUT request");
-            props.setSettings(updatedSettings); // Keep local state if the response is empty
+            props.setUser(updatedUser); // Keep local state if the response is empty
           }
-          console.log(updatedSettings);
+          console.log("The put request is successful and the following is the updated User")
           console.log(result);
         })
         .catch((error) => {
@@ -105,13 +104,13 @@ function Settings(props) {
   const renderOptionContent = () => {
     return (
       <div>
-        {Object.keys(props.settings || {}).map((setting) => (
+        {Object.keys(props.user || {}).map((setting) => (
           <div key={setting} className="settings-item">
-            {typeof props.settings[setting] === "boolean" ? (
+            {typeof props.user[setting] === "boolean" ? (
               <label className="settings-label">
                 <input
                   type="checkbox"
-                  checked={props.settings[setting]}
+                  checked={props.user[setting]}
                   onChange={() => toggleCheck(setting)}
                 />
                 {setting}
@@ -120,7 +119,7 @@ function Settings(props) {
               <label className="settings-label">
                 {setting}:
                 <select
-                  value={props.settings[setting]}
+                  value={props.user[setting]}
                   onChange={(event) => handleDropdownChange(setting, event)}
                 >
                   {setting === "language" ? (
@@ -157,7 +156,7 @@ function Settings(props) {
         <div className="settings-header">Settings</div>
         <div className="settings-buttons-options">
           <div className="settings-buttons">
-            {Object.keys(props.settings || {}).map((option) => (
+            {Object.keys(props.user || {}).map((option) => (
               <button
                 key={option}
                 className={`settings-button ${selectedOption === option ? "active" : ""}`}
