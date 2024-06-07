@@ -72,9 +72,27 @@ function Monthly(props) {
     const generateDatesForCurrentWeek = (date, selectedDate, activeDate) => {
         let currentDate = date;
         const week = [];
+
+        const event_lst = [];
+
+      var events = props.events;
+      var d;
+      var lst = [];
+      var events = props.events;
+      for (var i = 0; i < events.length; i++) {
+        d = new Date(events[i].start);
+        lst.push(format(d, "MM/dd/yyyy"));
+      }
         for (let day = 0; day < 7; day++) {
-            const cloneDate = currentDate;
+            //const cloneDate = currentDate;
             //console.log(format(cloneDate, "MM/dd/yyyy"));
+                const cloneDate = format(currentDate, "MM/dd/yyyy");
+                if (lst.includes(cloneDate)) {
+                  console.log("hello")
+                }
+                else {
+                    console.log("fuck you")
+                }
             week.push(
                 <div className="monthly-day-box">
                     <div
@@ -127,11 +145,14 @@ function Monthly(props) {
       var events = props.events;
       for (var i = 0; i < events.length; i++) {
         d = new Date(events[i].start);
-        lst.push(format(d, "MM/dd/yyyy"));
+        lst.push({key: events[i].title, value: format(d, "MM/dd/yyyy")});
       }
 
       for (let day = 0; day < 7; day++) {
-          const cloneDate = currentDate;
+          const cloneDate = format(currentDate, "MM/dd/yyyy");
+          if (d.find(cloneDate)) {
+            console.log(d)
+          }
           week.push(
               <div className="monthly-day-box">
                   <div>
