@@ -393,7 +393,6 @@ function MyApp() {
         }
     }
 
-
     // Function to update an event
     async function putEvent(eventId, updatedEvent) {
         try {
@@ -404,7 +403,7 @@ function MyApp() {
                 }),
                 body: JSON.stringify(updatedEvent)
             });
-          
+
             if (response.status === 200) {
                 setMessage("Event updated successfully");
                 return await response.json(); // Return the JSON response for chaining

@@ -222,9 +222,4 @@ export default {
     findTodoItemById,
     editTodoItem,
 
-    getSettings,
-    addSetting,
-    editSetting,
-    findSettingById,
-    deleteSettingById
 };
