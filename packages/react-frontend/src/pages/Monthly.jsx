@@ -87,12 +87,12 @@ function Monthly(props) {
             //const cloneDate = currentDate;
             //console.log(format(cloneDate, "MM/dd/yyyy"));
                 const cloneDate = format(currentDate, "MM/dd/yyyy");
-                if (lst.includes(cloneDate)) {
-                  console.log("hello")
+                /*if (lst.includes(cloneDate)) {
+                  console.log(events[])
                 }
                 else {
-                    console.log("fuck you")
-                }
+                    console.log("grr")
+                } */
             week.push(
                 <div className="monthly-day-box">
                     <div
