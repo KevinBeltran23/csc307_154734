@@ -9,7 +9,7 @@ const languageOptions = {
     English: "en",
     Hindi: "hi",
     Bengali: "bn",
-    Portuguese: "pt-BR",
+    Portuguese: "pt",
     Russian: "ru",
     Japanese: "ja",
     Vietnamese: "vi"
@@ -17,13 +17,14 @@ const languageOptions = {
 
 function Settings(props) {
     const [selectedSection, setSelectedSection] = useState("Visual");
+    const [selectedLanguage, setSelectedLanguage] = useState(languageOptions["English"]); // Default language
 
     // Categorize settings based on sections
     const settingsSections = {
-      Visual: ["bold", "polytime", "defaultView"],
-      Account: ["password", "username"],
-      "Language & Region": ["language"],
-      Misc: ["secret_setting1", "secret_setting2"]
+        Visual: ["bold", "polytime", "defaultView"],
+        Account: ["password", "username"],
+        "Language & Region": ["language"],
+        Misc: ["secret_setting1", "secret_setting2"]
     };
 
     // Initial fetch to view the current settings
@@ -70,13 +71,16 @@ function Settings(props) {
             });
     };
 
-    // Function to handle dropdown changes
-    const handleDropdownChange = (settingKey, event) => {
+    // Function to handle language change
+    const handleLanguageChange = (languageCode) => {
+        setSelectedLanguage(languageCode);
+        updateGoogleTranslate(languageCode);
+
+        // Update database
         const updatedUser = {
             ...props.user,
-            [settingKey]: event.target.value
+            language: languageCode
         };
-
         props.putUser(props.userId, updatedUser)
             .then((result) => {
                 if (result) {
@@ -93,48 +97,77 @@ function Settings(props) {
             });
     };
 
-    const renderOptionContent = () => {
-        return (
-            <div>
-                {(settingsSections[selectedSection] || []).map((setting) => (
-                    <div key={setting} className="settings-item">
-                        {["bold", "polytime", "secret_setting1", "secret_setting2"].includes(setting) ? (
-                            <label className="settings-label">
-                                <input
-                                    type="checkbox"
-                                    checked={!!props.user[setting]}
-                                    onChange={() => toggleCheck(setting)}
-                                />
-                                {setting}
-                            </label>
-                        ) : (
-                            <label className="settings-label">
-                                {setting}:
-                                <select
-                                    value={props.user[setting]}
-                                    onChange={(event) => handleDropdownChange(setting, event)}
-                                >
-                                    {setting === "language" ? (
-                                        Object.keys(languageOptions).map((language) => (
-                                            <option key={language} value={languageOptions[language]}>
-                                                {language}
-                                            </option>
-                                        ))
-                                    ) : (
-                                        ["Monthly", "Weekly"].map((option) => (
-                                            <option key={option} value={option}>
-                                                {option}
-                                            </option>
-                                        ))
-                                    )}
-                                </select>
-                            </label>
-                        )}
-                    </div>
-                ))}
-            </div>
-        );
+    // Function to update Google Translate widget
+    const updateGoogleTranslate = (languageCode) => {
+        const googleTranslateElement = document.querySelector(".goog-te-combo");
+        if (googleTranslateElement) {
+            googleTranslateElement.value = languageCode;
+            googleTranslateElement.dispatchEvent(new Event("change"));
+        }
     };
+
+    const renderOptionContent = () => {
+      return (
+          <div>
+              {(settingsSections[selectedSection] || []).map((setting) => (
+                  <div key={setting} className="settings-item">
+                      {["bold", "polytime", "secret_setting1", "secret_setting2"].includes(setting) ? (
+                          <label className="settings-label">
+                              <input
+                                  type="checkbox"
+                                  checked={props.user[setting] || false}
+                                  onChange={() => toggleCheck(setting)}
+                              />
+                              {setting}
+                          </label>
+                      ) : (
+                          <>
+                              {setting === "language" ? (
+                                  <label className="settings-label">
+                                      {setting}:
+                                      <select
+                                          value={selectedLanguage}
+                                          onChange={(event) => handleLanguageChange(event.target.value)}
+                                      >
+                                          {Object.keys(languageOptions).map((language) => (
+                                              <option key={language} value={languageOptions[language]}>
+                                                  {language}
+                                              </option>
+                                          ))}
+                                      </select>
+                                  </label>
+                              ) : (
+                                  <label className="settings-label">
+                                      {setting}:
+                                      <select
+                                          value={props.user[setting]}
+                                          onChange={(event) => handleDropdownChange(setting, event)}
+                                      >
+                                          {setting === "language" ? (
+                                              Object.keys(languageOptions).map((language) => (
+                                                  <option key={language} value={languageOptions[language]}>
+                                                      {language}
+                                                  </option>
+                                              ))
+                                          ) : (
+                                              ["Monthly", "Weekly"].map((option) => (
+                                                  <option key={option} value={option}>
+                                                      {option}
+                                                  </option>
+                                              ))
+                                          )}
+                                      </select>
+                                  </label>
+                              )}
+                          </>
+                      )}
+                  </div>
+              ))}
+          </div>
+      );
+  };
+  
+  
 
     return (
         <div className="page-container">
