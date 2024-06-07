@@ -7,15 +7,15 @@ import "../components/Settings.css";
 
 /* Google Translate Language Codes */
 const languageOptions = {
-  "Mandarin Chinese": "zh-CN",
-  "Spanish": "es",
-  "English": "en",
-  "Hindi": "hi",
-  "Bengali": "bn",
-  "Portuguese": "pt-BR",
-  "Russian": "ru",
-  "Japanese": "ja",
-  "Vietnamese": "vi"
+    "Mandarin Chinese": "zh-CN",
+    Spanish: "es",
+    English: "en",
+    Hindi: "hi",
+    Bengali: "bn",
+    Portuguese: "pt-BR",
+    Russian: "ru",
+    Japanese: "ja",
+    Vietnamese: "vi"
 };
 
 function Settings(props) {

@@ -90,7 +90,7 @@ app.get("/settings", authenticateUser, (req, res) => {
             res.status(500).send("Internal Server Error");
         });
 });
- 
+
 // Update or create settings for a specific user
 app.post("/settings", authenticateUser, (req, res) => {
     const settingToAdd = req.body;

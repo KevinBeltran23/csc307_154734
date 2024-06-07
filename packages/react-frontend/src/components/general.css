@@ -37,7 +37,7 @@ button {
     height: 80%;
     grid-template-columns: repeat(7, 1fr);
     position: absolute;
-    background: #DFDFDB;
+    background: #dfdfdb;
     border: 1px solid #154734;
     border-radius: 20px;
     top: 17%;
@@ -52,8 +52,8 @@ button {
     background: var(--White, #ffffff);
     text-align: center;
     cursor: pointer;
-    align-self: center
-        /* Adjust vertical position as needed */
+    align-self: center;
+    /* Adjust vertical position as needed */
 }
 
 .days-frame {
@@ -96,10 +96,9 @@ button {
     box-sizing: border-box;
     width: 8%;
     height: 38%;
-    background: #DFDFDB;
+    background: #dfdfdb;
     border: 2px solid #154734;
     border-radius: 24px;
-
 }
 
 .todo-dropdown-container {
@@ -113,7 +112,7 @@ button {
     box-sizing: border-box;
     width: 8%;
     height: 38%;
-    background: #DFDFDB;
+    background: #dfdfdb;
     border: 2px solid #154734;
     border-radius: 24px;
     flex: none;
@@ -176,12 +175,12 @@ button {
     background: var(--White, #ffffff);
     text-align: center;
     cursor: pointer;
-    align-self: center
-        /* Adjust vertical position as needed */
+    align-self: center;
+    /* Adjust vertical position as needed */
 }
 
 .today {
-    background: #789F90;
+    background: #789f90;
     border-radius: 50%;
 }
 
@@ -189,14 +188,14 @@ button {
     display: inline-block;
     width: 3.5%;
     height: 3.5%;
-    fill: var(--Stadium-Gold, #F8E08E);
+    fill: var(--Stadium-Gold, #f8e08e);
     stroke-width: 1px;
     stroke: #000;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.50));
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
 }
 
 .navIcon:hover {
-    fill: #DFDFDB;
+    fill: #dfdfdb;
     cursor: pointer;
 }
 
@@ -269,9 +268,8 @@ button {
 .todo-view-frame:hover,
 .settings-frame:hover,
 .todayButton:hover,
-.logout:hover
-{
-    background: #DFDFDB;
+.logout:hover {
+    background: #dfdfdb;
 }
 
 .download-frame:hover {
@@ -279,16 +277,15 @@ button {
 }
 
 .dropdown-arrow {
-    width: calc(.5vw + .5vh);
+    width: calc(0.5vw + 0.5vh);
     /* Default width */
-    height: calc(.5vw + .5vh);
+    height: calc(0.5vw + 0.5vh);
     /* Default height */
     background: url(../assets/Dropdown_arrow.png) no-repeat center;
     background-size: cover;
     fill: #000;
     /* Change the color of the arrow */
 }
-
 
 .settings-frame {
     position: absolute;
@@ -400,7 +397,7 @@ button {
     background: #ffffff;
     border: 1px solid #000000;
     z-index: 12;
-    
+
     font-family: JosefinSans, var(--default-font-family);
     font-size: calc(0.7vw + 0.7vh);
 }
