@@ -1,133 +1,335 @@
 import React, { useState, useEffect } from "react";
+import Translate from "./Translate"; // Import the Translate component
 import "../components/Settings.css";
+import "../components/general.css"; // Import the general CSS file
 
-const Settings = () => {
-    const [selectedOption, setSelectedOption] = useState(
-        localStorage.getItem("selectedOption") || "Language & Region"
-    );
-    const [settings, setSettings] = useState({
-        "Language & Region": {
-            English: false,
-            Spanish: false
-        },
-        Notifications: {
-            "Email Notifications": false,
-            "Text Notifications": false
-        },
-        "Event Settings": {
-            Reminders: false,
-            "Poly Time": false
-        },
-        "Account Settings": {
-            "Change Password": false
-        },
-        Appearance: {
-            "Light Mode": false,
-            "Dark Mode": false
-        },
-        "View Options": {
-            "Default to Weekly": false
-        },
-        Colors: {
-            "Cal Poly Colors": false,
-            "High Contrasst": false,
-            Random: false
-        },
-        Text: {
-            "Bold Text": false,
-            "Large Text": false
-        },
-        "Secret Settings": {
-            "Secret Setting 1": false,
-            "Secret Setting 2": false
-        }
-    });
+/* Google Translate Language Codes */
+const languageOptions = {
+    "Mandarin Chinese": "zh-CN",
+    Spanish: "es",
+    English: "en",
+    Hindi: "hi",
+    Bengali: "bn",
+    Portuguese: "pt",
+    Russian: "ru",
+    Japanese: "ja",
+    Vietnamese: "vi"
+};
 
+function Settings(props) {
+    const [selectedSection, setSelectedSection] = useState("Visual");
+    const [selectedLanguage, setSelectedLanguage] = useState(
+        languageOptions["English"]
+    ); // Default language
+    const [selectedDefaultView, setSelectedDefaultView] = useState("Monthly");
+    const [newUsername, setNewUsername] = useState(""); // State to hold the new username
+
+    // Categorize settings based on sections
+    const settingsSections = {
+        Visual: ["bold", "polytime", "default_view"],
+        Account: ["username", "password"],
+        "Language & Region": ["language"],
+        Misc: ["secret_setting1", "secret_setting2"]
+    };
+
+    // Initial fetch to view the current settings
     useEffect(() => {
-        const savedSettings = localStorage.getItem("settings");
-        if (savedSettings) {
-            setSettings(JSON.parse(savedSettings));
-        }
-    }, []);
+        props
+            .fetchUser(props.userId)
+            .then((res) => res.json())
+            .then((json) => {
+                props.setUser(json.result);
+                setSelectedDefaultView(json.result.default_view || "Monthly"); // Initialize default view state
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [props.userId]);
 
+    // Handle bold text setting
     useEffect(() => {
-        localStorage.setItem("selectedOption", selectedOption);
-        localStorage.setItem("settings", JSON.stringify(settings));
-    }, [selectedOption, settings]);
-
-    // Effect to toggle bold text class
-    useEffect(() => {
-        if (settings.Text["Bold Text"]) {
+        if (props.user?.bold) {
             document.body.classList.add("bold-text");
         } else {
             document.body.classList.remove("bold-text");
         }
-    }, [settings.Text["Bold Text"]]);
+    }, [props.user?.bold]);
 
-    const handleCheckboxChange = (option, setting) => {
-        const updatedSettings = { ...settings };
-        // For options like language and colors, uncheck other options when one is checked
-        if (
-            option === "Language & Region" ||
-            option === "Appearance" ||
-            option === "Colors"
-        ) {
-            Object.keys(updatedSettings[option]).forEach((key) => {
-                updatedSettings[option][key] = key === setting;
-            });
+    // Handle bold text setting
+    useEffect(() => {
+        if (props.user?.secret_setting2) {
+            document.body.classList.add("body-with-image");
         } else {
-            updatedSettings[option][setting] =
-                !updatedSettings[option][setting];
+            document.body.classList.remove("body-with-image");
         }
-        setSettings(updatedSettings);
+    }, [props.user?.secret_setting2]);
+
+    // Function to toggle boolean settings
+    const toggleCheck = (settingKey) => {
+        const updatedUser = {
+            ...props.user,
+            [settingKey]: !props.user[settingKey]
+        };
+
+        props
+            .putUser(props.userId, updatedUser)
+            .then((result) => {
+                if (result) {
+                    props.setUser(result);
+                    console.log(
+                        "The put request is successful and the following is the updated User"
+                    );
+                    console.log(result);
+
+                    // Check if secret_setting2 was toggled and update body class accordingly
+                    if (settingKey === "secret_setting2") {
+                        document.body.classList.toggle(
+                            "body-with-image",
+                            result[settingKey]
+                        );
+                    }
+                } else {
+                    console.log("No data returned from PUT request");
+                }
+            })
+            .catch((error) => {
+                props.setMessage(`Update Error: ${error.message}`);
+                console.log(error);
+            });
+    };
+
+    // Function to handle language change
+    const handleLanguageChange = (languageCode) => {
+        setSelectedLanguage(languageCode);
+        updateGoogleTranslate(languageCode);
+
+        // Update database
+        const updatedUser = {
+            ...props.user,
+            language: languageCode
+        };
+        props
+            .putUser(props.userId, updatedUser)
+            .then((result) => {
+                if (result) {
+                    props.setUser(result);
+                    console.log(
+                        "The put request is successful and the following is the updated User"
+                    );
+                    console.log(result);
+                } else {
+                    console.log("No data returned from PUT request");
+                }
+            })
+            .catch((error) => {
+                props.setMessage(`Update Error: ${error.message}`);
+                console.log(error);
+            });
+    };
+
+    // Function to handle default view change
+    const handleDefaultViewChange = (event) => {
+        const updatedDefaultView = event.target.value;
+        setSelectedDefaultView(updatedDefaultView);
+
+        // Update database
+        const updatedUser = {
+            ...props.user,
+            default_view: updatedDefaultView
+        };
+        props
+            .putUser(props.userId, updatedUser)
+            .then((result) => {
+                if (result) {
+                    props.setUser(result);
+                    console.log(
+                        "The put request is successful and the following is the updated User"
+                    );
+                    console.log(result);
+                } else {
+                    console.log("No data returned from PUT request");
+                }
+            })
+            .catch((error) => {
+                props.setMessage(`Update Error: ${error.message}`);
+                console.log(error);
+            });
+    };
+
+    // Function to handle username change request
+    const handleChangeUsername = () => {
+        // Make API call to update username
+        const updatedUser = {
+            ...props.user,
+            username: newUsername
+        };
+        props
+            .putUser(props.userId, updatedUser)
+            .then((result) => {
+                if (result) {
+                    props.setUser(result);
+                    console.log("Username updated successfully");
+                } else {
+                    console.log("No data returned from PUT request");
+                }
+            })
+            .catch((error) => {
+                props.setMessage(`Update Error: ${error.message}`);
+                console.log(error);
+            });
+    };
+
+    // Function to update Google Translate widget
+    const updateGoogleTranslate = (languageCode) => {
+        const googleTranslateElement = document.querySelector(".goog-te-combo");
+        if (googleTranslateElement) {
+            googleTranslateElement.value = languageCode;
+            googleTranslateElement.dispatchEvent(new Event("change"));
+        }
+    };
+
+    // Function to update body background based on secret_setting2 value
+    const updateBodyBackground = (isSecretSetting2Enabled) => {
+        const body = document.querySelector("body");
+        if (isSecretSetting2Enabled) {
+            body.classList.add("image-background");
+        } else {
+            body.classList.remove("image-background");
+        }
     };
 
     const renderOptionContent = () => {
         return (
             <div>
-                {Object.keys(settings[selectedOption]).map((setting) => (
-                    <label key={setting} className="settings-label">
-                        <input
-                            type="checkbox"
-                            checked={settings[selectedOption][setting]}
-                            onChange={() =>
-                                handleCheckboxChange(selectedOption, setting)
-                            }
-                        />
-                        {setting}
-                    </label>
+                {(settingsSections[selectedSection] || []).map((setting) => (
+                    <div key={setting} className="settings-item">
+                        {[
+                            "bold",
+                            "polytime",
+                            "secret_setting1",
+                            "secret_setting2"
+                        ].includes(setting) ? (
+                            <>
+                                {setting === "secret_setting2" &&
+                                !props.user.secret_setting1 ? null : ( // Conditionally render secret_setting2 based on secret_setting1
+                                    <label className="settings-label">
+                                        <input
+                                            type="checkbox"
+                                            checked={
+                                                props.user[setting] || false
+                                            }
+                                            onChange={() =>
+                                                toggleCheck(setting)
+                                            }
+                                        />
+                                        {setting}
+                                    </label>
+                                )}
+                            </>
+                        ) : (
+                            <>
+                                {setting === "language" ? (
+                                    <label className="settings-label">
+                                        {setting}:
+                                        <select
+                                            value={selectedLanguage}
+                                            onChange={(event) =>
+                                                handleLanguageChange(
+                                                    event.target.value
+                                                )
+                                            }
+                                        >
+                                            {Object.keys(languageOptions).map(
+                                                (language) => (
+                                                    <option
+                                                        key={language}
+                                                        value={
+                                                            languageOptions[
+                                                                language
+                                                            ]
+                                                        }
+                                                    >
+                                                        {language}
+                                                    </option>
+                                                )
+                                            )}
+                                        </select>
+                                    </label>
+                                ) : (
+                                    <>
+                                        {setting === "default_view" && (
+                                            <label className="settings-label">
+                                                {setting}:
+                                                <select
+                                                    value={selectedDefaultView}
+                                                    onChange={(event) =>
+                                                        handleDefaultViewChange(
+                                                            event
+                                                        )
+                                                    }
+                                                >
+                                                    {["Monthly", "Weekly"].map(
+                                                        (option) => (
+                                                            <option
+                                                                key={option}
+                                                                value={option}
+                                                            >
+                                                                {option}
+                                                            </option>
+                                                        )
+                                                    )}
+                                                </select>
+                                            </label>
+                                        )}
+                                    </>
+                                )}
+                            </>
+                        )}
+                    </div>
                 ))}
+                {/* Add textbox for changing username */}
+                {selectedSection === "Account" && (
+                    <div className="settings-item">
+                        <label className="settings-label">New Username:</label>
+                        <input
+                            type="text"
+                            value={newUsername}
+                            onChange={(e) => setNewUsername(e.target.value)}
+                            className="username-input"
+                        />
+                        <button
+                            onClick={handleChangeUsername}
+                            className="change-username-button"
+                        >
+                            Change Username
+                        </button>
+                    </div>
+                )}
             </div>
         );
     };
 
     return (
         <div className="page-container">
-            {" "}
-            {/* Added a container */}
             <div className="settings-box">
-                {/* Gold Bar */}
                 <div className="settings-bar"></div>
-
-                {/* Settings Text */}
                 <div className="settings-header">Settings</div>
                 <div className="settings-buttons-options">
                     <div className="settings-buttons">
-                        {Object.keys(settings).map((option) => (
-                            <button
-                                key={option}
-                                id="settings-button"
-                                onClick={() => setSelectedOption(option)}
-                                className={
-                                    selectedOption === option ? "active" : ""
-                                }
-                            >
-                                <div className="settings-text">{option}</div>
-                            </button>
-                        ))}
+                        {["Visual", "Account", "Language & Region", "Misc"].map(
+                            (section) => (
+                                <button
+                                    key={section}
+                                    className={`settings-button ${selectedSection === section ? "active" : ""}`}
+                                    onClick={() => setSelectedSection(section)}
+                                >
+                                    <div className="settings-text">
+                                        {section}
+                                    </div>
+                                </button>
+                            )
+                        )}
                     </div>
-
-                    {/* Setting Options */}
                     <div className="settings-options">
                         <div className="settings-option">
                             {renderOptionContent()}
@@ -135,8 +337,9 @@ const Settings = () => {
                     </div>
                 </div>
             </div>
+            <Translate />
         </div>
     );
-};
+}
 
 export default Settings;

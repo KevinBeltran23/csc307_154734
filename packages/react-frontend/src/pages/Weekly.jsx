@@ -22,21 +22,14 @@ function Weekly(props) {
     var create_lst = [
         { value: "Create", label: "Create" },
         { value: "Event", label: "Event" },
+        { value: "Class", label: "Class" },
         { value: "Calendar", label: "Calendar" },
         { value: "To Do Item", label: "To Do Item" }
     ];
 
-    var cal_lst = [
-        { value: "Create", label: "Calendars" },
-        { value: "Option 2", label: "Option 2" },
-        { value: "Option 3", label: "Option 3" }
-    ];
+    var cal_lst = [{ value: "Default", label: "Calendars" }];
 
-    var todo_lst = [
-        { value: "Create", label: "To Do" },
-        { value: "Option 2", label: "Option 2" },
-        { value: "Option 3", label: "Option 3" }
-    ];
+    var todo_lst = [{ value: "Default", label: "To Do" }];
 
     const getHeader = () => {
         return (
@@ -111,6 +104,68 @@ function Weekly(props) {
         return <div className="calendar-container">{allWeeks}</div>;
     };
 
+    const generateEventsForCurrentWeek = (date, selectedDate, activeDate) => {
+        let currentDate = date;
+        var week = [];
+
+        var events = props.events;
+        var d;
+        var events = props.events;
+
+        for (let day = 0; day < 7; day++) {
+            const cloneDate = format(currentDate, "MM/dd/yyyy");
+            var t = [];
+            for (var i = 0; i < events.length; i++) {
+                d = new Date(events[i].start);
+                var timeZoneFromDB = 7.0;
+                var tzDifference = timeZoneFromDB * 60 + d.getTimezoneOffset();
+                var offsetTime = new Date(
+                    d.getTime() + tzDifference * 60 * 1000
+                );
+                var df = format(offsetTime, "MM/dd/yyyy");
+                if (cloneDate === df) {
+                    t.push(events[i].title);
+                }
+            }
+            console.log(t);
+            week.push(<div className="box">{makeEvents(t)}</div>);
+            currentDate = addDays(currentDate, 1);
+        }
+        return <>{week}</>;
+    };
+
+    function makeEvents(lst) {
+        var l2 = [];
+        for (var i = 0; i < lst.length; i++) {
+            if (l2[i] != "") {
+                l2.push(<div className="event-box">{lst[i]}</div>);
+            }
+        }
+        return l2;
+    }
+
+    const getEvents = () => {
+        const startDate = startOfWeek(activeDate);
+        const endDate = endOfWeek(activeDate);
+
+        let currentDate = startDate;
+
+        const allWeeks = [];
+
+        while (currentDate <= endDate) {
+            allWeeks.push(
+                generateEventsForCurrentWeek(
+                    currentDate,
+                    selectedDate,
+                    activeDate
+                )
+            );
+            currentDate = addDays(currentDate, 7);
+        }
+
+        return <div className="events">{allWeeks}</div>;
+    };
+
     /*const getEvents = () => {
  
   } */
@@ -129,19 +184,21 @@ function Weekly(props) {
         // go to todo page
         navigate("/todo");
     }
-    function handleCreate() {
-        // create an event
-    }
-    function handleCalendarsDropdown() {
-        // open calendars drop down
-    }
-    function handleToDoDropdown() {
-        // open todo dropdown
-    }
-    function handleClickingOnEvent() {
-        // implement functionality
+
+    var names = props.calendars;
+    for (var i = 0; i < names.length; i++) {
+        cal_lst.push({ value: names[i].name, label: names[i].name });
     }
 
+    var todos = props.items;
+    for (var i = 0; i < todos.length; i++) {
+        todo_lst.push({ value: todos[i].contents, label: todos[i].contents });
+    }
+
+    var events = props.events;
+    for (var i = 0; i < events.length; i++) {
+        console.log(events[i].title);
+    }
     return (
         <>
             <button className="logout" onClick={props.logout}>
@@ -208,6 +265,7 @@ function Weekly(props) {
                 <span className="days-header">SAT</span>
             </div>
             {getDates()}
+            {getEvents()}
         </>
     );
 }

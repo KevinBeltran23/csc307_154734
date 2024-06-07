@@ -15,21 +15,23 @@ import PrivateRoute from "./PrivateRoute";
 
 function MyApp() {
     // important variables
+    const URL = "https://154734.azurewebsites.net/";
+
     const INVALID_TOKEN = "INVALID_TOKEN";
-    const [token, setToken] = useState(
+    var [token, setToken] = useState(
         localStorage.getItem("token") || INVALID_TOKEN
     );
-    const [userId, setUserId] = useState(localStorage.getItem("userId") || 0);
-    const [message, setMessage] = useState("");
-    const [isAuthenticated, setIsAuthenticated] = useState(
+    var [userId, setUserId] = useState(localStorage.getItem("userId") || 0);
+    var [message, setMessage] = useState("");
+    var [isAuthenticated, setIsAuthenticated] = useState(
         localStorage.getItem("isAuthenticated") === "true"
     );
 
-    const [items, setItems] = useState([]);
-    const [events, setEvents] = useState([]);
-    const [calendars, setCalendars] = useState([]);
-    const [classes, setClasses] = useState([]);
-    const [settings, setSettings] = useState([]);
+    var [items, setItems] = useState([]);
+    var [events, setEvents] = useState([]);
+    var [calendars, setCalendars] = useState([]);
+    var [classes, setClasses] = useState([]);
+    var [user, setUser] = useState([]);
 
     // other stuff
 
@@ -37,7 +39,8 @@ function MyApp() {
         localStorage.setItem("token", token);
         localStorage.setItem("userId", userId);
         localStorage.setItem("isAuthenticated", isAuthenticated.toString());
-    }, [token, userId, isAuthenticated]);
+        localStorage.setItem("user", user);
+    }, [token, userId, isAuthenticated, user]);
 
     function addAuthHeader(otherHeaders = {}) {
         if (token === INVALID_TOKEN) {
@@ -54,112 +57,76 @@ function MyApp() {
         localStorage.removeItem("token");
         localStorage.removeItem("isAuthenticated");
         localStorage.removeItem("userId");
+        localStorage.removeItem("user", user);
         setToken(INVALID_TOKEN);
         setIsAuthenticated(false);
         setUserId(0);
+        setUser(null);
         setMessage(`Logged out successfully`);
+
+        // Remove the body class that sets the background image
+        document.body.classList.remove("body-with-image");
+        document.body.classList.remove("bold-text");
     }
 
-    async function fetchSettings() {
-        try {
-            const response = await fetch(
-                `https://154734.azurewebsites.net/settings?user=${userId}`,
-                {
-                    method: "GET",
-                    headers: addAuthHeader()
-                }
-            );
-            return await response.json();
-        } catch (error) {
-            console.log(error);
-            throw new Error("Internal Server Error");
-        }
+    // Fetch calls
+    async function fetchUser() {
+        const response = await fetch(`${URL}users/${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
+        return response;
     }
 
     async function fetchItems() {
-        try {
-            const response = await fetch(
-                `https://154734.azurewebsites.net/todo?user=${userId}`,
-                {
-                    method: "GET",
-                    headers: addAuthHeader()
-                }
-            );
-            return await response.json();
-        } catch (error) {
-            console.log(error);
-            throw new Error("Internal Server Error");
-        }
+        const response = await fetch(`${URL}todo?user=${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
+        return response;
     }
 
     async function fetchEvents() {
-        try {
-            const response = await fetch(
-                `https://154734.azurewebsites.net/event?user=${userId}`,
-                {
-                    method: "GET",
-                    headers: addAuthHeader()
-                }
-            );
-            return await response.json();
-        } catch (error) {
-            console.log(error);
-            throw new Error("Internal Server Error");
-        }
+        const response = await fetch(`${URL}event?user=${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
+        return response;
     }
 
     async function fetchClasses() {
-        try {
-            const response = await fetch(
-                `https://154734.azurewebsites.net/class?user=${userId}`,
-                {
-                    method: "GET",
-                    headers: addAuthHeader()
-                }
-            );
-            return await response.json();
-        } catch (error) {
-            console.log(error);
-            throw new Error("Internal Server Error");
-        }
+        const response = await fetch(`${URL}class?user=${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
+        return response;
     }
 
     async function fetchCalendars() {
-        try {
-            const response = await fetch(
-                `https://154734.azurewebsites.net/calendar?user=${userId}`,
-                {
-                    method: "GET",
-                    headers: addAuthHeader()
-                }
-            );
-            return await response.json();
-        } catch (error) {
-            console.log(error);
-            throw new Error("Internal Server Error");
-        }
+        const response = await fetch(`${URL}calendar?user=${userId}`, {
+            method: "GET",
+            headers: addAuthHeader()
+        });
+        return response;
     }
 
-    // login and signup api calls
-
+    // Login and signup API calls
     async function loginUser(creds) {
         try {
-            const response = await fetch(
-                "https://154734.azurewebsites.net/login",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(creds)
-                }
-            );
+            const response = await fetch(`${URL}login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(creds)
+            });
 
             if (response.status === 200) {
                 const payload = await response.json();
                 setToken(payload.token);
                 setIsAuthenticated(true);
                 setUserId(payload.userId);
+                setUser(creds);
                 setMessage(`Login successful; auth token saved`);
                 return true; // Indicate success
             } else {
@@ -169,7 +136,6 @@ function MyApp() {
                 return false; // Indicate failure
             }
         } catch (error) {
-            console.log(error);
             setMessage(`Login Error: ${error}`);
             return false; // Indicate failure
         }
@@ -177,22 +143,20 @@ function MyApp() {
 
     async function signupUser(creds) {
         try {
-            const response = await fetch(
-                "https://154734.azurewebsites.net/signup",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(creds)
-                }
-            );
+            const response = await fetch(`${URL}signup`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(creds)
+            });
 
             if (response.status === 201) {
                 const payload = await response.json();
                 setToken(payload.token);
                 setIsAuthenticated(true);
                 setUserId(payload.userId);
+                setUser(creds);
                 setMessage(
                     `Signup successful for user: ${creds.username}; auth token saved`
                 );
@@ -209,132 +173,30 @@ function MyApp() {
                 return false; // Indicate failure
             }
         } catch (error) {
-            console.log(error);
             setMessage(`Signup Error: ${error}`);
             return false; // Indicate failure
         }
     }
 
-    async function fetchSettings() {
+    async function putUser(userId, updatedUser) {
         try {
-            const response = await fetch(
-                `https://154734.azurewebsites.net/settings?user=${userId}`,
-                {
-                    method: "GET",
-                    headers: addAuthHeader()
-                }
-            );
-            return await response.json();
-        } catch (error) {
-            console.log(error);
-            throw new Error("Internal Server Error");
-        }
-    }
+            const response = await fetch(`${URL}users/${userId}`, {
+                method: "PUT",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(updatedUser)
+            });
 
-    async function updateSettings(newSetting) {
-        try {
-            const newSettingJson = await postSetting(newSetting);
-            setSettings((prevSettings) => [...prevSettings, newSettingJson]);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    async function editSetting(settingId) {
-        try {
-            const updatedSetting = {
-                ...settings.find((setting) => setting._id === settingId),
-                // whatever fields are to be edited here
-                user: userId // Ensure the user ID is included
-            };
-            const updatedItemResponseJson = await putSetting(
-                settingId,
-                updatedSetting
-            );
-            setSettings(
-                settings.map((setting) =>
-                    setting._id === settingId
-                        ? updatedItemResponseJson
-                        : setting
-                )
-            );
-        } catch (error) {
-            setMessage(`Update Error: ${error.message}`);
-            console.log(error);
-        }
-    }
-
-    async function postSetting(setting) {
-        try {
-            const response = await fetch(
-                "https://154734.azurewebsites.net/settings",
-                {
-                    method: "POST",
-                    headers: addAuthHeader({
-                        "Content-Type": "application/json"
-                    }),
-                    body: JSON.stringify(setting)
-                }
-            );
-            if (response.status === 200 || response.status === 201) {
-                setMessage("Item created successfully");
-                return await response.json();
-            } else {
-                setMessage(
-                    `Post Error ${response.status}: ${response.statusText}`
-                );
-                throw new Error(
-                    `Post Error ${response.status}: ${response.statusText}`
-                );
-            }
-        } catch (error) {
-            setMessage(`Post Error: ${error.message}`);
-            throw error;
-        }
-    }
-
-    async function deleteSetting(_id) {
-        try {
-            const response = await fetch(
-                `https://154734.azurewebsites.net/settings/${_id}`,
-                {
-                    method: "DELETE",
-                    headers: addAuthHeader({
-                        "Content-Type": "application/json"
-                    })
-                }
-            );
-            if (response.status === 204) {
-                // Filter out the item with the specified _id and update the items list
-                const updated = settings.filter((item) => item._id !== _id);
-                setSettings(updated);
-            } else if (response.status === 404) {
-                console.log("Resource not found.");
-            } else {
-                throw new Error(
-                    "Failed to delete item. Status code: " + response.status
-                );
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    async function putSetting(settingId, updatedSetting) {
-        try {
-            const response = await fetch(
-                `https://154734.azurewebsites.net/settings/${settingId}`,
-                {
-                    method: "PUT",
-                    headers: addAuthHeader({
-                        "Content-Type": "application/json"
-                    }),
-                    body: JSON.stringify(updatedSetting)
-                }
-            );
             if (response.status === 200) {
                 setMessage("Setting updated successfully");
-                return await response.json();
+                const json = await response.json();
+                if (json) {
+                    return json;
+                } else {
+                    console.log("No JSON data in response");
+                    return updatedUser; // Return the updated user data if response is empty
+                }
             } else {
                 setMessage(
                     `PUT Error ${response.status}: ${response.statusText}`
@@ -348,23 +210,8 @@ function MyApp() {
             throw error;
         }
     }
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const res = await fetchItems();
-                const json = await res.json();
-                const sortedItems = json.todo_list.sort(
-                    (a, b) => new Date(a.duedate) - new Date(b.duedate)
-                );
-                setItems(sortedItems);
-            } catch (error) {
-                console.log(error);
-                setMessage(`Fetch Error: ${error.message}`);
-            }
-        }
-        fetchData();
-    }, []);
 
+    // Function to update items
     async function updateItems(newItem) {
         try {
             const newItemResponseJson = await postItem(newItem);
@@ -375,18 +222,17 @@ function MyApp() {
         }
     }
 
+    // Function to post an item
     async function postItem(item) {
         try {
-            const response = await fetch(
-                "https://154734.azurewebsites.net/todo",
-                {
-                    method: "POST",
-                    headers: addAuthHeader({
-                        "Content-Type": "application/json"
-                    }),
-                    body: JSON.stringify(item)
-                }
-            );
+            const response = await fetch(`${URL}todo`, {
+                method: "POST",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(item)
+            });
+
             if (response.status === 200 || response.status === 201) {
                 setMessage("Item created successfully");
                 return await response.json(); // Return the JSON response for chaining
@@ -404,17 +250,16 @@ function MyApp() {
         }
     }
 
+    // Function to delete an item
     async function deleteItem(_id) {
         try {
-            const response = await fetch(
-                `https://154734.azurewebsites.net/todo/${_id}`,
-                {
-                    method: "DELETE",
-                    headers: addAuthHeader({
-                        "Content-Type": "application/json"
-                    })
-                }
-            );
+            const response = await fetch(`${URL}todo/${_id}`, {
+                method: "DELETE",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                })
+            });
+
             if (response.status === 204) {
                 // Filter out the item with the specified _id and update the items list
                 const updated = items.filter((item) => item._id !== _id);
@@ -431,18 +276,17 @@ function MyApp() {
         }
     }
 
+    // Function to update an item
     async function putItem(itemId, updatedItem) {
         try {
-            const response = await fetch(
-                `https://154734.azurewebsites.net/todo/${itemId}`,
-                {
-                    method: "PUT",
-                    headers: addAuthHeader({
-                        "Content-Type": "application/json"
-                    }),
-                    body: JSON.stringify(updatedItem)
-                }
-            );
+            const response = await fetch(`${URL}todo/${itemId}`, {
+                method: "PUT",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(updatedItem)
+            });
+
             if (response.status === 200) {
                 setMessage("Item updated successfully");
                 return await response.json(); // Return the JSON response for chaining
@@ -460,21 +304,7 @@ function MyApp() {
         }
     }
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const res = await fetchEvents();
-                const json = await res.json();
-                const events = json.events_list;
-                setEvents(events);
-            } catch (error) {
-                console.log(error);
-                setMessage(`Fetch Error: ${error.message}`);
-            }
-        }
-        fetchData();
-    }, []);
-
+    // Function to update events
     async function updateEvents(newEvent) {
         try {
             const newEventResponseJson = await postEvent(newEvent);
@@ -485,13 +315,15 @@ function MyApp() {
         }
     }
 
+    // Function to edit an event
     async function editEvent(eventId) {
+        const updatedEvent = {
+            ...events.find((event) => event._id === eventId),
+            // whatever fields are to be editted here
+            user: userId // Ensure the user ID is included
+        };
+
         try {
-            const updatedEvent = {
-                ...events.find((event) => event._id === eventId),
-                // whatever fields are to be edited here
-                user: userId // Ensure the user ID is included
-            };
             const updatedEventResponseJson = await putEvent(
                 eventId,
                 updatedEvent
@@ -507,18 +339,17 @@ function MyApp() {
         }
     }
 
+    // Function to post an event
     async function postEvent(event) {
         try {
-            const response = await fetch(
-                "https://154734.azurewebsites.net/event",
-                {
-                    method: "POST",
-                    headers: addAuthHeader({
-                        "Content-Type": "application/json"
-                    }),
-                    body: JSON.stringify(event)
-                }
-            );
+            const response = await fetch(`${URL}event`, {
+                method: "POST",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(event)
+            });
+
             if (response.status === 200 || response.status === 201) {
                 setMessage("Event created successfully");
                 return await response.json(); // Return the JSON response for chaining
@@ -536,17 +367,16 @@ function MyApp() {
         }
     }
 
+    // Function to delete an event
     async function deleteEvent(_id) {
         try {
-            const response = await fetch(
-                `https://154734.azurewebsites.net/event/${_id}`,
-                {
-                    method: "DELETE",
-                    headers: addAuthHeader({
-                        "Content-Type": "application/json"
-                    })
-                }
-            );
+            const response = await fetch(`${URL}event/${_id}`, {
+                method: "DELETE",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                })
+            });
+
             if (response.status === 204) {
                 // Filter out the event with the specified _id and update the events list
                 const updated = events.filter((event) => event._id !== _id);
@@ -563,18 +393,17 @@ function MyApp() {
         }
     }
 
+    // Function to update an event
     async function putEvent(eventId, updatedEvent) {
         try {
-            const response = await fetch(
-                `https://154734.azurewebsites.net/event/${eventId}`,
-                {
-                    method: "PUT",
-                    headers: addAuthHeader({
-                        "Content-Type": "application/json"
-                    }),
-                    body: JSON.stringify(updatedEvent)
-                }
-            );
+            const response = await fetch(`${URL}event/${eventId}`, {
+                method: "PUT",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(updatedEvent)
+            });
+
             if (response.status === 200) {
                 setMessage("Event updated successfully");
                 return await response.json(); // Return the JSON response for chaining
@@ -591,22 +420,8 @@ function MyApp() {
             throw error;
         }
     }
-    // api calls for classes
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const res = await fetchClasses();
-                const json = await res.json();
-                const classes = json.classes_list;
-                setClasses(classes);
-            } catch (error) {
-                console.log(error);
-                setMessage(`Fetch Error: ${error.message}`);
-            }
-        }
-        fetchData();
-    }, []);
 
+    // Function to update classes
     async function updateClasses(newClass) {
         try {
             const newClassResponseJson = await postClass(newClass);
@@ -616,13 +431,15 @@ function MyApp() {
         }
     }
 
+    // Function to edit a class
     async function editClass(classId) {
+        const updatedClass = {
+            ...classes.find((clas) => clas._id === classId),
+            // whatever fields are to be editted here
+            user: userId // Ensure the user ID is included
+        };
+
         try {
-            const updatedClass = {
-                ...classes.find((clas) => clas._id === classId),
-                // whatever fields are to be edited here
-                user: userId // Ensure the user ID is included
-            };
             const updatedClassResponseJson = await putClass(
                 classId,
                 updatedClass
@@ -638,18 +455,17 @@ function MyApp() {
         }
     }
 
+    // Function to post a class
     async function postClass(clas) {
         try {
-            const response = await fetch(
-                "https://154734.azurewebsites.net/class",
-                {
-                    method: "POST",
-                    headers: addAuthHeader({
-                        "Content-Type": "application/json"
-                    }),
-                    body: JSON.stringify(clas)
-                }
-            );
+            const response = await fetch(`${URL}class`, {
+                method: "POST",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(clas)
+            });
+
             if (response.status === 200 || response.status === 201) {
                 setMessage("Class created successfully");
                 return await response.json(); // Return the JSON response for chaining
@@ -667,17 +483,16 @@ function MyApp() {
         }
     }
 
+    // Function to delete a class
     async function deleteClass(_id) {
         try {
-            const response = await fetch(
-                `https://154734.azurewebsites.net/class/${_id}`,
-                {
-                    method: "DELETE",
-                    headers: addAuthHeader({
-                        "Content-Type": "application/json"
-                    })
-                }
-            );
+            const response = await fetch(`${URL}class/${_id}`, {
+                method: "DELETE",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                })
+            });
+
             if (response.status === 204) {
                 // Filter out the class with the specified _id and update the classes list
                 const updated = classes.filter((clas) => clas._id !== _id);
@@ -694,18 +509,17 @@ function MyApp() {
         }
     }
 
+    // Function to update a class
     async function putClass(classId, updatedClass) {
         try {
-            const response = await fetch(
-                `https://154734.azurewebsites.net/class/${classId}`,
-                {
-                    method: "PUT",
-                    headers: addAuthHeader({
-                        "Content-Type": "application/json"
-                    }),
-                    body: JSON.stringify(updatedClass)
-                }
-            );
+            const response = await fetch(`${URL}class/${classId}`, {
+                method: "PUT",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(updatedClass)
+            });
+
             if (response.status === 200) {
                 setMessage("Class updated successfully");
                 return await response.json(); // Return the JSON response for chaining
@@ -723,23 +537,7 @@ function MyApp() {
         }
     }
 
-    // api calls for calendars
-
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const res = await fetchCalendars();
-                const json = await res.json();
-                const calendars = json.calendars_list;
-                setCalendars(calendars);
-            } catch (error) {
-                console.log(error);
-                setMessage(`Fetch Error: ${error.message}`);
-            }
-        }
-        fetchData();
-    }, []);
-
+    // Function to update calendars
     async function updateCalendars(newCalendar) {
         try {
             const newCalendarJson = await postCalendar(newCalendar);
@@ -753,13 +551,15 @@ function MyApp() {
         }
     }
 
+    // Function to edit a calendar
     async function editCalendar(calendarId) {
+        const updatedCalendar = {
+            ...calendars.find((clas) => clas._id === calendarId),
+            // whatever fields are to be editted here
+            user: userId // Ensure the user ID is included
+        };
+
         try {
-            const updatedCalendar = {
-                ...calendars.find((calendar) => calendar._id === calendarId),
-                // whatever fields are to be edited here
-                user: userId // Ensure the user ID is included
-            };
             const updatedCalendarResponseJson = await putCalendar(
                 calendarId,
                 updatedCalendar
@@ -777,18 +577,16 @@ function MyApp() {
         }
     }
 
+    // Function to post a calendar
     async function postCalendar(calendar) {
         try {
-            const response = await fetch(
-                "https://154734.azurewebsites.net/calendar",
-                {
-                    method: "POST",
-                    headers: addAuthHeader({
-                        "Content-Type": "application/json"
-                    }),
-                    body: JSON.stringify(calendar)
-                }
-            );
+            const response = await fetch(`${URL}calendar`, {
+                method: "POST",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(calendar)
+            });
             if (response.status === 200 || response.status === 201) {
                 setMessage("Calendar created successfully");
                 return await response.json(); // Return the JSON response for chaining
@@ -806,17 +604,15 @@ function MyApp() {
         }
     }
 
+    // Function to delete a calendar
     async function deleteCalendar(_id) {
         try {
-            const response = await fetch(
-                `https://154734.azurewebsites.net/calendar/${_id}`,
-                {
-                    method: "DELETE",
-                    headers: addAuthHeader({
-                        "Content-Type": "application/json"
-                    })
-                }
-            );
+            const response = await fetch(`${URL}calendar/${_id}`, {
+                method: "DELETE",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                })
+            });
             if (response.status === 204) {
                 // Filter out the calendar with the specified _id and update the items list
                 const updated = calendars.filter(
@@ -835,18 +631,16 @@ function MyApp() {
         }
     }
 
+    // Function to update a calendar
     async function putCalendar(calendarId, updatedCalendar) {
         try {
-            const response = await fetch(
-                `https://154734.azurewebsites.net/calendar/${calendarId}`,
-                {
-                    method: "PUT",
-                    headers: addAuthHeader({
-                        "Content-Type": "application/json"
-                    }),
-                    body: JSON.stringify(updatedCalendar)
-                }
-            );
+            const response = await fetch(`${URL}calendar/${calendarId}`, {
+                method: "PUT",
+                headers: addAuthHeader({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify(updatedCalendar)
+            });
             if (response.status === 200) {
                 setMessage("Calendar updated successfully");
                 return await response.json(); // Return the JSON response for chaining
@@ -899,7 +693,11 @@ function MyApp() {
                                 setMessage={setMessage}
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
+                                putUser={putUser}
+                                fetchUser={fetchUser}
+                                user={user}
                                 userId={userId}
+                                setUser={setUser}
                                 items={items}
                                 setItems={setItems}
                                 postItem={postItem}
@@ -923,7 +721,7 @@ function MyApp() {
                                 fetchCalendars={fetchCalendars}
                                 updateCalendars={updateCalendars}
                                 editCalendar={editCalendar}
-                                classes={calendars}
+                                classes={classes}
                                 setClasses={setClasses}
                                 postClass={postClass}
                                 putClass={putClass}
@@ -944,13 +742,42 @@ function MyApp() {
                                 setMessage={setMessage}
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
+                                putUser={putUser}
+                                fetchUser={fetchUser}
+                                user={user}
                                 userId={userId}
+                                setUser={setUser}
                                 items={items}
                                 setItems={setItems}
                                 postItem={postItem}
                                 putItem={putItem}
                                 deleteItem={deleteItem}
                                 fetchItems={fetchItems}
+                                updateItems={updateItems}
+                                events={events}
+                                setEvents={setEvents}
+                                postEvent={postEvent}
+                                putEvent={putEvent}
+                                deleteEvent={deleteEvent}
+                                fetchEvents={fetchEvents}
+                                updateEvents={updateEvents}
+                                editEvent={editEvent}
+                                calendars={calendars}
+                                setCalendars={setCalendars}
+                                postCalendar={postCalendar}
+                                putCalendar={putCalendar}
+                                deleteCalendar={deleteCalendar}
+                                fetchCalendars={fetchCalendars}
+                                updateCalendars={updateCalendars}
+                                editCalendar={editCalendar}
+                                classes={classes}
+                                setClasses={setClasses}
+                                postClass={postClass}
+                                putClass={putClass}
+                                deleteClass={deleteClass}
+                                fetchClasses={fetchClasses}
+                                updateClasses={updateClasses}
+                                editClass={editClass}
                             />
                         }
                     />
@@ -964,7 +791,42 @@ function MyApp() {
                                 setMessage={setMessage}
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
+                                putUser={putUser}
+                                fetchUser={fetchUser}
+                                user={user}
                                 userId={userId}
+                                setUser={setUser}
+                                items={items}
+                                setItems={setItems}
+                                postItem={postItem}
+                                putItem={putItem}
+                                deleteItem={deleteItem}
+                                fetchItems={fetchItems}
+                                updateItems={updateItems}
+                                events={events}
+                                setEvents={setEvents}
+                                postEvent={postEvent}
+                                putEvent={putEvent}
+                                deleteEvent={deleteEvent}
+                                fetchEvents={fetchEvents}
+                                updateEvents={updateEvents}
+                                editEvent={editEvent}
+                                calendars={calendars}
+                                setCalendars={setCalendars}
+                                postCalendar={postCalendar}
+                                putCalendar={putCalendar}
+                                deleteCalendar={deleteCalendar}
+                                fetchCalendars={fetchCalendars}
+                                updateCalendars={updateCalendars}
+                                editCalendar={editCalendar}
+                                classes={classes}
+                                setClasses={setClasses}
+                                postClass={postClass}
+                                putClass={putClass}
+                                deleteClass={deleteClass}
+                                fetchClasses={fetchClasses}
+                                updateClasses={updateClasses}
+                                editClass={editClass}
                             />
                         }
                     />
@@ -978,15 +840,42 @@ function MyApp() {
                                 setMessage={setMessage}
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
+                                putUser={putUser}
+                                fetchUser={fetchUser}
+                                user={user}
                                 userId={userId}
-                                settings={events}
-                                setSettings={setSettings}
-                                postSetting={postSetting}
-                                putSetting={putSetting}
-                                deleteSetting={deleteSetting}
-                                fetchSettings={fetchSettings}
-                                updateSettings={updateSettings}
-                                editSetting={editSetting}
+                                setUser={setUser}
+                                items={items}
+                                setItems={setItems}
+                                postItem={postItem}
+                                putItem={putItem}
+                                deleteItem={deleteItem}
+                                fetchItems={fetchItems}
+                                updateItems={updateItems}
+                                events={events}
+                                setEvents={setEvents}
+                                postEvent={postEvent}
+                                putEvent={putEvent}
+                                deleteEvent={deleteEvent}
+                                fetchEvents={fetchEvents}
+                                updateEvents={updateEvents}
+                                editEvent={editEvent}
+                                calendars={calendars}
+                                setCalendars={setCalendars}
+                                postCalendar={postCalendar}
+                                putCalendar={putCalendar}
+                                deleteCalendar={deleteCalendar}
+                                fetchCalendars={fetchCalendars}
+                                updateCalendars={updateCalendars}
+                                editCalendar={editCalendar}
+                                classes={classes}
+                                setClasses={setClasses}
+                                postClass={postClass}
+                                putClass={putClass}
+                                deleteClass={deleteClass}
+                                fetchClasses={fetchClasses}
+                                updateClasses={updateClasses}
+                                editClass={editClass}
                             />
                         }
                     />
