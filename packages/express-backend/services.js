@@ -8,15 +8,11 @@ import settingModel from "./settings.js";
 
 mongoose.set("debug", true);
 
-mongoose
-    .connect(
-        "mongodb+srv://Karen:karen@154754.qdl82np.mongodb.net/?retryWrites=true&w=majority&appName=154754"
-        /*{
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        }*/
-    )
-    .catch((error) => console.log(error));
+var process = {
+    env: {}
+};
+
+mongoose.connect(process.env.MONGO).catch((error) => console.log(error));
 
 // user-services
 
@@ -220,6 +216,5 @@ export default {
     addTodoItem,
     deleteTodoItemById,
     findTodoItemById,
-    editTodoItem,
-
+    editTodoItem
 };
