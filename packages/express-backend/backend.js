@@ -37,7 +37,7 @@ app.use((req, res, next) => {
 });
 
 // can listen at azure port or at localhost 8000
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 80, () => {
     console.log(`REST API is listening.`);
 });
 
