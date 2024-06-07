@@ -5,7 +5,13 @@ import "../components/Login.css";
 function Login(props) {
     const [creds, setCreds] = useState({
         username: "",
-        pwd: ""
+        pwd: "",
+        language: "en",
+        bold: false,
+        default_view: "Monthly",
+        polytime: true,
+        secret_setting1: false,
+        secret_setting2: false
     });
 
     const navigate = useNavigate();

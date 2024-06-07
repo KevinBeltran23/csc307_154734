@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import {
     BrowserRouter as Router,
     Routes,
-    Route,
-    useNavigate
-} from "react-router-dom";
+    Route
+} 
+from "react-router-dom";
 import Login from "./pages/Login";
 import Monthly from "./pages/Monthly";
 import ToDo from "./pages/ToDo";
@@ -16,20 +16,20 @@ import PrivateRoute from "./PrivateRoute";
 function MyApp() {
     // important variables
     const INVALID_TOKEN = "INVALID_TOKEN";
-    const [token, setToken] = useState(
+    var [token, setToken] = useState(
         localStorage.getItem("token") || INVALID_TOKEN
     );
-    const [userId, setUserId] = useState(localStorage.getItem("userId") || 0);
-    const [message, setMessage] = useState("");
-    const [isAuthenticated, setIsAuthenticated] = useState(
+    var [userId, setUserId] = useState(localStorage.getItem("userId") || 0);
+    var [message, setMessage] = useState("");
+    var [isAuthenticated, setIsAuthenticated] = useState(
         localStorage.getItem("isAuthenticated") === "true"
     );
 
-    const [items, setItems] = useState([]);
-    const [events, setEvents] = useState([]);
-    const [calendars, setCalendars] = useState([]);
-    const [classes, setClasses] = useState([]);
-    const [settings, setSettings] = useState([]);
+    var [items, setItems] = useState([]);
+    var [events, setEvents] = useState([]);
+    var [calendars, setCalendars] = useState([]);
+    var [classes, setClasses] = useState([]);
+    var [user, setUser] = useState([]);
 
     // other stuff
 
@@ -37,7 +37,8 @@ function MyApp() {
         localStorage.setItem("token", token);
         localStorage.setItem("userId", userId);
         localStorage.setItem("isAuthenticated", isAuthenticated.toString());
-    }, [token, userId, isAuthenticated]);
+        localStorage.setItem("user", user);
+    }, [token, userId, isAuthenticated, user]);
 
     function addAuthHeader(otherHeaders = {}) {
         if (token === INVALID_TOKEN) {
@@ -54,19 +55,24 @@ function MyApp() {
         localStorage.removeItem("token");
         localStorage.removeItem("isAuthenticated");
         localStorage.removeItem("userId");
+        localStorage.removeItem("user", user);
         setToken(INVALID_TOKEN);
         setIsAuthenticated(false);
         setUserId(0);
+        setUser(null)
         setMessage(`Logged out successfully`);
     }
 
     // fetch calls
 
-    function fetchSettings() {
-        const promise = fetch(`http://localhost:8000/settings?user=${userId}`, {
-            method: "GET",
-            headers: addAuthHeader()
-        });
+    function fetchUser() {
+        const promise = fetch(
+            `http://localhost:8000/users/${userId}`,
+            {
+                method: "GET",
+                headers: addAuthHeader()
+            }
+        );
         return promise;
     }
 
@@ -118,6 +124,7 @@ function MyApp() {
                         setToken(payload.token);
                         setIsAuthenticated(true);
                         setUserId(payload.userId);
+                        setUser(creds);
                         setMessage(`Login successful; auth token saved`);
                         return true; // Indicate success
                     });
@@ -149,6 +156,7 @@ function MyApp() {
                         setToken(payload.token);
                         setIsAuthenticated(true);
                         setUserId(payload.userId);
+                        setUser(creds);
                         setMessage(
                             `Signup successful for user: ${creds.username}; auth token saved`
                         );
@@ -172,120 +180,29 @@ function MyApp() {
             });
         return promise;
     }
-
-    // settings api calls
-
-    function updateSettings(newSetting) {
-        postSetting(newSetting)
-            .then((newSettingJson) => {
-                setSettings((prevSettings) => [
-                    ...prevSettings,
-                    newSettingJson
-                ]);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
-
-    function editSetting(settingId) {
-        const updatedSetting = {
-            ...settings.find((setting) => setting._id === settingId),
-            // whatever fields are to be editted here
-            user: userId // Ensure the user ID is included
-        };
-
-        putSetting(settingId, updatedSetting) // Pass itemId and updatedItem separately
-            .then((updatedItemResponseJson) => {
-                setSettings(
-                    settings.map((setting) =>
-                        setting._id === settingId
-                            ? updatedItemResponseJson
-                            : setting
-                    )
-                );
-                //setTodoEditing(null);
-                //setEditingText("");
-            })
-            .catch((error) => {
-                setMessage(`Update Error: ${error.message}`);
-                console.log(error);
-            });
-    }
-
-    function postSetting(setting) {
-        const promise = fetch("http://localhost:8000/settings", {
-            method: "POST",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(setting)
-        })
-            .then((response) => {
-                if (response.status === 200 || response.status === 201) {
-                    setMessage("Item created successfully");
-                    return response.json(); // Return the JSON response for chaining
-                } else {
-                    setMessage(
-                        `Post Error ${response.status}: ${response.statusText}`
-                    );
-                    throw new Error(
-                        `Post Error ${response.status}: ${response.statusText}`
-                    );
-                }
-            })
-            .catch((error) => {
-                setMessage(`Post Error: ${error.message}`);
-                throw error;
-            });
-        return promise;
-    }
-
-    function deleteSetting(_id) {
-        const promise = fetch(`http://localhost:8000/settings/${_id}`, {
-            method: "DELETE",
-            headers: addAuthHeader({
-                "Content-Type": "application/json"
-            })
-        })
-            .then((response) => {
-                if (response.status === 204) {
-                    // Filter out the item with the specified _id and update the items list
-                    const updated = settings.filter((item) => item._id !== _id);
-                    setItems(updated);
-                } else if (response.status === 404) {
-                    console.log("Resource not found.");
-                } else {
-                    throw new Error(
-                        "Failed to delete item. Status code: " + response.status
-                    );
-                }
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-        return promise;
-    }
-
-    function putSetting(settingId, updatedSetting) {
-        const promise = fetch(`http://localhost:8000/settings/${settingId}`, {
+    
+    function putUser(userId, updatedUser) {
+        const promise = fetch(`http://localhost:8000/users/${userId}`, {
             method: "PUT",
             headers: addAuthHeader({
                 "Content-Type": "application/json"
             }),
-            body: JSON.stringify(updatedSetting)
+            body: JSON.stringify(updatedUser)
         })
             .then((response) => {
                 if (response.status === 200) {
                     setMessage("Setting updated successfully");
-                    return response.json(); // Return the JSON response for chaining
+                    return response.json().then((json) => {
+                        if (json) {
+                            return json;
+                        } else {
+                            console.log("No JSON data in response");
+                            return updatedUser; // Return the updated user data if response is empty
+                        }
+                    });
                 } else {
-                    setMessage(
-                        `PUT Error ${response.status}: ${response.statusText}`
-                    );
-                    throw new Error(
-                        `PUT Error ${response.status}: ${response.statusText}`
-                    );
+                    setMessage(`PUT Error ${response.status}: ${response.statusText}`);
+                    throw new Error(`PUT Error ${response.status}: ${response.statusText}`);
                 }
             })
             .catch((error) => {
@@ -794,10 +711,13 @@ function MyApp() {
                                 setMessage={setMessage}
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
+                                
+                                putUser={putUser}
+                                fetchUser={fetchUser}
+                                user={user}
                                 userId={userId}
-                                fetchSettings={fetchSettings}
-                                settings={settings}
-                                setSettings={setSettings}
+                                setUser={setUser}
+
                                 items={items}
                                 setItems={setItems}
                                 postItem={postItem}
@@ -849,6 +769,8 @@ function MyApp() {
                                 putItem={putItem}
                                 deleteItem={deleteItem}
                                 fetchItems={fetchItems}
+
+                                putUser={putUser}
                             />
                         }
                     />
@@ -862,10 +784,13 @@ function MyApp() {
                                 setMessage={setMessage}
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
+
+                                putUser={putUser}
+                                fetchUser={fetchUser}
+                                user={user}
                                 userId={userId}
-                                fetchSettings={fetchSettings}
-                                settings={settings}
-                                setSettings={setSettings}
+                                setUser={setUser}
+
                                 items={items}
                                 setItems={setItems}
                                 postItem={postItem}
@@ -910,15 +835,12 @@ function MyApp() {
                                 setMessage={setMessage}
                                 logout={logoutUser}
                                 addAuthHeader={addAuthHeader}
+
+                                putUser={putUser}
+                                fetchUser={fetchUser}
+                                user={user}
                                 userId={userId}
-                                settings={settings}
-                                setSettings={setSettings}
-                                postSetting={postSetting}
-                                putSetting={putSetting}
-                                deleteSetting={deleteSetting}
-                                fetchSettings={fetchSettings}
-                                updateSettings={updateSettings}
-                                editSetting={editSetting}
+                                setUser={setUser}
                             />
                         }
                     />

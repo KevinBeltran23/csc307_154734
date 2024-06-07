@@ -99,11 +99,11 @@ function Dropdown(props, opt = []) {
 
     useEffect(() => {
         props
-            .fetchSettings()
+            .fetchUser()
             .then((res) => res.json())
             .then((json) => {
-                const settings = json.settings_list;
-                props.setSettings(settings);
+                const user = json.result;
+                props.setUser(user);
             })
             .catch((error) => {
                 console.log(error);

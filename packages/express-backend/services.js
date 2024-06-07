@@ -4,7 +4,6 @@ import eventModel from "./event.js";
 import todoModel from "./todo-item.js";
 import classModel from "./class.js";
 import calendarModel from "./calendar.js";
-import settingModel from "./settings.js";
 
 mongoose.set("debug", true);
 
@@ -43,62 +42,23 @@ function addUser(user) {
     return promise;
 }
 
-function findUserById(id) {
-    return userModel.findById(id);
-}
-
-function deleteUserById(id) {
-    return userModel.findByIdAndDelete(id);
-}
-
-// setting-services
-
-function getSettings(language, bold, large, default_view, polytime, userId) {
-    let query = {};
-    if (language) {
-        query.language = language;
-    }
-    if (bold) {
-        query.bold = bold;
-    }
-    if (large) {
-        query.large = large;
-    }
-    if (default_view) {
-        query.default_view = default_view;
-    }
-    if (polytime) {
-        query.polytime = polytime;
-    }
-    if (userId) {
-        query.user = userId;
-    }
-    return settingModel.find(query);
-}
-
-function addSetting(setting) {
-    const settingToAdd = new settingModel(setting);
-    const promise = settingToAdd.save();
-    return promise;
-}
-
-function editSetting(settingId, updatedSetting) {
-    const promise = settingModel
+function editUser(userId, updatedUser) {
+    const promise = userModel
         .findByIdAndUpdate(
-            settingId, // The ID of the item to update
-            updatedSetting, // The updated item data
+            userId, // The ID of the item to update
+            updatedUser, // The updated item data
             { new: true } // Return the updated document
         )
         .exec();
     return promise;
 }
 
-function findSettingById(id) {
-    return settingModel.findById(id);
+function findUserById(id) {
+    return userModel.findById(id);
 }
 
-function deleteSettingById(id) {
-    return settingModel.findByIdAndDelete(id);
+function deleteUserById(id) {
+    return userModel.findByIdAndDelete(id);
 }
 
 // event-services
@@ -262,6 +222,7 @@ export default {
     addUser,
     findUserById,
     deleteUserById,
+    editUser,
 
     getEvents,
     addEvent,
@@ -285,11 +246,5 @@ export default {
     addTodoItem,
     deleteTodoItemById,
     findTodoItemById,
-    editTodoItem,
-
-    getSettings,
-    addSetting,
-    editSetting,
-    findSettingById,
-    deleteSettingById
+    editTodoItem
 };
