@@ -413,9 +413,9 @@ app.get("/users", authenticateUser, (req, res) => {
         });
 });
 
-app.delete("/user/:id", authenticateUser, (req, res) => {
+app.delete("/users/:id", authenticateUser, (req, res) => {
     // delete a users account by id
-    const id = req.params["id"];
+    const { id } = req.query;
     Service.deleteUserById(id)
         .then((result) => {
             if (result) {
@@ -431,15 +431,24 @@ app.delete("/user/:id", authenticateUser, (req, res) => {
 });
 
 app.get("/users/:id", authenticateUser, (req, res) => {
-    // get users by id
-    const id = req.params["id"];
+    const id = req.params.id;
     Service.findUserById(id)
         .then((result) => {
-            if (!result) {
-                res.status(404).send("Resource not found.");
-            } else {
-                res.send({ result: result });
-            }
+            res.send({ result: result });
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
+
+app.put("/users/:id", authenticateUser, (req, res) => {
+    const userId = req.params.id; // Get the ID from the URL parameters
+    const updatedUser = req.body; // Get the updated item data from the request body
+
+    Service.editEvent(userId, updatedUser)
+        .then((editedUser) => {
+            res.status(200).json(editedUser);
         })
         .catch((error) => {
             console.log(error);

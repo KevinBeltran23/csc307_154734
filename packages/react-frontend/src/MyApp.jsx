@@ -37,7 +37,8 @@ function MyApp() {
         localStorage.setItem("token", token);
         localStorage.setItem("userId", userId);
         localStorage.setItem("isAuthenticated", isAuthenticated.toString());
-    }, [token, userId, isAuthenticated]);
+        localStorage.setItem("settings", settings);
+    }, [token, userId, isAuthenticated, settings]);
 
     function addAuthHeader(otherHeaders = {}) {
         if (token === INVALID_TOKEN) {
@@ -64,7 +65,7 @@ function MyApp() {
 
     function fetchSettings() {
         const promise = fetch(
-            `http://localhost:8000/user/:${userId}`,
+            `http://localhost:8000/users/${userId}`,
             {
                 method: "GET",
                 headers: addAuthHeader()
@@ -117,6 +118,10 @@ function MyApp() {
         );
         return promise;
     }
+
+    useEffect(() => {
+        console.log(settings);
+      }, [settings]);
 
     
     // login and signup api calls
@@ -189,6 +194,37 @@ function MyApp() {
             .catch((error) => {
                 setMessage(`Signup Error: ${error}`);
                 return false; // Indicate failure
+            });
+        return promise;
+    }
+    
+    function putUser(userId, updatedUser) {
+        const promise = fetch(`http://localhost:8000/users/${userId}`, {
+            method: "PUT",
+            headers: addAuthHeader({
+                "Content-Type": "application/json"
+            }),
+            body: JSON.stringify(updatedUser)
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    setMessage("Setting updated successfully");
+                    return response.json().then((json) => {
+                        if (json) {
+                            return json;
+                        } else {
+                            console.log("No JSON data in response");
+                            return updatedUser; // Return the updated user data if response is empty
+                        }
+                    });
+                } else {
+                    setMessage(`PUT Error ${response.status}: ${response.statusText}`);
+                    throw new Error(`PUT Error ${response.status}: ${response.statusText}`);
+                }
+            })
+            .catch((error) => {
+                setMessage(`PUT Error: ${error.message}`);
+                throw error;
             });
         return promise;
     }
@@ -797,6 +833,7 @@ function MyApp() {
                                 fetchSettings={fetchSettings}
                                 settings={settings}
                                 setSettings={setSettings}
+                                putUser={putUser}
 
                                 items={items}
                                 setItems={setItems}
@@ -853,6 +890,7 @@ function MyApp() {
                                 deleteItem={deleteItem}
                                 fetchItems={fetchItems}
                                 settings={settings}
+                                putUser={putUser}
                             />
                         }
                     />
@@ -870,6 +908,7 @@ function MyApp() {
                                 fetchSettings={fetchSettings}
                                 settings={settings}
                                 setSettings={setSettings}
+                                putUser={putUser}
                                 
                                 items={items}
                                 setItems={setItems}
@@ -920,10 +959,11 @@ function MyApp() {
                                 addAuthHeader={addAuthHeader}
                                 userId={userId}
 
+                                putUser={putUser}
+
                                 settings={settings}
                                 setSettings={setSettings}
                                 postSetting={postSetting}
-                                putSetting={putSetting}
                                 deleteSetting={deleteSetting}
                                 fetchSettings={fetchSettings}
                                 updateSettings={updateSettings}

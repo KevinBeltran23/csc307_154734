@@ -43,6 +43,17 @@ function addUser(user) {
     return promise;
 }
 
+function editUser(userId, updatedUser) {
+    const promise = userModel
+        .findByIdAndUpdate(
+            userId, // The ID of the item to update
+            updatedUser, // The updated item data
+            { new: true } // Return the updated document
+        )
+        .exec();
+    return promise;
+}
+
 function findUserById(id) {
     return userModel.findById(id);
 }
@@ -262,6 +273,7 @@ export default {
     addUser,
     findUserById,
     deleteUserById,
+    editUser,
 
     getEvents,
     addEvent,
