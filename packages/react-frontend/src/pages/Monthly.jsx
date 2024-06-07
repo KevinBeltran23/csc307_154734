@@ -136,16 +136,11 @@ function Monthly(props) {
 
     const generateEventsForCurrentWeek = (date, selectedDate, activeDate) => {
         let currentDate = date;
-        const event_lst = [];
         var week = [];
 
         var events = props.events;
         var d;
         var events = props.events;
-        /*for (var i = 0; i < events.length; i++) {
-          d = new Date(events[i].start);
-          lst.push({key: events[i].title, value: format(d, "MM/dd/yyyy")});
-        } */
 
         for (let day = 0; day < 7; day++) {
             const cloneDate = format(currentDate, "MM/dd/yyyy");
@@ -221,11 +216,6 @@ function Monthly(props) {
     function handleToDo() {
         // go to todo page
         navigate("/todo");
-    }
-
-    function handleClickingOnEvent() {
-        // implement functionality
-        // there will be a GET request here to /event/:id
     }
 
     var names = props.calendars;
