@@ -21,8 +21,10 @@
 .event-box {
     display: block;
     position: relative;
+    top: 15%;
+    left: 10%;
     margin: auto;
-    width: 95%;
+    width: 75%;
     height: 10%;
     box-sizing: border-box;
     padding: 1%;
