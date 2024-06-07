@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Translate from "./Translate"; // Import the Translate component
 import "../components/Settings.css";
+import "../components/general.css"; // Import the general CSS file
 
 /* Google Translate Language Codes */
 const languageOptions = {
@@ -52,26 +53,31 @@ function Settings(props) {
 
     // Function to toggle boolean settings
     const toggleCheck = (settingKey) => {
-        const updatedUser = {
-            ...props.user,
-            [settingKey]: !props.user[settingKey]
-        };
-
-        props.putUser(props.userId, updatedUser)
-            .then((result) => {
-                if (result) {
-                    props.setUser(result);
-                    console.log("The put request is successful and the following is the updated User");
-                    console.log(result);
-                } else {
-                    console.log("No data returned from PUT request");
-                }
-            })
-            .catch((error) => {
-                props.setMessage(`Update Error: ${error.message}`);
-                console.log(error);
-            });
-    };
+      const updatedUser = {
+          ...props.user,
+          [settingKey]: !props.user[settingKey]
+      };
+  
+      props.putUser(props.userId, updatedUser)
+          .then((result) => {
+              if (result) {
+                  props.setUser(result);
+                  console.log("The put request is successful and the following is the updated User");
+                  console.log(result);
+  
+                  // Check if secret_setting2 was toggled and update body class accordingly
+                  if (settingKey === "secret_setting2") {
+                      document.body.classList.toggle("body-with-image", result[settingKey]);
+                  }
+              } else {
+                  console.log("No data returned from PUT request");
+              }
+          })
+          .catch((error) => {
+              props.setMessage(`Update Error: ${error.message}`);
+              console.log(error);
+          });
+  };
 
     // Function to handle language change
     const handleLanguageChange = (languageCode) => {
@@ -134,20 +140,34 @@ function Settings(props) {
         }
     };
 
+    // Function to update body background based on secret_setting2 value
+    const updateBodyBackground = (isSecretSetting2Enabled) => {
+        const body = document.querySelector("body");
+        if (isSecretSetting2Enabled) {
+            body.classList.add("image-background");
+        } else {
+            body.classList.remove("image-background");
+        }
+    };
+
     const renderOptionContent = () => {
         return (
             <div>
                 {(settingsSections[selectedSection] || []).map((setting) => (
                     <div key={setting} className="settings-item">
                         {["bold", "polytime", "secret_setting1", "secret_setting2"].includes(setting) ? (
-                            <label className="settings-label">
-                                <input
-                                    type="checkbox"
-                                    checked={props.user[setting] || false}
-                                    onChange={() => toggleCheck(setting)}
-                                />
-                                {setting}
-                            </label>
+                            <>
+                                {setting === "secret_setting2" && !props.user.secret_setting1 ? null : ( // Conditionally render secret_setting2 based on secret_setting1
+                                    <label className="settings-label">
+                                        <input
+                                            type="checkbox"
+                                            checked={props.user[setting] || false}
+                                            onChange={() => toggleCheck(setting)}
+                                        />
+                                        {setting}
+                                    </label>
+                                )}
+                            </>
                         ) : (
                             <>
                                 {setting === "language" ? (
