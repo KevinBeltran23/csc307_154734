@@ -18,10 +18,11 @@ const languageOptions = {
 function Settings(props) {
     const [selectedSection, setSelectedSection] = useState("Visual");
     const [selectedLanguage, setSelectedLanguage] = useState(languageOptions["English"]); // Default language
+    const [selectedDefaultView, setSelectedDefaultView] = useState("Monthly");
 
     // Categorize settings based on sections
     const settingsSections = {
-        Visual: ["bold", "polytime", "defaultView"],
+        Visual: ["bold", "polytime", "default_view"],
         Account: ["password", "username"],
         "Language & Region": ["language"],
         Misc: ["secret_setting1", "secret_setting2"]
@@ -33,6 +34,7 @@ function Settings(props) {
             .then((res) => res.json())
             .then((json) => {
                 props.setUser(json.result);
+                setSelectedDefaultView(json.result.default_view || "Monthly"); // Initialize default view state
             })
             .catch((error) => {
                 console.log(error);
@@ -97,6 +99,32 @@ function Settings(props) {
             });
     };
 
+    // Function to handle default view change
+    const handleDefaultViewChange = (event) => {
+        const updatedDefaultView = event.target.value;
+        setSelectedDefaultView(updatedDefaultView);
+
+        // Update database
+        const updatedUser = {
+            ...props.user,
+            default_view: updatedDefaultView
+        };
+        props.putUser(props.userId, updatedUser)
+            .then((result) => {
+                if (result) {
+                    props.setUser(result);
+                    console.log("The put request is successful and the following is the updated User");
+                    console.log(result);
+                } else {
+                    console.log("No data returned from PUT request");
+                }
+            })
+            .catch((error) => {
+                props.setMessage(`Update Error: ${error.message}`);
+                console.log(error);
+            });
+    };
+
     // Function to update Google Translate widget
     const updateGoogleTranslate = (languageCode) => {
         const googleTranslateElement = document.querySelector(".goog-te-combo");
@@ -107,93 +135,89 @@ function Settings(props) {
     };
 
     const renderOptionContent = () => {
-      return (
-          <div>
-              {(settingsSections[selectedSection] || []).map((setting) => (
-                  <div key={setting} className="settings-item">
-                      {["bold", "polytime", "secret_setting1", "secret_setting2"].includes(setting) ? (
-                          <label className="settings-label">
-                              <input
-                                  type="checkbox"
-                                  checked={props.user[setting] || false}
-                                  onChange={() => toggleCheck(setting)}
-                              />
-                              {setting}
-                          </label>
-                      ) : (
-                          <>
-                              {setting === "language" ? (
-                                  <label className="settings-label">
-                                      {setting}:
-                                      <select
-                                          value={selectedLanguage}
-                                          onChange={(event) => handleLanguageChange(event.target.value)}
-                                      >
-                                          {Object.keys(languageOptions).map((language) => (
-                                              <option key={language} value={languageOptions[language]}>
-                                                  {language}
-                                              </option>
-                                          ))}
-                                      </select>
-                                  </label>
-                              ) : (
-                                  <label className="settings-label">
-                                      {setting}:
-                                      <select
-                                          value={props.user[setting]}
-                                          onChange={(event) => handleDropdownChange(setting, event)}
-                                      >
-                                          {setting === "language" ? (
-                                              Object.keys(languageOptions).map((language) => (
-                                                  <option key={language} value={languageOptions[language]}>
-                                                      {language}
-                                                  </option>
-                                              ))
-                                          ) : (
-                                              ["Monthly", "Weekly"].map((option) => (
-                                                  <option key={option} value={option}>
-                                                      {option}
-                                                  </option>
-                                              ))
-                                          )}
-                                      </select>
-                                  </label>
-                              )}
-                          </>
-                      )}
-                  </div>
-              ))}
-          </div>
-      );
-  };
-  
-  
-
-    return (
-        <div className="page-container">
-            <div className="settings-box">
-                <div className="settings-bar"></div>
-                <div className="settings-header">Settings</div>
-                <div className="settings-buttons-options">
-                    <div className="settings-buttons">
-                        {["Visual", "Account", "Language & Region", "Misc"].map((section) => (
-                            <button
-                                key={section}
-                                className={`settings-button ${selectedSection === section ? "active" : ""}`}
-                                onClick={() => setSelectedSection(section)}
-                            >
-                                <div className="settings-text">{section}</div>
-                            </button>
-                        ))}
+        return (
+            <div>
+                {(settingsSections[selectedSection] || []).map((setting) => (
+                    <div key={setting} className="settings-item">
+                        {["bold", "polytime", "secret_setting1", "secret_setting2"].includes(setting) ? (
+                            <label className="settings-label">
+                                <input
+                                    type="checkbox"
+                                    checked={props.user[setting] || false}
+                                    onChange={() => toggleCheck(setting)}
+                                />
+                                {setting}
+                            </label>
+                        ) : (
+                            <>
+                                {setting === "language" ? (
+                                    <label className="settings-label">
+                                        {setting}:
+                                        <select
+                                            value={selectedLanguage}
+                                            onChange={(event) => handleLanguageChange(event.target.value)}
+                                        >
+                                            {Object.keys(languageOptions).map((language) => (
+                                                <option key={language} value={languageOptions[language]}>
+                                                    {language}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </label>
+                                ) : (
+                                    <>
+                                        {setting === "default_view" && (
+                                            <label className="settings-label">
+                                                {setting}:
+                                                <select
+                                                    value={selectedDefaultView}
+                                                    onChange={(event) => handleDefaultViewChange(event)}
+                                                >
+                                                    {["Monthly", "Weekly"].map((option) => (
+                                                        <option key={option} value={option}>
+                                                            {option}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </label>
+                                        )}
+                                    </>
+                                )}
+                            </>
+                        )}
                     </div>
-                    <div className="settings-options">
-                        <div className="settings-option">{renderOptionContent()}</div>
-                    </div>
-                </div>
+                ))}
             </div>
-            <Translate />
+        );
+    };
+
+
+
+  return (
+    <div className="page-container">
+      <div className="settings-box">
+        <div className="settings-bar"></div>
+        <div className="settings-header">Settings</div>
+        <div className="settings-buttons-options">
+          <div className="settings-buttons">
+            {["Visual", "Account", "Language & Region", "Misc"].map((section) => (
+              <button
+                key={section}
+                className={`settings-button ${selectedSection === section ? "active" : ""}`}
+                onClick={() => setSelectedSection(section)}
+              >
+                <div className="settings-text">{section}</div>
+              </button>
+            ))}
+          </div>
+          <div className="settings-options">
+            <div className="settings-option">{renderOptionContent()}</div>
+          </div>
         </div>
-    );
+      </div>
+      <Translate />
+    </div>
+  );
 }
 
 export default Settings;
