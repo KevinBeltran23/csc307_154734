@@ -4,6 +4,7 @@ import eventModel from "./event.js";
 import todoModel from "./todo-item.js";
 import classModel from "./class.js";
 import calendarModel from "./calendar.js";
+import settingModel from "./settings.js";
 
 mongoose.set("debug", true);
 
@@ -219,5 +220,11 @@ export default {
     addTodoItem,
     deleteTodoItemById,
     findTodoItemById,
-    editTodoItem
+    editTodoItem,
+
+    getSettings,
+    addSetting,
+    editSetting,
+    findSettingById,
+    deleteSettingById
 };

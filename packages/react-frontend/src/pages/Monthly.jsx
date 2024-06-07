@@ -138,7 +138,6 @@ function Monthly(props) {
     const generateEventsForCurrentWeek = (date, selectedDate, activeDate) => {
         let currentDate = date;
         var week = [];
-
         var events = props.events;
         var d;
         var events = props.events;
@@ -198,6 +197,15 @@ function Monthly(props) {
 
         return <div className="events">{allWeeks}</div>;
     };
+    const addEvents = () => {
+        var testDate;
+        var desc;
+        var startTime;
+        var endTime;
+    };
+    /*const getEvents = () => {
+
+  } */
 
     const navigate = useNavigate();
 
@@ -228,7 +236,6 @@ function Monthly(props) {
     for (var i = 0; i < events.length; i++) {
         console.log(events[i].title);
     }
-
     return (
         <>
             <button className="logout" onClick={props.logout}>

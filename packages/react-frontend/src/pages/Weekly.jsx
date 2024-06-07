@@ -166,6 +166,10 @@ function Weekly(props) {
         return <div className="events">{allWeeks}</div>;
     };
 
+    /*const getEvents = () => {
+ 
+  } */
+
     const navigate = useNavigate();
 
     function handleSettings() {
@@ -195,7 +199,6 @@ function Weekly(props) {
     for (var i = 0; i < events.length; i++) {
         console.log(events[i].title);
     }
-
     return (
         <>
             <button className="logout" onClick={props.logout}>

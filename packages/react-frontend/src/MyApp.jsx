@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    useNavigate
+} from "react-router-dom";
 import Login from "./pages/Login";
 import Monthly from "./pages/Monthly";
 import ToDo from "./pages/ToDo";
@@ -10,7 +15,8 @@ import PrivateRoute from "./PrivateRoute";
 
 function MyApp() {
     // important variables
-    const URL = "http://localhost:8000/";
+    const URL = "https://154734.azurewebsites.net/";
+
     const INVALID_TOKEN = "INVALID_TOKEN";
     var [token, setToken] = useState(
         localStorage.getItem("token") || INVALID_TOKEN
@@ -327,8 +333,6 @@ function MyApp() {
                     event._id === eventId ? updatedEventResponseJson : event
                 )
             );
-            //setTodoEditing(null);
-            //setEditingText("");
         } catch (error) {
             setMessage(`Update Error: ${error.message}`);
             console.log(error);
@@ -389,6 +393,7 @@ function MyApp() {
         }
     }
 
+
     // Function to update an event
     async function putEvent(eventId, updatedEvent) {
         try {
@@ -399,7 +404,7 @@ function MyApp() {
                 }),
                 body: JSON.stringify(updatedEvent)
             });
-
+          
             if (response.status === 200) {
                 setMessage("Event updated successfully");
                 return await response.json(); // Return the JSON response for chaining
@@ -445,8 +450,6 @@ function MyApp() {
                     clas._id === classId ? updatedClassResponseJson : clas
                 )
             );
-            //setTodoEditing(null);
-            //setEditingText("");
         } catch (error) {
             setMessage(`Update Error: ${error.message}`);
             console.log(error);
@@ -569,8 +572,6 @@ function MyApp() {
                         : calendar
                 )
             );
-            //setTodoEditing(null);
-            //setEditingText("");
         } catch (error) {
             setMessage(`Update Error: ${error.message}`);
             console.log(error);
@@ -587,7 +588,6 @@ function MyApp() {
                 }),
                 body: JSON.stringify(calendar)
             });
-
             if (response.status === 200 || response.status === 201) {
                 setMessage("Calendar created successfully");
                 return await response.json(); // Return the JSON response for chaining
@@ -614,7 +614,6 @@ function MyApp() {
                     "Content-Type": "application/json"
                 })
             });
-
             if (response.status === 204) {
                 // Filter out the calendar with the specified _id and update the items list
                 const updated = calendars.filter(
@@ -643,7 +642,6 @@ function MyApp() {
                 }),
                 body: JSON.stringify(updatedCalendar)
             });
-
             if (response.status === 200) {
                 setMessage("Calendar updated successfully");
                 return await response.json(); // Return the JSON response for chaining

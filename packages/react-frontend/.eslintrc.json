@@ -12,12 +12,12 @@
         "sourceType": "module"
     },
     "rules": {
-        "react/prop-types": 0
+        "react/prop-types": 0,
+        "react/react-in-jsx-scope": "off"
     },
     "settings": {
         "react": {
             "version": "detect"
         }
-    },
-    "ignorePatterns": ["**/*.test.js", "**/build/*"]
+    }
 }

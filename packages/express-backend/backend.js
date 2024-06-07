@@ -1,19 +1,44 @@
 import dotenv from "dotenv";
 dotenv.config();
 
+//imports
 import express from "express";
 import cors from "cors";
 import Service from "./services.js";
 import { registerUser, loginUser, authenticateUser } from "./auth.js";
 
 const app = express();
-const port = 8000;
+// const port = 8000;
 
-app.use(cors());
+var process = {
+    env: {}
+};
+
+const corsOptions = {
+    origin: "https://green-sand-07ee7761e.5.azurestaticapps.net",
+    credentials: true,
+    optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+app.use((req, res, next) => {
+    res.setHeader(
+        "Access-Control-Allow-Origin",
+        "https://green-sand-07ee7761e.5.azurestaticapps.net"
+    );
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader(
+        "Access-Control-Allow-Headers",
+        "Content-Type, Authorization"
+    );
+    next();
+});
+
+// can listen at azure port or at localhost 8000
+app.listen(process.env.PORT || 80, () => {
+    console.log(`REST API is listening.`);
 });
 
 app.get("/", (req, res) => {
@@ -107,7 +132,6 @@ app.put("/todo/:id", authenticateUser, async (req, res) => {
     try {
         const itemId = req.params.id; // Get the ID from the URL parameters
         const updatedItem = req.body; // Get the updated item data from the request body
-
         const editedItem = await Service.editTodoItem(itemId, updatedItem);
         res.status(200).json(editedItem);
     } catch (error) {

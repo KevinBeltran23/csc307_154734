@@ -7,3 +7,7 @@ Prettier Standards:
 -   tabWidth: 4
 -   semi: true
 -   singleQuote: false
+
+npm installs:
+npm install date-fn
+npm install react-icons

@@ -102,6 +102,32 @@ function ToDo(props) {
             });
     }
 
+    function toggleCheck(itemId) {
+        const itemToUpdate = props.items.find((item) => item._id === itemId);
+        const updatedItem = {
+            ...itemToUpdate,
+            checked: !itemToUpdate.checked,
+            user: props.userId // Ensure the user ID is included
+        };
+
+        putItem(itemId, updatedItem) // Pass itemId and updatedItem separately
+            .then((updatedItemResponseJson) => {
+                props.setItems(
+                    props.items
+                        .map((item) =>
+                            item._id === itemId ? updatedItemResponseJson : item
+                        )
+                        .sort(
+                            (a, b) => new Date(a.duedate) - new Date(b.duedate)
+                        )
+                );
+            })
+            .catch((error) => {
+                setMessage(`Update Error: ${error.message}`);
+                console.log(error);
+            });
+    }
+
     useEffect(() => {
         props
             .fetchItems()
@@ -284,7 +310,6 @@ function ToDo(props) {
                     </div>
                 ))}
             </div>
-
             {message && <p>{message}</p>}
         </>
     );
