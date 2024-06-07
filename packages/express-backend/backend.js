@@ -15,7 +15,7 @@ var process = {
 };
 
 const corsOptions = {
-    origin: "http://green-sand-07ee7761e.5.azurestaticapps.net",
+    origin: "https://green-sand-07ee7761e.5.azurestaticapps.net",
     credentials: true,
     optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
 };
@@ -26,7 +26,7 @@ app.use(express.json());
 app.use((req, res, next) => {
     res.setHeader(
         "Access-Control-Allow-Origin",
-        "http://green-sand-07ee7761e.5.azurestaticapps.net"
+        "https://green-sand-07ee7761e.5.azurestaticapps.net"
     );
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     res.setHeader(
