@@ -154,15 +154,18 @@ function Monthly(props) {
           var t = [];
           for (var i = 0; i < events.length; i++) {
             d = new Date(events[i].start);
-            var df = format(d, "MM/dd/yyyy");
+            var timeZoneFromDB = 7.00;
+            var tzDifference = timeZoneFromDB * 60 + d.getTimezoneOffset();
+            var offsetTime = new Date(d.getTime() + tzDifference * 60 * 1000);
+            var df = format(offsetTime, "MM/dd/yyyy");
+            //console.log(d);
             if (cloneDate === df) {
                 //lst.push({key: events[i].title, value: d});
                 //console.log(lst);
-                t.push(events[i].title)
-                console.log(df);
+                t.push(events[i].title);
             }
             else {
-                t.push('');
+                t.push("");
             }
             /*else {
                 lst.push({key: "", value: ""});
