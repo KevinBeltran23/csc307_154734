@@ -172,6 +172,16 @@ function Settings(props) {
         }
     };
 
+    // Function to update body background based on secret_setting2 value
+    const updateBodyBackground = (isSecretSetting2Enabled) => {
+      const body = document.querySelector("body");
+      if (isSecretSetting2Enabled) {
+          body.classList.add("image-background");
+      } else {
+          body.classList.remove("image-background");
+      }
+  };
+
     const renderOptionContent = () => {
         return (
             <div>
