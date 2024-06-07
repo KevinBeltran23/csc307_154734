@@ -20,40 +20,39 @@ mongoose
 
 // user-services
 
-function getUsers(username, password) {
+async function getUsers(username, password) {
     let query = {};
     if (username && password) {
         query = { username: username, password: password };
-        return userModel.findOne({ username: username, password: password });
+        return await userModel.findOne({ username: username, password: password });
     } else if (username) {
         query = { username: username };
     } else if (password) {
         query = { password: password };
     }
-    return userModel.find(query);
+    return await userModel.find(query);
 }
 
-function getUserByNameAndPassword(username, password) {
-    return userModel.findOne({ username: username, password: password });
+async function getUserByNameAndPassword(username, password) {
+    return await userModel.findOne({ username: username, password: password });
 }
 
-function addUser(user) {
+async function addUser(user) {
     const userToAdd = new userModel(user);
-    const promise = userToAdd.save();
-    return promise;
+    return await userToAdd.save();
 }
 
-function findUserById(id) {
-    return userModel.findById(id);
+async function findUserById(id) {
+    return await userModel.findById(id);
 }
 
-function deleteUserById(id) {
-    return userModel.findByIdAndDelete(id);
+async function deleteUserById(id) {
+    return await userModel.findByIdAndDelete(id);
 }
 
 // setting-services
 
-function getSettings(start, calendar, userId) {
+async function getSettings(start, calendar, userId) {
     let query = {};
     if (start) {
         query.start = start;
@@ -64,37 +63,33 @@ function getSettings(start, calendar, userId) {
     if (userId) {
         query.user = userId;
     }
-    return settingModel.find(query);
+    return await settingModel.find(query);
 }
 
-function addSetting(setting) {
+async function addSetting(setting) {
     const settingToAdd = new settingModel(setting);
-    const promise = settingToAdd.save();
-    return promise;
+    return await settingToAdd.save();
 }
 
-function editSetting(settingId, updatedSetting) {
-    const promise = settingModel
-        .findByIdAndUpdate(
-            settingId, // The ID of the item to update
-            updatedSetting, // The updated item data
-            { new: true } // Return the updated document
-        )
-        .exec();
-    return promise;
+async function editSetting(settingId, updatedSetting) {
+    return await settingModel.findByIdAndUpdate(
+        settingId, // The ID of the item to update
+        updatedSetting, // The updated item data
+        { new: true } // Return the updated document
+    ).exec();
 }
 
-function findSettingById(id) {
-    return settingModel.findById(id);
+async function findSettingById(id) {
+    return await settingModel.findById(id);
 }
 
-function deleteSettingById(id) {
-    return settingModel.findByIdAndDelete(id);
+async function deleteSettingById(id) {
+    return await settingModel.findByIdAndDelete(id);
 }
 
 // event-services
 
-function getEvents(start, calendar, userId) {
+async function getEvents(start, calendar, userId) {
     let query = {};
     if (start) {
         query.start = start;
@@ -105,72 +100,64 @@ function getEvents(start, calendar, userId) {
     if (userId) {
         query.user = userId;
     }
-    return eventModel.find(query);
+    return await eventModel.find(query);
 }
 
-function addEvent(event) {
+async function addEvent(event) {
     const eventToAdd = new eventModel(event);
-    const promise = eventToAdd.save();
-    return promise;
+    return await eventToAdd.save();
 }
 
-function editEvent(eventId, updatedEvent) {
-    const promise = eventModel
-        .findByIdAndUpdate(
-            eventId, // The ID of the item to update
-            updatedEvent, // The updated item data
-            { new: true } // Return the updated document
-        )
-        .exec();
-    return promise;
+async function editEvent(eventId, updatedEvent) {
+    return await eventModel.findByIdAndUpdate(
+        eventId, // The ID of the item to update
+        updatedEvent, // The updated item data
+        { new: true } // Return the updated document
+    ).exec();
 }
 
-function findEventById(id) {
-    return eventModel.findById(id);
+async function findEventById(id) {
+    return await eventModel.findById(id);
 }
 
-function deleteEventById(id) {
-    return eventModel.findByIdAndDelete(id);
+async function deleteEventById(id) {
+    return await eventModel.findByIdAndDelete(id);
 }
 
 // calendar-services
 
-function getCalendars(userId) {
+async function getCalendars(userId) {
     let query = {};
     if (userId) {
         query.user = userId;
     }
-    return calendarModel.find(query);
+    return await calendarModel.find(query);
 }
 
-function addCalendar(calendar) {
+async function addCalendar(calendar) {
     const calendarToAdd = new calendarModel(calendar);
-    const promise = calendarToAdd.save();
-    return promise;
+    return await calendarToAdd.save();
 }
 
-function editCalendar(calendarId, updatedCalendar) {
-    const promise = classModel
-        .findByIdAndUpdate(
-            calendarId, // The ID of the item to update
-            updatedCalendar, // The updated item data
-            { new: true } // Return the updated document
-        )
-        .exec();
-    return promise;
+async function editCalendar(calendarId, updatedCalendar) {
+    return await classModel.findByIdAndUpdate(
+        calendarId, // The ID of the item to update
+        updatedCalendar, // The updated item data
+        { new: true } // Return the updated document
+    ).exec();
 }
 
-function findCalendarById(id) {
-    return calendarModel.findById(id);
+async function findCalendarById(id) {
+    return await calendarModel.findById(id);
 }
 
-function deleteCalendarById(id) {
-    return calendarModel.findByIdAndDelete(id);
+async function deleteCalendarById(id) {
+    return await calendarModel.findByIdAndDelete(id);
 }
 
 // class-services
 
-function getClasses(start, calendar, userId) {
+async function getClasses(start, calendar, userId) {
     let query = {};
     if (start) {
         query.start = start;
@@ -181,37 +168,33 @@ function getClasses(start, calendar, userId) {
     if (userId) {
         query.user = userId;
     }
-    return classModel.find(query);
+    return await classModel.find(query);
 }
 
-function addClass(event) {
+async function addClass(event) {
     const eventToAdd = new classModel(event);
-    const promise = eventToAdd.save();
-    return promise;
+    return await eventToAdd.save();
 }
 
-function editClass(classId, updatedClass) {
-    const promise = classModel
-        .findByIdAndUpdate(
-            classId, // The ID of the item to update
-            updatedClass, // The updated item data
-            { new: true } // Return the updated document
-        )
-        .exec();
-    return promise;
+async function editClass(classId, updatedClass) {
+    return await classModel.findByIdAndUpdate(
+        classId, // The ID of the item to update
+        updatedClass, // The updated item data
+        { new: true } // Return the updated document
+    ).exec();
 }
 
-function findClassById(id) {
-    return classModel.findById(id);
+async function findClassById(id) {
+    return await classModel.findById(id);
 }
 
-function deleteClassById(id) {
-    return classModel.findByIdAndDelete(id);
+async function deleteClassById(id) {
+    return await classModel.findByIdAndDelete(id);
 }
 
 // todo-services
 
-function getTodoItems(duedate, userId) {
+async function getTodoItems(duedate, userId) {
     let query = {};
     if (duedate) {
         query.duedate = duedate;
@@ -219,32 +202,28 @@ function getTodoItems(duedate, userId) {
     if (userId) {
         query.user = userId;
     }
-    return todoModel.find(query);
+    return await todoModel.find(query);
 }
 
-function addTodoItem(item) {
+async function addTodoItem(item) {
     const itemToAdd = new todoModel(item);
-    const promise = itemToAdd.save();
-    return promise;
+    return await itemToAdd.save();
 }
 
-function editTodoItem(itemId, updatedItem) {
-    const promise = todoModel
-        .findByIdAndUpdate(
-            itemId, // The ID of the item to update
-            updatedItem, // The updated item data
-            { new: true } // Return the updated document
-        )
-        .exec();
-    return promise;
+async function editTodoItem(itemId, updatedItem) {
+    return await todoModel.findByIdAndUpdate(
+        itemId, // The ID of the item to update
+        updatedItem, // The updated item data
+        { new: true } // Return the updated document
+    ).exec();
 }
 
-function findTodoItemById(id) {
-    return todoModel.findById(id);
+async function findTodoItemById(id) {
+    return await todoModel.findById(id);
 }
 
-function deleteTodoItemById(id) {
-    return todoModel.findByIdAndDelete(id);
+async function deleteTodoItemById(id) {
+    return await todoModel.findByIdAndDelete(id);
 }
 
 export default {
