@@ -51,6 +51,15 @@ function Settings(props) {
         }
     }, [props.user?.bold]);
 
+    // Handle bold text setting
+    useEffect(() => {
+        if (props.user?.secret_setting2) {
+            document.body.classList.add("body-with-image");
+        } else {
+            document.body.classList.remove("body-with-image");
+        }
+    }, [props.user?.secret_setting2]);
+
     // Function to toggle boolean settings
     const toggleCheck = (settingKey) => {
       const updatedUser = {
