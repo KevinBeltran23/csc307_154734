@@ -8,6 +8,11 @@ body {
     font-family: JosefinSans;
 }
 
+.body-with-image {
+    background-image: url('cal-poly.png'); /* Adjust the path to match the location of my-image.png */
+    background-size: cover;
+}
+
 h1 {
     color: var(--Poly-Green, #154734);
     text-align: center;
