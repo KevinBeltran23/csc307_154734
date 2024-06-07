@@ -62,7 +62,11 @@ function MyApp() {
         setUserId(0);
         setUser(null)
         setMessage(`Logged out successfully`);
+    
+        // Remove the body class that sets the background image
+        document.body.classList.remove("body-with-image");
     }
+    
 
     // Fetch calls
     async function fetchUser() {
