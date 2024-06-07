@@ -1,6 +1,3 @@
-
-
-
 import React, { useState, useEffect } from "react";
 import Translate from "./Translate"; // Import the Translate component
 import "../components/Settings.css";
@@ -19,7 +16,7 @@ const languageOptions = {
 };
 
 function Settings(props) {
-  const [selectedOption, setSelectedOption] = useState("Language & Region");
+  const [selectedSection, setSelectedSection] = useState("Section1");
 
   // initial fetch to view the current settings
   useEffect(() => {
@@ -53,7 +50,7 @@ function Settings(props) {
         .then((result) => {
           if (result) {
             props.setUser(result);
-            console.log("The put request is successful and the following is the updated User")
+            console.log("The put request is successful and the following is the updated User");
             console.log(result);
           } else {
             console.log("No data returned from PUT request");
@@ -65,10 +62,27 @@ function Settings(props) {
         });
   };
 
-   // This will dropdown to select options. Will be used for selecting a language
-  const handleDropdownChange = (option, event) => {
-    const selectedValue = event.target.value;
-    // implement
+  // Handles dropdown changes and sends a PUT request to update the user setting
+  const handleDropdownChange = (settingKey, event) => {
+    const updatedUser = {
+      ...props.user,
+      [settingKey]: event.target.value
+    };
+
+    props.putUser(props.userId, updatedUser)
+      .then((result) => {
+        if (result) {
+          props.setUser(result);
+          console.log("The put request is successful and the following is the updated User");
+          console.log(result);
+        } else {
+          console.log("No data returned from PUT request");
+        }
+      })
+      .catch((error) => {
+        props.setMessage(`Update Error: ${error.message}`);
+        console.log(error);
+      });
   };
 
   const renderOptionContent = () => {
@@ -121,13 +135,13 @@ function Settings(props) {
         <div className="settings-header">Settings</div>
         <div className="settings-buttons-options">
           <div className="settings-buttons">
-            {Object.keys(props.user || {}).map((option) => (
+            {["Section1", "Section2", "Section3"].map((section) => (
               <button
-                key={option}
-                className={`settings-button ${selectedOption === option ? "active" : ""}`}
-                onClick={() => setSelectedOption(option)}
+                key={section}
+                className={`settings-button ${selectedSection === section ? "active" : ""}`}
+                onClick={() => setSelectedSection(section)}
               >
-                <div className="settings-text">{option}</div>
+                <div className="settings-text">{section}</div>
               </button>
             ))}
           </div>
