@@ -15,6 +15,7 @@ import PrivateRoute from "./PrivateRoute";
 
 function MyApp() {
     // important variables
+    const URL = "http://localhost:8000/"
     const INVALID_TOKEN = "INVALID_TOKEN";
     var [token, setToken] = useState(
         localStorage.getItem("token") || INVALID_TOKEN
@@ -65,7 +66,7 @@ function MyApp() {
 
     // Fetch calls
     async function fetchUser() {
-        const response = await fetch(`http://localhost:8000/users/${userId}`, {
+        const response = await fetch(`${URL}users/${userId}`, {
             method: "GET",
             headers: addAuthHeader()
         });
@@ -73,7 +74,7 @@ function MyApp() {
     }
 
     async function fetchItems() {
-        const response = await fetch(`http://localhost:8000/todo?user=${userId}`, {
+        const response = await fetch(`${URL}todo?user=${userId}`, {
             method: "GET",
             headers: addAuthHeader()
         });
@@ -81,7 +82,7 @@ function MyApp() {
     }
 
     async function fetchEvents() {
-        const response = await fetch(`http://localhost:8000/event?user=${userId}`, {
+        const response = await fetch(`${URL}event?user=${userId}`, {
             method: "GET",
             headers: addAuthHeader()
         });
@@ -89,7 +90,7 @@ function MyApp() {
     }
 
     async function fetchClasses() {
-        const response = await fetch(`http://localhost:8000/class?user=${userId}`, {
+        const response = await fetch(`${URL}class?user=${userId}`, {
             method: "GET",
             headers: addAuthHeader()
         });
@@ -97,7 +98,7 @@ function MyApp() {
     }
 
     async function fetchCalendars() {
-        const response = await fetch(`http://localhost:8000/calendar?user=${userId}`, {
+        const response = await fetch(`${URL}calendar?user=${userId}`, {
             method: "GET",
             headers: addAuthHeader()
         });
@@ -107,7 +108,7 @@ function MyApp() {
     // Login and signup API calls
     async function loginUser(creds) {
         try {
-            const response = await fetch("http://localhost:8000/login", {
+            const response = await fetch(`${URL}login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -135,7 +136,7 @@ function MyApp() {
 
     async function signupUser(creds) {
         try {
-            const response = await fetch("http://localhost:8000/signup", {
+            const response = await fetch(`${URL}signup`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -166,7 +167,7 @@ function MyApp() {
 
     async function putUser(userId, updatedUser) {
         try {
-            const response = await fetch(`http://localhost:8000/users/${userId}`, {
+            const response = await fetch(`${URL}users/${userId}`, {
                 method: "PUT",
                 headers: addAuthHeader({
                     "Content-Type": "application/json"
@@ -207,7 +208,7 @@ function MyApp() {
     // Function to post an item
     async function postItem(item) {
         try {
-            const response = await fetch("http://localhost:8000/todo", {
+            const response = await fetch(`${URL}todo`, {
                 method: "POST",
                 headers: addAuthHeader({
                     "Content-Type": "application/json"
@@ -231,7 +232,7 @@ function MyApp() {
     // Function to delete an item
     async function deleteItem(_id) {
         try {
-            const response = await fetch(`http://localhost:8000/todo/${_id}`, {
+            const response = await fetch(`${URL}todo/${_id}`, {
                 method: "DELETE",
                 headers: addAuthHeader({
                     "Content-Type": "application/json"
@@ -255,7 +256,7 @@ function MyApp() {
     // Function to update an item
     async function putItem(itemId, updatedItem) {
         try {
-            const response = await fetch(`http://localhost:8000/todo/${itemId}`, {
+            const response = await fetch(`${URL}todo/${itemId}`, {
                 method: "PUT",
                 headers: addAuthHeader({
                     "Content-Type": "application/json"
@@ -313,7 +314,7 @@ function MyApp() {
     // Function to post an event
     async function postEvent(event) {
         try {
-            const response = await fetch("http://localhost:8000/event", {
+            const response = await fetch(`${URL}event`, {
                 method: "POST",
                 headers: addAuthHeader({
                     "Content-Type": "application/json"
@@ -337,7 +338,7 @@ function MyApp() {
     // Function to delete an event
     async function deleteEvent(_id) {
         try {
-            const response = await fetch(`http://localhost:8000/event/${_id}`, {
+            const response = await fetch(`${URL}event/${_id}`, {
                 method: "DELETE",
                 headers: addAuthHeader({
                     "Content-Type": "application/json"
@@ -361,7 +362,7 @@ function MyApp() {
     // Function to update an event
     async function putEvent(eventId, updatedEvent) {
         try {
-            const response = await fetch(`http://localhost:8000/event/${eventId}`, {
+            const response = await fetch(`${URL}event/${eventId}`, {
                 method: "PUT",
                 headers: addAuthHeader({
                     "Content-Type": "application/json"
@@ -418,7 +419,7 @@ function MyApp() {
     // Function to post a class
     async function postClass(clas) {
         try {
-            const response = await fetch("http://localhost:8000/class", {
+            const response = await fetch(`${URL}class`, {
                 method: "POST",
                 headers: addAuthHeader({
                     "Content-Type": "application/json"
@@ -442,7 +443,7 @@ function MyApp() {
     // Function to delete a class
     async function deleteClass(_id) {
         try {
-            const response = await fetch(`http://localhost:8000/class/${_id}`, {
+            const response = await fetch(`${URL}class/${_id}`, {
                 method: "DELETE",
                 headers: addAuthHeader({
                     "Content-Type": "application/json"
@@ -466,7 +467,7 @@ function MyApp() {
     // Function to update a class
     async function putClass(classId, updatedClass) {
         try {
-            const response = await fetch(`http://localhost:8000/class/${classId}`, {
+            const response = await fetch(`${URL}class/${classId}`, {
                 method: "PUT",
                 headers: addAuthHeader({
                     "Content-Type": "application/json"
@@ -524,7 +525,7 @@ function MyApp() {
     // Function to post a calendar
     async function postCalendar(calendar) {
         try {
-            const response = await fetch("http://localhost:8000/calendar", {
+            const response = await fetch(`${URL}calendar`, {
                 method: "POST",
                 headers: addAuthHeader({
                     "Content-Type": "application/json"
@@ -548,7 +549,7 @@ function MyApp() {
     // Function to delete a calendar
     async function deleteCalendar(_id) {
         try {
-            const response = await fetch(`http://localhost:8000/calendar/${_id}`, {
+            const response = await fetch(`${URL}calendar/${_id}`, {
                 method: "DELETE",
                 headers: addAuthHeader({
                     "Content-Type": "application/json"
@@ -572,7 +573,7 @@ function MyApp() {
     // Function to update a calendar
     async function putCalendar(calendarId, updatedCalendar) {
         try {
-            const response = await fetch(`http://localhost:8000/calendar/${calendarId}`, {
+            const response = await fetch(`${URL}calendar/${calendarId}`, {
                 method: "PUT",
                 headers: addAuthHeader({
                     "Content-Type": "application/json"
