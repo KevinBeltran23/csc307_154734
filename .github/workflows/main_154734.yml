@@ -63,9 +63,6 @@ jobs:
                   tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9308AB1ED1724DACA724BB2BE6BA6372 }}
                   subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_786F5C6B9B0442E491CDEF6D1233C34D }}
 
-            - name: Set PORT environment variable to 443
-              run: echo "PORT=443" >> $GITHUB_ENV
-
             - name: "Deploy to Azure Web App"
               id: deploy-to-webapp
               uses: azure/webapps-deploy@v2
