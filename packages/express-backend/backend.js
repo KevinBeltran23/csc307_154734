@@ -108,7 +108,7 @@ app.get("/weekly", authenticateUser, async (req, res) => {
 // todo page
 app.get("/todo", authenticateUser, async (req, res) => {
     try {
-        const { duedate, contents, user } = req.query;
+        const { duedate, user } = req.query;
         const result = await Service.getTodoItems(duedate, user);
         res.send({ todo_list: result });
     } catch (error) {
@@ -160,8 +160,7 @@ app.delete("/todo/:id", authenticateUser, async (req, res) => {
 app.get("/event", authenticateUser, async (req, res) => {
     try {
         // get events for a user
-        const { title, start, end, description, location, calendar, user } =
-            req.query;
+        const { start, calendar, user } = req.query;
         const result = await Service.getEvents(start, calendar, user);
         res.send({ events_list: result });
     } catch (error) {
@@ -231,8 +230,7 @@ app.delete("/event/:id", authenticateUser, async (req, res) => {
 app.get("/class", authenticateUser, async (req, res) => {
     try {
         // get classes for a user
-        const { title, start, end, description, professor, calendar, user } =
-            req.query;
+        const { start, calendar, user } = req.query;
         const result = await Service.getClasses(start, calendar, user);
         res.send({ classes_list: result });
     } catch (error) {
@@ -289,7 +287,7 @@ app.delete("/class/:id", authenticateUser, async (req, res) => {
 app.get("/calendar", authenticateUser, async (req, res) => {
     try {
         // get calendars for a user
-        const { color, name, user } = req.query;
+        const { user } = req.query;
         const result = await Service.getCalendars(user);
         res.send({ calendars_list: result });
     } catch (error) {
