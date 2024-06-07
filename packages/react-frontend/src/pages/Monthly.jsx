@@ -151,24 +151,27 @@ function Monthly(props) {
 
       for (let day = 0; day < 7; day++) {
           const cloneDate = format(currentDate, "MM/dd/yyyy");
+          var t = [];
           for (var i = 0; i < events.length; i++) {
             d = new Date(events[i].start);
             var df = format(d, "MM/dd/yyyy");
-            var t = [];
             if (cloneDate === df) {
                 //lst.push({key: events[i].title, value: d});
                 //console.log(lst);
                 t.push(events[i].title)
                 console.log(df);
             }
+            else {
+                t.push('');
+            }
             /*else {
                 lst.push({key: "", value: ""});
             } */
           }
           //var t = lst[i].key;
-          console.log("this is t: " + t);
+          console.log(t);
           week.push(
-              <div className="monthly-day-box">
+              <div className="box">
                   <div>
                       {t}
                   </div>
@@ -200,7 +203,7 @@ function Monthly(props) {
           currentDate = addDays(currentDate, 7);
       }
 
-      return <div className="calendar-container">{allWeeks}</div>;
+      return <div className="events">{allWeeks}</div>;
   };
 
     const navigate = useNavigate();
