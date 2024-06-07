@@ -58,7 +58,7 @@ app.post("/registration", async (req, res) => {
         res.status(201).json(addedUser);
     } catch (error) {
         console.log(error);
-        res.status(404).send("Internal Server Error");
+        res.status(404).send("Not Found");
     }
 });
 
