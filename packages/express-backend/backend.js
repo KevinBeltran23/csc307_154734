@@ -76,67 +76,6 @@ app.get("/weekly", authenticateUser, (req, res) => {
     // get all the information for the weekly calendar for a user
 });
 
-// settings
-
-app.get("/settings", authenticateUser, (req, res) => {
-    const { language, bold, default_view, polytime, user } = req.query;
-
-    Service.getSettings(user)
-        .then((result) => {
-            res.send({ settings_list: result });
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
-
-// Update or create settings for a specific user
-app.post("/settings", authenticateUser, (req, res) => {
-    const settingToAdd = req.body;
-
-    Service.addSetting(settingToAdd)
-        .then((addedSetting) => {
-            res.status(201).json(addedSetting);
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
-
-// Update specific setting by ID
-app.put("/settings/:id", authenticateUser, (req, res) => {
-    const settingId = req.params.id; // Get the ID from the URL parameters
-    const updatedSetting = req.body; // Get the updated item data from the request body
-
-    Service.editSetting(settingId, updatedSetting)
-        .then((editedSetting) => {
-            res.status(200).json(editedSetting);
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
-
-// Delete specific setting by ID
-app.delete("/settings/:id", authenticateUser, (req, res) => {
-    const id = req.params.id; // Get the ID from the URL parameters
-    Service.deleteSettingById(id)
-        .then((result) => {
-            if (result) {
-                res.status(204).send();
-            } else {
-                res.status(404).send("User not found.");
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
-
 // todo page - I think this is done
 
 app.get("/todo", authenticateUser, (req, res) => {
@@ -398,7 +337,7 @@ app.delete("/calendar/:id", authenticateUser, (req, res) => {
         });
 });
 
-// users - this is done
+// users - this is in progress
 
 app.get("/users", authenticateUser, (req, res) => {
     // get users by username, password, both, or none
@@ -406,23 +345,6 @@ app.get("/users", authenticateUser, (req, res) => {
     Service.getUsers(username, password)
         .then((result) => {
             res.send({ result: result });
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Internal Server Error");
-        });
-});
-
-app.delete("/users/:id", authenticateUser, (req, res) => {
-    // delete a users account by id
-    const { id } = req.query;
-    Service.deleteUserById(id)
-        .then((result) => {
-            if (result) {
-                res.status(204).send();
-            } else {
-                res.status(404).send("User not found.");
-            }
         })
         .catch((error) => {
             console.log(error);
@@ -446,9 +368,26 @@ app.put("/users/:id", authenticateUser, (req, res) => {
     const userId = req.params.id; // Get the ID from the URL parameters
     const updatedUser = req.body; // Get the updated item data from the request body
 
-    Service.editEvent(userId, updatedUser)
+    Service.editUser(userId, updatedUser)
         .then((editedUser) => {
             res.status(200).json(editedUser);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
+
+app.delete("/users/:id", authenticateUser, (req, res) => {
+    // delete a users account by id
+    const { id } = req.query;
+    Service.deleteUserById(id)
+        .then((result) => {
+            if (result) {
+                res.status(204).send();
+            } else {
+                res.status(404).send("User not found.");
+            }
         })
         .catch((error) => {
             console.log(error);

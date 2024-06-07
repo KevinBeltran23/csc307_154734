@@ -52,8 +52,7 @@ function Settings(props) {
       [option]: selectedValue
     }));
 
-    const flatSettings = flattenSettings({ ...props.user, [option]: selectedValue }, props.userId);
-    props.putUser(props.userId, flatSettings)
+    props.putUser(props.userId, props.user)
       .catch((error) => {
         props.setMessage(`Update Error: ${error.message}`);
         console.log(error);
@@ -68,8 +67,7 @@ function Settings(props) {
 
     props.setSettings(updatedSettings);
 
-    const flatSettings = flattenSettings(updatedSettings, props.userId);
-    props.putSetting(props.userId, flatSettings)
+    props.putSetting(props.userId, props.user)
       .catch((error) => {
         props.setMessage(`Update Error: ${error.message}`);
         console.log(error);
@@ -81,19 +79,16 @@ function Settings(props) {
       ...props.user,
       [settingKey]: !props.user[settingKey]
     };
-    props.setUser(updatedUser);
 
-    const flatSettings = flattenSettings(updatedUser, props.userId);
-    props.putUser(props.userId, flatSettings)
+    props.putUser(props.userId, props.user)
         .then((result) => {
           if (result) {
             props.setUser(result);
+            console.log("The put request is successful and the following is the updated User")
+            props.setUser(updatedUser);
           } else {
             console.log("No data returned from PUT request");
-            props.setUser(updatedUser); // Keep local state if the response is empty
           }
-          console.log("The put request is successful and the following is the updated User")
-          console.log(result);
         })
         .catch((error) => {
           props.setMessage(`Update Error: ${error.message}`);
@@ -143,11 +138,6 @@ function Settings(props) {
       </div>
     );
   };
-
-  const flattenSettings = (settings, userId) => ({
-    ...settings,
-    userId
-  });
 
   return (
     <div className="page-container">
