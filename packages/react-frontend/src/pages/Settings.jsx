@@ -21,11 +21,7 @@ const languageOptions = {
 function Settings(props) {
   const [selectedOption, setSelectedOption] = useState("Language & Region");
 
-  useEffect(() => {
-    console.log("User has been updated. Here they are");
-    console.log(props.user);
-  }, [props.user]);
-
+  // initial fetch to view the current settings
   useEffect(() => {
     props.fetchUser(props.userId)
       .then((res) => res.json())
@@ -37,6 +33,7 @@ function Settings(props) {
       });
   }, [props.userId]);
 
+  // make this function more general to it updates any setting
   useEffect(() => {
     if (props.user?.bold) {
       document.body.classList.add("bold-text");
@@ -45,47 +42,19 @@ function Settings(props) {
     }
   }, [props.user?.bold]);
 
-  const handleDropdownChange = (option, event) => {
-    const selectedValue = event.target.value;
-    props.setUser((prevUser) => ({
-      ...prevUser,
-      [option]: selectedValue
-    }));
-
-    props.putUser(props.userId, props.user)
-      .catch((error) => {
-        props.setMessage(`Update Error: ${error.message}`);
-        console.log(error);
-      });
-  };
-/*
-  const toggleCheck = (settingKey) => {
-    const updatedSettings = {
-      ...props.user,
-      [settingKey]: !props.user[settingKey]
-    };
-
-    props.setSettings(updatedSettings);
-
-    props.putSetting(props.userId, props.user)
-      .catch((error) => {
-        props.setMessage(`Update Error: ${error.message}`);
-        console.log(error);
-      });
-  };*/
-
+  // sends a put request to flip the truthiness of the toggled setting
   const toggleCheck = (settingKey) => {
     const updatedUser = {
       ...props.user,
       [settingKey]: !props.user[settingKey]
     };
 
-    props.putUser(props.userId, props.user)
+    props.putUser(props.userId, updatedUser)
         .then((result) => {
           if (result) {
             props.setUser(result);
             console.log("The put request is successful and the following is the updated User")
-            props.setUser(updatedUser);
+            console.log(result);
           } else {
             console.log("No data returned from PUT request");
           }
@@ -94,6 +63,12 @@ function Settings(props) {
           props.setMessage(`Update Error: ${error.message}`);
           console.log(error);
         });
+  };
+
+   // This will dropdown to select options. Will be used for selecting a language
+  const handleDropdownChange = (option, event) => {
+    const selectedValue = event.target.value;
+    // implement
   };
 
   const renderOptionContent = () => {
