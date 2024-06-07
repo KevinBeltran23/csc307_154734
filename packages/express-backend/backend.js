@@ -64,7 +64,7 @@ app.post("/registration", async (req, res) => {
 
 // monthly page - Idk what would need to be done here
 
-app.post("/monthly", authenticateUser, async (req, res) => {
+app.post("/monthly", async (req, res) => {
     // idk what this will do
     const eventToAdd = req.body;
     try {
@@ -148,7 +148,7 @@ app.delete("/setting/:id", authenticateUser, async (req, res) => {
 
 // todo page - I think this is done
 
-app.get("/todo", authenticateUser, async (req, res) => {
+app.get("/todo", async (req, res) => {
     // get todo items for a user
     const { duedate, user } = req.query;
     try {
@@ -160,7 +160,7 @@ app.get("/todo", authenticateUser, async (req, res) => {
     }
 });
 
-app.post("/todo", authenticateUser, async (req, res) => {
+app.post("/todo", async (req, res) => {
     // add an item to the todo list
     const todoItemToAdd = req.body;
     try {
@@ -416,7 +416,7 @@ app.delete("/user/:id", authenticateUser, async (req, res) => {
     }
 });
 
-app.get("/users/:id", authenticateUser, async (req, res) => {
+app.get("/users/:id", async (req, res) => {
     // get users by id
     const id = req.params["id"];
     try {
