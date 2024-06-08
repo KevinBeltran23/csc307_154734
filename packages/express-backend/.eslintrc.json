@@ -6,7 +6,4 @@
         "es6": true
     },
     "extends": "eslint:recommended",
-    "globals": {
-        "process": true
-    }
 }
