@@ -104,6 +104,42 @@ describe('Settings Component', () => {
             expect(mockPutUser).toHaveBeenCalledWith('123', { ...user, language: 'es' });
         });
     });
+
+    test('changes username', async () => {
+        // Render the Settings component
+        render(
+            <Settings
+                fetchUser={mockFetchUser}
+                putUser={mockPutUser}
+                setUser={mockSetUser}
+                setMessage={mockSetMessage}
+                user={user}
+                userId="123"
+            />
+        );
+    
+        // Simulate a click on the "Account" button
+        fireEvent.click(screen.getByText('Account'));
+    
+        // Ensure that the "New Username:" text and input field are rendered
+        expect(screen.getByText('New Username:')).toBeInTheDocument();
+        
+        // Find the input field by its class name
+        const usernameInput = screen.getByDisplayValue('');
+    
+        // Simulate entering a new username in the input field
+        fireEvent.change(usernameInput, { target: { value: 'newusername' } });
+    
+        // Simulate clicking the "Change Username" button
+        fireEvent.click(screen.getByText('Change Username'));
+    
+        // Ensure that the putUser function is called with updated user data
+        await waitFor(() => {
+            expect(mockPutUser).toHaveBeenCalledWith('123', { ...user, username: 'newusername' });
+        });
+    });
+    
+    
     
 
 });

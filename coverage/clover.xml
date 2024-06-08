@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1717820809163" clover="3.2.0">
-  <project timestamp="1717820809163" name="All files">
-    <metrics statements="91" coveredstatements="66" conditionals="40" coveredconditionals="24" methods="32" coveredmethods="24" elements="163" coveredelements="114" complexity="0" loc="91" ncloc="91" packages="2" files="4" classes="4"/>
+<coverage generated="1717821533695" clover="3.2.0">
+  <project timestamp="1717821533696" name="All files">
+    <metrics statements="91" coveredstatements="72" conditionals="40" coveredconditionals="26" methods="32" coveredmethods="27" elements="163" coveredelements="125" complexity="0" loc="91" ncloc="91" packages="2" files="4" classes="4"/>
     <package name="components">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="Settings.css" path="C:\Users\becks\CSC307\csc307_154734\packages\react-frontend\src\components\Settings.css">
@@ -12,30 +12,30 @@
       </file>
     </package>
     <package name="pages">
-      <metrics statements="91" coveredstatements="66" conditionals="40" coveredconditionals="24" methods="32" coveredmethods="24"/>
+      <metrics statements="91" coveredstatements="72" conditionals="40" coveredconditionals="26" methods="32" coveredmethods="27"/>
       <file name="Settings.jsx" path="C:\Users\becks\CSC307\csc307_154734\packages\react-frontend\src\pages\Settings.jsx">
-        <metrics statements="82" coveredstatements="58" conditionals="36" coveredconditionals="22" methods="30" coveredmethods="22"/>
+        <metrics statements="82" coveredstatements="64" conditionals="36" coveredconditionals="24" methods="30" coveredmethods="25"/>
         <line num="7" count="1" type="stmt"/>
-        <line num="20" count="7" type="stmt"/>
-        <line num="21" count="7" type="stmt"/>
-        <line num="24" count="7" type="stmt"/>
-        <line num="25" count="7" type="stmt"/>
-        <line num="28" count="7" type="stmt"/>
-        <line num="36" count="7" type="stmt"/>
-        <line num="37" count="3" type="stmt"/>
-        <line num="39" count="3" type="stmt"/>
-        <line num="41" count="3" type="stmt"/>
-        <line num="42" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="20" count="11" type="stmt"/>
+        <line num="21" count="11" type="stmt"/>
+        <line num="24" count="11" type="stmt"/>
+        <line num="25" count="11" type="stmt"/>
+        <line num="28" count="11" type="stmt"/>
+        <line num="36" count="11" type="stmt"/>
+        <line num="37" count="4" type="stmt"/>
+        <line num="39" count="4" type="stmt"/>
+        <line num="41" count="4" type="stmt"/>
+        <line num="42" count="4" type="cond" truecount="1" falsecount="1"/>
         <line num="45" count="0" type="stmt"/>
-        <line num="50" count="7" type="stmt"/>
-        <line num="51" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="50" count="11" type="stmt"/>
+        <line num="51" count="4" type="cond" truecount="1" falsecount="1"/>
         <line num="52" count="0" type="stmt"/>
-        <line num="54" count="3" type="stmt"/>
-        <line num="59" count="7" type="stmt"/>
-        <line num="60" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="54" count="4" type="stmt"/>
+        <line num="59" count="11" type="stmt"/>
+        <line num="60" count="4" type="cond" truecount="1" falsecount="1"/>
         <line num="61" count="0" type="stmt"/>
-        <line num="63" count="3" type="stmt"/>
-        <line num="68" count="7" type="stmt"/>
+        <line num="63" count="4" type="stmt"/>
+        <line num="68" count="11" type="stmt"/>
         <line num="69" count="1" type="stmt"/>
         <line num="74" count="1" type="stmt"/>
         <line num="77" count="1" type="cond" truecount="1" falsecount="1"/>
@@ -47,7 +47,7 @@
         <line num="92" count="0" type="stmt"/>
         <line num="96" count="0" type="stmt"/>
         <line num="97" count="0" type="stmt"/>
-        <line num="102" count="7" type="stmt"/>
+        <line num="102" count="11" type="stmt"/>
         <line num="103" count="1" type="stmt"/>
         <line num="104" count="1" type="stmt"/>
         <line num="107" count="1" type="stmt"/>
@@ -59,7 +59,7 @@
         <line num="121" count="0" type="stmt"/>
         <line num="125" count="0" type="stmt"/>
         <line num="126" count="0" type="stmt"/>
-        <line num="131" count="7" type="stmt"/>
+        <line num="131" count="11" type="stmt"/>
         <line num="132" count="1" type="stmt"/>
         <line num="133" count="1" type="stmt"/>
         <line num="136" count="1" type="stmt"/>
@@ -71,44 +71,44 @@
         <line num="150" count="0" type="stmt"/>
         <line num="154" count="0" type="stmt"/>
         <line num="155" count="0" type="stmt"/>
-        <line num="160" count="7" type="stmt"/>
-        <line num="162" count="0" type="stmt"/>
-        <line num="166" count="0" type="stmt"/>
-        <line num="169" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="170" count="0" type="stmt"/>
-        <line num="171" count="0" type="stmt"/>
+        <line num="160" count="11" type="stmt"/>
+        <line num="162" count="1" type="stmt"/>
+        <line num="166" count="1" type="stmt"/>
+        <line num="169" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="170" count="1" type="stmt"/>
+        <line num="171" count="1" type="stmt"/>
         <line num="173" count="0" type="stmt"/>
         <line num="177" count="0" type="stmt"/>
         <line num="178" count="0" type="stmt"/>
-        <line num="183" count="7" type="stmt"/>
+        <line num="183" count="11" type="stmt"/>
         <line num="184" count="1" type="stmt"/>
         <line num="185" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="186" count="0" type="stmt"/>
         <line num="187" count="0" type="stmt"/>
-        <line num="192" count="7" type="stmt"/>
-        <line num="193" count="7" type="stmt"/>
-        <line num="196" count="17" type="stmt"/>
+        <line num="192" count="11" type="stmt"/>
+        <line num="193" count="11" type="stmt"/>
+        <line num="196" count="26" type="stmt"/>
         <line num="213" count="1" type="stmt"/>
         <line num="228" count="1" type="stmt"/>
         <line num="235" count="18" type="stmt"/>
         <line num="257" count="1" type="stmt"/>
-        <line num="264" count="10" type="stmt"/>
-        <line num="288" count="0" type="stmt"/>
-        <line num="303" count="7" type="stmt"/>
-        <line num="312" count="28" type="stmt"/>
-        <line num="315" count="2" type="stmt"/>
+        <line num="264" count="12" type="stmt"/>
+        <line num="288" count="1" type="stmt"/>
+        <line num="303" count="11" type="stmt"/>
+        <line num="312" count="44" type="stmt"/>
+        <line num="315" count="3" type="stmt"/>
       </file>
       <file name="Translate.jsx" path="C:\Users\becks\CSC307\csc307_154734\packages\react-frontend\src\pages\Translate.jsx">
         <metrics statements="9" coveredstatements="8" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="2"/>
         <line num="3" count="1" type="stmt"/>
-        <line num="4" count="6" type="stmt"/>
-        <line num="5" count="3" type="cond" truecount="2" falsecount="2"/>
-        <line num="6" count="3" type="stmt"/>
-        <line num="7" count="3" type="stmt"/>
-        <line num="8" count="3" type="stmt"/>
-        <line num="10" count="3" type="stmt"/>
+        <line num="4" count="9" type="stmt"/>
+        <line num="5" count="4" type="cond" truecount="2" falsecount="2"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="7" count="4" type="stmt"/>
+        <line num="8" count="4" type="stmt"/>
+        <line num="10" count="4" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
-        <line num="16" count="6" type="stmt"/>
+        <line num="16" count="9" type="stmt"/>
       </file>
     </package>
   </project>
