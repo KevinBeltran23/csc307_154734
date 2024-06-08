@@ -137,6 +137,18 @@ describe('Settings Component', () => {
         await waitFor(() => {
             expect(mockPutUser).toHaveBeenCalledWith('123', { ...user, username: 'newusername' });
         });
+
+        // Simulate an error in the API call
+        const errorMessage = 'Error updating username';
+        mockPutUser.mockRejectedValue(new Error(errorMessage));
+
+        // Simulate clicking the "Change Username" button again
+        fireEvent.click(screen.getByText('Change Username'));
+
+        // Ensure that the error message is displayed
+        await waitFor(() => {
+            expect(mockSetMessage).toHaveBeenCalledWith(`Update Error: ${errorMessage}`);
+        });
     });
     
     
