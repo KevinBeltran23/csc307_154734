@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Settings from '../pages/Settings';
 
 const mockFetchUser = jest.fn();
-const mockPutUser = jest.fn();
+const mockPutUser = jest.fn().mockResolvedValue({});
 const mockSetUser = jest.fn();
 const mockSetMessage = jest.fn();
 
@@ -46,5 +46,30 @@ describe('Settings Component', () => {
         expect(screen.getByText('Misc')).toBeInTheDocument();
     });
 
+    test('toggles boolean settings', async () => {
+        // Render the Settings component
+        render(
+            <Settings
+                fetchUser={mockFetchUser}
+                putUser={mockPutUser}
+                setUser={mockSetUser}
+                setMessage={mockSetMessage}
+                user={user}
+                userId="123"
+            />
+        );
+    
+        // Simulate a click on the Visual section
+        fireEvent.click(screen.getByText('Visual'));
+    
+        // Simulate a click on the bold setting
+        fireEvent.click(screen.getByText('bold'));
+    
+        // Ensure that the putUser function is called with updated user data
+        await waitFor(() => {
+            expect(mockPutUser).toHaveBeenCalledWith('123', { ...user, bold: true });
+        });
+    });
+    
 
 });
