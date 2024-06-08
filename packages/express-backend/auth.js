@@ -7,6 +7,7 @@ var process = {
     env: {}
 };
 
+// create a new token
 function generateAccessToken(username) {
     return new Promise((resolve, reject) => {
         jwt.sign(
@@ -24,6 +25,7 @@ function generateAccessToken(username) {
     });
 }
 
+// add a new user to the database
 export function registerUser(req, res) {
     const {
         username,
@@ -88,6 +90,7 @@ export function registerUser(req, res) {
     }
 }
 
+// check if the user is in the database
 export function authenticateUser(req, res, next) {
     const authHeader = req.headers["authorization"];
     //Getting the 2nd part of the auth header (the token)
@@ -109,6 +112,7 @@ export function authenticateUser(req, res, next) {
     }
 }
 
+// authenticate a user
 export function loginUser(req, res) {
     const { username, pwd } = req.body; // from form
     User.findOne({ username: username })
