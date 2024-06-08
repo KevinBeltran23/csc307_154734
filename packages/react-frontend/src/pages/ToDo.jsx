@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 function ToDo(props) {
-    const [activeDate, setActiveDate] = useState(new Date());
+    const [activeDate] = useState(new Date());
 
     const [item, setItem] = useState({
         duedate: "",
@@ -147,21 +147,7 @@ function ToDo(props) {
     function handleMonthly() {
         navigate("/monthly");
     }
-    function handleToDo() {
-        navigate("/todo");
-    }
-    function handleCreate() {
-        // create an event
-    }
-    function handleCalendarsDropdown() {
-        // open calendars drop down
-    }
-    function handleToDoDropdown() {
-        // open todo dropdown
-    }
-    function handleClickingOnEvent() {
-        // implement functionality
-    }
+
 
     return (
         <>
