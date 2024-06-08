@@ -5,12 +5,13 @@ import todoModel from "./todo-item.js";
 import classModel from "./class.js";
 import calendarModel from "./calendar.js";
 // import settingModel from "./settings.js";
+import dotenv from "dotenv";
 
 mongoose.set("debug", true);
 
-var process = {
+/*var process = {
     env: {}
-};
+};*/
 
 mongoose.connect(process.env.MONGO).catch((error) => console.log(error));
 
