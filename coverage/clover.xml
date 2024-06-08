@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1717888076242" clover="3.2.0">
-  <project timestamp="1717888076242" name="All files">
-    <metrics statements="199" coveredstatements="94" conditionals="83" coveredconditionals="30" methods="70" coveredmethods="32" elements="352" coveredelements="156" complexity="0" loc="199" ncloc="199" packages="3" files="13" classes="13"/>
+<coverage generated="1717890167648" clover="3.2.0">
+  <project timestamp="1717890167648" name="All files">
+    <metrics statements="135" coveredstatements="93" conditionals="55" coveredconditionals="30" methods="42" coveredmethods="31" elements="232" coveredelements="154" complexity="0" loc="135" ncloc="135" packages="3" files="13" classes="13"/>
     <package name="express-backend">
-      <metrics statements="74" coveredstatements="11" conditionals="28" coveredconditionals="0" methods="28" coveredmethods="1"/>
+      <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="calendar.js" path="C:\Users\Kevin\Classwork\csc307\polyPlanner\packages\express-backend\calendar.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="4" count="1" type="stmt"/>
@@ -19,79 +19,15 @@
         <line num="3" count="1" type="stmt"/>
         <line num="41" count="1" type="stmt"/>
       </file>
-      <file name="services.js" path="C:\Users\Kevin\Classwork\csc307\polyPlanner\packages\express-backend\services.js">
-        <metrics statements="64" coveredstatements="3" conditionals="26" coveredconditionals="0" methods="27" coveredmethods="1"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="30" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="65" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="66" count="0" type="stmt"/>
-        <line num="68" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="69" count="0" type="stmt"/>
-        <line num="71" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="72" count="0" type="stmt"/>
-        <line num="74" count="0" type="stmt"/>
-        <line num="78" count="0" type="stmt"/>
-        <line num="79" count="0" type="stmt"/>
-        <line num="83" count="0" type="stmt"/>
-        <line num="89" count="0" type="stmt"/>
-        <line num="93" count="0" type="stmt"/>
-        <line num="99" count="0" type="stmt"/>
-        <line num="100" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="101" count="0" type="stmt"/>
-        <line num="103" count="0" type="stmt"/>
-        <line num="107" count="0" type="stmt"/>
-        <line num="108" count="0" type="stmt"/>
-        <line num="112" count="0" type="stmt"/>
-        <line num="118" count="0" type="stmt"/>
-        <line num="122" count="0" type="stmt"/>
-        <line num="128" count="0" type="stmt"/>
-        <line num="129" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="130" count="0" type="stmt"/>
-        <line num="132" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="133" count="0" type="stmt"/>
-        <line num="135" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="136" count="0" type="stmt"/>
-        <line num="138" count="0" type="stmt"/>
-        <line num="142" count="0" type="stmt"/>
-        <line num="143" count="0" type="stmt"/>
-        <line num="147" count="0" type="stmt"/>
-        <line num="153" count="0" type="stmt"/>
-        <line num="157" count="0" type="stmt"/>
-        <line num="163" count="0" type="stmt"/>
-        <line num="164" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="165" count="0" type="stmt"/>
-        <line num="167" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="168" count="0" type="stmt"/>
-        <line num="170" count="0" type="stmt"/>
-        <line num="174" count="1" type="stmt"/>
-        <line num="175" count="0" type="stmt"/>
-        <line num="179" count="0" type="stmt"/>
-        <line num="185" count="0" type="stmt"/>
-        <line num="189" count="0" type="stmt"/>
+      <file name="todo-item.js" path="C:\Users\Kevin\Classwork\csc307\polyPlanner\packages\express-backend\todo-item.js">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
       </file>
       <file name="user.js" path="C:\Users\Kevin\Classwork\csc307\polyPlanner\packages\express-backend\user.js">
-        <metrics statements="4" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="4" count="1" type="stmt"/>
-        <line num="17" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="57" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
       </file>
     </package>
     <package name="react-frontend.src.components">
