@@ -4,7 +4,6 @@ import eventModel from "./event.js";
 import todoModel from "./todo-item.js";
 import classModel from "./class.js";
 import calendarModel from "./calendar.js";
-//import settingModel from "./settings.js";
 import dotenv from "dotenv";
 dotenv.config();
 
