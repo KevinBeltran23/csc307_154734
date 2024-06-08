@@ -6,10 +6,15 @@ import express from "express";
 import cors from "cors";
 import Service from "./services.js";
 import { registerUser, loginUser, authenticateUser } from "./auth.js";
+import services from "./services.js";
+
+//connecting to mongodb
+services.connectDB();
 
 const app = express();
 // const port = 8000;
 
+// need this to not get lint error
 var process = {
     env: {}
 };

@@ -1,3 +1,4 @@
+// imports
 import dotenv from "dotenv";
 dotenv.config();
 import mongoose from "mongoose";
@@ -9,11 +10,26 @@ import calendarModel from "./calendar.js";
 
 mongoose.set("debug", true);
 
+// need this to not get lint error
 var process = {
     env: {}
 };
 
-mongoose.connect(process.env.MONGO).catch((error) => console.log(error));
+// connecting to database: checking to make sure it connects properly
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(String(process.env.MONGO), {
+            //must add in order to not get any error messages:
+            useUnifiedTopology: true,
+            useNewUrlParser: true,
+            useCreateIndex: true
+        });
+        console.log(`mongo database is connected!!! ${conn.connection.host} `);
+    } catch (error) {
+        console.error(`Error: ${error} `);
+        process.exit(1); //passing 1 - will exit the proccess with error
+    }
+};
 
 // user-services
 
@@ -217,5 +233,7 @@ export default {
     addTodoItem,
     deleteTodoItemById,
     findTodoItemById,
-    editTodoItem
+    editTodoItem,
+
+    connectDB
 };
