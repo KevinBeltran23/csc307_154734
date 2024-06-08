@@ -1,6 +1,14 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Settings from '../pages/Settings';
+//import { MongoMemoryServer } from 'mongodb-memory-server';
+
+// Initialize MongoDB memory server
+//const mongod = await new MongoMemoryServer.create();
+//const uri = mongod.getUri();
+//process.env.MONGODB_URI = uri;
+
+
 
 const mockFetchUser = jest.fn();
 const mockPutUser = jest.fn().mockResolvedValue({});
@@ -16,17 +24,22 @@ const user = {
     secret_setting2: false
 };
 
-beforeEach(() => {
-    mockFetchUser.mockResolvedValue({
-        json: jest.fn().mockResolvedValue({
-            result: user
-        })
-    });
-});
-
 describe('Settings Component', () => {
-    test('renders Settings component with initial settings', async () => {
-        // Render the Settings component
+
+    // Clean up after all tests are done
+    afterAll(async () => {
+        //await mongod.stop();
+    });
+
+    // Initialize a connection to the in-memory MongoDB instance before each test
+    beforeEach(() => {
+        // Mock fetchUser function
+        mockFetchUser.mockResolvedValue({
+            json: jest.fn().mockResolvedValue({
+                result: user
+            })
+        });
+
         render(
             <Settings
                 fetchUser={mockFetchUser}
@@ -37,7 +50,14 @@ describe('Settings Component', () => {
                 userId="123"
             />
         );
+    });
 
+    //Clean up after each test
+    afterEach(() => {
+        //await mongod.stop();
+    });
+
+    test('renders Settings component with initial settings', async () => {
         // Verify that the Settings component renders correctly
         expect(screen.getByText('Settings')).toBeInTheDocument();
         expect(screen.getByText('Visual')).toBeInTheDocument();
@@ -47,18 +67,6 @@ describe('Settings Component', () => {
     });
 
     test('Visual settings', async () => {
-        // Render the Settings component
-        render(
-            <Settings
-                fetchUser={mockFetchUser}
-                putUser={mockPutUser}
-                setUser={mockSetUser}
-                setMessage={mockSetMessage}
-                user={user}
-                userId="123"
-            />
-        );
-    
         // Simulate a click on the Visual section
         fireEvent.click(screen.getByText('Visual'));
     
@@ -81,18 +89,6 @@ describe('Settings Component', () => {
     
     
     test('selects language from dropdown', async () => {
-        // Render the Settings component
-        render(
-            <Settings
-                fetchUser={mockFetchUser}
-                putUser={mockPutUser}
-                setUser={mockSetUser}
-                setMessage={mockSetMessage}
-                user={user}
-                userId="123"
-            />
-        );
-    
         // Simulate a click on the "Language & Region" button
         fireEvent.click(screen.getByText('Language & Region'));
     
@@ -106,18 +102,6 @@ describe('Settings Component', () => {
     });
 
     test('changes username', async () => {
-        // Render the Settings component
-        render(
-            <Settings
-                fetchUser={mockFetchUser}
-                putUser={mockPutUser}
-                setUser={mockSetUser}
-                setMessage={mockSetMessage}
-                user={user}
-                userId="123"
-            />
-        );
-    
         // Simulate a click on the "Account" button
         fireEvent.click(screen.getByText('Account'));
     
@@ -152,18 +136,6 @@ describe('Settings Component', () => {
     });
     
     test('secret settings', async () => {
-        // Render the Settings component
-        render(
-            <Settings
-                fetchUser={mockFetchUser}
-                putUser={mockPutUser}
-                setUser={mockSetUser}
-                setMessage={mockSetMessage}
-                user={user}
-                userId="123"
-            />
-        );
-
         // Simulate a click on the "Misc" button
         fireEvent.click(screen.getByText('Misc'));
 
@@ -191,18 +163,6 @@ describe('Settings Component', () => {
         // Simulate PUT request returning no result
         mockPutUser.mockResolvedValue(null);
 
-        // Render the Settings component
-        render(
-            <Settings
-                fetchUser={mockFetchUser}
-                putUser={mockPutUser}
-                setUser={mockSetUser}
-                setMessage={mockSetMessage}
-                user={user}
-                userId="123"
-            />
-        );
-
         // Simulate a click on the "Misc" button
         fireEvent.click(screen.getByText('Misc'));
 
@@ -215,18 +175,6 @@ describe('Settings Component', () => {
         // Simulate PUT request throwing an error
         const errorMessage = 'Network Error';
         mockPutUser.mockRejectedValue(new Error(errorMessage));
-
-        // Render the Settings component
-        render(
-            <Settings
-                fetchUser={mockFetchUser}
-                putUser={mockPutUser}
-                setUser={mockSetUser}
-                setMessage={mockSetMessage}
-                user={user}
-                userId="123"
-            />
-        );
 
         // Simulate a click on the "Misc" button
         fireEvent.click(screen.getByText('Misc'));
