@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1717821533695" clover="3.2.0">
-  <project timestamp="1717821533696" name="All files">
-    <metrics statements="91" coveredstatements="72" conditionals="40" coveredconditionals="26" methods="32" coveredmethods="27" elements="163" coveredelements="125" complexity="0" loc="91" ncloc="91" packages="2" files="4" classes="4"/>
+<coverage generated="1717821950343" clover="3.2.0">
+  <project timestamp="1717821950344" name="All files">
+    <metrics statements="91" coveredstatements="73" conditionals="40" coveredconditionals="28" methods="32" coveredmethods="27" elements="163" coveredelements="128" complexity="0" loc="91" ncloc="91" packages="2" files="4" classes="4"/>
     <package name="components">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="Settings.css" path="C:\Users\becks\CSC307\csc307_154734\packages\react-frontend\src\components\Settings.css">
@@ -12,7 +12,7 @@
       </file>
     </package>
     <package name="pages">
-      <metrics statements="91" coveredstatements="72" conditionals="40" coveredconditionals="26" methods="32" coveredmethods="27"/>
+      <metrics statements="91" coveredstatements="73" conditionals="40" coveredconditionals="28" methods="32" coveredmethods="27"/>
       <file name="Settings.jsx" path="C:\Users\becks\CSC307\csc307_154734\packages\react-frontend\src\pages\Settings.jsx">
         <metrics statements="82" coveredstatements="64" conditionals="36" coveredconditionals="24" methods="30" coveredmethods="25"/>
         <line num="7" count="1" type="stmt"/>
@@ -99,16 +99,16 @@
         <line num="315" count="3" type="stmt"/>
       </file>
       <file name="Translate.jsx" path="C:\Users\becks\CSC307\csc307_154734\packages\react-frontend\src\pages\Translate.jsx">
-        <metrics statements="9" coveredstatements="8" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="2"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="9" type="stmt"/>
-        <line num="5" count="4" type="cond" truecount="2" falsecount="2"/>
+        <metrics statements="9" coveredstatements="9" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="10" type="stmt"/>
+        <line num="5" count="5" type="cond" truecount="4" falsecount="0"/>
         <line num="6" count="4" type="stmt"/>
         <line num="7" count="4" type="stmt"/>
         <line num="8" count="4" type="stmt"/>
         <line num="10" count="4" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="16" count="9" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="16" count="10" type="stmt"/>
       </file>
     </package>
   </project>
