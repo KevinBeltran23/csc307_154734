@@ -6,6 +6,7 @@ import express from "express";
 import cors from "cors";
 import Service from "./services.js";
 import { registerUser, loginUser, authenticateUser } from "./auth.js";
+import { connectDB } from "./services.js";
 
 const app = express();
 // const port = 8000;
@@ -13,6 +14,8 @@ const app = express();
 var process = {
     env: {}
 };
+
+connectDB();
 
 const corsOptions = {
     origin: "https://green-sand-07ee7761e.5.azurestaticapps.net",
