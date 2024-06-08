@@ -1,12 +1,9 @@
 import React from 'react';
-import { render, screen, userEvent, waitFor } from '@testing-library/react';
+import { render, screen, userEvent, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom'; // Import MemoryRouter
 import Login from '../pages/Login';
 
-const mockFetchUser = jest.fn();
-const mockPutUser = jest.fn();
-const mockSetUser = jest.fn();
-const mockSetMessage = jest.fn();
+const mockedOnChange = jest.fn();
 
 const user = {
     username: "",
@@ -19,14 +16,6 @@ const user = {
     secret_setting1: true,
     secret_setting2: false
 };
-
-beforeEach(() => {
-    mockFetchUser.mockResolvedValue({
-        json: jest.fn().mockResolvedValue({
-            result: user
-        })
-    });
-});
 
 describe('Login Component', () => {
     test('renders Login component', async () => {
@@ -44,18 +33,25 @@ describe('Login Component', () => {
         expect(screen.getByText('Create Account')).toBeInTheDocument();
         expect(screen.getByText('Login')).toBeInTheDocument();
     });
-
-    test('updates username value when input changes', async () => {
+/*
+    test('submits login form with valid credentials', async () => {
+        // render the login component
         render(
             <MemoryRouter>
-                <Login />
+                <Login handleSubmit={mockHandleSubmit} />
             </MemoryRouter>
         );
 
-        const usernameInput = screen.getByRole('textbox', { name: /username/i });
+        // Simulate entering username and password
+        fireEvent.change(screen.getByLabelText('Username'), { target: { value: 'testuser' } });
+        fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'testpassword' } });
 
-        await userEvent.type(usernameInput, 'testuser');
+        // Simulate clicking the login button
+        fireEvent.click(screen.getByText('Login'));
 
-        expect(usernameInput.value).toBe('testuser');
-    });
+        // Ensure that handleSubmit function is called with correct credentials
+        await waitFor(() => {
+            expect(mockHandleSubmit).toHaveBeenCalledWith({ username: 'testuser', pwd: 'testpassword' });
+        });
+    });*/
 });

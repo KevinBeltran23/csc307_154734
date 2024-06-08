@@ -3,7 +3,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom'; // Import MemoryRouter
 import SignUp from '../pages/SignUp';
 
-const mockFetchUser = jest.fn();
 const mockSetMessage = jest.fn();
 
 const user = {
@@ -18,14 +17,6 @@ const user = {
     secret_setting2: false
 };
 
-
-beforeEach(() => {
-    mockFetchUser.mockResolvedValue({
-        json: jest.fn().mockResolvedValue({
-            result: user
-        })
-    });
-});
 
 describe('SignUp component', () => {
     test('renders Signup component with initial Login', async () => {
