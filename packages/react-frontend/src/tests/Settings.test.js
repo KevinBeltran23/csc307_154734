@@ -151,7 +151,93 @@ describe('Settings Component', () => {
         });
     });
     
-    
-    
+    test('secret settings', async () => {
+        // Render the Settings component
+        render(
+            <Settings
+                fetchUser={mockFetchUser}
+                putUser={mockPutUser}
+                setUser={mockSetUser}
+                setMessage={mockSetMessage}
+                user={user}
+                userId="123"
+            />
+        );
 
+        // Simulate a click on the "Misc" button
+        fireEvent.click(screen.getByText('Misc'));
+
+        // Check the "secret_setting1" checkbox
+        fireEvent.click(screen.getByLabelText('secret_setting1'));
+
+        // Ensure that the putUser function is called with updated user data for secret_setting1
+        // await waitFor(() => {
+        //     expect(mockPutUser).toHaveBeenCalledWith('123', { ...user, secret_setting1: true });
+        // });
+
+        // Update user object to reflect the change made in previous step
+        user.secret_setting1 = true;
+
+        // Check the "secret_setting2" checkbox
+        fireEvent.click(screen.getByLabelText('secret_setting2'));
+
+        // Ensure that the putUser function is called with updated user data for secret_setting2
+        await waitFor(() => {
+            expect(mockPutUser).toHaveBeenCalledWith('123', { ...user, secret_setting2: true });
+        });
+    });
+
+    test('handles no data returned from PUT request', async () => {
+        // Simulate PUT request returning no result
+        mockPutUser.mockResolvedValue(null);
+
+        // Render the Settings component
+        render(
+            <Settings
+                fetchUser={mockFetchUser}
+                putUser={mockPutUser}
+                setUser={mockSetUser}
+                setMessage={mockSetMessage}
+                user={user}
+                userId="123"
+            />
+        );
+
+        // Simulate a click on the "Misc" button
+        fireEvent.click(screen.getByText('Misc'));
+
+        // Check the "secret_setting1" checkbox
+        fireEvent.click(screen.getByLabelText('secret_setting1'));
+
+    });
+
+    test('handles error during PUT request', async () => {
+        // Simulate PUT request throwing an error
+        const errorMessage = 'Network Error';
+        mockPutUser.mockRejectedValue(new Error(errorMessage));
+
+        // Render the Settings component
+        render(
+            <Settings
+                fetchUser={mockFetchUser}
+                putUser={mockPutUser}
+                setUser={mockSetUser}
+                setMessage={mockSetMessage}
+                user={user}
+                userId="123"
+            />
+        );
+
+        // Simulate a click on the "Misc" button
+        fireEvent.click(screen.getByText('Misc'));
+
+        // Check the "secret_setting1" checkbox
+        fireEvent.click(screen.getByLabelText('secret_setting1'));
+
+        // Ensure the setMessage function is called with the error message
+        await waitFor(() => {
+            //expect(mockPutUser).toHaveBeenCalledWith('123', { ...user, secret_setting1: true });
+            expect(mockSetMessage).toHaveBeenCalledWith(`Update Error: ${errorMessage}`);
+        });
+    });
 });
