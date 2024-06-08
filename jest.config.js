@@ -1,9 +1,10 @@
 module.exports = {
     testEnvironment: "jsdom",
-    moduleNameMapper: {
-        "\\.(css|less|scss)$": "identity-obj-proxy"
-    },
+    moduleFileExtensions: ["js", "jsx", "json", "node"],
     transform: {
-        "^.+\\.jsx?$": "babel-jest"
-    }
+      "^.+\\.[tj]sx?$": "babel-jest",
+      "^.+\\.css$": "<rootDir>/cssTransform.js" // Use custom transformer for CSS files
+    },
+    transformIgnorePatterns: ["/node_modules/"],
+    setupFilesAfterEnv: ["<rootDir>/jest.setup.js"] // Ensure this path is correct
 };
