@@ -5,8 +5,5 @@
         "browser": true,
         "es6": true
     },
-    "extends": "eslint:recommended",
-    "globals": {
-        "process": true
-    }
+    "extends": "eslint:recommended"
 }
