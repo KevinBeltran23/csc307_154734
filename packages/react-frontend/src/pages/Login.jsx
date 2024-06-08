@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../components/Login.css";
 
 function Login(props) {
+    // this is the user state that gets stored in the schema
     const [creds, setCreds] = useState({
         username: "",
         pwd: "",
@@ -32,6 +33,7 @@ function Login(props) {
         navigate("/signup");
     }
 
+    // navigate to monthly if authenticated
     function submitForm() {
         props.handleSubmit(creds).then((response) => {
             if (response === true) {

@@ -33,7 +33,7 @@ function MyApp() {
     var [classes, setClasses] = useState([]);
     var [user, setUser] = useState([]);
 
-    // other stuff
+    // state maintenance
 
     useEffect(() => {
         localStorage.setItem("token", token);
@@ -42,6 +42,7 @@ function MyApp() {
         localStorage.setItem("user", user);
     }, [token, userId, isAuthenticated, user]);
 
+    // add this to every API call for authentication
     function addAuthHeader(otherHeaders = {}) {
         if (token === INVALID_TOKEN) {
             return otherHeaders;
@@ -53,6 +54,7 @@ function MyApp() {
         }
     }
 
+    // remove all user data
     function logoutUser() {
         localStorage.removeItem("token");
         localStorage.removeItem("isAuthenticated");
@@ -178,6 +180,7 @@ function MyApp() {
         }
     }
 
+    // edit the user state
     async function putUser(userId, updatedUser) {
         try {
             const response = await fetch(`${URL}users/${userId}`, {
@@ -221,6 +224,8 @@ function MyApp() {
             console.log(error);
         }
     }
+
+    // ToDo API calls
 
     // Function to post an item
     async function postItem(item) {
@@ -314,6 +319,8 @@ function MyApp() {
             console.log(error);
         }
     }
+
+    // Event API calls
 
     // Function to edit an event
     async function editEvent(eventId) {
@@ -430,6 +437,8 @@ function MyApp() {
             console.log(error);
         }
     }
+
+    // class API calls
 
     // Function to edit a class
     async function editClass(classId) {
@@ -576,6 +585,8 @@ function MyApp() {
             console.log(error);
         }
     }
+
+    // API calls for calendars
 
     // Function to post a calendar
     async function postCalendar(calendar) {
