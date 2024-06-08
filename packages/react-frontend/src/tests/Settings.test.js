@@ -46,7 +46,7 @@ describe('Settings Component', () => {
         expect(screen.getByText('Misc')).toBeInTheDocument();
     });
 
-    test('toggles boolean settings', async () => {
+    test('Visual settings', async () => {
         // Render the Settings component
         render(
             <Settings
@@ -62,12 +62,46 @@ describe('Settings Component', () => {
         // Simulate a click on the Visual section
         fireEvent.click(screen.getByText('Visual'));
     
-        // Simulate a click on the bold setting
-        fireEvent.click(screen.getByText('bold'));
+        // Simulate a click on the 'polytime' checkbox
+        fireEvent.click(screen.getByText('polytime'));
     
         // Ensure that the putUser function is called with updated user data
         await waitFor(() => {
-            expect(mockPutUser).toHaveBeenCalledWith('123', { ...user, bold: true });
+            expect(mockPutUser).toHaveBeenCalledWith('123', { ...user, polytime: true });
+        });
+    
+        // Simulate a change in the default view setting
+        fireEvent.change(screen.getByLabelText('default_view:'), { target: { value: 'Weekly' } });
+    
+        // Ensure that the putUser function is called with updated user data
+        await waitFor(() => {
+            expect(mockPutUser).toHaveBeenCalledWith('123', { ...user, default_view: 'Weekly' });
+        });
+    });
+    
+    
+    test('selects language from dropdown', async () => {
+        // Render the Settings component
+        render(
+            <Settings
+                fetchUser={mockFetchUser}
+                putUser={mockPutUser}
+                setUser={mockSetUser}
+                setMessage={mockSetMessage}
+                user={user}
+                userId="123"
+            />
+        );
+    
+        // Simulate a click on the "Language & Region" button
+        fireEvent.click(screen.getByText('Language & Region'));
+    
+        // Simulate a change in the language setting
+        fireEvent.change(screen.getByLabelText('language:'), { target: { value: 'es' } });
+    
+        // Ensure that the putUser function is called with updated user data
+        await waitFor(() => {
+            expect(mockPutUser).toHaveBeenCalledWith('123', { ...user, language: 'es' });
         });
     });
     
