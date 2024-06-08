@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1717823281493" clover="3.2.0">
-  <project timestamp="1717823281493" name="All files">
-    <metrics statements="242" coveredstatements="81" conditionals="81" coveredconditionals="25" methods="104" coveredmethods="23" elements="427" coveredelements="129" complexity="0" loc="242" ncloc="242" packages="2" files="9" classes="9"/>
+<coverage generated="1717824696748" clover="3.2.0">
+  <project timestamp="1717824696748" name="All files">
+    <metrics statements="242" coveredstatements="85" conditionals="81" coveredconditionals="25" methods="104" coveredmethods="26" elements="427" coveredelements="136" complexity="0" loc="242" ncloc="242" packages="2" files="9" classes="9"/>
     <package name="components">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="Settings.css" path="C:\Users\Maxsc\307_Project\csc307_154734\packages\react-frontend\src\components\Settings.css">
@@ -15,7 +15,7 @@
       </file>
     </package>
     <package name="pages">
-      <metrics statements="242" coveredstatements="81" conditionals="81" coveredconditionals="25" methods="104" coveredmethods="23"/>
+      <metrics statements="242" coveredstatements="85" conditionals="81" coveredconditionals="25" methods="104" coveredmethods="26"/>
       <file name="Clock.jsx" path="C:\Users\Maxsc\307_Project\csc307_154734\packages\react-frontend\src\pages\Clock.jsx">
         <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
         <line num="5" count="1" type="stmt"/>
@@ -26,7 +26,7 @@
         <line num="22" count="1" type="stmt"/>
       </file>
       <file name="Dropdown.jsx" path="C:\Users\Maxsc\307_Project\csc307_154734\packages\react-frontend\src\pages\Dropdown.jsx">
-        <metrics statements="85" coveredstatements="22" conditionals="31" coveredconditionals="4" methods="32" coveredmethods="3"/>
+        <metrics statements="85" coveredstatements="23" conditionals="31" coveredconditionals="4" methods="32" coveredmethods="4"/>
         <line num="5" count="3" type="stmt"/>
         <line num="6" count="3" type="stmt"/>
         <line num="7" count="3" type="stmt"/>
@@ -35,7 +35,7 @@
         <line num="26" count="3" type="stmt"/>
         <line num="36" count="3" type="stmt"/>
         <line num="42" count="3" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
         <line num="45" count="0" type="stmt"/>
         <line num="47" count="0" type="stmt"/>
         <line num="48" count="0" type="stmt"/>
@@ -208,7 +208,7 @@
         <line num="315" count="0" type="stmt"/>
       </file>
       <file name="ToDo.jsx" path="C:\Users\Maxsc\307_Project\csc307_154734\packages\react-frontend\src\pages\ToDo.jsx">
-        <metrics statements="54" coveredstatements="13" conditionals="8" coveredconditionals="2" methods="34" coveredmethods="3"/>
+        <metrics statements="54" coveredstatements="16" conditionals="8" coveredconditionals="2" methods="34" coveredmethods="5"/>
         <line num="10" count="2" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
@@ -241,12 +241,12 @@
         <line num="101" count="0" type="stmt"/>
         <line num="105" count="1" type="stmt"/>
         <line num="106" count="1" type="stmt"/>
-        <line num="108" count="0" type="stmt"/>
+        <line num="108" count="1" type="stmt"/>
         <line num="110" count="0" type="stmt"/>
         <line num="111" count="0" type="stmt"/>
         <line num="113" count="0" type="stmt"/>
-        <line num="116" count="0" type="stmt"/>
-        <line num="117" count="0" type="stmt"/>
+        <line num="116" count="1" type="stmt"/>
+        <line num="117" count="1" type="stmt"/>
         <line num="121" count="1" type="stmt"/>
         <line num="129" count="1" type="stmt"/>
         <line num="135" count="1" type="stmt"/>
