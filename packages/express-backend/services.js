@@ -18,8 +18,8 @@ var process = {
 // connecting to database: checking to make sure it connects properly
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(process.env.MONGO_URI, {
-            //must add in order to not get any error masseges:
+        const conn = await mongoose.connect(String(process.env.MONGO), {
+            //must add in order to not get any error messages:
             useUnifiedTopology: true,
             useNewUrlParser: true,
             useCreateIndex: true
