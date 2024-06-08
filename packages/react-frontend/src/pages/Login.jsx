@@ -33,7 +33,7 @@ function Login(props) {
         navigate("/signup");
     }
 
-    // navigate to monthly if authenticated
+    // navigate to monthly if authenticated e
     function submitForm() {
         props.handleSubmit(creds).then((response) => {
             if (response === true) {
