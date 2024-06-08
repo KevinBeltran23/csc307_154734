@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1717807887498" clover="3.2.0">
-  <project timestamp="1717807887498" name="All files">
-    <metrics statements="108" coveredstatements="40" conditionals="46" coveredconditionals="18" methods="38" coveredmethods="14" elements="192" coveredelements="72" complexity="0" loc="108" ncloc="108" packages="2" files="7" classes="7"/>
+<coverage generated="1717818104099" clover="3.2.0">
+  <project timestamp="1717818104100" name="All files">
+    <metrics statements="91" coveredstatements="36" conditionals="40" coveredconditionals="18" methods="32" coveredmethods="12" elements="163" coveredelements="66" complexity="0" loc="91" ncloc="91" packages="2" files="4" classes="4"/>
     <package name="components">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="Login.css" path="C:\Users\becks\CSC307\csc307_154734\packages\react-frontend\src\components\Login.css">
-        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      </file>
       <file name="Settings.css" path="C:\Users\becks\CSC307\csc307_154734\packages\react-frontend\src\components\Settings.css">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
@@ -15,25 +12,7 @@
       </file>
     </package>
     <package name="pages">
-      <metrics statements="108" coveredstatements="40" conditionals="46" coveredconditionals="18" methods="38" coveredmethods="14"/>
-      <file name="Login.jsx" path="C:\Users\becks\CSC307\csc307_154734\packages\react-frontend\src\pages\Login.jsx">
-        <metrics statements="15" coveredstatements="2" conditionals="6" coveredconditionals="0" methods="5" coveredmethods="1"/>
-        <line num="6" count="17" type="stmt"/>
-        <line num="17" count="16" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="45" count="0" type="stmt"/>
-      </file>
+      <metrics statements="91" coveredstatements="36" conditionals="40" coveredconditionals="18" methods="32" coveredmethods="12"/>
       <file name="Settings.jsx" path="C:\Users\becks\CSC307\csc307_154734\packages\react-frontend\src\pages\Settings.jsx">
         <metrics statements="82" coveredstatements="28" conditionals="36" coveredconditionals="16" methods="30" coveredmethods="10"/>
         <line num="7" count="1" type="stmt"/>
@@ -130,11 +109,6 @@
         <line num="10" count="1" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
-      </file>
-      <file name="sum.js" path="C:\Users\becks\CSC307\csc307_154734\packages\react-frontend\src\pages\sum.js">
-        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
       </file>
     </package>
   </project>
