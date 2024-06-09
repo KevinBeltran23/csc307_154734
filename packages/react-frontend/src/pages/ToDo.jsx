@@ -169,6 +169,20 @@ function ToDo(props) {
         navigate("/todo");
     }
 
+    var names = props.calendars;
+    for (var i = 0; i < names.length; i++) {
+        cal_lst.push({ value: names[i].name, label: names[i].name });
+    }
+
+    var todos = props.items;
+    for (var i = 0; i < todos.length; i++) {
+        todo_lst.push({ value: todos[i].contents, label: todos[i].contents });
+    }
+
+    var events = props.events;
+    for (var i = 0; i < events.length; i++) {
+        console.log(events[i].title);
+    }
     return (
         <>
             <button className="logout" onClick={props.logout}>
