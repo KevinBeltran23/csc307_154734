@@ -150,7 +150,6 @@ function Dropdown(props, opt = []) {
                 [name]: value
             }));
         }
-        setPopup(false);
     };
 
     const handleSubmit = (event) => {
