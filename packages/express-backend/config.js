@@ -1,5 +1,5 @@
 export default {
     env: {
-        TOKEN_SECRET: thisisthetokensecretkey
+        TOKEN_SECRET: "thisisthetokensecretkey"
     }
 };
