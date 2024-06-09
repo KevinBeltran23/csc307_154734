@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1717909820935" clover="3.2.0">
-  <project timestamp="1717909820936" name="All files">
+<coverage generated="1717918590181" clover="3.2.0">
+  <project timestamp="1717918590181" name="All files">
     <metrics statements="74" coveredstatements="73" conditionals="26" coveredconditionals="26" methods="27" coveredmethods="26" elements="127" coveredelements="125" complexity="0" loc="74" ncloc="74" packages="1" files="6" classes="6"/>
     <file name="calendar.js" path="C:\Users\Kevin\Classwork\csc307\polyPlanner\packages\express-backend\calendar.js">
       <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
