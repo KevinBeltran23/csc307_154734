@@ -2,7 +2,7 @@ module.exports = {
     testEnvironment: "jsdom",
     moduleFileExtensions: ["js", "jsx", "json", "node"],
     transform: {
-      "^.+\\.[tj]sx?$": "babel-jest",
+      "^.+\\.jsx?$": "babel-jest",
       "^.+\\.css$": "./cssTransform.js" // Use custom transformer for CSS files
     },
     transformIgnorePatterns: ["/node_modules/"],
