@@ -25,7 +25,7 @@ const connectDB = async () => {
     }
 };
 
-// user-servicess
+// user-services
 
 async function getUsers(username, password) {
     let query = {};
