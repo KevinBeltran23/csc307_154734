@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
     format,
@@ -19,6 +19,7 @@ function Weekly(props) {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [activeDate, setActiveDate] = useState(new Date());
 
+    // lists for dropdowns
     var create_lst = [
         { value: "Create", label: "Create" },
         { value: "Event", label: "Event" },
@@ -31,6 +32,7 @@ function Weekly(props) {
 
     var todo_lst = [{ value: "Default", label: "To Do" }];
 
+    // gets header of calendar (same as monthly)
     const getHeader = () => {
         return (
             <div className="header">
@@ -58,6 +60,7 @@ function Weekly(props) {
         );
     };
 
+    // generates the dates based on the current date (same as monthly)
     const generateDatesForCurrentWeek = (date, selectedDate, activeDate) => {
         let currentDate = date;
         const week = [];
@@ -82,6 +85,7 @@ function Weekly(props) {
         return <>{week}</>;
     };
 
+    // same as monthly, but only takes in start of week and end of week parameters instead of start and end of month
     const getDates = () => {
         const startDate = startOfWeek(activeDate);
         const endDate = endOfWeek(activeDate);
@@ -104,7 +108,8 @@ function Weekly(props) {
         return <div className="calendar-container">{allWeeks}</div>;
     };
 
-    const generateEventsForCurrentWeek = (date, selectedDate, activeDate) => {
+    // same as generateDates and monthly -> generates events in the days from the current week
+    const generateEventsForCurrentWeek = (date) => {
         let currentDate = date;
         var week = [];
 
@@ -134,6 +139,7 @@ function Weekly(props) {
         return <>{week}</>;
     };
 
+    // function to make div classes for events
     function makeEvents(lst) {
         var l2 = [];
         for (var i = 0; i < lst.length; i++) {
@@ -144,6 +150,7 @@ function Weekly(props) {
         return l2;
     }
 
+    // generates events for the week (same as getWeeks)
     const getEvents = () => {
         const startDate = startOfWeek(activeDate);
         const endDate = endOfWeek(activeDate);
@@ -153,13 +160,7 @@ function Weekly(props) {
         const allWeeks = [];
 
         while (currentDate <= endDate) {
-            allWeeks.push(
-                generateEventsForCurrentWeek(
-                    currentDate,
-                    selectedDate,
-                    activeDate
-                )
-            );
+            allWeeks.push(generateEventsForCurrentWeek(currentDate));
             currentDate = addDays(currentDate, 7);
         }
 
@@ -181,6 +182,7 @@ function Weekly(props) {
         navigate("/todo");
     }
 
+    // from useEffect -> fetch requests for calendar, item, and event lists for user
     var names = props.calendars;
     for (var i = 0; i < names.length; i++) {
         cal_lst.push({ value: names[i].name, label: names[i].name });
