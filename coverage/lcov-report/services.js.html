@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.43% </span>
+                <span class="strong">94.11% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>63/64</span>
+                <span class='fraction'>64/68</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.43% </span>
+                <span class="strong">94.11% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>63/64</span>
+                <span class='fraction'>64/68</span>
             </div>
         
             
@@ -281,7 +281,21 @@
 <a name='L216'></a><a href='#L216'>216</a>
 <a name='L217'></a><a href='#L217'>217</a>
 <a name='L218'></a><a href='#L218'>218</a>
-<a name='L219'></a><a href='#L219'>219</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a>
+<a name='L224'></a><a href='#L224'>224</a>
+<a name='L225'></a><a href='#L225'>225</a>
+<a name='L226'></a><a href='#L226'>226</a>
+<a name='L227'></a><a href='#L227'>227</a>
+<a name='L228'></a><a href='#L228'>228</a>
+<a name='L229'></a><a href='#L229'>229</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -290,16 +304,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -499,26 +517,36 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import mongoose from "mongoose";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// imports
+import dotenv from "dotenv";
+dotenv.config();
+import mongoose from "mongoose";
 import userModel from "./user.js";
 import eventModel from "./event.js";
 import todoModel from "./todo-item.js";
 import classModel from "./class.js";
 import calendarModel from "./calendar.js";
+import config from "./config.js";
 &nbsp;
 mongoose.set("debug", true);
 &nbsp;
-mongoose
-    .connect(
-        "mongodb+srv://Karen:karen@154754.qdl82np.mongodb.net/?retryWrites=true&amp;w=majority&amp;appName=154754"
-        /*{
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        }*/
-    )
-    .catch(<span class="fstat-no" title="function not covered" >(e</span>rror) =&gt; <span class="cstat-no" title="statement not covered" >console.log(error))</span>;
+// connecting to database: checking to make sure it connects properly
+const connectDB = <span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {
+<span class="cstat-no" title="statement not covered" >    try {</span>
+        const conn = <span class="cstat-no" title="statement not covered" >await mongoose.connect(config.env.MONGO, {</span>
+            //must add in order to not get any error messages:
+            useUnifiedTopology: true,
+            useNewUrlParser: true
+        });
+<span class="cstat-no" title="statement not covered" >        console.log(`mongo database is connected!!! ${conn.connection.host} `);</span>
+    } catch (error) {
+<span class="cstat-no" title="statement not covered" >        console.error(`Error: ${error} `);</span>
+    }
+};
 &nbsp;
-// user-services
+// user-servicess
 &nbsp;
 async function getUsers(username, password) {
     let query = {};
@@ -715,7 +743,9 @@ export default {
     addTodoItem,
     deleteTodoItemById,
     findTodoItemById,
-    editTodoItem
+    editTodoItem,
+&nbsp;
+    connectDB
 };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -724,7 +754,7 @@ export default {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-09T05:10:20.916Z
+                at 2024-06-09T07:32:18.392Z
             </div>
         <script src="prettify.js"></script>
         <script>
