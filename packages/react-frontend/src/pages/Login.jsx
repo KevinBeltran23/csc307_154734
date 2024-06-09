@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../components/Login.css";
 
@@ -15,9 +15,9 @@ function Login(props) {
         secret_setting2: false
     });
 
-    const navigate = useNavigate();
+    const navigate = useNavigate();                         // to navigate between pages
 
-    function handleChange(event) {
+    function handleChange(event) {                          // checks for username, password
         const { name, value } = event.target;
         switch (name) {
             case "username":
@@ -29,7 +29,7 @@ function Login(props) {
         }
     }
 
-    function handleRegister() {
+    function handleRegister() {                             // navigates to sign up page
         navigate("/signup");
     }
 
@@ -44,6 +44,7 @@ function Login(props) {
         setCreds({ username: "", pwd: "" });
     }
 
+    /* react components for the page */
     return (
         <div className="login-main-box">
             {/* Gold Box */}
