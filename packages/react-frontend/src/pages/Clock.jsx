@@ -13,12 +13,6 @@ function Clock() {
         return () => clearInterval(interval);
     }, []);
 
-    /*if (s) {
-      t = date.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
-    }
-    else {
-      t = date.toLocaleTimeString();
-    } */
     return (
         <div className="clock">
             {date.toLocaleTimeString([], {

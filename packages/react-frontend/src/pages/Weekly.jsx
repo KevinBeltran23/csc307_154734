@@ -166,10 +166,6 @@ function Weekly(props) {
         return <div className="events">{allWeeks}</div>;
     };
 
-    /*const getEvents = () => {
- 
-  } */
-
     const navigate = useNavigate();
 
     function handleSettings() {
