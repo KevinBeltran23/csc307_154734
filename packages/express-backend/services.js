@@ -17,7 +17,7 @@ mongoose
     )
     .catch((error) => console.log(error));
 
-// user-services
+// user-servicess
 
 async function getUsers(username, password) {
     let query = {};
