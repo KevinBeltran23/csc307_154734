@@ -1,18 +1,20 @@
+/* eslint-env node */
 import "./backend.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "./user.js";
+import config from "./config.js";
 
-var process = {
+/*var process = {
     env: {}
-};
+};*/
 
 // create a new token
 function generateAccessToken(username) {
     return new Promise((resolve, reject) => {
         jwt.sign(
             { username: username },
-            process.env.TOKEN_SECRET,
+            config.env.TOKEN_SECRET,
             { expiresIn: "1d" },
             (error, token) => {
                 if (error) {
@@ -100,7 +102,7 @@ export function authenticateUser(req, res, next) {
         console.log("No token received");
         res.status(401).end();
     } else {
-        jwt.verify(token, process.env.TOKEN_SECRET, (error, decoded) => {
+        jwt.verify(token, config.env.TOKEN_SECRET, (error, decoded) => {
             if (decoded) {
                 console.log("Data retrieved");
                 next();
