@@ -152,17 +152,9 @@ function ToDo(props) {
         { value: "To Do Item", label: "To Do Item" }
     ];
 
-    var cal_lst = [
-        { value: "Create", label: "Calendars" },
-        { value: "Option 2", label: "Option 2" },
-        { value: "Option 3", label: "Option 3" }
-    ];
+    var cal_lst = [{ value: "Default", label: "Calendars" }];
 
-    var todo_lst = [
-        { value: "Create", label: "To Do" },
-        { value: "Option 2", label: "Option 2" },
-        { value: "Option 3", label: "Option 3" }
-    ];
+    var todo_lst = [{ value: "Default", label: "To Do" }];
 
     function handleSettings() {
         navigate("/settings");
@@ -175,18 +167,6 @@ function ToDo(props) {
     }
     function handleToDo() {
         navigate("/todo");
-    }
-    function handleCreate() {
-        // create an event
-    }
-    function handleCalendarsDropdown() {
-        // open calendars drop down
-    }
-    function handleToDoDropdown() {
-        // open todo dropdown
-    }
-    function handleClickingOnEvent() {
-        // implement functionality
     }
 
     return (

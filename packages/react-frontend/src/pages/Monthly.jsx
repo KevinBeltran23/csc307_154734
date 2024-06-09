@@ -2,7 +2,7 @@
 
 // code tutorial from https://medium.com/@jain.jenil007/building-a-calendar-in-react-2c53b6ca3e96
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
     format,
@@ -114,7 +114,7 @@ function Monthly(props) {
         return <div className="calendar-container">{allWeeks}</div>;
     };
 
-    const generateEventsForCurrentWeek = (date, selectedDate, activeDate) => {
+    const generateEventsForCurrentWeek = (date) => {
         let currentDate = date;
         var week = [];
         var events = props.events;
@@ -175,12 +175,6 @@ function Monthly(props) {
         }
 
         return <div className="events">{allWeeks}</div>;
-    };
-    const addEvents = () => {
-        var testDate;
-        var desc;
-        var startTime;
-        var endTime;
     };
 
     const navigate = useNavigate();
@@ -249,7 +243,6 @@ function Monthly(props) {
                 <span className="change-view">To Do</span>
             </button>
             <button className="settings-frame" onClick={handleSettings}>
-                {/* <div className='weekly-gear' /> */}
                 <span className="gear"></span>
             </button>
             <button className="download-frame">
