@@ -2,8 +2,6 @@
 
 // code tutorial from https://medium.com/@jain.jenil007/building-a-calendar-in-react-2c53b6ca3e96
 
-// npm install date-fn react-icons
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -184,9 +182,6 @@ function Monthly(props) {
         var startTime;
         var endTime;
     };
-    /*const getEvents = () => {
-
-  } */
 
     const navigate = useNavigate();
 
