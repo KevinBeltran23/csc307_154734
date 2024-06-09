@@ -4,6 +4,8 @@
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+/* date-fns used for the calendar -- makes date parsing and formatting easier */
 import {
     format,
     startOfWeek,
@@ -17,7 +19,7 @@ import {
     addMonths
 } from "date-fns";
 
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai"; // arrows for calendar
 import "../components/Monthly.css";
 import Clock from "./Clock";
 import Dropdown from "./Dropdown";
@@ -28,6 +30,7 @@ function Monthly(props) {
 
     // misc variables
 
+    /* lists for dropdowns */
     var create_lst = [
         { value: "Create", label: "Create" },
         { value: "Event", label: "Event" },
@@ -40,6 +43,7 @@ function Monthly(props) {
 
     var todo_lst = [{ value: "Default", label: "To Do" }];
 
+    /* generates a header for the calendar, containing the today button, arrows, and the current month */
     const getHeader = () => {
         return (
             <div className="header">
@@ -67,11 +71,14 @@ function Monthly(props) {
         );
     };
 
+    /* gets today's date, and gets the dates for the current week from that */
     const generateDatesForCurrentWeek = (date, selectedDate, activeDate) => {
         let currentDate = date;
         const week = [];
 
+        // loop to get the week
         for (let day = 0; day < 7; day++) {
+            // week is a list containing react components which are the days for the week
             week.push(
                 <div className="monthly-day-box">
                     <div
@@ -80,17 +87,20 @@ function Monthly(props) {
                                 ? ""
                                 : "inactiveDay"
                         } ${isSameDay(currentDate, selectedDate) ? "selectedDay" : ""}
-              ${isSameDay(currentDate, new Date()) ? "today" : ""}`}
+              ${isSameDay(currentDate, new Date()) ? "today" : ""}`} // all of this code is to check which day is the current day
                     >
                         {format(currentDate, "d")}
                     </div>
                 </div>
             );
+
+            // a counter, increments day by 1
             currentDate = addDays(currentDate, 1);
         }
         return <>{week}</>;
     };
 
+    /* takes the returns from the previous function and generates the month */
     const getDates = () => {
         const startOfTheSelectedMonth = startOfMonth(activeDate);
         const endOfTheSelectedMonth = endOfMonth(activeDate);
@@ -101,6 +111,7 @@ function Monthly(props) {
 
         const allWeeks = [];
 
+        // endDate is end of the month, currentDate is the start of the first week in the month
         while (currentDate <= endDate) {
             allWeeks.push(
                 generateDatesForCurrentWeek(
@@ -114,39 +125,42 @@ function Monthly(props) {
         return <div className="calendar-container">{allWeeks}</div>;
     };
 
+    /* copy of the generateDatesForCurrentWeek but for events -> same logic */
     const generateEventsForCurrentWeek = (date) => {
         let currentDate = date;
         var week = [];
-        var events = props.events;
-        var d;
-        var events = props.events;
+        var d; // date placeholder var
+        var events = props.events; // from useEffect, gets events from database
 
         for (let day = 0; day < 7; day++) {
-            const cloneDate = format(currentDate, "MM/dd/yyyy");
-            var t = [];
+            const cloneDate = format(currentDate, "MM/dd/yyyy"); // uses date-fns to format date into something readable
+            var t = []; // events list
             for (var i = 0; i < events.length; i++) {
-                d = new Date(events[i].start);
-                var timeZoneFromDB = 7.0;
-                var tzDifference = timeZoneFromDB * 60 + d.getTimezoneOffset();
+                d = new Date(events[i].start); // gets start date from database
+                var timeZoneFromDB = 7.0; // time offset to local time (MongoDB stores in GMT)
+                var tzDifference = timeZoneFromDB * 60 + d.getTimezoneOffset(); // converts to local time
                 var offsetTime = new Date(
-                    d.getTime() + tzDifference * 60 * 1000
+                    d.getTime() + tzDifference * 60 * 1000 // returns converted time
                 );
-                var df = format(offsetTime, "MM/dd/yyyy");
+                var df = format(offsetTime, "MM/dd/yyyy"); // formats converted time
                 if (cloneDate === df) {
-                    t.push(events[i].title);
+                    // compares formatted times
+                    t.push(events[i].title); // if they match, the title of the event goes on that day
                 }
             }
-            console.log(t);
-            week.push(<div className="box">{makeEvents(t)}</div>);
-            currentDate = addDays(currentDate, 1);
+            week.push(<div className="box">{makeEvents(t)}</div>); // pushes the events list to weeks
+            // array within array so that multiple events can be on one day
+            currentDate = addDays(currentDate, 1); // counter
         }
         return <>{week}</>;
     };
 
     function makeEvents(lst) {
+        // creation of event div classes for styling
         var l2 = [];
         for (var i = 0; i < lst.length; i++) {
             if (l2[i] != "") {
+                // checks to make sure event isn't empty, then adds to a new list as a div class
                 l2.push(<div className="event-box">{lst[i]}</div>);
             }
         }
@@ -154,6 +168,7 @@ function Monthly(props) {
     }
 
     const getEvents = () => {
+        // copied code, same as getDates but for events
         const startOfTheSelectedMonth = startOfMonth(activeDate);
         const endOfTheSelectedMonth = endOfMonth(activeDate);
         const startDate = startOfWeek(startOfTheSelectedMonth);
@@ -164,13 +179,7 @@ function Monthly(props) {
         const allWeeks = [];
 
         while (currentDate <= endDate) {
-            allWeeks.push(
-                generateEventsForCurrentWeek(
-                    currentDate,
-                    selectedDate,
-                    activeDate
-                )
-            );
+            allWeeks.push(generateEventsForCurrentWeek(currentDate));
             currentDate = addDays(currentDate, 7);
         }
 
@@ -192,6 +201,7 @@ function Monthly(props) {
         navigate("/todo");
     }
 
+    /* loops from useEffects to get dropdown items */
     var names = props.calendars;
     for (var i = 0; i < names.length; i++) {
         cal_lst.push({ value: names[i].name, label: names[i].name });
