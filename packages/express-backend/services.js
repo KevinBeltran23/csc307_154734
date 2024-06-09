@@ -11,12 +11,6 @@ import config from "./config.js";
 
 mongoose.set("debug", true);
 
-// need this to not get lint error
-/*var process = {
-    env: {}
-};
-*/
-
 // connecting to database: checking to make sure it connects properly
 const connectDB = async () => {
     try {
