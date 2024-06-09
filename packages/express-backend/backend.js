@@ -56,7 +56,6 @@ app.post("/login", loginUser);
 
 app.post("/signup", registerUser);
 
-
 // todos
 
 // get todo items
@@ -189,7 +188,7 @@ app.delete("/event/:id", authenticateUser, async (req, res) => {
     }
 });
 
-// classes 
+// classes
 
 // get classes
 app.get("/class", authenticateUser, async (req, res) => {
