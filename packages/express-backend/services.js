@@ -7,29 +7,27 @@ import eventModel from "./event.js";
 import todoModel from "./todo-item.js";
 import classModel from "./class.js";
 import calendarModel from "./calendar.js";
+import config from "./config.js";
 
 mongoose.set("debug", true);
 
 // need this to not get lint error
-var process = {
+/*var process = {
     env: {}
 };
+*/
 
 // connecting to database: checking to make sure it connects properly
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(
-            "mongodb+srv://Karen:karen@154754.qdl82np.mongodb.net/?retryWrites=true&w=majority&appName=154754",
-            {
-                //must add in order to not get any error messages:
-                useUnifiedTopology: true,
-                useNewUrlParser: true
-            }
-        );
+        const conn = await mongoose.connect(config.env.MONGO, {
+            //must add in order to not get any error messages:
+            useUnifiedTopology: true,
+            useNewUrlParser: true
+        });
         console.log(`mongo database is connected!!! ${conn.connection.host} `);
     } catch (error) {
         console.error(`Error: ${error} `);
-        process.exit(1); //passing 1 - will exit the proccess with error
     }
 };
 

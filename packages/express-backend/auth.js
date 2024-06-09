@@ -3,11 +3,8 @@ import "./backend.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "./user.js";
+// this is how we're getting our tokens to work
 import config from "./config.js";
-
-/*var process = {
-    env: {}
-};*/
 
 // create a new token
 function generateAccessToken(username) {
