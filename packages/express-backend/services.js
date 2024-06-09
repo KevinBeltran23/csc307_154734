@@ -18,12 +18,15 @@ var process = {
 // connecting to database: checking to make sure it connects properly
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(String(process.env.MONGO), {
-            //must add in order to not get any error messages:
-            useUnifiedTopology: true,
-            useNewUrlParser: true,
-            useCreateIndex: true
-        });
+        const conn = await mongoose.connect(
+            "mongodb+srv://Karen:karen@154754.qdl82np.mongodb.net/?retryWrites=true&w=majority&appName=154754",
+            {
+                //must add in order to not get any error messages:
+                useUnifiedTopology: true,
+                useNewUrlParser: true,
+                useCreateIndex: true
+            }
+        );
         console.log(`mongo database is connected!!! ${conn.connection.host} `);
     } catch (error) {
         console.error(`Error: ${error} `);
