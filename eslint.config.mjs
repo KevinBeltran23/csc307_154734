@@ -10,7 +10,7 @@ export default [
     pluginReactConfig,
     {
         ignores: [
-            "**/packages/react-frontend/build/**", 
+            "**/packages/react-frontend/build/**",
             "**/packages/express-backend/tests/**",
             "jest.config.js",
             "babel.config.js",

@@ -188,7 +188,6 @@ function Settings(props) {
         }
     };
 
-
     const renderOptionContent = () => {
         return (
             <div>

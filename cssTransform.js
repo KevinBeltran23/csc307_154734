@@ -1,8 +1,7 @@
 module.exports = {
     process() {
-      return {
-        code: '',
-      };
-    },
-  };
-  
+        return {
+            code: ""
+        };
+    }
+};
