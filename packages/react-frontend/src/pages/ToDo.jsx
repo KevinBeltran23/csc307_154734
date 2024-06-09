@@ -102,6 +102,32 @@ function ToDo(props) {
             });
     }
 
+    function toggleCheck(itemId) {
+        const itemToUpdate = props.items.find((item) => item._id === itemId);
+        const updatedItem = {
+            ...itemToUpdate,
+            checked: !itemToUpdate.checked,
+            user: props.userId // Ensure the user ID is included
+        };
+
+        putItem(itemId, updatedItem) // Pass itemId and updatedItem separately
+            .then((updatedItemResponseJson) => {
+                props.setItems(
+                    props.items
+                        .map((item) =>
+                            item._id === itemId ? updatedItemResponseJson : item
+                        )
+                        .sort(
+                            (a, b) => new Date(a.duedate) - new Date(b.duedate)
+                        )
+                );
+            })
+            .catch((error) => {
+                setMessage(`Update Error: ${error.message}`);
+                console.log(error);
+            });
+    }
+
     useEffect(() => {
         props
             .fetchItems()
@@ -126,17 +152,9 @@ function ToDo(props) {
         { value: "To Do Item", label: "To Do Item" }
     ];
 
-    var cal_lst = [
-        { value: "Create", label: "Calendars" },
-        { value: "Option 2", label: "Option 2" },
-        { value: "Option 3", label: "Option 3" }
-    ];
+    var cal_lst = [{ value: "Default", label: "Calendars" }];
 
-    var todo_lst = [
-        { value: "Create", label: "To Do" },
-        { value: "Option 2", label: "Option 2" },
-        { value: "Option 3", label: "Option 3" }
-    ];
+    var todo_lst = [{ value: "Default", label: "To Do" }];
 
     function handleSettings() {
         navigate("/settings");
@@ -150,19 +168,21 @@ function ToDo(props) {
     function handleToDo() {
         navigate("/todo");
     }
-    function handleCreate() {
-        // create an event
-    }
-    function handleCalendarsDropdown() {
-        // open calendars drop down
-    }
-    function handleToDoDropdown() {
-        // open todo dropdown
-    }
-    function handleClickingOnEvent() {
-        // implement functionality
+
+    var names = props.calendars;
+    for (var i = 0; i < names.length; i++) {
+        cal_lst.push({ value: names[i].name, label: names[i].name });
     }
 
+    var todos = props.items;
+    for (var i = 0; i < todos.length; i++) {
+        todo_lst.push({ value: todos[i].contents, label: todos[i].contents });
+    }
+
+    var events = props.events;
+    for (var i = 0; i < events.length; i++) {
+        console.log(events[i].title);
+    }
     return (
         <>
             <button className="logout" onClick={props.logout}>
@@ -284,7 +304,6 @@ function ToDo(props) {
                     </div>
                 ))}
             </div>
-
             {message && <p>{message}</p>}
         </>
     );

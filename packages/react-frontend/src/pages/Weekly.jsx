@@ -195,7 +195,6 @@ function Weekly(props) {
     for (var i = 0; i < events.length; i++) {
         console.log(events[i].title);
     }
-
     return (
         <>
             <button className="logout" onClick={props.logout}>

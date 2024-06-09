@@ -1,13 +1,17 @@
+/* eslint-env node */
 import "./backend.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "./user.js";
+// this is how we're getting our tokens to work
+import config from "./config.js";
 
+// create a new token
 function generateAccessToken(username) {
     return new Promise((resolve, reject) => {
         jwt.sign(
             { username: username },
-            process.env.TOKEN_SECRET,
+            config.env.TOKEN_SECRET,
             { expiresIn: "1d" },
             (error, token) => {
                 if (error) {
@@ -20,6 +24,7 @@ function generateAccessToken(username) {
     });
 }
 
+// add a new user to the database
 export function registerUser(req, res) {
     const {
         username,
@@ -84,6 +89,7 @@ export function registerUser(req, res) {
     }
 }
 
+// check if the user is in the database
 export function authenticateUser(req, res, next) {
     const authHeader = req.headers["authorization"];
     //Getting the 2nd part of the auth header (the token)
@@ -93,7 +99,7 @@ export function authenticateUser(req, res, next) {
         console.log("No token received");
         res.status(401).end();
     } else {
-        jwt.verify(token, process.env.TOKEN_SECRET, (error, decoded) => {
+        jwt.verify(token, config.env.TOKEN_SECRET, (error, decoded) => {
             if (decoded) {
                 console.log("Data retrieved");
                 next();
@@ -105,6 +111,7 @@ export function authenticateUser(req, res, next) {
     }
 }
 
+// authenticate a user
 export function loginUser(req, res) {
     const { username, pwd } = req.body; // from form
     User.findOne({ username: username })

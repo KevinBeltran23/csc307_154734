@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    useNavigate
+} from "react-router-dom";
 import Login from "./pages/Login";
 import Monthly from "./pages/Monthly";
 import ToDo from "./pages/ToDo";
@@ -10,7 +15,8 @@ import PrivateRoute from "./PrivateRoute";
 
 function MyApp() {
     // important variables
-    const URL = "http://localhost:8000/";
+    const URL = "https://154734.azurewebsites.net/";
+
     const INVALID_TOKEN = "INVALID_TOKEN";
     var [token, setToken] = useState(
         localStorage.getItem("token") || INVALID_TOKEN
@@ -27,7 +33,7 @@ function MyApp() {
     var [classes, setClasses] = useState([]);
     var [user, setUser] = useState([]);
 
-    // other stuff
+    // state maintenance
 
     useEffect(() => {
         localStorage.setItem("token", token);
@@ -36,6 +42,7 @@ function MyApp() {
         localStorage.setItem("user", user);
     }, [token, userId, isAuthenticated, user]);
 
+    // add this to every API call for authentication
     function addAuthHeader(otherHeaders = {}) {
         if (token === INVALID_TOKEN) {
             return otherHeaders;
@@ -47,6 +54,7 @@ function MyApp() {
         }
     }
 
+    // remove all user data
     function logoutUser() {
         localStorage.removeItem("token");
         localStorage.removeItem("isAuthenticated");
@@ -172,6 +180,7 @@ function MyApp() {
         }
     }
 
+    // edit the user state
     async function putUser(userId, updatedUser) {
         try {
             const response = await fetch(`${URL}users/${userId}`, {
@@ -215,6 +224,8 @@ function MyApp() {
             console.log(error);
         }
     }
+
+    // ToDo API calls
 
     // Function to post an item
     async function postItem(item) {
@@ -309,6 +320,8 @@ function MyApp() {
         }
     }
 
+    // Event API calls
+
     // Function to edit an event
     async function editEvent(eventId) {
         const updatedEvent = {
@@ -327,8 +340,6 @@ function MyApp() {
                     event._id === eventId ? updatedEventResponseJson : event
                 )
             );
-            //setTodoEditing(null);
-            //setEditingText("");
         } catch (error) {
             setMessage(`Update Error: ${error.message}`);
             console.log(error);
@@ -427,6 +438,8 @@ function MyApp() {
         }
     }
 
+    // class API calls
+
     // Function to edit a class
     async function editClass(classId) {
         const updatedClass = {
@@ -445,8 +458,6 @@ function MyApp() {
                     clas._id === classId ? updatedClassResponseJson : clas
                 )
             );
-            //setTodoEditing(null);
-            //setEditingText("");
         } catch (error) {
             setMessage(`Update Error: ${error.message}`);
             console.log(error);
@@ -569,13 +580,13 @@ function MyApp() {
                         : calendar
                 )
             );
-            //setTodoEditing(null);
-            //setEditingText("");
         } catch (error) {
             setMessage(`Update Error: ${error.message}`);
             console.log(error);
         }
     }
+
+    // API calls for calendars
 
     // Function to post a calendar
     async function postCalendar(calendar) {
@@ -587,7 +598,6 @@ function MyApp() {
                 }),
                 body: JSON.stringify(calendar)
             });
-
             if (response.status === 200 || response.status === 201) {
                 setMessage("Calendar created successfully");
                 return await response.json(); // Return the JSON response for chaining
@@ -614,7 +624,6 @@ function MyApp() {
                     "Content-Type": "application/json"
                 })
             });
-
             if (response.status === 204) {
                 // Filter out the calendar with the specified _id and update the items list
                 const updated = calendars.filter(
@@ -643,7 +652,6 @@ function MyApp() {
                 }),
                 body: JSON.stringify(updatedCalendar)
             });
-
             if (response.status === 200) {
                 setMessage("Calendar updated successfully");
                 return await response.json(); // Return the JSON response for chaining

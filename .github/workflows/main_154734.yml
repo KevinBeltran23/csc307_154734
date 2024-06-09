@@ -17,23 +17,26 @@ jobs:
             - uses: actions/checkout@v4
 
             - name: Set up Node.js version
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: "20.x"
 
+            - name: Clear Node modules cache
+              run: npm cache clean --force
+
             - name: npm install, and build
               run: |
-                  npm install
+                  npm install --workspaces=false
                   npm run build --if-present
-
+              working-directory: packages/express-backend
             - name: Zip artifact for deployment
               run: zip release.zip ./* -r
-
+              working-directory: packages/express-backend
             - name: Upload artifact for deployment job
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
-                  name: node-app
-                  path: release.zip
+                  name: release-artifact
+                  path: packages/express-backend/release.zip
 
     deploy:
         runs-on: ubuntu-latest
@@ -46,15 +49,15 @@ jobs:
 
         steps:
             - name: Download artifact from build job
-              uses: actions/download-artifact@v3
+              uses: actions/download-artifact@v4
               with:
-                  name: node-app
+                  name: release-artifact
 
             - name: Unzip artifact for deployment
               run: unzip release.zip
 
             - name: Login to Azure
-              uses: azure/login@v1
+              uses: azure/login@v2
               with:
                   client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_359FA02E03C146EC9D47E32A2FD3EE8E }}
                   tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9308AB1ED1724DACA724BB2BE6BA6372 }}
@@ -66,4 +69,4 @@ jobs:
               with:
                   app-name: "154734"
                   slot-name: "Production"
-                  package: .
+                  package: release.zip

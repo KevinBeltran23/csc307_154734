@@ -1,21 +1,29 @@
+// imports
+import dotenv from "dotenv";
+dotenv.config();
 import mongoose from "mongoose";
 import userModel from "./user.js";
 import eventModel from "./event.js";
 import todoModel from "./todo-item.js";
 import classModel from "./class.js";
 import calendarModel from "./calendar.js";
+import config from "./config.js";
 
 mongoose.set("debug", true);
 
-mongoose
-    .connect(
-        "mongodb+srv://Karen:karen@154754.qdl82np.mongodb.net/?retryWrites=true&w=majority&appName=154754"
-        /*{
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        }*/
-    )
-    .catch((error) => console.log(error));
+// connecting to database: checking to make sure it connects properly
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(config.env.MONGO, {
+            //must add in order to not get any error messages:
+            useUnifiedTopology: true,
+            useNewUrlParser: true
+        });
+        console.log(`mongo database is connected!!! ${conn.connection.host} `);
+    } catch (error) {
+        console.error(`Error: ${error} `);
+    }
+};
 
 // user-servicess
 
@@ -214,5 +222,7 @@ export default {
     addTodoItem,
     deleteTodoItemById,
     findTodoItemById,
-    editTodoItem
+    editTodoItem,
+
+    connectDB
 };

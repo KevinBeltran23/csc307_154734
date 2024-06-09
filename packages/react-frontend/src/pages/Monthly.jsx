@@ -2,9 +2,7 @@
 
 // code tutorial from https://medium.com/@jain.jenil007/building-a-calendar-in-react-2c53b6ca3e96
 
-// npm install date-fn react-icons
-
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
     format,
@@ -73,26 +71,7 @@ function Monthly(props) {
         let currentDate = date;
         const week = [];
 
-        /*  const event_lst = [];
-  
-        var events = props.events;
-        var d;
-        var lst = [];
-        var events = props.events;
-        for (var i = 0; i < events.length; i++) {
-          d = new Date(events[i].start);
-          lst.push(format(d, "MM/dd/yyyy"));
-        } */
         for (let day = 0; day < 7; day++) {
-            //const cloneDate = currentDate;
-            //console.log(format(cloneDate, "MM/dd/yyyy"));
-            //const cloneDate = format(currentDate, "MM/dd/yyyy");
-            /*if (lst.includes(cloneDate)) {
-              console.log(events[])
-            }
-            else {
-                console.log("grr")
-            } */
             week.push(
                 <div className="monthly-day-box">
                     <div
@@ -135,10 +114,9 @@ function Monthly(props) {
         return <div className="calendar-container">{allWeeks}</div>;
     };
 
-    const generateEventsForCurrentWeek = (date, selectedDate, activeDate) => {
+    const generateEventsForCurrentWeek = (date) => {
         let currentDate = date;
         var week = [];
-
         var events = props.events;
         var d;
         var events = props.events;
@@ -228,7 +206,6 @@ function Monthly(props) {
     for (var i = 0; i < events.length; i++) {
         console.log(events[i].title);
     }
-
     return (
         <>
             <button className="logout" onClick={props.logout}>
@@ -266,7 +243,6 @@ function Monthly(props) {
                 <span className="change-view">To Do</span>
             </button>
             <button className="settings-frame" onClick={handleSettings}>
-                {/* <div className='weekly-gear' /> */}
                 <span className="gear"></span>
             </button>
             <button className="download-frame">
