@@ -1,0 +1,7 @@
+**/node_modules
+babel.config.js
+cssTransform.js
+jest.config.js
+jest.setup.js
+**/packages/express-backend/tests/
+**/packages/react-frontend/build/

@@ -7,5 +7,15 @@ export default [
         languageOptions: { globals: globals.browser }
     },
     pluginJs.configs.recommended,
-    pluginReactConfig
+    pluginReactConfig,
+    {
+        ignores: [
+            "**/packages/react-frontend/build/**", 
+            "**/packages/express-backend/tests/**",
+            "jest.config.js",
+            "babel.config.js",
+            "cssTransform.js",
+            "jest.setup.js"
+        ]
+    }
 ];
