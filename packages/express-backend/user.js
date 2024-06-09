@@ -12,13 +12,7 @@ const UserSchema = new mongoose.Schema(
             type: String,
             required: true,
             unique: true,
-            trim: true,
-            validate(value) {
-                if (value.length < 4)
-                    throw new Error(
-                        "Invalid password, must be at least 4 characters."
-                    );
-            }
+            trim: true
         },
         language: {
             type: String,
