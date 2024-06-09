@@ -25,7 +25,7 @@ const connectDB = async () => {
     }
 };
 
-// user-services
+// user-servicess
 
 async function getUsers(username, password) {
     let query = {};
@@ -55,7 +55,6 @@ async function addUser(user) {
 async function editUser(userId, updatedUser) {
     return await userModel
         .findByIdAndUpdate(userId, updatedUser, { new: true })
-        .exec();
 }
 
 async function findUserById(id) {
@@ -90,7 +89,6 @@ async function addEvent(event) {
 async function editEvent(eventId, updatedEvent) {
     return await eventModel
         .findByIdAndUpdate(eventId, updatedEvent, { new: true })
-        .exec();
 }
 
 async function findEventById(id) {
@@ -119,7 +117,6 @@ async function addCalendar(calendar) {
 async function editCalendar(calendarId, updatedCalendar) {
     return await calendarModel
         .findByIdAndUpdate(calendarId, updatedCalendar, { new: true })
-        .exec();
 }
 
 async function findCalendarById(id) {
@@ -154,7 +151,6 @@ async function addClass(event) {
 async function editClass(classId, updatedClass) {
     return await classModel
         .findByIdAndUpdate(classId, updatedClass, { new: true })
-        .exec();
 }
 
 async function findClassById(id) {
@@ -186,7 +182,6 @@ async function addTodoItem(item) {
 async function editTodoItem(itemId, updatedItem) {
     return await todoModel
         .findByIdAndUpdate(itemId, updatedItem, { new: true })
-        .exec();
 }
 
 async function findTodoItemById(id) {
