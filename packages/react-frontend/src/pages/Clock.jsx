@@ -13,7 +13,7 @@ function Clock() {
         return () => clearInterval(interval);
     }, []);
 
-    // returns a clock with hours (drops leading zeros), minutes 
+    // returns a clock with hours (drops leading zeros), minutes
     return (
         <div className="clock">
             {date.toLocaleTimeString([], {

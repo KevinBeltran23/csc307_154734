@@ -15,9 +15,10 @@ function Login(props) {
         secret_setting2: false
     });
 
-    const navigate = useNavigate();                         // to navigate between pages
+    const navigate = useNavigate(); // to navigate between pages
 
-    function handleChange(event) {                          // checks for username, password
+    function handleChange(event) {
+        // checks for username, password
         const { name, value } = event.target;
         switch (name) {
             case "username":
@@ -29,7 +30,8 @@ function Login(props) {
         }
     }
 
-    function handleRegister() {                             // navigates to sign up page
+    function handleRegister() {
+        // navigates to sign up page
         navigate("/signup");
     }
 

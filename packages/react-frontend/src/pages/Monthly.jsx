@@ -19,7 +19,7 @@ import {
     addMonths
 } from "date-fns";
 
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";     // arrows for calendar
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai"; // arrows for calendar
 import "../components/Monthly.css";
 import Clock from "./Clock";
 import Dropdown from "./Dropdown";
@@ -87,7 +87,7 @@ function Monthly(props) {
                                 ? ""
                                 : "inactiveDay"
                         } ${isSameDay(currentDate, selectedDate) ? "selectedDay" : ""}
-              ${isSameDay(currentDate, new Date()) ? "today" : ""}`}            // all of this code is to check which day is the current day
+              ${isSameDay(currentDate, new Date()) ? "today" : ""}`} // all of this code is to check which day is the current day
                     >
                         {format(currentDate, "d")}
                     </div>
@@ -129,42 +129,46 @@ function Monthly(props) {
     const generateEventsForCurrentWeek = (date) => {
         let currentDate = date;
         var week = [];
-        var d;  // date placeholder var
-        var events = props.events;  // from useEffect, gets events from database
+        var d; // date placeholder var
+        var events = props.events; // from useEffect, gets events from database
 
         for (let day = 0; day < 7; day++) {
-            const cloneDate = format(currentDate, "MM/dd/yyyy");    // uses date-fns to format date into something readable
-            var t = [];     // events list
+            const cloneDate = format(currentDate, "MM/dd/yyyy"); // uses date-fns to format date into something readable
+            var t = []; // events list
             for (var i = 0; i < events.length; i++) {
-                d = new Date(events[i].start);      // gets start date from database
-                var timeZoneFromDB = 7.0;           // time offset to local time (MongoDB stores in GMT)
-                var tzDifference = timeZoneFromDB * 60 + d.getTimezoneOffset();     // converts to local time
+                d = new Date(events[i].start); // gets start date from database
+                var timeZoneFromDB = 7.0; // time offset to local time (MongoDB stores in GMT)
+                var tzDifference = timeZoneFromDB * 60 + d.getTimezoneOffset(); // converts to local time
                 var offsetTime = new Date(
-                    d.getTime() + tzDifference * 60 * 1000      // returns converted time
+                    d.getTime() + tzDifference * 60 * 1000 // returns converted time
                 );
-                var df = format(offsetTime, "MM/dd/yyyy");      // formats converted time
-                if (cloneDate === df) {                         // compares formatted times
-                    t.push(events[i].title);                    // if they match, the title of the event goes on that day
+                var df = format(offsetTime, "MM/dd/yyyy"); // formats converted time
+                if (cloneDate === df) {
+                    // compares formatted times
+                    t.push(events[i].title); // if they match, the title of the event goes on that day
                 }
             }
-            week.push(<div className="box">{makeEvents(t)}</div>);  // pushes the events list to weeks
-                                                                    // array within array so that multiple events can be on one day
-            currentDate = addDays(currentDate, 1);                  // counter
+            week.push(<div className="box">{makeEvents(t)}</div>); // pushes the events list to weeks
+            // array within array so that multiple events can be on one day
+            currentDate = addDays(currentDate, 1); // counter
         }
         return <>{week}</>;
     };
 
-    function makeEvents(lst) {      // creation of event div classes for styling
+    function makeEvents(lst) {
+        // creation of event div classes for styling
         var l2 = [];
         for (var i = 0; i < lst.length; i++) {
-            if (l2[i] != "") {      // checks to make sure event isn't empty, then adds to a new list as a div class
+            if (l2[i] != "") {
+                // checks to make sure event isn't empty, then adds to a new list as a div class
                 l2.push(<div className="event-box">{lst[i]}</div>);
             }
         }
         return l2;
     }
 
-    const getEvents = () => {       // copied code, same as getDates but for events
+    const getEvents = () => {
+        // copied code, same as getDates but for events
         const startOfTheSelectedMonth = startOfMonth(activeDate);
         const endOfTheSelectedMonth = endOfMonth(activeDate);
         const startDate = startOfWeek(startOfTheSelectedMonth);
@@ -175,9 +179,7 @@ function Monthly(props) {
         const allWeeks = [];
 
         while (currentDate <= endDate) {
-            allWeeks.push(
-                generateEventsForCurrentWeek(currentDate)
-            );
+            allWeeks.push(generateEventsForCurrentWeek(currentDate));
             currentDate = addDays(currentDate, 7);
         }
 

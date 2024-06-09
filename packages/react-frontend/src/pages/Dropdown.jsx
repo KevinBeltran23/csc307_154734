@@ -2,19 +2,21 @@ import React, { useState, useEffect } from "react";
 import Popup from "./Popup";
 
 function Dropdown(props, opt = []) {
-    const [selectedValue, setSelectedValue] = useState();   // to change value in dropdown
-    const [popup, setPopup] = useState(false);              // to trigger popup
+    const [selectedValue, setSelectedValue] = useState(); // to change value in dropdown
+    const [popup, setPopup] = useState(false); // to trigger popup
     const options = opt;
 
     /* these are for the create dropdown */
-    const [todoItem, setTodoItem] = useState({              // to create todo item
+    const [todoItem, setTodoItem] = useState({
+        // to create todo item
         duedate: "",
         contents: "",
         checked: false,
         user: props.userId
     });
 
-    const [eventItem, setEventItem] = useState({            // to create event
+    const [eventItem, setEventItem] = useState({
+        // to create event
         title: "",
         start: "",
         end: "",
@@ -24,7 +26,8 @@ function Dropdown(props, opt = []) {
         user: props.userId
     });
 
-    const [classItem, setClassItem] = useState({            // to create class
+    const [classItem, setClassItem] = useState({
+        // to create class
         title: "",
         start: "",
         end: "",
@@ -34,13 +37,15 @@ function Dropdown(props, opt = []) {
         user: props.userId
     });
 
-    const [calendarItem, setCalendarItem] = useState({      // to create calendar
+    const [calendarItem, setCalendarItem] = useState({
+        // to create calendar
         name: "",
         color: "",
         user: props.userId
     });
 
-    useEffect(() => {                                       // useEffect to fetch calendars
+    useEffect(() => {
+        // useEffect to fetch calendars
         props
             .fetchCalendars()
             .then((res) => res.json())
@@ -54,7 +59,8 @@ function Dropdown(props, opt = []) {
             });
     }, []);
 
-    useEffect(() => {                                       // useEffect to fetch classes
+    useEffect(() => {
+        // useEffect to fetch classes
         props
             .fetchClasses()
             .then((res) => res.json())
@@ -68,7 +74,8 @@ function Dropdown(props, opt = []) {
             });
     }, []);
 
-    useEffect(() => {                                       // useEffect to fetch calendar events
+    useEffect(() => {
+        // useEffect to fetch calendar events
         props
             .fetchEvents()
             .then((res) => res.json())
@@ -82,7 +89,8 @@ function Dropdown(props, opt = []) {
             });
     }, []);
 
-    useEffect(() => {                                       // useEffect to fetch todo items
+    useEffect(() => {
+        // useEffect to fetch todo items
         props
             .fetchItems()
             .then((res) => res.json())
@@ -98,7 +106,8 @@ function Dropdown(props, opt = []) {
             });
     }, []);
 
-    useEffect(() => {                                       // useEffect to return the user
+    useEffect(() => {
+        // useEffect to return the user
         props
             .fetchUser()
             .then((res) => res.json())
@@ -112,22 +121,24 @@ function Dropdown(props, opt = []) {
             });
     }, []);
 
-    const handleDropdownChange = (event) => {               // to check if dropdown changes
+    const handleDropdownChange = (event) => {
+        // to check if dropdown changes
         var val = event.target.value;
         setSelectedValue(val);
         if (
-            val === "Event" ||                              // these are all to trigger the respective popup window
+            val === "Event" || // these are all to trigger the respective popup window
             val === "Calendar" ||
             val === "To Do Item" ||
             val === "Class"
         ) {
-            setPopup(true);                                 // if anything else, no popup
+            setPopup(true); // if anything else, no popup
         } else {
             // pass
         }
     };
 
-    const handleInputChange = (event) => {                  // gets the inputs from the text boxes in the popups
+    const handleInputChange = (event) => {
+        // gets the inputs from the text boxes in the popups
         var { name, value } = event.target;
 
         if (selectedValue === "Event") {
@@ -153,7 +164,8 @@ function Dropdown(props, opt = []) {
         }
     };
 
-    const handleSubmit = (event) => {                       // submits the changes from the text boxes, closes popup
+    const handleSubmit = (event) => {
+        // submits the changes from the text boxes, closes popup
         event.preventDefault();
 
         if (selectedValue === "Event") {
@@ -175,7 +187,8 @@ function Dropdown(props, opt = []) {
     /* this function takes in a value telling it which popup to display */
     function create(val) {
         if (val === "Event") {
-            return (                                        // returns the inside of the event popup
+            return (
+                // returns the inside of the event popup
                 <div>
                     <p>Create Event</p>
                     <p>
@@ -234,7 +247,8 @@ function Dropdown(props, opt = []) {
                     </p>
                 </div>
             );
-        } else if (val === "Calendar") {                    // returns inside of calendar popup
+        } else if (val === "Calendar") {
+            // returns inside of calendar popup
             return (
                 <div>
                     <p>Create Calendar</p>
@@ -258,7 +272,8 @@ function Dropdown(props, opt = []) {
                     </p>
                 </div>
             );
-        } else if (val === "To Do Item") {                  // returns inside of to do popup
+        } else if (val === "To Do Item") {
+            // returns inside of to do popup
             return (
                 <div>
                     <p>Create To Do Item</p>
@@ -284,7 +299,8 @@ function Dropdown(props, opt = []) {
                     </p>
                 </div>
             );
-        } else if (val === "Class") {                       // returns inside of class popup
+        } else if (val === "Class") {
+            // returns inside of class popup
             return (
                 <div>
                     <p>Create Class</p>
@@ -357,11 +373,15 @@ function Dropdown(props, opt = []) {
                 value={selectedValue}
                 onChange={handleDropdownChange}
             >
-                {options.map((option) => (                  // takes in a list of options for the dropdown
-                    <option key={option.value} value={option.value}>
-                        {option.label}
-                    </option>
-                ))}
+                {options.map(
+                    (
+                        option // takes in a list of options for the dropdown
+                    ) => (
+                        <option key={option.value} value={option.value}>
+                            {option.label}
+                        </option>
+                    )
+                )}
             </select>
             <Popup openPopup={popup} closePopup={() => setPopup(false)}>
                 <form onSubmit={handleSubmit}>
