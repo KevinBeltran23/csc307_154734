@@ -1,3 +1,4 @@
+// todo imports
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../components/ToDo.css";
@@ -9,6 +10,7 @@ import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 function ToDo(props) {
     const [activeDate, setActiveDate] = useState(new Date());
 
+    // todo schema fields
     const [item, setItem] = useState({
         duedate: "",
         contents: "",
@@ -16,10 +18,10 @@ function ToDo(props) {
         user: props.userId
     });
 
-    const navigate = useNavigate();
-    const [message, setMessage] = useState(""); // Add message state for displaying feedback
-    const [todoEditing, setTodoEditing] = useState(null);
-    const [editingText, setEditingText] = useState("");
+    const navigate = useNavigate(); // for navigation to diff pages
+    const [message, setMessage] = useState(""); // so we can send error messages
+    const [todoEditing, setTodoEditing] = useState(null); // for editing todo items 
+    const [editingText, setEditingText] = useState(""); // for editing todo items
 
     function handleChange(event) {
         var { name, value } = event.target;
@@ -29,13 +31,16 @@ function ToDo(props) {
         }));
     }
 
+    // updating/ changing existing todos
     function editItem(itemId) {
+        // finding current item and putting in new values
         const updatedItem = {
             ...props.items.find((item) => item._id === itemId),
             contents: editingText,
             user: props.userId
         };
 
+        // connectingto backend to put the updated item into the backend
         props
             .putItem(itemId, updatedItem)
             .then((updatedItemResponseJson) => {
@@ -53,6 +58,7 @@ function ToDo(props) {
             });
     }
 
+    // allows checking/unchecking of checkbox
     function toggleCheck(itemId) {
         const itemToUpdate = props.items.find((item) => item._id === itemId);
         const updatedItem = {
@@ -61,6 +67,7 @@ function ToDo(props) {
             user: props.userId
         };
 
+        // puts new check/uncheck into db so it is saved for a user
         props
             .putItem(itemId, updatedItem)
             .then((updatedItemResponseJson) => {
@@ -80,6 +87,7 @@ function ToDo(props) {
             });
     }
 
+    // creating a new todo item
     function updateItems(event, newItem) {
         event.preventDefault();
 
@@ -93,8 +101,8 @@ function ToDo(props) {
                 setItem({
                     duedate: "",
                     contents: "",
-                    checked: false,
-                    user: props.userId
+                    checked: false, // defaults to unchecked
+                    user: props.userId // using current logged in user
                 });
             })
             .catch((error) => {
@@ -152,10 +160,12 @@ function ToDo(props) {
         { value: "To Do Item", label: "To Do Item" }
     ];
 
+    // dropdowns on side
     var cal_lst = [{ value: "Default", label: "Calendars" }];
 
     var todo_lst = [{ value: "Default", label: "To Do" }];
 
+    // routes to other pages from todo
     function handleSettings() {
         navigate("/settings");
     }
@@ -234,6 +244,7 @@ function ToDo(props) {
 
             <div className="main-rect">
                 <div className="todo-entry">
+                    {/* creating the todos*/}
                     <form onSubmit={(event) => updateItems(event, item)}>
                         <input
                             type="text"
@@ -260,6 +271,7 @@ function ToDo(props) {
                 {props.items.map((todo) => (
                     <div key={todo._id} className="todo-box">
                         <div className="todo-item">
+                            {/* editing an existing todo */}
                             {todoEditing === todo._id ? (
                                 <>
                                     <input
