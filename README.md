@@ -37,3 +37,5 @@ Answers to questions it will ask you:
 > no
 > node
 > npm
+
+Backend testing run with npm test in express-backend
