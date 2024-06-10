@@ -20,7 +20,7 @@ function ToDo(props) {
 
     const navigate = useNavigate(); // for navigation to diff pages
     const [message, setMessage] = useState(""); // so we can send error messages
-    const [todoEditing, setTodoEditing] = useState(null); // for editing todo items 
+    const [todoEditing, setTodoEditing] = useState(null); // for editing todo items
     const [editingText, setEditingText] = useState(""); // for editing todo items
 
     function handleChange(event) {
